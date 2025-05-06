@@ -1,12 +1,14 @@
-import { use } from "react";
 import { createContext, useContext, useState, useEffect } from "react";
 
 const GlobalContext = createContext();
 
-function useFetchSneakers() {
-  const [sneakers, setSneakers] = useState([]);
+
+const GlobalProvider = ({ children }) => {
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [sneakers, setSneakers] = useState([]);
 
   useEffect (() => {
 
@@ -19,15 +21,8 @@ function useFetchSneakers() {
     .catch((err) => setError(err.message))
   }, [])
 
-  return sneakers
-}
-
-const GlobalProvider = ({ children }) => {
-
-  const sneakers = useFetchSneakers()
-
   return (
-    <GlobalContext.Provider value={{sneakers}}>
+    <GlobalContext.Provider value={{sneakers, setLoading, setError}}>
       {children}
     </GlobalContext.Provider>
   )
