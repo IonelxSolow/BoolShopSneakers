@@ -1,5 +1,7 @@
+import { useGlobalContext } from "../context/GlobalContext";
 
 export default function Home() {
+    const {sneakers} = useGlobalContext()
 
     return (
         <>
@@ -21,6 +23,12 @@ export default function Home() {
                 <div className="container">
                     <h1>Hello World</h1>
                 </div>
+
+                {sneakers.map((sneaker) => (
+                    <div key={sneaker.id}>
+                        <h1>{sneaker.name}</h1>
+                    </div>
+                ))}
             </main>
         </>
 

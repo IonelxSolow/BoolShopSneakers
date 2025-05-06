@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { GlobalProvider } from './context/GlobalContext';
 
 import Home from './pages/Home';
 import DefaultLayout from './layout/DefaultLayout';
@@ -6,13 +7,15 @@ import DefaultLayout from './layout/DefaultLayout';
 export default function App() {
   return (
 
-    <BrowserRouter>
-      <Routes>
-        <Route element={<DefaultLayout />}>
-          <Route path='/' element={<Home />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <GlobalProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<DefaultLayout />}>
+            <Route path='/' element={<Home />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </GlobalProvider>
 
   );
 }
