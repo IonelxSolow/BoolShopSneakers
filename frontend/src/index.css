@@ -1,2 +1,11 @@
 @import "bootstrap";
 @import "bootstrap-icons";
+
+main{
+    min-height: calc(80vh - 70px);
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
