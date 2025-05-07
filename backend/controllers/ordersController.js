@@ -1,7 +1,7 @@
 const connection = require('../db/boolshop_db.js')
 
 function store(req, res) {
-    const { user_id, guest_id, total_price, status, discount_id, delivery_fee, items } = req.body
+    const { guest_id, total_price, status, discount_id, delivery_fee, items } = req.body
 
     // Prima inserisci l'ordine principale
     const orderSql = `
