@@ -55,7 +55,9 @@ function show(req, res) {
   LEFT JOIN shoe_tags ON shoe_tags.shoe_id = shoes.id
   LEFT JOIN tags ON tags.id = shoe_tags.tag_id
   LEFT JOIN discounts ON discounts.id = shoes.discount_id
-  WHERE shoes.id=?`
+  WHERE shoes.id=?
+  GROUP BY shoes.id;
+  `
 
   connection.query(sql, [id], (err, results) => {
     if (err) return res.status(500).json({ error: err.message })
