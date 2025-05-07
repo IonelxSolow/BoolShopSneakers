@@ -7,6 +7,10 @@
     --bs-bg-primary: #E7E7E3;
 }
 
+body{
+    background-color: var(--bs-bg-primary);
+}
+
 main{
     min-height: calc(80vh - 70px);
 }
