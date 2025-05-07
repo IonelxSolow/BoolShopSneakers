@@ -5,4 +5,7 @@ const shoesController = require('../controllers/shoesController')
 
 router.get('/', shoesController.index)
 
+router.get('/:id', shoesController.show)
+
+
 module.exports = router
