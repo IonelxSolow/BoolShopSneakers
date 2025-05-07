@@ -5,6 +5,7 @@
     --bs-primary: #4A69E2;
     --bs-secondary: #232321;
     --bs-bg-primary: #E7E7E3;
+    --main-light: #cfef1bff;
 }
 
 
@@ -23,7 +24,7 @@ header {
 }
 
 main{
-    min-height: calc(80vh - 70px);
+    min-height: calc(100vh - 70px);
 }
 
 a{
@@ -39,4 +40,51 @@ a{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.foot-bar {
+    a {
+        text-decoration: none;
+        color: black;
+    }
+}
+
+.hero {
+
+    .top-bar {
+        background-color: var(--main-light);
+
+        a {
+            text-decoration: none;
+            color: black;
+            font-size: 3rem;
+            font-weight: bolder;
+            text-transform: uppercase;
+        }
+
+        i {
+            color: black;
+            font-size: 3rem;
+            font-weight: bolder;
+            text-transform: uppercase;
+        }
+    }
+
+    .hero-container {
+        border-bottom: 1px solid black;
+
+        .btn-nike {
+            background-color: var(--main-light);
+            bottom: 2rem;
+            right: 1rem;
+            font-size: 2rem;
+            font-weight: bolder;
+            text-transform: uppercase;
+
+            &:hover {
+                background-color: black;
+                color: white;
+            }
+        }
+    }
 }
