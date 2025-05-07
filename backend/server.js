@@ -6,6 +6,7 @@ const serverError = require('./middlewares/serverError')
 const notFound = require('./middlewares/notFound')
 const shoesRouter = require('./routers/shoesRouter')
 const ordersRouter = require('./routers/ordersRouter')
+const emailRouter = require('./routers/emailRouter')
 
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`)
@@ -40,11 +41,15 @@ app.get('/', (req, res) => {
 
 // Routes middlewares
 
+// shoes routes
 app.use('/boolshop/api/v1/shoes', shoesRouter)
 
-// Route for orders
+// orders routes
 // This route is used to create a new order
 app.use('/boolshop/api/v1/orders', ordersRouter)
+
+// email routes
+app.use('/boolshop/api/v1/send-email', emailRouter)
 
 // Server Error Handler Middleware
 
