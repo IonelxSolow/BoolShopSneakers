@@ -1,12 +1,12 @@
 const connection = require('../db/boolshop_db.js')
 
 function store(req, res) {
-    const { guest_id, total_price, status, discount_id, delivery_fee, items } = req.body
+    const { guest_id, total_price, status, discount_id, delivery_fee, items, payment_type } = req.body
 
     // Prima inserisci l'ordine principale
     const orderSql = `
-        INSERT INTO orders (guest_id, total_price, status, discount_id, delivery_fee)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO orders (guest_id, total_price, status, discount_id, delivery_fee, payment_type) 
+        VALUES (?, ?, ?, ?, ?, ?)
     `
 
     connection.query(orderSql, [
@@ -14,7 +14,9 @@ function store(req, res) {
         total_price,
         status || 'pending',
         discount_id || null,
-        delivery_fee || 0.00
+        delivery_fee || 0.00,
+        payment_type
+
     ], (err, result) => {
         if (err) {
             return res.status(500).json({
