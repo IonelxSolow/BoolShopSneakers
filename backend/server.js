@@ -5,6 +5,7 @@ const port = 3000
 const serverError = require('./middlewares/serverError')
 const notFound = require('./middlewares/notFound')
 const shoesRouter = require('./routers/shoesRouter')
+const ordersRouter = require('./routers/ordersRouter')
 
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`)
@@ -40,6 +41,10 @@ app.get('/', (req, res) => {
 // Routes middlewares
 
 app.use('/boolshop/api/v1/shoes', shoesRouter)
+
+// Route for orders
+// This route is used to create a new order
+app.use('/boolshop/api/v1/orders', ordersRouter)
 
 // Server Error Handler Middleware
 
