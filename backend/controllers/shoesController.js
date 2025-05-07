@@ -35,6 +35,40 @@ GROUP BY shoes.id;
   })
 }
 
+function show(req, res) {
+  const id = Number(req.params.id)
+  const sql = `SELECT  shoes.id,
+  shoes.name,
+  shoes.description,
+  shoes.price,
+  shoes.discounted_price,
+  discounts.value AS discount_value,
+  GROUP_CONCAT(DISTINCT variants.id) AS variant_ids,
+  GROUP_CONCAT(DISTINCT variants.size) AS variant_sizes,
+  GROUP_CONCAT(DISTINCT variants.color) AS variant_colors,
+  GROUP_CONCAT(DISTINCT variants.stock) AS variant_stocks,
+  GROUP_CONCAT(DISTINCT shoe_images.url) AS image_urls,
+  GROUP_CONCAT(DISTINCT tags.name) AS tags
+  FROM shoes 
+  LEFT JOIN variants ON variants.shoe_id = shoes.id
+  LEFT JOIN shoe_images ON shoe_images.shoe_id = shoes.id
+  LEFT JOIN shoe_tags ON shoe_tags.shoe_id = shoes.id
+  LEFT JOIN tags ON tags.id = shoe_tags.tag_id
+  LEFT JOIN discounts ON discounts.id = shoes.discount_id
+  WHERE shoes.id=?
+  GROUP BY shoes.id;
+  `
+
+  connection.query(sql, [id], (err, results) => {
+    if (err) return res.status(500).json({ error: err.message })
+    if (results.length === 0) return res.status(404).json({ error: 'sneaker not found' })
+    const sneaker = results[0]
+    res.json(sneaker)
+
+  })
+}
+
 module.exports = {
-  index
+  index,
+  show,
 }
