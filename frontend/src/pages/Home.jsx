@@ -44,7 +44,7 @@ export default function Home() {
             </section>
 
             <div className="container home-displayer">
-                <h1>Don't miss out new Society Drops</h1>
+                <h1>New Drops of the Society</h1>
                 {
                     isGrid && (
                         <>
@@ -55,7 +55,7 @@ export default function Home() {
                                         <div className="card position-relative">
                                             <img className="card-img-top" src="/assets/01.webp" width={'100%'} alt="Title" />
                                             <div className="card-body">
-                                                <h4 className="card-title text-center">{sneaker.name}</h4>
+                                                <h4 className="card-title text-center text-uppercase">{sneaker.name}</h4>
                                                 <div className="btn btn-price position-absolute">{sneaker.price}$</div>
                                             </div>
                                         </div>
