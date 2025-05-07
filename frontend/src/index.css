@@ -11,6 +11,15 @@ body{
     background-color: var(--bs-bg-primary);
 }
 
+header {
+    width: 100%;
+    
+    .navbar{
+        border-radius: 16px;
+        height: auto;
+    }
+}
+
 main{
     min-height: calc(80vh - 70px);
 }
@@ -18,4 +27,14 @@ main{
 a{
     text-decoration: none;
     color: black;
+}
+
+
+.global_container{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

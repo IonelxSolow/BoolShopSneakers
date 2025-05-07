@@ -6,12 +6,13 @@ export default function DefaultLayout() {
 
     return (
         <>
-
+        <div className="global_container mt-4">
             <Header />
             <main>
                 <Outlet />
             </main>
             <Footer />
+        </div>
 
 
         </>
