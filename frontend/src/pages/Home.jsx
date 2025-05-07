@@ -1,7 +1,24 @@
+import { useState } from "react";
 import { useGlobalContext } from "../context/GlobalContext";
 
 export default function Home() {
     const { sneakers } = useGlobalContext()
+    const [isList, setIsList] = useState(false)
+    const [isGrid, setIsGrid] = useState(true)
+    function switchDisplay() {
+        if (isList === false) {
+            setIsList(true)
+
+        } else {
+            setIsList(false)
+        }
+        if (isGrid === false) {
+            setIsGrid(true)
+
+        } else {
+            setIsGrid(false)
+        }
+    }
     console.log(sneakers)
 
     return (
@@ -26,25 +43,53 @@ export default function Home() {
                 </div>
             </section>
 
-            <div className="container">
+            <div className="container home-displayer">
                 <h1>Don't miss out new Society Drops</h1>
-                <div className="row">
-                    {sneakers.map((sneaker) => (
-                        <div className="col-3" key={sneaker.id}>
-                            <div className="card">
-                                <img className="card-img-top" src="/assets/01.webp" width={'100%'} alt="Title" />
-                                <div className="card-body">
-                                    <h4 className="card-title">{sneaker.name}</h4>
-                                    <p className="card-text">{sneaker.description}</p>
-                                </div>
+                {
+                    isGrid && (
+                        <>
+                            <div className="btn" onClick={() => { switchDisplay() }}><i className="bi bi-list-task"></i></div>
+                            <div className="row">
+                                {sneakers.map((sneaker) => (
+                                    <div className="col-3" key={sneaker.id}>
+                                        <div className="card position-relative">
+                                            <img className="card-img-top" src="/assets/01.webp" width={'100%'} alt="Title" />
+                                            <div className="card-body">
+                                                <h4 className="card-title text-center">{sneaker.name}</h4>
+                                                <div className="btn btn-price position-absolute">{sneaker.price}$</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        </>
+                    )
+                }
+                {
+                    isList && (
+                        <>
+                            <div className="btn" onClick={() => { switchDisplay() }}><i class="bi bi-grid"></i></div>
+                            <div className="list-group">
+                                {sneakers.map((sneaker) => (
+                                    <div className="list-group-item mb-3" key={sneaker.id}>
+                                        <div className="d-flex">
+                                            <img src="/assets/01.webp" alt="Sneaker" width="150" className="me-3" />
+                                            <div className="">
+                                                <h4 className="my-3">{sneaker.name}</h4>
+                                                <p>{sneaker.description}</p>
+                                                <p className="mb-0">price: {sneaker.price}$</p>
+                                                <p>dicounted price: {parseFloat(sneaker.discounted_price).toFixed(2)}$</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                        </>
+                    )
+                }
             </div>
-
-
-
         </>
 
 
