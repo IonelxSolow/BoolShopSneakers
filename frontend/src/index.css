@@ -1,6 +1,27 @@
 @import "bootstrap";
 @import "bootstrap-icons";
 
+:root{
+    --bs-primary: #4A69E2;
+    --bs-secondary: #232321;
+    --bs-bg-primary: #E7E7E3;
+}
+
+
+body{
+    background-color: var(--bs-bg-primary);
+    font-family: "Overpass", sans-serif;
+}
+
+header {
+    width: 100%;
+    
+    .navbar{
+        border-radius: 16px;
+        height: auto;
+    }
+}
+
 main{
     min-height: calc(80vh - 70px);
 }
@@ -8,4 +29,14 @@ main{
 a{
     text-decoration: none;
     color: black;
+}
+
+
+.global_container{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
