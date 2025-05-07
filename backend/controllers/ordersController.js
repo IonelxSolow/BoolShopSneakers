@@ -5,12 +5,11 @@ function store(req, res) {
 
     // Prima inserisci l'ordine principale
     const orderSql = `
-        INSERT INTO orders (user_id, guest_id, total_price, status, discount_id, delivery_fee)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO orders (guest_id, total_price, status, discount_id, delivery_fee)
+        VALUES (?, ?, ?, ?, ?)
     `
 
     connection.query(orderSql, [
-        user_id || null,
         guest_id || null,
         total_price,
         status || 'pending',
