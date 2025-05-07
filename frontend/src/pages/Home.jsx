@@ -1,35 +1,50 @@
 import { useGlobalContext } from "../context/GlobalContext";
 
 export default function Home() {
-    const {sneakers} = useGlobalContext()
+    const { sneakers } = useGlobalContext()
+    console.log(sneakers)
 
     return (
         <>
-            <div className="p-5 mb-4 bg-light rounded-3">
-                <div className="container-fluid py-5">
-                    <h1 className="display-5 fw-bold">Custom jumbotron</h1>
-                    <p className="col-md-8 fs-4">
-                        Using a series of utilities, you can create this jumbotron, just
-                        like the one in previous versions of Bootstrap. Check out the
-                        examples below for how you can remix and restyle it to your liking.
-                    </p>
-                    <button className="btn btn-primary btn-lg" type="button">
-                        Example button
-                    </button>
+            <section className="hero">
+                <div className="top-bar border border-black">
+                    <ul className="d-flex list-unstyled  py-5 justify-content-around">
+                        <li><a href="">Popular</a></li>
+                        <i className="bi bi-lightning-charge-fill"></i>
+                        <li><a href="">Nike</a></li>
+                        <i className="bi bi-lightning-charge-fill"></i>
+                        <li><a href="">Jordan</a></li>
+                    </ul>
+                </div>
+                <div className="mb-4 bg-light  hero-container position-relative">
+                    <div>
+                        <img src="/hero-force1.webp" width={'100%'} alt="hero-force1" />
+                        <button className="btn position-absolute btn-lg btn-nike rounded-4" type="button">
+                            Nike
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <div className="container">
+                <h1>Don't miss out new Society Drops</h1>
+                <div className="row">
+                    {sneakers.map((sneaker) => (
+                        <div className="col-3" key={sneaker.id}>
+                            <div className="card">
+                                <img className="card-img-top" src="/assets/01.webp" width={'100%'} alt="Title" />
+                                <div className="card-body">
+                                    <h4 className="card-title">{sneaker.name}</h4>
+                                    <p className="card-text">{sneaker.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
 
-            <main>
-                <div className="container">
-                    <h1>Hello World</h1>
-                </div>
 
-                {sneakers.map((sneaker) => (
-                    <div key={sneaker.id}>
-                        <h1>{sneaker.name}</h1>
-                    </div>
-                ))}
-            </main>
+
         </>
 
 

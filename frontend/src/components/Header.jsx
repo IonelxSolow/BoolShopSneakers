@@ -3,7 +3,7 @@ export default function Header() {
 
     return (
         <>
-            <header className="d-flex justify-content-center">
+            <header className="d-flex justify-content-center global_container mt-4">
                 <nav className="navbar custom-header py-3 px-4 bg-light mb-4 w-100">
                     <div class="container-fluid d-flex justify-content-between align-items-center">
                         <div className="row row-cols-1 row-cols-md-3 g-0 w-100">

@@ -3,7 +3,7 @@ export default function Footer() {
     return (
         <>
 
-            <div className="foot-bar bg-whitesmoke">
+            <div className="foot-bar bg-whitesmoke mt-4">
                 <div className="container d-flex justify-content-between align-items-center">
 
                     <div className="foot-logo">
