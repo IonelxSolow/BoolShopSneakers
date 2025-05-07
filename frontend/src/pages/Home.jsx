@@ -8,7 +8,7 @@ export default function Home() {
         <>
             <section className="hero">
                 <div className="top-bar border border-black">
-                    <ul className="d-flex list-unstyled  py-5 justify-content-around">
+                    <ul className="d-flex list-unstyled  py-4 justify-content-around">
                         <li><a href="">Popular</a></li>
                         <i className="bi bi-lightning-charge-fill"></i>
                         <li><a href="">Nike</a></li>
