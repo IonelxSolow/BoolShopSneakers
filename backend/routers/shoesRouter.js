@@ -7,5 +7,6 @@ router.get('/', shoesController.index)
 
 router.get('/:id', shoesController.show)
 
+router.patch('/:id/sold', shoesController.updateSoldCopies)
 
 module.exports = router
