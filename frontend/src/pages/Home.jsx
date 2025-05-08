@@ -52,7 +52,21 @@ export default function Home() {
                                         <img className="card-img-top img-fluid" src="/assets/01.webp" alt="Title" />
                                         <div className="card-body d-flex flex-column justify-content-between">
                                             <h4 className="card-title text-center text-uppercase">{sneaker.name}</h4>
-                                            <div className="btn btn-price position-absolute">{sneaker.price}$</div>
+                                        {
+                                            !sneaker.discounted_price || parseFloat(sneaker.discounted_price) >= parseFloat(sneaker.price) ? (
+                                                    <div className="btn btn-price bg-main position-absolute">
+                                                    {parseFloat(sneaker.price).toFixed(2)}$
+                                                </div>
+                                            ) : (
+                                                <div className="btn btn-price bg-red position-absolute">
+                                                    {parseFloat(sneaker.discounted_price).toFixed(2)}$
+                                                    <span> /</span>
+                                                    <span className="text-decoration-line-through ms-2 text-white-50">
+                                                        {parseFloat(sneaker.price).toFixed(2)}$
+                                                    </span>
+                                                </div>
+                                            )
+                                        }
                                         </div>
                                     </div>
                                 </Link>
@@ -71,8 +85,18 @@ export default function Home() {
                                     <div>
                                         <h4 className="mb-2">{sneaker.name}</h4>
                                         <p>{sneaker.description}</p>
-                                        <p className="mb-0">Price: {sneaker.price}$</p>
-                                        <p>Discounted: {parseFloat(sneaker.discounted_price).toFixed(2)}$</p>
+                                        {
+                                            !sneaker.discounted_price || parseFloat(sneaker.discounted_price) >= parseFloat(sneaker.price) ?
+                                                (<p className="mb-0">Price: {sneaker.price}$</p>) :
+                                                (
+                                                    <>
+                                                        <p className="mb-0">Price: {sneaker.price}$</p>
+                                                        <p>Discounted: {parseFloat(sneaker.discounted_price).toFixed(2)}$</p>
+                                                    </>
+                                                )
+
+                                        }
+
                                     </div>
                                 </div>
                             </div>
