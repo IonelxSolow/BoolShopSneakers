@@ -73,6 +73,7 @@ export default function SingleProduct() {
       );
     case "success":
       const images = JSON.parse(product.result.image_urls);
+
       return (
         <>
           <div className="container single-page">
@@ -94,10 +95,8 @@ export default function SingleProduct() {
                     <div className="carousel-navigation mt-5 d-flex gap-3 justify-content-end align-items-end p-3 align-self-end">
                       <button
                         onClick={() =>
-                          setCounter((prevCounter) =>
-                            prevCounter > 0
-                              ? prevCounter - 1
-                              : images.length - 1
+                          setCounter(
+                            counter > 0 ? counter - 1 : images.length - 1
                           )
                         }
                         className="btn btn-main-light"
@@ -106,10 +105,8 @@ export default function SingleProduct() {
                       </button>
                       <button
                         onClick={() =>
-                          setCounter((prevCounter) =>
-                            prevCounter < images.length - 1
-                              ? prevCounter + 1
-                              : 0
+                          setCounter(
+                            counter === images.length - 1 ? 0 : counter + 1
                           )
                         }
                         className="btn btn-main-light"
