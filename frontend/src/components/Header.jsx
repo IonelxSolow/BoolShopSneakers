@@ -20,7 +20,9 @@ export default function Header() {
                             <a href="#" className="nav-link">Men ▼</a>
                             <a href="#" className="nav-link">Women ▼</a>
                         </div>
-                        <a className="navbar-brand mx-auto text-center" href="#">KICKS</a>
+                        <a className="navbar-brand mx-auto text-center fw-bolder" href="#">
+                            <h4 className="fw-bold">KICKSOCIETY</h4>
+                        </a>
                         <div className="d-flex justify-content-end align-items-center gap-3">
                             <a href="#" className="nav-link"><i className="bi bi-search"></i></a>
                             <a href="#" className="nav-link"><i className="bi bi-person"></i></a>
