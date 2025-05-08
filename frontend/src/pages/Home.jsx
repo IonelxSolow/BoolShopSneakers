@@ -80,8 +80,18 @@ export default function Home() {
                                     <div>
                                         <h4 className="mb-2">{sneaker.name}</h4>
                                         <p>{sneaker.description}</p>
-                                        <p className="mb-0">Price: {sneaker.price}$</p>
-                                        <p>Discounted: {parseFloat(sneaker.discounted_price).toFixed(2)}$</p>
+                                        {
+                                            !sneaker.discounted_price || parseFloat(sneaker.discounted_price) >= parseFloat(sneaker.price) ?
+                                                (<p className="mb-0">Price: {sneaker.price}$</p>) :
+                                                (
+                                                    <>
+                                                        <p className="mb-0">Price: {sneaker.price}$</p>
+                                                        <p>Discounted: {parseFloat(sneaker.discounted_price).toFixed(2)}$</p>
+                                                    </>
+                                                )
+
+                                        }
+
                                     </div>
                                 </div>
                             </div>
