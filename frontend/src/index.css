@@ -158,4 +158,13 @@ ul {
       text-align: center;
     }
   }
+  .carousel {
+    background-color: #ededed;
+    height: 100%;
+    border-radius: 5px;
+    img {
+      margin-top: auto;
+      margin-bottom: 7rem;
+    }
+  }
 }
