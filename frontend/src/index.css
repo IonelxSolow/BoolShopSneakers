@@ -2,130 +2,165 @@
 @import "bootstrap-icons";
 
 :root {
-    --bs-primary: #4A69E2;
-    --bs-secondary: #232321;
-    --bs-bg-primary: #E7E7E3;
-    --main-light: #cfef1bff;
-    --main-secondary: #FFA52F;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: var(--bs-bg-primary);
-    font-family: "Overpass", sans-serif;
-}
-
-header {
-    width: 100%;
-
-    .navbar {
-        border-radius: 16px;
-        height: auto;
+    :root {
+        --bs-primary: #4A69E2;
+        --bs-secondary: #232321;
+        --bs-bg-primary: #E7E7E3;
+        --main-light: #cfef1bff;
+        --main-secondary: #FFA52F;
     }
-}
 
-main {
-    min-height: calc(100vh - 70px);
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-ul {
-    list-style: none;
-    padding: 0 !important;
-}
-
-.bg-main-light {
-    background-color: var(--main-light);
-}
-
-.bg-black {
-    background-color: var(--bs-secondary);
-}
-
-.secondary-color {
-    color: var(--main-secondary);
-}
-
-.global_container {
-    width: 90%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.foot-bar {
-    border-radius: 16px;
-
-    a {
-        text-decoration: none;
-        color: black;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-}
 
-.hero {
+    body {
+        background-color: var(--bs-bg-primary);
+        font-family: "Overpass", sans-serif;
+    }
 
-    .top-bar {
-        background-color: var(--main-light);
+    header {
+        width: 100%;
+        max-width: 980px;
+        margin: auto;
+
+        .burger-menu {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .menu-list {
+            gap: 1rem;
+        }
+
+        .menu-list.open {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background-color: var(--bs-bg-primary);
+            width: 100%;
+            padding: 1rem 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    main {
+        main {
+            min-height: calc(100vh - 70px);
+        }
 
         a {
-            text-decoration: none;
-            color: black;
-            font-size: 3rem;
-            font-weight: bolder;
-            text-transform: uppercase;
-        }
-
-        i {
-            color: black;
-            font-size: 3rem;
-            font-weight: bolder;
-            text-transform: uppercase;
-        }
-    }
-
-    .hero-container {
-        border-bottom: 1px solid black;
-
-        .btn-nike {
-            background-color: var(--main-light);
-            bottom: 2rem;
-            right: 1rem;
-            font-size: 2rem;
-            font-weight: bolder;
-            text-transform: uppercase;
-
-            &:hover {
-                background-color: black;
-                color: white;
+            a {
+                text-decoration: none;
+                color: black;
             }
-        }
-    }
-}
 
-.home-displayer {
+            ul {
+                list-style: none;
+                padding: 0 !important;
+            }
 
-    .btn-price {
-        border: 1px solid black;
-        background-color: var(--main-light);
-        font-weight: bold;
-        top: 1rem;
-        right: 1rem;
+            .bg-main-light {
+                background-color: var(--main-light);
+            }
 
-        &:hover {
-            background-color: black;
-            color: white;
-        }
+            .bg-black {
+                background-color: var(--bs-secondary);
+            }
 
-    }
-}
+            .secondary-color {
+                color: var(--main-secondary);
+            }
+
+            .global_container {
+                width: 90%;
+                margin: auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .foot-bar {
+                border-radius: 16px;
+
+                a {
+                    text-decoration: none;
+                    color: black;
+                }
+            }
+
+            .hero {
+
+                .top-bar {
+                    background-color: var(--main-light);
+
+                    a {
+                        text-decoration: none;
+                        color: black;
+                        font-size: 3rem;
+                        font-weight: bolder;
+                        text-transform: uppercase;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    i {
+                        color: black;
+                        font-size: 3rem;
+                        font-weight: bolder;
+                        text-transform: uppercase;
+                    }
+                }
+
+                .hero-container {
+                    border-bottom: 1px solid black;
+
+                    .btn-nike {
+                        background-color: var(--main-light);
+                        bottom: 2rem;
+                        right: 1rem;
+                        font-size: 2rem;
+                        font-weight: bolder;
+                        text-transform: uppercase;
+
+                        &:hover {
+                            background-color: black;
+                            color: white;
+                        }
+                    }
+
+                    img {
+                        max-height: 450px;
+                        width: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                    }
+                }
+            }
+
+
+            .home-displayer {
+                max-width: 980px;
+
+                .btn-price {
+                    border: 1px solid black;
+
+                    font-weight: bold;
+                    top: 1rem;
+                    right: 1rem;
+
+
+                    &:hover {
+                        background-color: black;
+                        color: white;
+                    }
+
+                }
+            }

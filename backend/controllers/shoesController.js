@@ -10,6 +10,7 @@ SELECT
       shoes.name,
       shoes.description,
       shoes.price,
+      shoes.sold_copies,
       IF(discounts.value IS NOT NULL, shoes.price - (shoes.price * discounts.value / 100), shoes.price) AS discounted_price,
       discounts.value AS discount_value,
       GROUP_CONCAT(DISTINCT variants.id) AS variant_ids,
@@ -67,7 +68,39 @@ function show(req, res) {
   })
 }
 
+function updateSoldCopies(req, res) {
+  const id = Number(req.params.id)
+  const { quantity } = req.body
+
+  if (!quantity || isNaN(quantity)) {
+    return res.status(400).json({ error: 'Valid quantity is required' })
+  }
+
+  const sql = `
+    UPDATE shoes 
+    SET sold_copies = sold_copies + ? 
+    WHERE id = ?
+  `
+
+  connection.query(sql, [quantity, id], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: err.message })
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: 'Shoe not found' })
+    }
+
+    res.json({
+      message: 'Sold copies updated successfully',
+      shoe_id: id,
+      quantity_added: quantity
+    })
+  })
+}
+
 module.exports = {
   index,
   show,
+  updateSoldCopies
 }
