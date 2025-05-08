@@ -2,150 +2,160 @@
 @import "bootstrap-icons";
 
 :root {
-    --bs-primary: #4A69E2;
-    --bs-secondary: #232321;
-    --bs-bg-primary: #E7E7E3;
-    --main-light: #cfef1bff;
-    --main-secondary: #FFA52F;
+  --bs-primary: #4a69e2;
+  --bs-secondary: #232321;
+  --bs-bg-primary: #e7e7e3;
+  --main-light: #cfef1bff;
+  --main-secondary: #ffa52f;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: var(--bs-bg-primary);
-    font-family: "Overpass", sans-serif;
+  background-color: var(--bs-bg-primary);
+  font-family: "Overpass", sans-serif;
 }
 
 header {
+  width: 100%;
+  margin: auto;
+
+  .burger-menu {
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .menu-list {
+    gap: 1rem;
+  }
+
+  .menu-list.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: var(--bs-bg-primary);
     width: 100%;
-    margin: auto;
-
-    .burger-menu {
-        font-size: 1.5rem;
-        cursor: pointer;
-    }
-
-    .menu-list {
-        gap: 1rem;
-    }
-
-    .menu-list.open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        background-color: var(--bs-bg-primary);
-        width: 100%;
-        padding: 1rem 2.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+    padding: 1rem 2.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
 }
 
 main {
-    min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 70px);
 }
 
 a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 ul {
-    list-style: none;
-    padding: 0 !important;
+  list-style: none;
+  padding: 0 !important;
 }
 
 .btn-main-light {
-    border: 1px solid black;
-    font-weight: bold;
-    top: 1rem;
-    right: 1rem;
-    background-color: var(--main-light);
+  border: 1px solid black;
+  font-weight: bold;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--main-light);
 
-    &:hover {
-        background-color: black;
-        color: white;
-    }
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 }
 
 .custom-width {
-    max-width: 980px;
-    margin: auto;
+  max-width: 980px;
+  margin: auto;
 }
 
 .bg-black {
-    background-color: var(--bs-secondary);
+  background-color: var(--bs-secondary);
 }
 
 .bg-main-light {
-    background-color: var(--main-light);
+  background-color: var(--main-light);
 }
 
 .secondary-color {
-    color: var(--main-secondary);
+  color: var(--main-secondary);
 }
 
-
-
 .foot-bar {
-    a {
-        text-decoration: none;
-        color: black;
-    }
+  a {
+    text-decoration: none;
+    color: black;
+  }
 }
 
 .hero {
+  .top-bar {
+    background-color: var(--main-light);
 
-    .top-bar {
-        background-color: var(--main-light);
+    a {
+      text-decoration: none;
+      color: black;
+      font-size: 3rem;
+      font-weight: bolder;
+      text-transform: uppercase;
 
-        a {
-            text-decoration: none;
-            color: black;
-            font-size: 3rem;
-            font-weight: bolder;
-            text-transform: uppercase;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-
-        i {
-            color: black;
-            font-size: 3rem;
-            font-weight: bolder;
-            text-transform: uppercase;
-        }
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
-    .hero-container {
-        border-bottom: 1px solid black;
-
-        .btn-nike {
-            background-color: var(--main-light);
-            bottom: 2rem;
-            right: 1rem;
-            font-size: 2rem;
-            font-weight: bolder;
-            text-transform: uppercase;
-
-            &:hover {
-                background-color: black;
-                color: white;
-            }
-        }
-
-        img {
-            max-height: 450px;
-            width: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
+    i {
+      color: black;
+      font-size: 3rem;
+      font-weight: bolder;
+      text-transform: uppercase;
     }
+  }
+
+  .hero-container {
+    border-bottom: 1px solid black;
+
+    .btn-nike {
+      background-color: var(--main-light);
+      bottom: 2rem;
+      right: 1rem;
+      font-size: 2rem;
+      font-weight: bolder;
+      text-transform: uppercase;
+
+      &:hover {
+        background-color: black;
+        color: white;
+      }
+    }
+
+    img {
+      max-height: 450px;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+}
+
+.single-page {
+  background-color: white;
+  min-height: calc(100vh - 70px);
+  [class^="col"] {
+    min-height: calc(100vh - 70px);
+    [class$="Container"] {
+      padding: 2rem 0;
+      height: 100%;
+      text-align: center;
+    }
+  }
 }
