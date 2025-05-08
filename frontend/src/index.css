@@ -88,3 +88,18 @@ a{
         }
     }
 }
+.home-displayer{
+
+    .btn-price{
+        border: 1px solid black;
+        background-color: var(--main-light);
+        font-weight: bold;
+        top: 1rem;
+        right: 1rem;
+        &:hover{
+            background-color: black;
+            color: white;
+        }
+
+    }
+}
