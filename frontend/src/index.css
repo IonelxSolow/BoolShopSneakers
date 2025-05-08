@@ -9,6 +9,7 @@
 }
 
 
+
 body{
     background-color: var(--bs-bg-primary);
     font-family: "Overpass", sans-serif;
@@ -32,7 +33,12 @@ a{
     color: black;
 }
 
-
+.bg-main{
+    background-color: var(--main-light);
+}
+.bg-red{
+    background-color: red;
+}
 .global_container{
     width: 90%;
     margin: auto;
@@ -101,10 +107,11 @@ a{
 
     .btn-price{
         border: 1px solid black;
-        background-color: var(--main-light);
+        
         font-weight: bold;
         top: 1rem;
         right: 1rem;
+
         &:hover{
             background-color: black;
             color: white;
