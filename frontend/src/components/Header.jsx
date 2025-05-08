@@ -11,7 +11,7 @@ export default function Header() {
         <>
             <header>
                 <nav className="navbar custom-header py-3 px-2">
-                    <div className="container-fluid d-flex justify-content-between align-items-center">
+                    <div className="container d-flex justify-content-between align-items-center">
                         <button className="burger-menu d-md-none" onClick={toggleMenu}>
                             <i className="bi bi-list"></i>
                         </button>
