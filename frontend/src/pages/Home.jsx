@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context/GlobalContext";
+import { Link } from "react-router-dom";
 
 export default function Home() {
     const { sneakers } = useGlobalContext()
