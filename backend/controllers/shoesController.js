@@ -10,6 +10,7 @@ SELECT
       shoes.name,
       shoes.description,
       shoes.price,
+      shoes.sold_copies,
       IF(discounts.value IS NOT NULL, shoes.price - (shoes.price * discounts.value / 100), shoes.price) AS discounted_price,
       discounts.value AS discount_value,
       GROUP_CONCAT(DISTINCT variants.id) AS variant_ids,
