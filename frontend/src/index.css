@@ -51,12 +51,18 @@ a {
     color: black;
 }
 
-.bg-main {
+.btn-main{
+    border: 1px solid black;
+    font-weight: bold;
+    top: 1rem;
+    right: 1rem;
     background-color: var(--main-light);
-}
 
-.bg-red {
-    background-color: red;
+    &:hover{
+        background-color: black;
+        color: white;
+    }
+
 }
 
 .foot-bar {
@@ -119,18 +125,4 @@ a {
 
 .home-displayer {
     max-width: 980px;
-
-    .btn-price {
-        border: 1px solid black;
-
-        font-weight: bold;
-        top: 1rem;
-        right: 1rem;
-
-        &:hover {
-            background-color: black;
-            color: white;
-        }
-
-    }
 }
