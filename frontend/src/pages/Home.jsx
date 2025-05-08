@@ -79,24 +79,26 @@ export default function Home() {
                         <div className="row g-3">
                             {currentSneakers.map((sneaker) => (
                                 <div className="col-12 col-md-4" key={sneaker.id}>
-                                    <div className="card h-100 text-center">
-                                        <img className="card-img-top img-fluid" src="/assets/01.webp" alt={sneaker.name} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{sneaker.name}</h5>
-                                            {
-                                                !sneaker.discounted_price || parseFloat(sneaker.discounted_price) >= parseFloat(sneaker.price) ? (
-                                                    <p className="text-dark">{parseFloat(sneaker.price).toFixed(2)}$</p>
-                                                ) : (
-                                                    <p className="text-danger">
-                                                        {parseFloat(sneaker.discounted_price).toFixed(2)}$
-                                                        <span className="text-decoration-line-through text-muted ms-2">
-                                                            {parseFloat(sneaker.price).toFixed(2)}$
-                                                        </span>
-                                                    </p>
-                                                )
-                                            }
+                                    <Link to={`/sneakers/${sneaker.name}`} className="text-decoration-none text-dark">
+                                        <div className="card h-100 text-center">
+                                            <img className="card-img-top img-fluid" src="/assets/01.webp" alt={sneaker.name} />
+                                            <div className="card-body">
+                                                <h5 className="card-title">{sneaker.name}</h5>
+                                                {
+                                                    !sneaker.discounted_price || parseFloat(sneaker.discounted_price) >= parseFloat(sneaker.price) ? (
+                                                        <p className="text-dark">{parseFloat(sneaker.price).toFixed(2)}$</p>
+                                                    ) : (
+                                                        <p className="text-danger">
+                                                            {parseFloat(sneaker.discounted_price).toFixed(2)}$
+                                                            <span className="text-decoration-line-through text-muted ms-2">
+                                                                {parseFloat(sneaker.price).toFixed(2)}$
+                                                            </span>
+                                                        </p>
+                                                    )
+                                                }
+                                            </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
                             ))}
                         </div>
@@ -129,7 +131,7 @@ export default function Home() {
                         ))}
                     </div>
                 )}
-            </div>
+            </div >
         </>
 
 
