@@ -12,8 +12,8 @@ export default function SingleProduct() {
     state: "loading",
   });
   const [counter, setCounter] = useState(0);
-  console.log(counter);
 
+  // gets the sneaker id starting from the slug so i can correctly to the fetch call
   function getSneakerId() {
     if (loading === true) {
       console.log("Fetch didn't load"); // can implement possible 404 logic here
@@ -32,6 +32,7 @@ export default function SingleProduct() {
     }
   }
 
+  // fetches the single sneaker with the dynamic id taken from the page url
   function fetchSneaker() {
     fetch(`http://localhost:3000/boolshop/api/v1/shoes/${productId.id}`)
       .then((res) => res.json())
@@ -51,14 +52,17 @@ export default function SingleProduct() {
       });
   }
 
+  // each time the sneakers array or slug changes, call the function to get the new dynamic ID
   useEffect(() => {
     getSneakerId();
   }, [sneakers, slug]);
 
+  // only when the id has been successfully stored, then the fetch call to the show route gets called
   useEffect(() => {
     if (productId.state === "success") fetchSneaker();
   }, [productId]);
 
+  // switch case to ensure every situation is handled correctly
   switch (product.state) {
     case "loading":
       return (
@@ -72,6 +76,7 @@ export default function SingleProduct() {
         </>
       );
     case "success":
+      // parses the string with an array format into an actual array
       const images = JSON.parse(product.result.image_urls);
 
       return (
