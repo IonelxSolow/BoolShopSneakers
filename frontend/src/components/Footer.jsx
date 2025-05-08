@@ -4,6 +4,7 @@ export default function Footer() {
         <>
 
             <div className="foot-bar bg-whitesmoke mt-4">
+                {/* Green Footer */}
                 <div className="container d-flex justify-content-between align-items-center bg-main-light rounded-top">
                     <div className="row d-flex align-items-center p-3 rounded">
                         <div className="col-6">
@@ -35,15 +36,16 @@ export default function Footer() {
                         </div>
                         <div className="col-6 text-center">
 
-                            <h1 className="p-5 fw-bold">KICKSOCIETY</h1>
+                            <h1 className="p-5 fw-bold display-5">KICKSOCIETY</h1>
 
                         </div>
                     </div>
 
 
                 </div>
-                <div className="container d-flex justify-content-between bg-black rounded-top">
-                    <div className="row p-3 rounded">
+                {/* Black Footer */}
+                <div className="container bg-black py-3">
+                    <div className="row w-100 p-3 rounded">
                         <div className="col-6">
                             <h3 className="fw-bold secondary-color">About us</h3>
                             <span className="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, laborum?</span>
