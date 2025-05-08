@@ -4,25 +4,83 @@ export default function Footer() {
         <>
 
             <div className="foot-bar bg-whitesmoke mt-4">
-                <div className="container d-flex justify-content-between align-items-center">
+                <div className="container d-flex justify-content-between align-items-center bg-main-light rounded-top">
+                    <div className="row d-flex align-items-center p-3 rounded">
+                        <div className="col-6">
+                            <h1 className="fw-bold">JOIN OUR KICKSOCIETY CLUB & GET 15% OFF</h1>
+                            <span>Sign up fro free! join the community!</span>
+                            <form action="">
+                                <div class="mb-3 d-flex">
+                                    <input
+                                        type="email"
+                                        class="form-control d-inline"
+                                        name=""
+                                        id=""
+                                        aria-describedby="helpId"
+                                        placeholder=""
+                                    />
 
-                    <div className="foot-logo">
-                        <img src="/assets/01.webp" width={'150px'} alt="kicks-logo" />
-                    </div>
-                    <div className="foot-socials">
-                        <ul className="list-unstyled d-flex gap-3">
-                            <li><a href=""><i className="bi bi-facebook"></i></a></li>
-                            <li><a href=""><i className="bi bi-instagram"></i></a></li>
-                            <li><a href=""><i className="bi bi-twitter-x"></i></a></li>
-                        </ul>
-                    </div>
-                    <div className="foot-links my-3">
-                        <ul className="list-unstyled d-flex gap-3">
-                            <li><a href="">Contacts</a></li>
-                            <li><a href="">About us</a></li>
-                            <li><a href="">Support</a></li>
-                        </ul>
+                                </div>
 
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary d-inline"
+                                >
+                                    Submit
+                                </button>
+
+                            </form>
+
+
+                        </div>
+                        <div className="col-6 text-center">
+
+                            <h1 className="p-5 fw-bold">KICKSOCIETY</h1>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div className="container d-flex justify-content-between bg-black rounded-top">
+                    <div className="row p-3 rounded">
+                        <div className="col-6">
+                            <h3 className="fw-bold secondary-color">About us</h3>
+                            <span className="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, laborum?</span>
+
+                        </div>
+                        <div className="col-6">
+                            <div className="row">
+                                <div className="col-4">
+                                    <h5 className="fw-bold secondary-color">Categories</h5>
+                                    <ul className="text-white">
+                                        <li>Runners</li>
+                                        <li>Runners</li>
+                                        <li>Runners</li>
+                                        <li>Runners</li>
+                                        <li>Runners</li>
+                                        <li>Runners</li>
+
+                                    </ul>
+                                </div>
+                                <div className="col-4">
+                                    <h5 className="fw-bold secondary-color">Categories</h5>
+                                    <ul className="text-white">
+                                        <li>Runners</li>
+                                        <li>Runners</li>
+                                        <li>Runners</li>
+                                    </ul>
+                                </div>
+                                <div className="col-4">
+                                    <h5 className="fw-bold secondary-color">Follow us</h5>
+                                    <ul className="text-white">
+                                        <li>Runners</li>
+                                        <li>Runners</li>
+                                        <li>Runners</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
