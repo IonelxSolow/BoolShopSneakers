@@ -6,12 +6,12 @@ export default function Footer() {
             <div className="foot-bar bg-whitesmoke mt-4">
                 {/* Green Footer */}
                 <div className="container d-flex justify-content-between align-items-center bg-main-light rounded-top">
-                    <div className="row d-flex align-items-center p-3 rounded">
+                    <div className="row d-flex align-items-center p-3 rounded w-100">
                         <div className="col-6">
-                            <h1 className="fw-bold">JOIN OUR KICKSOCIETY CLUB & GET 15% OFF</h1>
+                            <h1 className="fw-bold">JOIN OUR KICKSOCIETY <br /> CLUB  & GET 15% OFF</h1>
                             <span>Sign up fro free! join the community!</span>
-                            <form action="">
-                                <div class="mb-3 d-flex">
+                            <form action="" className="d-flex g-3 mt-3">
+                                <div class="mb-3 me-3">
                                     <input
                                         type="email"
                                         class="form-control d-inline"
@@ -25,7 +25,7 @@ export default function Footer() {
 
                                 <button
                                     type="submit"
-                                    class="btn btn-primary d-inline"
+                                    class="btn bg-black text-white fw-bold px-3"
                                 >
                                     Submit
                                 </button>
@@ -36,7 +36,7 @@ export default function Footer() {
                         </div>
                         <div className="col-6 text-center">
 
-                            <h1 className="p-5 fw-bold display-5">KICKSOCIETY</h1>
+                            <h1 className="p-5 fw-bold display-3">KICKSOCIETY</h1>
 
                         </div>
                     </div>
