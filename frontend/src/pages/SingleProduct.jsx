@@ -94,7 +94,11 @@ export default function SingleProduct() {
                   <div className="carousel d-flex flex-column justify-content-between align-items-center">
                     <img
                       className="img-fluid"
-                      src={`/assets/${images[counter]}`}
+                      src={
+                        images
+                          ? `/assets/${images[counter]}`
+                          : "/assets/01.webp"
+                      }
                       alt=""
                     />
                     <div className="carousel-navigation mt-5 d-flex gap-3 justify-content-end align-items-end p-3 align-self-end">
