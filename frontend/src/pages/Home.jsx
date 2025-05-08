@@ -38,7 +38,7 @@ export default function Home() {
         <>
             <section className="hero">
                 <div className="top-bar border border-black">
-                    <ul className="d-flex flex-wrap list-unstyled py-4 justify-content-around">
+                    <ul className="d-flex flex-wrap list-unstyled py-4 justify-content-around mb-0">
                         <li><a href="">Popular</a></li>
                         <i className="bi bi-lightning-charge-fill"></i>
                         <li><a href="">Nike</a></li>
