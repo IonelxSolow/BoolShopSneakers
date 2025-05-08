@@ -5,9 +5,15 @@ function store(req, res) {
 
     // Prima inserisci l'ordine principale
     const orderSql = `
-        INSERT INTO orders (guest_id, total_price, status, discount_id, delivery_fee, payment_type) 
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO orders (guest_id, total_price, status, discount_id, delivery_fee, payment_type, purchase_order) 
+        VALUES (?, ?, ?, ?, ?, ?, ?)
     `
+
+    function generatePurchaseOrder() {
+        const timestamp = Date.now().toString();
+        const randomDigit = Math.floor(Math.random() * 10);
+        return timestamp + randomDigit;
+    }
 
     connection.query(orderSql, [
         guest_id || null,
@@ -15,7 +21,8 @@ function store(req, res) {
         status || 'pending',
         discount_id || null,
         delivery_fee || 0.00,
-        payment_type
+        payment_type,
+        generatePurchaseOrder()
 
     ], (err, result) => {
         if (err) {
