@@ -79,7 +79,7 @@ export default function Home() {
                         <div className="row g-3">
                             {currentSneakers.map((sneaker) => (
                                 <div className="col-12 col-md-4" key={sneaker.id}>
-                                    <Link to={`/sneakers/${sneake.name}`} className="text-decoration-none text-dark">
+                                    <Link to={`/sneakers/${sneaker.name}`} className="text-decoration-none text-dark">
                                         <div className="card h-100 text-center">
                                             <img className="card-img-top img-fluid" src="/assets/01.webp" alt={sneaker.name} />
                                             <div className="card-body">
