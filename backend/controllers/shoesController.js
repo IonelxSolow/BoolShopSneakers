@@ -43,6 +43,8 @@ function show(req, res) {
   shoes.price,
   shoes.discounted_price,
   discounts.value AS discount_value,
+  IF(discounts.value IS NOT NULL, shoes.price - (shoes.price * discounts.value / 100), shoes.price) AS discounted_price,
+  discounts.value AS discount_value,
   GROUP_CONCAT(DISTINCT variants.id) AS variant_ids,
   GROUP_CONCAT(DISTINCT variants.size) AS variant_sizes,
   GROUP_CONCAT(DISTINCT variants.color) AS variant_colors,
