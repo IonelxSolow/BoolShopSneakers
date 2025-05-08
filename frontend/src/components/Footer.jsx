@@ -5,8 +5,8 @@ export default function Footer() {
         <div className="foot-bar bg-whitesmoke mt-4 bg-main-light">
           {/* Green Footer */}
           <div className="container d-flex justify-content-between align-items-center">
-            <div className="row d-flex align-items-center p-3 w-100">
-              <div className="col-6">
+            <div className="row row-cols-2 row-cols-md-2 row-cols-sm-1 align-items-center p-3 w-100 g-3">
+              <div className="col">
                 <h1 className="fw-bold">
                   JOIN OUR KICKSOCIETY <br /> CLUB & GET 15% OFF
                 </h1>
@@ -31,7 +31,7 @@ export default function Footer() {
                   </button>
                 </form>
               </div>
-              <div className="col-6 text-center">
+              <div className="col text-center">
                 <h1 className="p-5 fw-bold display-3">KICKSOCIETY</h1>
               </div>
             </div>
@@ -49,7 +49,7 @@ export default function Footer() {
                 </span>
               </div>
               <div className="col-6">
-                <div className="row">
+                <div className="row w-100 g-3">
                   <div className="col-4">
                     <h5 className="fw-bold secondary-color">Categories</h5>
                     <ul className="text-white">

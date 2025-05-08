@@ -1,5 +1,6 @@
 import LatestProducts from "../components/LatestProducts";
 import PopularProducts from "../components/PopularProducts";
+import MostPopular from "../components/MostPopular";
 
 export default function Home() {
 
@@ -40,6 +41,7 @@ export default function Home() {
             </section>
             <div className="container home-displayer">
                 <LatestProducts />
+                <MostPopular />
                 <PopularProducts />
             </div>
         </>
