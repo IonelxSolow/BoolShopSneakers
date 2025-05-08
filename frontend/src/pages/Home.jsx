@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context/GlobalContext";
+import { Link } from "react-router-dom";
 
 export default function Home() {
     const { sneakers } = useGlobalContext()
@@ -9,7 +10,7 @@ export default function Home() {
         setIsList(!isList)
         setIsGrid(!isGrid)
     }
-    console.log(sneakers)
+    console.log(sneakers)    
 
     return (
         <>
@@ -45,13 +46,17 @@ export default function Home() {
                     <div className="row g-3">
                         {sneakers.map((sneaker) => (
                             <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={sneaker.id}>
-                                <div className="card position-relative h-100">
-                                    <img className="card-img-top img-fluid" src="/assets/01.webp" alt="Title" />
-                                    <div className="card-body d-flex flex-column justify-content-between">
-                                        <h4 className="card-title text-center text-uppercase">{sneaker.name}</h4>
-                                        <div className="btn btn-price position-absolute">{sneaker.price}$</div>
+
+                                <Link to={`/sneakers/${sneaker.name.toLowerCase().replaceAll(' ', '-')}`} className="text-decoration-none text-dark">
+                                    <div className="card position-relative h-100">
+                                        <img className="card-img-top img-fluid" src="/assets/01.webp" alt="Title" />
+                                        <div className="card-body d-flex flex-column justify-content-between">
+                                            <h4 className="card-title text-center text-uppercase">{sneaker.name}</h4>
+                                            <div className="btn btn-price position-absolute">{sneaker.price}$</div>
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
+
                             </div>
                         ))}
                     </div>

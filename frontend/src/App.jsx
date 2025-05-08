@@ -3,6 +3,7 @@ import { GlobalProvider } from './context/GlobalContext';
 
 import Home from './pages/Home';
 import DefaultLayout from './layout/DefaultLayout';
+import SingleProduct from './pages/SingleProduct';
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Routes>
           <Route element={<DefaultLayout />}>
             <Route path='/' element={<Home />} />
+            <Route path='/sneakers/:slug' element={<SingleProduct />} />
           </Route>
         </Routes>
       </BrowserRouter>
