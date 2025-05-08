@@ -5,10 +5,14 @@ import { useGlobalContext } from "../context/GlobalContext";
 export default function SingleProduct() {
   const { sneakers, loading } = useGlobalContext();
   const { slug } = useParams();
-  const [productId, setProductId] = useState("");
+  const [productId, setProductId] = useState({
+    state: "loading",
+  });
   const [product, setProduct] = useState({
     state: "loading",
   });
+  const [counter, setCounter] = useState(0);
+  console.log(counter);
 
   function getSneakerId() {
     if (loading === true) {
@@ -21,13 +25,15 @@ export default function SingleProduct() {
       }
     });
     if (sneaker) {
-      setProductId(sneaker.id);
+      setProductId({
+        state: "success",
+        id: sneaker.id,
+      });
     }
   }
 
-  useEffect(() => {
-    getSneakerId();
-    fetch(`http://localhost:3000/boolshop/api/v1/shoes/3`)
+  function fetchSneaker() {
+    fetch(`http://localhost:3000/boolshop/api/v1/shoes/${productId.id}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct({
@@ -43,6 +49,14 @@ export default function SingleProduct() {
         });
         console.error(err);
       });
+  }
+
+  useEffect(() => {
+    getSneakerId();
+  }, [sneakers, slug]);
+
+  useEffect(() => {
+    if (productId.state === "success") fetchSneaker();
   }, [productId]);
 
   switch (product.state) {
@@ -58,6 +72,7 @@ export default function SingleProduct() {
         </>
       );
     case "success":
+      const images = JSON.parse(product.result.image_urls);
       return (
         <>
           <div className="container single-page">
@@ -73,16 +88,34 @@ export default function SingleProduct() {
                   <div className="carousel d-flex flex-column justify-content-between align-items-center">
                     <img
                       className="img-fluid"
-                      src="/images/Scarpe/04_New_Balance/05_2002R/04_05_Variant_1/05_NewBalance2002R_01.webp"
+                      src={`/assets/${images[counter]}`}
                       alt=""
                     />
                     <div className="carousel-navigation mt-5 d-flex gap-3 justify-content-end align-items-end p-3 align-self-end">
-                      <div className="btn btn-main-light">
+                      <button
+                        onClick={() =>
+                          setCounter((prevCounter) =>
+                            prevCounter > 0
+                              ? prevCounter - 1
+                              : images.length - 1
+                          )
+                        }
+                        className="btn btn-main-light"
+                      >
                         <i className="bi bi-chevron-left"></i>
-                      </div>
-                      <div className="btn btn-main-light">
+                      </button>
+                      <button
+                        onClick={() =>
+                          setCounter((prevCounter) =>
+                            prevCounter < images.length - 1
+                              ? prevCounter + 1
+                              : 0
+                          )
+                        }
+                        className="btn btn-main-light"
+                      >
                         <i className="bi bi-chevron-right"></i>
-                      </div>
+                      </button>
                     </div>
                   </div>
                 </div>
