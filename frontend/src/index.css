@@ -17,7 +17,6 @@ body {
 
 header {
     width: 100%;
-    max-width: 980px;
     margin: auto;
 
     .burger-menu {
@@ -123,6 +122,3 @@ a {
     }
 }
 
-.home-displayer {
-    max-width: 980px;
-}
