@@ -59,7 +59,7 @@ export default function Home() {
             <div className="container home-displayer">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h1 className="fs-4 fs-md-2">New Drops of the Society</h1>
-                    <button className="btn btn-main" onClick={switchDisplay}>
+                    <button className="btn btn-main-light" onClick={switchDisplay}>
                         {isGrid ? <i className="bi bi-list-task"></i> : <i className="bi bi-grid"></i>}
                     </button>
                 </div>
@@ -67,11 +67,11 @@ export default function Home() {
                 {isGrid && (
                     <div>
                         <div className="d-flex justify-content-between align-items-center mb-3">
-                            <button className="btn btn-main" onClick={prevPage} disabled={currentPage === 0}>
+                            <button className="btn btn-main-light" onClick={prevPage} disabled={currentPage === 0}>
                                 <i class="bi bi-chevron-left"></i>
                             </button>
                             <span>Pagina {currentPage + 1} di {totalPages}</span>
-                            <button className="btn btn-main" onClick={nextPage} disabled={currentPage === totalPages - 1}>
+                            <button className="btn btn-main-light" onClick={nextPage} disabled={currentPage === totalPages - 1}>
                                 <i class="bi bi-chevron-right"></i>
                             </button>
                         </div>
