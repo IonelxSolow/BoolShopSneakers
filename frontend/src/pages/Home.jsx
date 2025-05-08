@@ -1,14 +1,37 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context/GlobalContext";
+import { Link } from "react-router-dom";
 
 export default function Home() {
     const { sneakers } = useGlobalContext()
+    //switch displayer in list
     const [isList, setIsList] = useState(false)
+    //switch displayer in grid
     const [isGrid, setIsGrid] = useState(true)
+    //carousel logic
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 3;
+    const totalPages = Math.ceil(sneakers.length / itemsPerPage);
+    const currentSneakers = sneakers.slice(
+        currentPage * itemsPerPage,
+        currentPage * itemsPerPage + itemsPerPage
+    );
     function switchDisplay() {
         setIsList(!isList)
         setIsGrid(!isGrid)
     }
+    function nextPage() {
+        if (currentPage < totalPages - 1) {
+            setCurrentPage(prev => prev + 1);
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 0) {
+            setCurrentPage(prev => prev - 1);
+        }
+    }
+
     console.log(sneakers)
 
     return (
@@ -36,38 +59,47 @@ export default function Home() {
             <div className="container home-displayer">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h1 className="fs-4 fs-md-2">New Drops of the Society</h1>
-                    <button className="btn btn-outline-secondary" onClick={switchDisplay}>
+                    <button className="btn btn-main" onClick={switchDisplay}>
                         {isGrid ? <i className="bi bi-list-task"></i> : <i className="bi bi-grid"></i>}
                     </button>
                 </div>
 
                 {isGrid && (
-                    <div className="row g-3">
-                        {sneakers.map((sneaker) => (
-                            <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={sneaker.id}>
-                                <div className="card position-relative h-100">
-                                    <img className="card-img-top img-fluid" src="/assets/01.webp" alt="Title" />
-                                    <div className="card-body d-flex flex-column justify-content-between">
-                                        <h4 className="card-title text-center text-uppercase">{sneaker.name}</h4>
-                                        {
-                                            !sneaker.discounted_price || parseFloat(sneaker.discounted_price) >= parseFloat(sneaker.price) ? (
-                                                <div className="btn btn-price bg-main position-absolute">
-                                                    {parseFloat(sneaker.price).toFixed(2)}$
-                                                </div>
-                                            ) : (
-                                                <div className="btn btn-price bg-red position-absolute">
-                                                    {parseFloat(sneaker.discounted_price).toFixed(2)}$
-                                                    <span> /</span>
-                                                    <span className="text-decoration-line-through ms-2 text-white-50">
-                                                        {parseFloat(sneaker.price).toFixed(2)}$
-                                                    </span>
-                                                </div>
-                                            )
-                                        }
+                    <div>
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                            <button className="btn btn-main" onClick={prevPage} disabled={currentPage === 0}>
+                                <i class="bi bi-chevron-left"></i>
+                            </button>
+                            <span>Pagina {currentPage + 1} di {totalPages}</span>
+                            <button className="btn btn-main" onClick={nextPage} disabled={currentPage === totalPages - 1}>
+                                <i class="bi bi-chevron-right"></i>
+                            </button>
+                        </div>
+
+                        <div className="row g-3">
+                            {currentSneakers.map((sneaker) => (
+                                <div className="col-12 col-md-4" key={sneaker.id}>
+                                    <div className="card h-100 text-center">
+                                        <img className="card-img-top img-fluid" src="/assets/01.webp" alt={sneaker.name} />
+                                        <div className="card-body">
+                                            <h5 className="card-title">{sneaker.name}</h5>
+                                            {
+                                                !sneaker.discounted_price || parseFloat(sneaker.discounted_price) >= parseFloat(sneaker.price) ? (
+                                                    <p className="text-dark">{parseFloat(sneaker.price).toFixed(2)}$</p>
+                                                ) : (
+                                                    <p className="text-danger">
+                                                        {parseFloat(sneaker.discounted_price).toFixed(2)}$
+                                                        <span className="text-decoration-line-through text-muted ms-2">
+                                                            {parseFloat(sneaker.price).toFixed(2)}$
+                                                        </span>
+                                                    </p>
+                                                )
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 )}
 
@@ -91,7 +123,6 @@ export default function Home() {
                                                 )
 
                                         }
-
                                     </div>
                                 </div>
                             </div>
