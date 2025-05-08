@@ -72,100 +72,101 @@ ul {
         background-color: black;
         color: white;
     }
+}
 
-    .bg-black {
-        background-color: var(--bs-secondary);
+.custom-width {
+    max-width: 980px;
+    margin: auto;
+}
+
+.bg-black {
+    background-color: var(--bs-secondary);
+}
+
+.bg-main-light {
+    background-color: var(--main-light);
+}
+
+.secondary-color {
+    color: var(--main-secondary);
+}
+
+
+
+.foot-bar {
+    a {
+        text-decoration: none;
+        color: black;
     }
+}
 
-    .secondary-color {
-        color: var(--main-secondary);
-    }
+.hero {
 
-    .global_container {
-        width: 90%;
-        margin: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .foot-bar {
-        border-radius: 16px;
+    .top-bar {
+        background-color: var(--main-light);
 
         a {
             text-decoration: none;
             color: black;
+            font-size: 3rem;
+            font-weight: bolder;
+            text-transform: uppercase;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        i {
+            color: black;
+            font-size: 3rem;
+            font-weight: bolder;
+            text-transform: uppercase;
         }
     }
 
-    .hero {
+    .hero-container {
+        border-bottom: 1px solid black;
 
-        .top-bar {
+        .btn-nike {
             background-color: var(--main-light);
-
-            a {
-                text-decoration: none;
-                color: black;
-                font-size: 3rem;
-                font-weight: bolder;
-                text-transform: uppercase;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-
-            i {
-                color: black;
-                font-size: 3rem;
-                font-weight: bolder;
-                text-transform: uppercase;
-            }
-        }
-
-        .hero-container {
-            border-bottom: 1px solid black;
-
-            .btn-nike {
-                background-color: var(--main-light);
-                bottom: 2rem;
-                right: 1rem;
-                font-size: 2rem;
-                font-weight: bolder;
-                text-transform: uppercase;
-
-                &:hover {
-                    background-color: black;
-                    color: white;
-                }
-            }
-
-            img {
-                max-height: 450px;
-                width: 100%;
-                object-fit: cover;
-                object-position: center;
-            }
-        }
-    }
-
-
-    .home-displayer {
-        max-width: 980px;
-
-        .btn-price {
-            border: 1px solid black;
-
-            font-weight: bold;
-            top: 1rem;
+            bottom: 2rem;
             right: 1rem;
-
+            font-size: 2rem;
+            font-weight: bolder;
+            text-transform: uppercase;
 
             &:hover {
                 background-color: black;
                 color: white;
             }
+        }
 
+        img {
+            max-height: 450px;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
         }
     }
+}
+
+
+.home-displayer {
+    max-width: 980px;
+
+    .btn-price {
+        border: 1px solid black;
+
+        font-weight: bold;
+        top: 1rem;
+        right: 1rem;
+
+
+        &:hover {
+            background-color: black;
+            color: white;
+        }
+
+    }
+}
