@@ -41,8 +41,12 @@ header {
     left: 0;
     background-color: var(--bs-bg-primary);
     width: 100%;
-    padding: 1rem 2.5rem;
+    padding: 1rem 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    .container {
+        padding: 0 1rem;
+    }
   }
 }
 
