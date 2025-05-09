@@ -81,8 +81,8 @@ export default function SingleProduct() {
         <>
           <div className="container single-page">
             <div className="row mx-1 pt-4">
-              <div className="col-12 col-lg-1 order-2 order-lg-1 my-4 my-lg-0">
-                <div className=" d-flex flex-lg-column justify-content-center align-items-center gap-3 thumbContainer">
+              <div className="col-12 col-xl-1 order-2 order-xl-1 my-4 my-xl-0">
+                <div className=" d-flex flex-xl-column justify-content-center align-items-center gap-3 thumbContainer">
                   {images?.map((image, index) => (
                     <>
                       <div
@@ -105,7 +105,7 @@ export default function SingleProduct() {
                   ))}
                 </div>
               </div>
-              <div className="col-12 col-lg-8 order-1 order-lg-1">
+              <div className="col-12 col-xl-8 order-1 order-xl-1">
                 <div className="carouselContainer">
                   <div className="carousel d-flex align-items-center">
                     <img
@@ -140,8 +140,8 @@ export default function SingleProduct() {
                   </div>
                 </div>
               </div>
-              <div className="col-12 col-lg-3 order-3">
-                <div className="d-flex flex-column detailsContainer">
+              <div className="col-12 col-xl-3 order-3 d-flex">
+                <div className="d-flex flex-column detailsContainer justify-content-between">
                   <h1>{product.result.name}</h1>
                   <h2>
                     <Link to={""} className="text-secondary">
@@ -228,16 +228,11 @@ export default function SingleProduct() {
                     <span className="size-badge">43</span>
                     <span className="size-badge">44</span>
                   </div>
-
-                  <div className="mt-5">
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Rerum debitis in sed, eum enim, explicabo, eligendi vero
-                      laborum facilis quas laboriosam ipsam eos at nihil
-                      voluptatem blanditiis alias sint fugiat?
-                    </p>
-                  </div>
-
+                  <p className="my-2">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Atque iste, quaerat iusto obcaecati suscipit modi veniam
+                    ipsam ipsum ex provident.
+                  </p>
                   <button className="btn btn-main-light rounded-4 fs-4 my-3">
                     Add to Cart
                   </button>
