@@ -84,24 +84,22 @@ export default function SingleProduct() {
               <div className="col-12 col-xl-1 order-2 order-xl-1 my-4 my-xl-0">
                 <div className=" d-flex flex-xl-column justify-content-center align-items-center gap-3 thumbContainer">
                   {images?.map((image, index) => (
-                    <>
-                      <div
-                        key={index}
-                        className={
-                          counter === index
-                            ? `thumb-wrapper wrapper-border`
-                            : "thumb-wrapper"
-                        }
-                      >
-                        <img
-                          src={images ? `/assets/${image}` : "/assets/01.webp"}
-                          alt=""
-                          onMouseOver={() => {
-                            setCounter(index);
-                          }}
-                        />
-                      </div>
-                    </>
+                    <div
+                      key={index}
+                      className={
+                        counter === index
+                          ? `thumb-wrapper wrapper-border`
+                          : "thumb-wrapper"
+                      }
+                    >
+                      <img
+                        src={images ? `/assets/${image}` : "/assets/01.webp"}
+                        alt=""
+                        onMouseOver={() => {
+                          setCounter(index);
+                        }}
+                      />
+                    </div>
                   ))}
                 </div>
               </div>
