@@ -29,10 +29,10 @@ export default function AllProducts() {
       return (
         <>
           <section className="all-products">
-            <div className="container">
-              <h1 className="fw-bold">All Sneakers</h1>
+            <div className="container-fluid">
+              <h1>All Sneakers</h1>
               <div className="container-fluid  d-flex justify-content-between m-auto">
-                <div className="tool-bar col-4">
+                <div className="tool-bar col-4 col-md-2">
                   <div className="filters-list">
                     <div
                       className="filter-items"
@@ -106,10 +106,10 @@ export default function AllProducts() {
                     )}
                   </div>
                 </div>
-                <div className="products-displayer col-8 row">
+                <div className="products-displayer col-8 col-md-10 row">
                   {sneakers.result.map((sneaker) => {
                     return (
-                      <div className="col-4 mb-4" key={sneaker.id}>
+                      <div className="col-sm-12 col-md-4 mb-4" key={sneaker.id}>
                         <div className="card">
                           <img
                             className="card-img-top"
