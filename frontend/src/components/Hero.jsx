@@ -3,7 +3,7 @@ export default function Hero() {
         <>
             <section className="hero">
                 <div className="top-bar border border-black">
-                    <ul className=" container d-flex flex-wrap list-unstyled py-4 justify-content-around mb-0">
+                    <ul className="d-flex flex-wrap list-unstyled py-4 justify-content-around mb-0">
                         <li>
                             <a href="">Popular</a>
                         </li>
