@@ -142,7 +142,12 @@ export default function PopularProducts() {
                   <div className="list-group-item mb-3" key={sneaker.id}>
                     <div className="d-flex flex-column flex-md-row">
                       <img
-                        src="/assets/01.webp"
+                        src={
+                          sneaker.image_urls &&
+                          JSON.parse(sneaker.image_urls).length > 0
+                            ? `/assets/${JSON.parse(sneaker.image_urls)[0]}`
+                            : "/assets/01.webp"
+                        }
                         alt="Sneaker"
                         width="100%"
                         className="me-md-3 mb-3 mb-md-0"
