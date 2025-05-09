@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useGlobalContext } from "../context/GlobalContext";
 
 export default function SingleProduct() {
-  const { sneakers, loading } = useGlobalContext();
+  const { sneakers } = useGlobalContext();
   const { slug } = useParams();
   const [productId, setProductId] = useState({
     state: "loading",
@@ -15,20 +15,18 @@ export default function SingleProduct() {
 
   // gets the sneaker id starting from the slug so i can correctly to the fetch call
   function getSneakerId() {
-    if (loading === true) {
-      console.log("Fetch didn't load"); // can implement possible 404 logic here
-      return;
-    }
-    const sneaker = sneakers.find((sneaker) => {
-      if (sneaker.name.toLowerCase().replaceAll(" ", "-") === slug) {
-        return sneaker;
-      }
-    });
-    if (sneaker) {
-      setProductId({
-        state: "success",
-        id: sneaker.id,
+    if (sneakers.state === "success") {
+      const sneaker = sneakers.result.find((sneaker) => {
+        if (sneaker.name.toLowerCase().replaceAll(" ", "-") === slug) {
+          return sneaker;
+        }
       });
+      if (sneaker) {
+        setProductId({
+          state: "success",
+          id: sneaker.id,
+        });
+      }
     }
   }
 
@@ -41,7 +39,6 @@ export default function SingleProduct() {
           state: "success",
           result: data,
         });
-        console.log(data);
       })
       .catch((err) => {
         setProduct({
@@ -87,7 +84,7 @@ export default function SingleProduct() {
                 <div className=" d-flex flex-column align-items-center gap-3 thumbContainer">
                   {images?.map((image, index) => (
                     <>
-                      <div className="thumb-wrapper">
+                      <div key={index} className="thumb-wrapper">
                         <img
                           src={images ? `/assets/${image}` : "/assets/01.webp"}
                           alt=""
