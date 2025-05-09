@@ -93,18 +93,19 @@ header {
     }
 
     .close-search {
-        background-color: var(--bs-secondary);
-        color: var(--bs-bg-primary);
-        border: none;
+        background-color: var(--main-light);
+        color: var(--bs-bg-secondary);
         padding: 0.5rem;
         border-radius: 5px; 
+        border: 1px solid var(--bs-secondary);
         display: flex; 
         align-items: center; 
         justify-content: center;
 
         &:hover {
-            background-color: var(--main-light);
-            color: var(--bs-secondary);
+            background-color: var(--bs-secondary);
+            color: var(--bs-bg-primary);
+            border: 1px solid transparent;
         }
 
 
