@@ -4,6 +4,7 @@ import { GlobalProvider } from "./context/GlobalContext";
 import Home from "./pages/Home";
 import DefaultLayout from "./layout/DefaultLayout";
 import SingleProduct from "./pages/SingleProduct";
+import AllProducts from "./pages/AllProducts";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
           <Route element={<DefaultLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/product/:slug" element={<SingleProduct />} />
+            <Route path="/all-products" element={<AllProducts />} />
           </Route>
         </Routes>
       </BrowserRouter>
