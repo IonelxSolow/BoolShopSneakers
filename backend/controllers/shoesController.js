@@ -2,10 +2,9 @@ const connection = require('../db/boolshop_db.js')
 
 
 function index(req, res) {
-
   const sql =
     `
-SELECT
+    SELECT
       shoes.id,
       shoes.name,
       shoes.description,
@@ -27,18 +26,18 @@ SELECT
       LEFT JOIN tags ON tags.id = shoe_tags.tag_id
       LEFT JOIN discounts ON discounts.id = shoes.discount_id
     GROUP BY shoes.id;
-
 `
-
   connection.query(sql, [], (err, results) => {
     if (err) res.status(500).json({ message: err.message })
+    if (results.length === 0) return res.status(404).json({ error: 'sneakers not found' })
     res.json(results)
   })
 }
 
 function show(req, res) {
   const id = Number(req.params.id)
-  const sql = `SELECT  shoes.id,
+  const sql = `
+  SELECT  shoes.id,
   shoes.name,
   shoes.description,
   shoes.price,
@@ -61,12 +60,20 @@ function show(req, res) {
   WHERE shoes.id=?
   GROUP BY shoes.id;
   `
+  const variantsSql = `SELECT * FROM variants WHERE shoe_id= ?`
 
   connection.query(sql, [id], (err, results) => {
     if (err) return res.status(500).json({ error: err.message })
     if (results.length === 0) return res.status(404).json({ error: 'sneaker not found' })
     const sneaker = results[0]
-    res.json(sneaker)
+
+
+    connection.query(variantsSql, [id], (err, variant) => {
+      if (err) return res.status(500).json({ error: err.message })
+      sneaker.variants = variant
+      res.json(sneaker)
+    })
+
 
   })
 }
