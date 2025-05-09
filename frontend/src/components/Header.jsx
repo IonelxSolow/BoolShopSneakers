@@ -44,7 +44,9 @@ export default function Header() {
                             </div>
                         </div>
                         <a className="navbar-brand mx-auto text-center fw-bolder" href="#">
-                            <h4 className="fw-bolder m-0">KICKSOCIETY</h4>
+                            <NavLink to="/" className="nav-link">
+                                <h4 className="fw-bolder m-0">KICKSOCIETY</h4>
+                            </NavLink>
                         </a>
                         <div className="d-flex justify-content-end align-items-center gap-3">
                             <a href="#" className="nav-link"><i className="bi bi-search"></i></a>
