@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react"
 import { NavLink } from "react-router-dom"
+import SearchBar from "./SearchBar"
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isSearchOpen, setIsSearchOpen] = useState(false)
 
+    // funzione per aprire e chiudere il menu
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    // funzione per aprire e chiudere la barra di ricerca
+    const toggleSearch = () => {
+        setIsSearchOpen(!isSearchOpen);
+    }
 
     // chiudiamo il menu quando la finestra viene ridimensionata
     useEffect(() => {
@@ -16,8 +24,10 @@ export default function Header() {
             }
         };
 
+        // aggiungiamo l'event listener per il resize
         window.addEventListener("resize", handleResize);
 
+        // serveamo per rimuovere l'event listener quando il componente viene smontato
         return () => {
             window.removeEventListener("resize", handleResize);
         };
@@ -45,14 +55,19 @@ export default function Header() {
                             </div>
                         </div>
                         <NavLink to="/" className="navbar-brand mx-auto text-center fw-bolder">
-                                <h4 className="fw-bolder m-0">KICKSOCIETY</h4>
+                            <h4 className="fw-bolder m-0">KICKSOCIETY</h4>
                         </NavLink>
                         <div className="d-flex justify-content-end align-items-center gap-3">
-                            <a href="#" className="nav-link"><i className="bi bi-search"></i></a>
+                            <a href="#" className="nav-link" onClick={toggleSearch}><i className="bi bi-search"></i></a>
                             <a href="#" className="nav-link"><i className="bi bi-person"></i></a>
-                            <a href="#" className="nav-link icon-btn">0</a>
+                            <a href="#" className="nav-link icon-btn"><i className="bi bi-cart"></i></a>
                         </div>
                     </div>
+                    {isSearchOpen && (
+                        <div className="search-bar container">
+                            <SearchBar toggleSearch={toggleSearch}/>
+                        </div>
+                    )}
                 </nav>
             </header>
         </>
