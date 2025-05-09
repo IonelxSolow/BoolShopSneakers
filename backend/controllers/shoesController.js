@@ -7,6 +7,7 @@ function index(req, res) {
     SELECT
       shoes.id,
       shoes.name,
+      shoes.brand,
       shoes.description,
       shoes.price,
       shoes.sold_copies,
@@ -40,6 +41,7 @@ function show(req, res) {
   const sql = `
   SELECT  shoes.id,
   shoes.name,
+  shoes.brand,
   shoes.description,
   shoes.price,
   shoes.discounted_price,
