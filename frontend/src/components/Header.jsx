@@ -9,11 +9,17 @@ export default function Header() {
     // funzione per aprire e chiudere il menu
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+        if (!isMenuOpen) {
+            setIsSearchOpen(false);
+        }
     };
 
     // funzione per aprire e chiudere la barra di ricerca
     const toggleSearch = () => {
         setIsSearchOpen(!isSearchOpen);
+        if (!isSearchOpen) {
+            setIsMenuOpen(false);
+        }
     }
 
     // chiudiamo il menu quando la finestra viene ridimensionata
@@ -42,7 +48,7 @@ export default function Header() {
                             <i className="bi bi-list"></i>
                         </button>
                         <div className={`menu-list d-md-flex ${isMenuOpen ? "open" : "d-none"}`}>
-                            <div className="d-flex flex-column flex-md-row gap-3">
+                            <div className="items container d-flex flex-column flex-md-row gap-3">
                                 <NavLink to="/men" className="nav-link" onClick={() => setIsMenuOpen(false)}>
                                     Men
                                 </NavLink>
