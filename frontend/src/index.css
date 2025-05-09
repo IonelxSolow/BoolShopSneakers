@@ -215,6 +215,9 @@ ul {
   }
 }
 
+.wrapper-border {
+  border: 2px solid var(--main-light);
+}
 .single-page {
   background-color: white;
   border-radius: 5px;
@@ -225,25 +228,53 @@ ul {
       padding: 0.5rem 0;
       background-color: #ededed;
       border-radius: 5px;
+      border-color: var(--main-light);
       &:hover {
         filter: brightness(95%);
       }
+
       img {
-        width: 80px;
+        width: 100%;
       }
     }
   }
   .carousel {
     background-color: #ededed;
-
     border-radius: 5px;
     img {
       width: 100%;
       height: auto;
     }
+    .btn-left {
+      font-size: 1.6rem;
+      background-color: transparent;
+      border: 0;
+      position: absolute;
+      left: 1%;
+      &:hover {
+        scale: 1.4;
+      }
+    }
+    .btn-right {
+      font-size: 1.6rem;
+      border: 0;
+      background-color: transparent;
+      position: absolute;
+      right: 1%;
+      &:hover {
+        scale: 1.4;
+      }
+    }
   }
 
   .detailsContainer {
+    h2 {
+      a {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
     .circle-thumb-wrapper {
       display: flex;
       justify-content: center;
@@ -262,6 +293,10 @@ ul {
       border: 2px solid #ededed;
       padding: 0.5rem 2rem;
       border-radius: 25px;
+      &:hover {
+        border-color: var(--main-light);
+        font-weight: 800;
+      }
     }
     .btn {
       margin-top: auto;

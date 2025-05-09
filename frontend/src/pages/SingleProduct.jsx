@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useGlobalContext } from "../context/GlobalContext";
+import { Link } from "react-router-dom";
 
 export default function SingleProduct() {
   const { sneakers } = useGlobalContext();
@@ -84,7 +85,14 @@ export default function SingleProduct() {
                 <div className=" d-flex flex-lg-column justify-content-center align-items-center gap-3 thumbContainer">
                   {images?.map((image, index) => (
                     <>
-                      <div key={index} className="thumb-wrapper">
+                      <div
+                        key={index}
+                        className={
+                          counter === index
+                            ? `thumb-wrapper wrapper-border`
+                            : "thumb-wrapper"
+                        }
+                      >
                         <img
                           src={images ? `/assets/${image}` : "/assets/01.webp"}
                           alt=""
@@ -99,7 +107,7 @@ export default function SingleProduct() {
               </div>
               <div className="col-12 col-lg-8 order-1 order-lg-1">
                 <div className="carouselContainer">
-                  <div className="carousel d-flex ">
+                  <div className="carousel d-flex align-items-center">
                     <img
                       src={
                         images
@@ -108,60 +116,93 @@ export default function SingleProduct() {
                       }
                       alt=""
                     />
+
+                    <button
+                      onClick={() =>
+                        setCounter(
+                          counter > 0 ? counter - 1 : images.length - 1
+                        )
+                      }
+                      className=" btn-left"
+                    >
+                      <i className="bi bi-chevron-left"></i>
+                    </button>
+                    <button
+                      onClick={() =>
+                        setCounter(
+                          counter === images.length - 1 ? 0 : counter + 1
+                        )
+                      }
+                      className="btn-right"
+                    >
+                      <i className="bi bi-chevron-right"></i>
+                    </button>
                   </div>
                 </div>
               </div>
               <div className="col-12 col-lg-3 order-3">
                 <div className="d-flex flex-column detailsContainer">
                   <h1>{product.result.name}</h1>
-                  <h2>{product.result.brand}</h2>
-                  <h4>{product.result.price}&#8364;</h4>
+                  <h2>
+                    <Link to={""} className="text-secondary">
+                      {product.result.brand}
+                    </Link>
+                  </h2>
+                  {!product.result.discounted_price ||
+                  parseFloat(product.result.discounted_price) >=
+                    parseFloat(product.result.price) ? (
+                    <p className="text-dark">
+                      {parseFloat(product.result.price).toFixed(2)}&#8364;
+                    </p>
+                  ) : (
+                    <p className="text-danger">
+                      <span className="text-decoration-line-through text-muted ms-2">
+                        {parseFloat(product.result.price).toFixed(2)}&#8364;
+                      </span>{" "}
+                      {parseFloat(product.result.discounted_price).toFixed(2)}
+                      &#8364;
+                    </p>
+                  )}
                   <div className="d-flex justify-content-between mt-4">
                     <p>
-                      <span className="text-secondary">Colours:</span>{" "}
-                      <span>product.result.colours</span>
+                      <span className="text-secondary">Color:</span>
+                      <span>colors{/*product.result.variant_colors*/}</span>
                     </p>
                     <p>
-                      <span>product.result.colours.length</span>{" "}
-                      <span className="text-secondary">colours</span>
+                      <span>n {/*product.result.variant_colors.length */}</span>
+                      <span className="text-secondary">colors</span>
                     </p>
                   </div>
 
-                  <div className="d-flex gap-2 circle-thumbs-container align-items-center">
+                  <div className="d-flex gap-2 circle-thumbs-container align-items-center flex-wrap">
                     {" "}
                     {/*refactor to cycle through the variants images */}
-                    <div>
-                      <div className="circle-thumb-wrapper">
-                        {images && (
-                          <img
-                            className="circle-thumb-img"
-                            src={`/assets/${images[0]}`}
-                            alt=""
-                          />
-                        )}
-                      </div>
+                    <div className="circle-thumb-wrapper">
+                      {images && (
+                        <img
+                          className="circle-thumb-img"
+                          src={`/assets/${images[0]}`}
+                          alt=""
+                        />
+                      )}
                     </div>
-                    <div>
-                      <div className="circle-thumb-wrapper">
-                        {images && (
-                          <img
-                            className="circle-thumb-img"
-                            src={`/assets/${images[0]}`}
-                            alt=""
-                          />
-                        )}
-                      </div>
+                    <div className="circle-thumb-wrapper">
+                      {images && (
+                        <img
+                          className="circle-thumb-img"
+                          src={`/assets/${images[0]}`}
+                          alt=""
+                        />
+                      )}
                     </div>
-                    <div>
-                      <div className="circle-thumb-wrapper">
-                        {images && (
-                          <img
-                            className="circle-thumb-img"
-                            src={`/assets/${images[0]}`}
-                            alt=""
-                          />
-                        )}
-                      </div>
+                    <div className="circle-thumb-wrapper">
+                      {images && (
+                        <img
+                          className="circle-thumb-img"
+                          src={`/assets/${images[0]}`}
+                          alt=""
+                        />
+                      )}
                     </div>
                     <div>
                       <div className="circle-thumb-wrapper">
