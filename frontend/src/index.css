@@ -7,6 +7,9 @@
   --bs-bg-primary: #e7e7e3;
   --main-light: #cfef1bff;
   --main-secondary: #ffa52f;
+  --instagram: #E4405F;
+  --facebook: #1877F2;
+  --twitter: #1DA1F2;
 }
 
 * {
@@ -93,7 +96,29 @@ ul {
 .foot-bar {
   a {
     text-decoration: none;
-    color: black;
+    position: relative;
+    padding: 5px 10px 0px 10px;
+    transition: all 0.3s ease;
+  }
+
+  a:hover {
+    color:#232321 !important;
+    background-color: var(--main-light);
+    border-radius: 20px;
+  }
+
+  @media (max-width: 576px) {
+    form {
+      max-width: 100%;
+    }
+    
+    h1.display-3 {
+      font-size: 2.5rem;
+    }
+    
+    h1.h2 {
+      font-size: 1.5rem;
+    }
   }
 }
 
