@@ -38,7 +38,7 @@ export default function AllProducts() {
                                             className="filter-items"
                                             onClick={() => setIsBrandOpen(!isBrandOpen)}
                                         >
-                                            brand {isBrandOpen ? "▲" : "▼"}
+                                            brand {isBrandOpen ? <i className="bi bi-chevron-up"></i> : <i className="bi bi-chevron-down"></i>}
                                         </div>
                                         {isBrandOpen && (
                                             <ul>
@@ -52,7 +52,7 @@ export default function AllProducts() {
                                             className="filter-items"
                                             onClick={() => setIsSizeOpen(!isSizeOpen)}
                                         >
-                                            size{isSizeOpen ? "▲" : "▼"}
+                                            size {isSizeOpen ? <i className="bi bi-chevron-up"></i> : <i className="bi bi-chevron-down"></i>}
                                         </div>
                                         {isSizeOpen && (
                                             <ul>
@@ -66,7 +66,7 @@ export default function AllProducts() {
                                             className="filter-items"
                                             onClick={() => setIsColorOpen(!isColorOpen)}
                                         >
-                                            color {isColorOpen ? "▲" : "▼"}
+                                            color {isColorOpen ? <i className="bi bi-chevron-up"></i> : <i className="bi bi-chevron-down"></i>}
                                         </div>
                                         {isColorOpen && (
                                             <ul>
@@ -80,7 +80,7 @@ export default function AllProducts() {
                                             className="filter-items"
                                             onClick={() => setIsPriceOpen(!isPriceOpen)}
                                         >
-                                            price {isPriceOpen ? "▲" : "▼"}
+                                            price {isPriceOpen ? <i className="bi bi-chevron-up"></i> : <i className="bi bi-chevron-down"></i>}
                                         </div>
                                         {isPriceOpen && (
                                             <ul>
@@ -94,7 +94,7 @@ export default function AllProducts() {
                                             className="filter-items"
                                             onClick={() => setIsTagOpen(!isTagOpen)}
                                         >
-                                            categories {isTagOpen ? "▲" : "▼"}
+                                            categories {isTagOpen ? <i className="bi bi-chevron-up"></i> : <i className="bi bi-chevron-down"></i>}
                                         </div>
                                         {isTagOpen && (
                                             <ul>
