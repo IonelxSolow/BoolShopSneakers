@@ -155,7 +155,19 @@ ul {
     [class$="Container"] {
       padding: 2rem 0;
       height: 100%;
-      text-align: center;
+    }
+  }
+  .thumbContainer {
+    .thumb-wrapper {
+      padding: 0.5rem 0;
+      background-color: #ededed;
+      border-radius: 5px;
+      &:hover {
+        filter: brightness(95%);
+      }
+      img {
+        width: 80px;
+      }
     }
   }
   .carousel {
@@ -166,5 +178,27 @@ ul {
       margin-top: auto;
       margin-bottom: 7rem;
     }
+  }
+}
+
+.detailsContainer {
+  .circle-thumb-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ededed;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+
+    .circle-thumb-img {
+      width: 90%;
+      border-radius: 50%;
+    }
+  }
+  .size-badge {
+    border: 2px solid #ededed;
+    padding: 0.5rem 2rem;
+    border-radius: 25px;
   }
 }

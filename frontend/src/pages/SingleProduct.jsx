@@ -82,14 +82,25 @@ export default function SingleProduct() {
       return (
         <>
           <div className="container single-page">
-            <div className="row">
-              <div className="col-2">
-                <div className="thumbContainer">
-                  <p>hello im the thumbcontainer</p>
-                  <p>{product.result.name}</p>
+            <div className="row mx-1">
+              <div className="col-12 col-lg-1 order-2 order-lg-1">
+                <div className=" d-flex flex-column align-items-center gap-3 thumbContainer">
+                  {images?.map((image, index) => (
+                    <>
+                      <div className="thumb-wrapper">
+                        <img
+                          src={images ? `/assets/${image}` : "/assets/01.webp"}
+                          alt=""
+                          onMouseOver={() => {
+                            setCounter(index);
+                          }}
+                        />
+                      </div>
+                    </>
+                  ))}
                 </div>
               </div>
-              <div className="col-5">
+              <div className="col-12 col-lg-5 order-1 order-lg-2">
                 <div className="carouselContainer">
                   <div className="carousel d-flex flex-column justify-content-between align-items-center">
                     <img
@@ -126,9 +137,94 @@ export default function SingleProduct() {
                   </div>
                 </div>
               </div>
-              <div className="col-5">
-                <div className="detailsContainer">
-                  <p>hello im the details Container</p>
+              <div className="col-12 col-lg-6 order-3 ">
+                <div className="d-flex flex-column detailsContainer">
+                  <h1>{product.result.name}</h1>
+                  <h4>{product.result.price}&#8364;</h4>
+                  <div className="d-flex justify-content-between mt-4">
+                    <p>
+                      <span className="text-secondary">Colours:</span>{" "}
+                      <span>product.result.colours</span>
+                    </p>
+                    <p>
+                      <span>product.result.colours.length</span>{" "}
+                      <span className="text-secondary">colours</span>
+                    </p>
+                  </div>
+
+                  <div className="d-flex gap-2 circle-thumbs-container align-items-center">
+                    {" "}
+                    {/*refactor to cycle through the variants images */}
+                    <div>
+                      <div className="circle-thumb-wrapper">
+                        {images && (
+                          <img
+                            className="circle-thumb-img"
+                            src={`/assets/${images[0]}`}
+                            alt=""
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="circle-thumb-wrapper">
+                        {images && (
+                          <img
+                            className="circle-thumb-img"
+                            src={`/assets/${images[0]}`}
+                            alt=""
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="circle-thumb-wrapper">
+                        {images && (
+                          <img
+                            className="circle-thumb-img"
+                            src={`/assets/${images[0]}`}
+                            alt=""
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="circle-thumb-wrapper">
+                        {images && (
+                          <img
+                            className="circle-thumb-img"
+                            src={`/assets/${images[0]}`}
+                            alt=""
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <p className="mt-3">
+                    <span>Select</span>{" "}
+                    <span className="text-secondary">size:</span>
+                  </p>
+                  <div className="sizes-container d-flex gap-3 flex-wrap">
+                    {/*add selection logic here */}
+                    <span className="size-badge">40</span>
+                    <span className="size-badge">41</span>
+                    <span className="size-badge">42</span>
+                    <span className="size-badge">43</span>
+                    <span className="size-badge">44</span>
+                  </div>
+
+                  <div className="mt-5">
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Rerum debitis in sed, eum enim, explicabo, eligendi vero
+                      laborum facilis quas laboriosam ipsam eos at nihil
+                      voluptatem blanditiis alias sint fugiat?
+                    </p>
+                  </div>
+
+                  <button className="btn btn-main-light rounded-4 fs-4 my-3">
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             </div>
