@@ -43,10 +43,10 @@ export default function Footer() {
               <div className="col-12 col-lg-6 mb-4 mb-lg-0">
                 <h3 className="fw-bold secondary-color">About us</h3>
                 <span className="text-white">
-                  Benvenuti in KICKSOCIETY, il vostro punto di riferimento per
-                  le calzature sportive di alta qualità. Dal 2024 offriamo una
-                  selezione curata delle migliori sneakers e scarpe sportive,
-                  combinando stile, comfort e performance.
+                  Welcome to KICKSOCIETY, your reference point for high-quality
+                  sports footwear. Since 2024, we have been offering a curated
+                  selection of the best sneakers and sports shoes, combining
+                  style, comfort and performance.
                 </span>
               </div>
               {/* Links Section */}
@@ -138,35 +138,44 @@ export default function Footer() {
                     <h5 className="fw-bold secondary-color ps-2">Follow us</h5>
                     <ul className="text-white">
                       <li>
-                        <Link 
-                          to="https://www.instagram.com" 
-                          target="_blank" 
+                        <Link
+                          to="https://www.instagram.com"
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="text-white text-decoration-none"
                         >
-                          <i className="bi bi-instagram me-2" style={{ color: 'var(--instagram)' }}></i>
+                          <i
+                            className="bi bi-instagram me-2"
+                            style={{ color: "var(--instagram)" }}
+                          ></i>
                           Instagram
                         </Link>
                       </li>
                       <li>
-                        <Link 
-                          to="https://www.facebook.com" 
-                          target="_blank" 
+                        <Link
+                          to="https://www.facebook.com"
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="text-white text-decoration-none"
                         >
-                          <i className="bi bi-facebook me-2" style={{ color: 'var(--facebook)' }}></i>
+                          <i
+                            className="bi bi-facebook me-2"
+                            style={{ color: "var(--facebook)" }}
+                          ></i>
                           Facebook
                         </Link>
                       </li>
                       <li>
-                        <Link 
-                          to="https://www.twitter.com" 
-                          target="_blank" 
+                        <Link
+                          to="https://www.twitter.com"
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="text-white text-decoration-none"
                         >
-                          <i className="bi bi-twitter-x me-2" style={{ color: 'var(--twitter)' }}></i>
+                          <i
+                            className="bi bi-twitter-x me-2"
+                            style={{ color: "var(--twitter)" }}
+                          ></i>
                           Twitter
                         </Link>
                       </li>
