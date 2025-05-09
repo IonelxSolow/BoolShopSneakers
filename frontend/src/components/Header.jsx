@@ -48,7 +48,7 @@ export default function Header() {
                             <i className={`bi ${isMenuOpen ? "bi-x" : "bi-list"}`}></i>
                         </button>
                         <div className={`menu-list d-md-flex ${isMenuOpen ? "open" : "d-none"}`}>
-                            <div className="items container d-flex flex-column flex-md-row gap-3">
+                            <div className="items container d-flex flex-column flex-md-row gap-3 px-0">
                                 <NavLink to="/men" className="nav-link" onClick={() => setIsMenuOpen(false)}>
                                     Men
                                 </NavLink>

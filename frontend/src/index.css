@@ -72,7 +72,7 @@ header {
             color: var(--bs-bg-primary);
             transition: all 0.3s ease;
         }
-        
+
         a:hover {
             color: #232321 !important;
             background-color: var(--main-light);
@@ -89,6 +89,24 @@ header {
         .container {
             padding: 0 1rem;
         }
+
+    }
+
+    .close-search {
+        background-color: var(--bs-secondary);
+        color: var(--bs-bg-primary);
+        border: none;
+        padding: 0.5rem;
+        border-radius: 5px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+
+        &:hover {
+            background-color: var(--main-light);
+            color: var(--bs-secondary);
+        }
+
 
     }
 }
