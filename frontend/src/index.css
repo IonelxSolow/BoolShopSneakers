@@ -2,200 +2,242 @@
 @import "bootstrap-icons";
 
 :root {
-  --bs-primary: #4a69e2;
-  --bs-secondary: #232321;
-  --bs-bg-primary: #e7e7e3;
-  --main-light: #cfef1bff;
-  --main-secondary: #ffa52f;
-  --instagram: #E4405F;
-  --facebook: #1877F2;
-  --twitter: #1DA1F2;
+    --bs-primary: #4a69e2;
+    --bs-secondary: #232321;
+    --bs-bg-primary: #e7e7e3;
+    --main-light: #cfef1bff;
+    --main-secondary: #ffa52f;
+    --instagram: #E4405F;
+    --facebook: #1877F2;
+    --twitter: #1DA1F2;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background-color: var(--bs-bg-primary);
-  font-family: "Overpass", sans-serif;
+    background-color: var(--bs-bg-primary);
+    font-family: "Overpass", sans-serif;
 }
 
 header {
-  width: 100%;
-  margin: auto;
-
-  .burger-menu {
-    font-size: 1.5rem;
-    cursor: pointer;
-    background-color: var(--bs-bg-primary);
-  }
-
-  .menu-list {
-    gap: 1rem;
-  }
-
-  .menu-list.open {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 50px;
-    left: 0;
-    background-color: var(--bs-bg-primary);
     width: 100%;
-    padding: 1rem 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: auto;
 
-    .container {
-        padding: 0 1rem;
+    .burger-menu {
+        font-size: 1.5rem;
+        cursor: pointer;
+        background-color: var(--bs-bg-primary);
+
+        .bi {
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .bi-x {
+            background-color: var(--bs-secondary);
+            color: var(--bs-bg-primary);
+
+            &:hover {
+                color: var(--main-light);
+            }
+        }
     }
 
-  }
+    .menu-list {
+        gap: 1rem;
+    }
+
+    .menu-list.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        background-color: var(--bs-secondary);
+        color: var(--bs-bg-primary);
+        width: 100%;
+        padding: 1rem 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        a.nav-link {
+            display: inline-block;
+            width: auto;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            border-radius: 20px;
+            color: var(--bs-bg-primary);
+            transition: all 0.3s ease;
+        }
+        
+        a:hover {
+            color: #232321 !important;
+            background-color: var(--main-light);
+            border-radius: 20px;
+        }
+
+        a.active {
+            color: #232321 !important;
+            background-color: var(--main-light);
+            border-radius: 20px;
+        }
+
+
+        .container {
+            padding: 0 1rem;
+        }
+
+    }
 }
 
 main {
-  min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
 }
 
 a {
-  text-decoration: none;
-  color: black;
+    text-decoration: none;
+    color: black;
 }
 
 ul {
-  list-style: none;
-  padding: 0 !important;
+    list-style: none;
+    padding: 0 !important;
 }
 
 .btn-main-light {
-  border: 1px solid black;
-  font-weight: bold;
-  top: 1rem;
-  right: 1rem;
-  background-color: var(--main-light);
+    border: 1px solid black;
+    font-weight: bold;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--main-light);
 
-  &:hover {
-    background-color: black;
-    color: white;
-  }
+    &:hover {
+        background-color: black;
+        color: white;
+    }
 }
 
 .custom-width {
-  max-width: 980px;
-  margin: auto;
+    max-width: 980px;
+    margin: auto;
 }
 
 .bg-black {
-  background-color: var(--bs-secondary);
+    background-color: var(--bs-secondary);
 }
 
 .bg-main-light {
-  background-color: var(--main-light);
+    background-color: var(--main-light);
 }
 
 .secondary-color {
-  color: var(--main-secondary);
+    color: var(--main-secondary);
 }
 
 .foot-bar {
-  a {
-    text-decoration: none;
-    position: relative;
-    padding: 5px 10px 0px 10px;
-    transition: all 0.3s ease;
-  }
+    a {
+        text-decoration: none;
+        position: relative;
+        padding: 5px 10px 0px 10px;
+        transition: all 0.3s ease;
+    }
 
-  a:hover {
-    color:#232321 !important;
-    background-color: var(--main-light);
-    border-radius: 20px;
-  }
+    a:hover {
+        color: #232321 !important;
+        background-color: var(--main-light);
+        border-radius: 20px;
+    }
 
-  @media (max-width: 576px) {
-    form {
-      max-width: 100%;
+    @media (max-width: 576px) {
+        form {
+            max-width: 100%;
+        }
+
+        h1.display-3 {
+            font-size: 2.5rem;
+        }
+
+        h1.h2 {
+            font-size: 1.5rem;
+        }
     }
-    
-    h1.display-3 {
-      font-size: 2.5rem;
-    }
-    
-    h1.h2 {
-      font-size: 1.5rem;
-    }
-  }
 }
 
 .hero {
-  .top-bar {
-    background-color: var(--main-light);
+    .top-bar {
+        background-color: var(--main-light);
 
-    a {
-      text-decoration: none;
-      color: black;
-      font-size: 3rem;
-      font-weight: bolder;
-      text-transform: uppercase;
+        a {
+            text-decoration: none;
+            color: black;
+            font-size: 3rem;
+            font-weight: bolder;
+            text-transform: uppercase;
 
-      &:hover {
-        text-decoration: underline;
-      }
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        i {
+            color: black;
+            font-size: 3rem;
+            font-weight: bolder;
+            text-transform: uppercase;
+        }
     }
 
-    i {
-      color: black;
-      font-size: 3rem;
-      font-weight: bolder;
-      text-transform: uppercase;
+    .hero-container {
+        border-bottom: 1px solid black;
+
+        .btn-nike {
+            background-color: var(--main-light);
+            bottom: 2rem;
+            right: 1rem;
+            font-size: 2rem;
+            font-weight: bolder;
+            text-transform: uppercase;
+
+            &:hover {
+                background-color: black;
+                color: white;
+            }
+        }
+
+        img {
+            max-height: 450px;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
     }
-  }
-
-  .hero-container {
-    border-bottom: 1px solid black;
-
-    .btn-nike {
-      background-color: var(--main-light);
-      bottom: 2rem;
-      right: 1rem;
-      font-size: 2rem;
-      font-weight: bolder;
-      text-transform: uppercase;
-
-      &:hover {
-        background-color: black;
-        color: white;
-      }
-    }
-
-    img {
-      max-height: 450px;
-      width: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
-  }
 }
 
 .single-page {
-  background-color: white;
-  min-height: calc(100vh - 70px);
-  [class^="col"] {
+    background-color: white;
     min-height: calc(100vh - 70px);
-    [class$="Container"] {
-      padding: 2rem 0;
-      height: 100%;
-      text-align: center;
+
+    [class^="col"] {
+        min-height: calc(100vh - 70px);
+
+        [class$="Container"] {
+            padding: 2rem 0;
+            height: 100%;
+            text-align: center;
+        }
     }
-  }
-  .carousel {
-    background-color: #ededed;
-    height: 100%;
-    border-radius: 5px;
-    img {
-      margin-top: auto;
-      margin-bottom: 7rem;
+
+    .carousel {
+        background-color: #ededed;
+        height: 100%;
+        border-radius: 5px;
+
+        img {
+            margin-top: auto;
+            margin-bottom: 7rem;
+        }
     }
-  }
 }

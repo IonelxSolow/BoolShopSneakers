@@ -45,7 +45,7 @@ export default function Header() {
                 <nav className="navbar custom-header py-3">
                     <div className="container d-flex justify-content-between align-items-center">
                         <button className="burger-menu d-md-none border-0" onClick={toggleMenu}>
-                            <i className="bi bi-list"></i>
+                            <i className={`bi ${isMenuOpen ? "bi-x" : "bi-list"}`}></i>
                         </button>
                         <div className={`menu-list d-md-flex ${isMenuOpen ? "open" : "d-none"}`}>
                             <div className="items container d-flex flex-column flex-md-row gap-3">
@@ -71,11 +71,11 @@ export default function Header() {
                     </div>
                     {isSearchOpen && (
                         <div className="search-bar container">
-                            <SearchBar toggleSearch={toggleSearch}/>
+                            <SearchBar toggleSearch={toggleSearch} />
                         </div>
                     )}
                 </nav>
-            </header>
+            </header >
         </>
     )
 }
