@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { NavLink } from "react-router-dom"
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -31,13 +32,19 @@ export default function Header() {
                         </button>
                         <div className={`menu-list d-md-flex ${isMenuOpen ? "open" : "d-none"}`}>
                             <div className="d-flex flex-column flex-md-row gap-3">
-                                <a href="#" className="nav-link container">Men</a>
-                                <a href="#" className="nav-link container">Women</a>
-                                <a href="#" className="nav-link container">Kids</a>
+                                <NavLink to="/men" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                                    Men
+                                </NavLink>
+                                <NavLink to="/women" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                                    Women
+                                </NavLink>
+                                <NavLink to="/kids" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                                    Kids
+                                </NavLink>
                             </div>
                         </div>
                         <a className="navbar-brand mx-auto text-center fw-bolder" href="#">
-                            <h4 className="fw-bold">KICKSOCIETY</h4>
+                            <h4 className="fw-bolder m-0">KICKSOCIETY</h4>
                         </a>
                         <div className="d-flex justify-content-end align-items-center gap-3">
                             <a href="#" className="nav-link"><i className="bi bi-search"></i></a>
