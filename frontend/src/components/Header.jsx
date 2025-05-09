@@ -8,6 +8,7 @@ export default function Header() {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    // chiudiamo il menu quando la finestra viene ridimensionata
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth > 768) {
@@ -43,11 +44,9 @@ export default function Header() {
                                 </NavLink>
                             </div>
                         </div>
-                        <a className="navbar-brand mx-auto text-center fw-bolder" href="#">
-                            <NavLink to="/" className="nav-link">
+                        <NavLink to="/" className="navbar-brand mx-auto text-center fw-bolder">
                                 <h4 className="fw-bolder m-0">KICKSOCIETY</h4>
-                            </NavLink>
-                        </a>
+                        </NavLink>
                         <div className="d-flex justify-content-end align-items-center gap-3">
                             <a href="#" className="nav-link"><i className="bi bi-search"></i></a>
                             <a href="#" className="nav-link"><i className="bi bi-person"></i></a>
