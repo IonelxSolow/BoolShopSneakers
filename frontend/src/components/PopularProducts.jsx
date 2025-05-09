@@ -100,13 +100,7 @@ export default function PopularProducts() {
                           <div className="card h-100 text-center">
                             <img
                               className="card-img-top img-fluid"
-                              src={
-                                sneaker.image_urls &&
-                                  JSON.parse(sneaker.image_urls).length > 0
-                                  ? `/assets/${JSON.parse(sneaker.image_urls)[0]
-                                  }`
-                                  : "/assets/01.webp"
-                              }
+                              src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
                               alt={sneaker.name}
                             />
                             <div className="card-body">
