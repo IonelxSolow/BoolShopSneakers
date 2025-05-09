@@ -43,7 +43,7 @@ export default function PopularProducts() {
           setPopularPage((prev) => prev - 1);
         }
       }
-      console.log(sneakers.result.image_urls);
+
       return (
         <>
           <section className="popular-displayer">
@@ -100,7 +100,14 @@ export default function PopularProducts() {
                           <div className="card h-100 text-center">
                             <img
                               className="card-img-top img-fluid"
-                              src="/assets/01.webp"
+                              src={
+                                sneaker.image_urls &&
+                                JSON.parse(sneaker.image_urls).length > 0
+                                  ? `/assets/${
+                                      JSON.parse(sneaker.image_urls)[0]
+                                    }`
+                                  : "/assets/01.webp"
+                              }
                               alt={sneaker.name}
                             />
                             <div className="card-body">
