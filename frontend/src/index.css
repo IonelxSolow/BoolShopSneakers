@@ -198,3 +198,22 @@ ul {
     }
   }
 }
+
+.all-products{
+  .tool-bar{
+    .filters-list{
+      margin-bottom: 1rem;
+      .filter-items{
+        cursor: pointer;
+        font-weight: bold;
+        border-bottom: 1px solid #ddd;
+        padding: 0.5rem 0;
+      }
+      ul{
+        padding-left: 0;
+        list-style: none;
+        margin: 0;
+      }
+    }
+  }
+}
