@@ -11,8 +11,8 @@ export default function Home() {
         <>
             <Hero />
             <div className="container home-displayer">
-                <Link type="button" to={'/all-products'} className="btn btn-main-light">
-                    all shoes
+                <Link type="button" to={'/all-products'} className="btn btn-main-light mb-4">
+                    All shoes
                 </Link>
 
                 <LatestProducts />

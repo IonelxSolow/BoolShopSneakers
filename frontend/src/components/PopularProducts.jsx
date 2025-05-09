@@ -48,7 +48,7 @@ export default function PopularProducts() {
         <>
           <section className="popular-displayer">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h1 className="fs-4  fs-md-2">Most Popular</h1>
+              <h1 className="fs-3 fs-md-2 fw-bold">Most Popular</h1>
               <button
                 className="btn btn-main-light"
                 onClick={switchPopularDisplay}
@@ -102,10 +102,9 @@ export default function PopularProducts() {
                               className="card-img-top img-fluid"
                               src={
                                 sneaker.image_urls &&
-                                JSON.parse(sneaker.image_urls).length > 0
-                                  ? `/assets/${
-                                      JSON.parse(sneaker.image_urls)[0]
-                                    }`
+                                  JSON.parse(sneaker.image_urls).length > 0
+                                  ? `/assets/${JSON.parse(sneaker.image_urls)[0]
+                                  }`
                                   : "/assets/01.webp"
                               }
                               alt={sneaker.name}
@@ -113,7 +112,7 @@ export default function PopularProducts() {
                             <div className="card-body">
                               <h5 className="card-title">{sneaker.name}</h5>
                               {!sneaker.discounted_price ||
-                              parseFloat(sneaker.discounted_price) >=
+                                parseFloat(sneaker.discounted_price) >=
                                 parseFloat(sneaker.price) ? (
                                 <p className="text-dark">
                                   {parseFloat(sneaker.price).toFixed(2)}$
@@ -152,7 +151,7 @@ export default function PopularProducts() {
                         <h4 className="mb-2">{sneaker.name}</h4>
                         <p>{sneaker.description}</p>
                         {!sneaker.discounted_price ||
-                        parseFloat(sneaker.discounted_price) >=
+                          parseFloat(sneaker.discounted_price) >=
                           parseFloat(sneaker.price) ? (
                           <p className="mb-0">Price: {sneaker.price}$</p>
                         ) : (

@@ -30,7 +30,7 @@ export default function AllProducts() {
         <>
           <section className="all-products">
             <div className="container">
-              <h1>All Sneakers</h1>
+              <h1 className="fw-bold">All Sneakers</h1>
               <div className="container-fluid  d-flex justify-content-between m-auto">
                 <div className="tool-bar col-4">
                   <div className="filters-list">
