@@ -113,12 +113,7 @@ export default function AllProducts() {
                         <div className="card">
                           <img
                             className="card-img-top"
-                            src={
-                              sneaker.image_urls &&
-                              JSON.parse(sneaker.image_urls).length > 0
-                                ? `/assets/${JSON.parse(sneaker.image_urls)[0]}`
-                                : "/assets/01.webp"
-                            }
+                            src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
                             alt={sneaker.name}
                           />
                           <div className="card-body">
