@@ -27,7 +27,7 @@ export default function Header() {
             <header>
                 <nav className="navbar custom-header py-3">
                     <div className="container d-flex justify-content-between align-items-center">
-                        <button className="burger-menu d-md-none" onClick={toggleMenu}>
+                        <button className="burger-menu d-md-none border-0" onClick={toggleMenu}>
                             <i className="bi bi-list"></i>
                         </button>
                         <div className={`menu-list d-md-flex ${isMenuOpen ? "open" : "d-none"}`}>

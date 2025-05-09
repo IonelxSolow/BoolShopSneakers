@@ -27,6 +27,7 @@ header {
   .burger-menu {
     font-size: 1.5rem;
     cursor: pointer;
+    background-color: var(--bs-bg-primary);
   }
 
   .menu-list {
