@@ -79,9 +79,9 @@ export default function SingleProduct() {
       return (
         <>
           <div className="container single-page">
-            <div className="row mx-1">
-              <div className="col-12 col-lg-1 order-2 order-lg-1">
-                <div className=" d-flex flex-column align-items-center gap-3 thumbContainer">
+            <div className="row mx-1 pt-4">
+              <div className="col-12 col-lg-1 order-2 order-lg-1 my-4 my-lg-0">
+                <div className=" d-flex flex-lg-column justify-content-center align-items-center gap-3 thumbContainer">
                   {images?.map((image, index) => (
                     <>
                       <div key={index} className="thumb-wrapper">
@@ -97,11 +97,10 @@ export default function SingleProduct() {
                   ))}
                 </div>
               </div>
-              <div className="col-12 col-lg-5 order-1 order-lg-2">
+              <div className="col-12 col-lg-8 order-1 order-lg-1">
                 <div className="carouselContainer">
-                  <div className="carousel d-flex flex-column justify-content-between align-items-center">
+                  <div className="carousel d-flex ">
                     <img
-                      className="img-fluid"
                       src={
                         images
                           ? `/assets/${images[counter]}`
@@ -109,34 +108,13 @@ export default function SingleProduct() {
                       }
                       alt=""
                     />
-                    <div className="carousel-navigation mt-5 d-flex gap-3 justify-content-end align-items-end p-3 align-self-end">
-                      <button
-                        onClick={() =>
-                          setCounter(
-                            counter > 0 ? counter - 1 : images.length - 1
-                          )
-                        }
-                        className="btn btn-main-light"
-                      >
-                        <i className="bi bi-chevron-left"></i>
-                      </button>
-                      <button
-                        onClick={() =>
-                          setCounter(
-                            counter === images.length - 1 ? 0 : counter + 1
-                          )
-                        }
-                        className="btn btn-main-light"
-                      >
-                        <i className="bi bi-chevron-right"></i>
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>
-              <div className="col-12 col-lg-6 order-3 ">
+              <div className="col-12 col-lg-3 order-3">
                 <div className="d-flex flex-column detailsContainer">
                   <h1>{product.result.name}</h1>
+                  <h2>{product.result.brand}</h2>
                   <h4>{product.result.price}&#8364;</h4>
                   <div className="d-flex justify-content-between mt-4">
                     <p>
