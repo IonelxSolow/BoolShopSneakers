@@ -48,7 +48,7 @@ export default function LatestProducts() {
         <>
           <section className="newest-displayer mb-5">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h1 className="fs-4 fs-md-2">Newest Drops</h1>
+              <h1 className="fs-3 fs-md-2 fw-bold">Newest Drops</h1>
               <button
                 className="btn btn-main-light"
                 onClick={switchNewestDisplay}
@@ -98,15 +98,14 @@ export default function LatestProducts() {
                           <div className="card h-100 text-center">
                             <img
                               className="card-img-top img-fluid"
-                              src={`/assets/${
-                                JSON.parse(sneaker.image_urls)[0]
-                              }`}
+                              src={`/assets/${JSON.parse(sneaker.image_urls)[0]
+                                }`}
                               alt={sneaker.name}
                             />
                             <div className="card-body">
                               <h5 className="card-title">{sneaker.name}</h5>
                               {!sneaker.discounted_price ||
-                              parseFloat(sneaker.discounted_price) >=
+                                parseFloat(sneaker.discounted_price) >=
                                 parseFloat(sneaker.price) ? (
                                 <p className="text-dark">
                                   {parseFloat(sneaker.price).toFixed(2)}$
@@ -145,7 +144,7 @@ export default function LatestProducts() {
                         <h4 className="mb-2">{sneaker.name}</h4>
                         <p>{sneaker.description}</p>
                         {!sneaker.discounted_price ||
-                        parseFloat(sneaker.discounted_price) >=
+                          parseFloat(sneaker.discounted_price) >=
                           parseFloat(sneaker.price) ? (
                           <p className="mb-0">Price: {sneaker.price}$</p>
                         ) : (
