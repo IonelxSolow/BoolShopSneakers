@@ -25,8 +25,29 @@ const GlobalProvider = ({ children }) => {
       });
   }, []);
 
+  const [sneakersBrand, setSneakersBrand] = useState({
+    state: "loading",
+  });
+
+  function fetchBrand(brand) {
+    fetch(`http://localhost:3000/boolshop/api/v1/shoes/brand/${brand}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSneakersBrand({
+          state: "success",
+          result: data,
+        });
+      })
+      .catch((err) => {
+        setSneakersBrand({
+          state: "error",
+          message: err.message,
+        });
+        console.error;
+      });
+  }
   return (
-    <GlobalContext.Provider value={{ sneakers }}>
+    <GlobalContext.Provider value={{ sneakers, sneakersBrand, fetchBrand }}>
       {children}
     </GlobalContext.Provider>
   );

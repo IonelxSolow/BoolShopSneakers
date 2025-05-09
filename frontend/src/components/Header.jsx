@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react"
 import { NavLink } from "react-router-dom"
+
 import SearchBar from "./SearchBar"
+import Cart from "./Cart"
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
+    const [isCartOpen, setIsCartOpen] = useState(false)
 
     // funzione per aprire e chiudere il menu
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
         if (!isMenuOpen) {
             setIsSearchOpen(false);
+            setIsCartOpen(false);
         }
     };
 
@@ -19,6 +23,16 @@ export default function Header() {
         setIsSearchOpen(!isSearchOpen);
         if (!isSearchOpen) {
             setIsMenuOpen(false);
+            setIsCartOpen(false);
+        }
+    }
+
+    // funzione per aprire e chiudere il carrello
+    const toggleCart = () => {
+        setIsCartOpen(!isCartOpen);
+        if (!isCartOpen) {
+            setIsMenuOpen(false);
+            setIsSearchOpen(false);
         }
     }
 
@@ -66,12 +80,18 @@ export default function Header() {
                         <div className="d-flex justify-content-end align-items-center gap-3">
                             <a href="#" className="nav-link" onClick={toggleSearch}><i className="bi bi-search"></i></a>
                             <a href="#" className="nav-link"><i className="bi bi-person"></i></a>
-                            <a href="#" className="nav-link icon-btn"><i className="bi bi-cart"></i></a>
+                            <a href="#" className="nav-link icon-btn" onClick={toggleCart}><i className="bi bi-cart"></i></a>
                         </div>
                     </div>
                     {isSearchOpen && (
                         <div className="search-bar container">
                             <SearchBar toggleSearch={toggleSearch} />
+                        </div>
+                    )}
+
+                    {isCartOpen && (
+                        <div className={`cart-dropdown ${isCartOpen ? "open" : ""}`}>
+                            <Cart toggleCart={toggleCart} isOpen={isCartOpen} />
                         </div>
                     )}
                 </nav>

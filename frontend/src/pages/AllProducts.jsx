@@ -35,7 +35,7 @@ export default function AllProducts() {
                                 <div className="tool-bar col-4 col-md-2">
                                     <div className="filters-list">
                                         <div
-                                            className="filter-items"
+                                            className="filter-items d-flex justify-content-between"
                                             onClick={() => setIsBrandOpen(!isBrandOpen)}
                                         >
                                             brand {isBrandOpen ? <i className="bi bi-chevron-up"></i> : <i className="bi bi-chevron-down"></i>}
@@ -49,7 +49,7 @@ export default function AllProducts() {
                                             </ul>
                                         )}
                                         <div
-                                            className="filter-items"
+                                            className="filter-items d-flex justify-content-between"
                                             onClick={() => setIsSizeOpen(!isSizeOpen)}
                                         >
                                             size {isSizeOpen ? <i className="bi bi-chevron-up"></i> : <i className="bi bi-chevron-down"></i>}
@@ -63,7 +63,7 @@ export default function AllProducts() {
                                             </ul>
                                         )}
                                         <div
-                                            className="filter-items"
+                                            className="filter-items d-flex justify-content-between"
                                             onClick={() => setIsColorOpen(!isColorOpen)}
                                         >
                                             color {isColorOpen ? <i className="bi bi-chevron-up"></i> : <i className="bi bi-chevron-down"></i>}
@@ -77,7 +77,7 @@ export default function AllProducts() {
                                             </ul>
                                         )}
                                         <div
-                                            className="filter-items"
+                                            className="filter-items d-flex justify-content-between"
                                             onClick={() => setIsPriceOpen(!isPriceOpen)}
                                         >
                                             price {isPriceOpen ? <i className="bi bi-chevron-up"></i> : <i className="bi bi-chevron-down"></i>}
@@ -91,7 +91,7 @@ export default function AllProducts() {
                                             </ul>
                                         )}
                                         <div
-                                            className="filter-items"
+                                            className="filter-items d-flex justify-content-between"
                                             onClick={() => setIsTagOpen(!isTagOpen)}
                                         >
                                             categories {isTagOpen ? <i className="bi bi-chevron-up"></i> : <i className="bi bi-chevron-down"></i>}
