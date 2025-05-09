@@ -53,7 +53,7 @@ export default function PopularProducts() {
                                 onClick={prevPopularPage}
                                 disabled={popularPage === 0}
                             >
-                                <i class="bi bi-chevron-left"></i>
+                                <i className="bi bi-chevron-left"></i>
                             </button>
                             <span>
                                 Pagina {popularPage + 1} di {popularTotalPages}
@@ -63,7 +63,7 @@ export default function PopularProducts() {
                                 onClick={nextPopularPage}
                                 disabled={popularPage === popularTotalPages - 1}
                             >
-                                <i class="bi bi-chevron-right"></i>
+                                <i className="bi bi-chevron-right"></i>
                             </button>
                         </div>
 

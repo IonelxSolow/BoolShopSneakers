@@ -7,6 +7,9 @@
   --bs-bg-primary: #e7e7e3;
   --main-light: #cfef1bff;
   --main-secondary: #ffa52f;
+  --instagram: #e4405f;
+  --facebook: #1877f2;
+  --twitter: #1da1f2;
 }
 
 * {
@@ -27,6 +30,7 @@ header {
   .burger-menu {
     font-size: 1.5rem;
     cursor: pointer;
+    background-color: var(--bs-bg-primary);
   }
 
   .menu-list {
@@ -41,8 +45,12 @@ header {
     left: 0;
     background-color: var(--bs-bg-primary);
     width: 100%;
-    padding: 1rem 2.5rem;
+    padding: 1rem 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    .container {
+      padding: 0 1rem;
+    }
   }
 }
 
@@ -93,7 +101,29 @@ ul {
 .foot-bar {
   a {
     text-decoration: none;
-    color: black;
+    position: relative;
+    padding: 5px 10px 0px 10px;
+    transition: all 0.3s ease;
+  }
+
+  a:hover {
+    color: #232321 !important;
+    background-color: var(--main-light);
+    border-radius: 20px;
+  }
+
+  @media (max-width: 576px) {
+    form {
+      max-width: 100%;
+    }
+
+    h1.display-3 {
+      font-size: 2.5rem;
+    }
+
+    h1.h2 {
+      font-size: 1.5rem;
+    }
   }
 }
 
@@ -179,26 +209,44 @@ ul {
       margin-bottom: 7rem;
     }
   }
-}
-
-.detailsContainer {
-  .circle-thumb-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ededed;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-
-    .circle-thumb-img {
-      width: 90%;
+  .detailsContainer {
+    .circle-thumb-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ededed;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
+
+      .circle-thumb-img {
+        width: 90%;
+        border-radius: 50%;
+      }
+    }
+    .size-badge {
+      border: 2px solid #ededed;
+      padding: 0.5rem 2rem;
+      border-radius: 25px;
     }
   }
-  .size-badge {
-    border: 2px solid #ededed;
-    padding: 0.5rem 2rem;
-    border-radius: 25px;
+}
+
+.all-products {
+  .tool-bar {
+    .filters-list {
+      margin-bottom: 1rem;
+      .filter-items {
+        cursor: pointer;
+        font-weight: bold;
+        border-bottom: 1px solid #ddd;
+        padding: 0.5rem 0;
+      }
+      ul {
+        padding-left: 0;
+        list-style: none;
+        margin: 0;
+      }
+    }
   }
 }

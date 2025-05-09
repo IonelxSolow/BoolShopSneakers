@@ -53,7 +53,7 @@ export default function LatestProducts() {
                                 onClick={prevNewestPage}
                                 disabled={newestPage === 0}
                             >
-                                <i class="bi bi-chevron-left"></i>
+                                <i className="bi bi-chevron-left"></i>
                             </button>
                             <span>
                                 Pagina {newestPage + 1} di {newestTotalPages}
@@ -63,7 +63,7 @@ export default function LatestProducts() {
                                 onClick={nextNewestPage}
                                 disabled={newestPage === newestTotalPages - 1}
                             >
-                                <i class="bi bi-chevron-right"></i>
+                                <i className="bi bi-chevron-right"></i>
                             </button>
                         </div>
                         <div className="row g-3">
