@@ -17,7 +17,6 @@ function index(req, res) {
       GROUP_CONCAT(DISTINCT variants.size) AS variant_sizes,
       GROUP_CONCAT(DISTINCT variants.color) AS variant_colors,
       GROUP_CONCAT(DISTINCT variants.stock) AS variant_stocks,
-      GROUP_CONCAT(DISTINCT variants.image_urls) AS variant_images,
       GROUP_CONCAT(DISTINCT shoe_images.url) AS image_urls,
       GROUP_CONCAT(DISTINCT tags.name) AS tags
     FROM shoes
