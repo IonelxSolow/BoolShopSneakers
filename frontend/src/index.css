@@ -363,7 +363,10 @@ ul {
     }
   }
 }
-
+.active-link {
+  border: 2px solid var(--main-light);
+  font-weight: 600;
+}
 .all-products {
   .tool-bar {
     .filters-list {

@@ -225,7 +225,6 @@ export default function SingleProduct() {
 
                   <div className="d-flex gap-2 circle-thumbs-container align-items-center flex-wrap">
                     {" "}
-                    {/*refactor to cycle through the variants images */}
                     <div
                       className={`circle-thumb-wrapper ${
                         variant === 0 && " active-link"
