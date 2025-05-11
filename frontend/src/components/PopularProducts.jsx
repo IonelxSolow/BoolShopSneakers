@@ -48,7 +48,7 @@ export default function PopularProducts() {
         <>
           <section className="popular-displayer">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h1 className="fs-3 fs-md-2 fw-bold">Most Popular</h1>
+              <h1 className="fs-3 fs-md-2 fw-bold">Popular Items</h1>
               <button
                 className="btn btn-main-light"
                 onClick={switchPopularDisplay}

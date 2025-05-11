@@ -3,6 +3,7 @@ import { useState } from "react";
 
 export default function AllProducts() {
     const { sneakers } = useGlobalContext();
+
     const [selectedBrand, setSelectedBrand] = useState("");
     const [selectedPrice, setSelectedPrice] = useState("");
     const [selectedSize, setSelectedSize] = useState("");
@@ -13,6 +14,7 @@ export default function AllProducts() {
     const [isSizeOpen, setIsSizeOpen] = useState(false);
     const [isColorOpen, setIsColorOpen] = useState(false);
     const [isTagOpen, setIsTagOpen] = useState(false);
+
     switch (sneakers.state) {
         case "loading":
             return (
@@ -26,6 +28,9 @@ export default function AllProducts() {
                 </>
             );
         case "success":
+            console.log(sneakers.result)
+
+
             return (
                 <>
                     <section className="all-products">
@@ -42,10 +47,14 @@ export default function AllProducts() {
                                         </div>
                                         {isBrandOpen && (
                                             <ul>
-                                                <li>brand 1</li>
-                                                <li>brand 2</li>
-                                                <li>brand 3</li>
-                                                <li>brand 4</li>
+                                                {(() => {
+                                                    const duplicateBrands = [];
+                                                    return sneakers.result.map((sneaker, index) => {
+                                                        if (duplicateBrands.includes(sneaker.brand)) return null;
+                                                        duplicateBrands.push(sneaker.brand);
+                                                        return <li key={sneaker.id}>{sneaker.brand}</li>;
+                                                    });
+                                                })()}
                                             </ul>
                                         )}
                                         <div
@@ -56,10 +65,13 @@ export default function AllProducts() {
                                         </div>
                                         {isSizeOpen && (
                                             <ul>
-                                                <li>size-1</li>
-                                                <li>size-2</li>
-                                                <li>size-3</li>
-                                                <li>size-4</li>
+                                                {sneakers.result.map((sneaker) => {
+                                                    return (
+                                                        <li key={sneaker.id}>
+                                                            {sneaker.variant_sizes}
+                                                        </li>
+                                                    );
+                                                })}
                                             </ul>
                                         )}
                                         <div
