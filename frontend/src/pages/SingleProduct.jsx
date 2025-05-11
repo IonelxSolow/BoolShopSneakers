@@ -15,7 +15,13 @@ export default function SingleProduct() {
   const [counter, setCounter] = useState(0);
   const [variant, setVariant] = useState(0);
   const [activeIndex, setActiveIndex] = useState(null);
-
+  const [item, setItem] = useState({
+    name: "",
+    color: "",
+    size: "",
+    price: "",
+    image: "",
+  });
   // gets the sneaker id starting from the slug so i can correctly to the fetch call
   function getSneakerId() {
     if (sneakers.state === "success") {
@@ -62,6 +68,7 @@ export default function SingleProduct() {
     if (productId.state === "success") fetchSneaker();
   }, [productId]);
 
+  // used to change the activeIndex of the size selection to add style when selected
   function handleSizeClick(index) {
     setActiveIndex(index);
   }
@@ -80,6 +87,15 @@ export default function SingleProduct() {
         </>
       );
     case "success":
+      function addToCart() {
+        setItem({
+          name: product.result.brand + " " + product.result.name,
+          color: variant === 0 ? colors[0] : colors[1],
+          size: variant === 0 ? sizes[0][activeIndex] : sizes[1][activeIndex],
+          price: product.result.price,
+          image: variant === 0 ? images[0] : variantImages[0],
+        });
+      }
       // parses the string with an array format into an actual array
       const images = JSON.parse(product.result.image_urls);
       const variantImages = JSON.parse(product.result.variants[1].image_urls);
@@ -89,11 +105,8 @@ export default function SingleProduct() {
       });
       const formatSizes = `[${product.result.variant_sizes}]`;
       const sizes = JSON.parse(formatSizes);
-      console.log(sizes);
-
       const colorString = colors.join(", ");
-      console.log(variant);
-
+      console.log(item);
       return (
         <>
           <div className="container single-page">
@@ -290,7 +303,10 @@ export default function SingleProduct() {
                     Atque iste, quaerat iusto obcaecati suscipit modi veniam
                     ipsam ipsum ex provident.
                   </p>
-                  <button className="btn btn-main-light rounded-4 fs-4 my-3">
+                  <button
+                    onClick={() => addToCart()}
+                    className="btn btn-main-light rounded-4 fs-4 my-3"
+                  >
                     Add to Cart
                   </button>
                 </div>
