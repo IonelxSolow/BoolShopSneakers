@@ -46,12 +46,14 @@ export default function AllProducts() {
                                         </div>
                                         {isBrandOpen && (
                                             <ul>
-                                                {sneakers.result.map((sneaker) => {
-
-                                                    return (
-                                                        <li>{sneaker.brand}</li>
-                                                    )
-                                                })}
+                                                {(() => {
+                                                    const duplicateBrands = [];
+                                                    return sneakers.result.map((sneaker, index) => {
+                                                        if (duplicateBrands.includes(sneaker.brand)) return null;
+                                                        duplicateBrands.push(sneaker.brand);
+                                                        return <li key={index}>{sneaker.brand}</li>;
+                                                    });
+                                                })()}
                                             </ul>
                                         )}
                                         <div
