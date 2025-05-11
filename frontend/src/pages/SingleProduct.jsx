@@ -13,6 +13,8 @@ export default function SingleProduct() {
     state: "loading",
   });
   const [counter, setCounter] = useState(0);
+  const [variant, setVariant] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(null);
 
   // gets the sneaker id starting from the slug so i can correctly to the fetch call
   function getSneakerId() {
@@ -60,6 +62,10 @@ export default function SingleProduct() {
     if (productId.state === "success") fetchSneaker();
   }, [productId]);
 
+  function handleSizeClick(index) {
+    setActiveIndex(index);
+  }
+
   // switch case to ensure every situation is handled correctly
   switch (product.state) {
     case "loading":
@@ -76,44 +82,89 @@ export default function SingleProduct() {
     case "success":
       // parses the string with an array format into an actual array
       const images = JSON.parse(product.result.image_urls);
+      const variantImages = JSON.parse(product.result.variants[1].image_urls);
+      const colors = [];
+      product.result.variants.map((variant) => {
+        colors.push(variant.color);
+      });
+      const formatSizes = `[${product.result.variant_sizes}]`;
+      const sizes = JSON.parse(formatSizes);
+      console.log(sizes);
+
+      const colorString = colors.join(", ");
+      console.log(variant);
 
       return (
         <>
           <div className="container single-page">
             <div className="row mx-1 pt-4">
-              <div className="col-12 col-xl-1 order-2 order-xl-1 my-4 my-xl-0">
-                <div className=" d-flex flex-xl-column justify-content-center align-items-center gap-3 thumbContainer">
-                  {images?.map((image, index) => (
-                    <div
-                      key={index}
-                      className={
-                        counter === index
-                          ? `thumb-wrapper wrapper-border`
-                          : "thumb-wrapper"
-                      }
-                    >
-                      <img
-                        src={images ? `/assets/${image}` : "/assets/01.webp"}
-                        alt=""
-                        onMouseOver={() => {
-                          setCounter(index);
-                        }}
-                      />
-                    </div>
-                  ))}
+              <div className="col-12 col-xxl-1 order-2 order-xxl-1 my-4 my-xxl-0">
+                <div className=" d-flex flex-xxl-column justify-content-center align-items-center gap-3 thumbContainer">
+                  {variant === 0
+                    ? images?.map((image, index) => (
+                        <div
+                          key={index}
+                          className={
+                            counter === index
+                              ? `thumb-wrapper wrapper-border`
+                              : "thumb-wrapper"
+                          }
+                        >
+                          <img
+                            src={
+                              images ? `/assets/${image}` : "/assets/01.webp"
+                            }
+                            alt=""
+                            onMouseOver={() => {
+                              setCounter(index);
+                            }}
+                          />
+                        </div>
+                      ))
+                    : variantImages?.map((image, index) => (
+                        <div
+                          key={index}
+                          className={
+                            counter === index
+                              ? `thumb-wrapper wrapper-border`
+                              : "thumb-wrapper"
+                          }
+                        >
+                          <img
+                            src={
+                              images ? `/assets/${image}` : "/assets/01.webp"
+                            }
+                            alt=""
+                            onMouseOver={() => {
+                              setCounter(index);
+                            }}
+                          />
+                        </div>
+                      ))}
                 </div>
               </div>
-              <div className="col-12 col-xl-8 order-1 order-xl-1">
+              <div className="col-12 col-xxl-8 order-1 order-xxl-1">
                 <div className="carouselContainer">
                   <div className="carousel d-flex align-items-center">
-                    <img
-                      src={
-                        images
-                          ? `/assets/${images[counter]}`
-                          : "/assets/01.webp"
-                      }
-                      alt=""
-                    />
+                    {variant === 0 ? (
+                      <img
+                        src={
+                          images
+                            ? `/assets/${images[counter]}`
+                            : "/assets/01.webp"
+                        }
+                        alt=""
+                      />
+                    ) : (
+                      <img
+                        src={
+                          images
+                            ? `/assets/${variantImages[counter]}`
+                            : "/assets/01.webp"
+                        }
+                        alt=""
+                      />
+                    )}
 
                     <button
                       onClick={() =>
@@ -138,7 +189,7 @@ export default function SingleProduct() {
                   </div>
                 </div>
               </div>
-              <div className="col-12 col-xl-3 order-3 d-flex">
+              <div className="col-12 col-xxl-3 order-3 d-flex">
                 <div className="d-flex flex-column detailsContainer justify-content-between">
                   <h1>{product.result.name}</h1>
                   <h2>
@@ -163,11 +214,11 @@ export default function SingleProduct() {
                   )}
                   <div className="d-flex justify-content-between mt-4">
                     <p>
-                      <span className="text-secondary">Color:</span>
-                      <span>colors{/*product.result.variant_colors*/}</span>
+                      <span className="text-secondary">Color:</span>{" "}
+                      <span>{colorString}</span>
                     </p>
                     <p>
-                      <span>n {/*product.result.variant_colors.length */}</span>
+                      <span>{colors.length} </span>
                       <span className="text-secondary">colors</span>
                     </p>
                   </div>
@@ -175,27 +226,14 @@ export default function SingleProduct() {
                   <div className="d-flex gap-2 circle-thumbs-container align-items-center flex-wrap">
                     {" "}
                     {/*refactor to cycle through the variants images */}
-                    <div className="circle-thumb-wrapper">
+                    <div
+                      className={`circle-thumb-wrapper ${
+                        variant === 0 && " active-link"
+                      }`}
+                    >
                       {images && (
                         <img
-                          className="circle-thumb-img"
-                          src={`/assets/${images[0]}`}
-                          alt=""
-                        />
-                      )}
-                    </div>
-                    <div className="circle-thumb-wrapper">
-                      {images && (
-                        <img
-                          className="circle-thumb-img"
-                          src={`/assets/${images[0]}`}
-                          alt=""
-                        />
-                      )}
-                    </div>
-                    <div className="circle-thumb-wrapper">
-                      {images && (
-                        <img
+                          onClick={() => setVariant(0)}
                           className="circle-thumb-img"
                           src={`/assets/${images[0]}`}
                           alt=""
@@ -203,11 +241,16 @@ export default function SingleProduct() {
                       )}
                     </div>
                     <div>
-                      <div className="circle-thumb-wrapper">
-                        {images && (
+                      <div
+                        className={`circle-thumb-wrapper ${
+                          variant === 1 && " active-link"
+                        }`}
+                      >
+                        {variantImages && (
                           <img
+                            onClick={() => setVariant(1)}
                             className="circle-thumb-img"
-                            src={`/assets/${images[0]}`}
+                            src={`/assets/${variantImages[0]}`}
                             alt=""
                           />
                         )}
@@ -219,12 +262,29 @@ export default function SingleProduct() {
                     <span className="text-secondary">size:</span>
                   </p>
                   <div className="sizes-container d-flex gap-3 flex-wrap">
-                    {/*add selection logic here */}
-                    <span className="size-badge">40</span>
-                    <span className="size-badge">41</span>
-                    <span className="size-badge">42</span>
-                    <span className="size-badge">43</span>
-                    <span className="size-badge">44</span>
+                    {variant === 0
+                      ? sizes[0].map((size, index) => (
+                          <div
+                            key={index}
+                            onClick={() => handleSizeClick(index)}
+                            className={`size-badge ${
+                              activeIndex === index && "active-link"
+                            }`}
+                          >
+                            {size}
+                          </div>
+                        ))
+                      : sizes[1].map((size, index) => (
+                          <div
+                            key={index}
+                            onClick={() => handleSizeClick(index)}
+                            className={`size-badge ${
+                              activeIndex === index && "active-link"
+                            }`}
+                          >
+                            {size}
+                          </div>
+                        ))}
                   </div>
                   <p className="my-2">
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.

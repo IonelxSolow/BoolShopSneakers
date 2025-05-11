@@ -353,10 +353,10 @@ ul {
       border: 2px solid #ededed;
       padding: 0.5rem 1.4rem;
       border-radius: 25px;
-      &:hover {
-        border-color: var(--main-light);
-        font-weight: 800;
-      }
+    }
+    .size-badge.active-link {
+      border: 2px solid var(--main-light);
+      font-weight: 600;
     }
     .btn {
       margin-top: auto;
