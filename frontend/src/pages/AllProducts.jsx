@@ -3,6 +3,8 @@ import { useState } from "react";
 
 export default function AllProducts() {
     const { sneakers } = useGlobalContext();
+    console.log(sneakers.result.brand)
+
     const [selectedBrand, setSelectedBrand] = useState("");
     const [selectedPrice, setSelectedPrice] = useState("");
     const [selectedSize, setSelectedSize] = useState("");
@@ -13,6 +15,7 @@ export default function AllProducts() {
     const [isSizeOpen, setIsSizeOpen] = useState(false);
     const [isColorOpen, setIsColorOpen] = useState(false);
     const [isTagOpen, setIsTagOpen] = useState(false);
+
     switch (sneakers.state) {
         case "loading":
             return (
@@ -26,6 +29,7 @@ export default function AllProducts() {
                 </>
             );
         case "success":
+
             return (
                 <>
                     <section className="all-products">
@@ -42,10 +46,12 @@ export default function AllProducts() {
                                         </div>
                                         {isBrandOpen && (
                                             <ul>
-                                                <li>brand 1</li>
-                                                <li>brand 2</li>
-                                                <li>brand 3</li>
-                                                <li>brand 4</li>
+                                                {sneakers.result.map((sneaker) => {
+
+                                                    return (
+                                                        <li>{sneaker.brand}</li>
+                                                    )
+                                                })}
                                             </ul>
                                         )}
                                         <div
