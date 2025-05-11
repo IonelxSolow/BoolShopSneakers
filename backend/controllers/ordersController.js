@@ -71,6 +71,21 @@ function store(req, res) {
     })
 }
 
+function show(req, res) {
+
+    const id = Number(req.params.id)
+
+    const sql = 'SELECT * FROM ORDERS WHERE id = ?'
+
+    connection.query(sql, [id], (err, results) => {
+        if (err) return res.status(500).json({ error: err.message })
+        if (results.length === 0) return res.status(404).json({ error: 'order not found' })
+        const order = results[0]
+        res.json(order)
+    })
+
+}
+
 module.exports = {
-    store
+    store, show
 }
