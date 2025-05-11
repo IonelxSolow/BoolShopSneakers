@@ -3,7 +3,6 @@ import { useState } from "react";
 
 export default function AllProducts() {
     const { sneakers } = useGlobalContext();
-    console.log(sneakers.result.brand)
 
     const [selectedBrand, setSelectedBrand] = useState("");
     const [selectedPrice, setSelectedPrice] = useState("");
@@ -29,6 +28,8 @@ export default function AllProducts() {
                 </>
             );
         case "success":
+            console.log(sneakers.result)
+
 
             return (
                 <>
@@ -51,7 +52,7 @@ export default function AllProducts() {
                                                     return sneakers.result.map((sneaker, index) => {
                                                         if (duplicateBrands.includes(sneaker.brand)) return null;
                                                         duplicateBrands.push(sneaker.brand);
-                                                        return <li key={index}>{sneaker.brand}</li>;
+                                                        return <li key={sneaker.id}>{sneaker.brand}</li>;
                                                     });
                                                 })()}
                                             </ul>
@@ -64,10 +65,13 @@ export default function AllProducts() {
                                         </div>
                                         {isSizeOpen && (
                                             <ul>
-                                                <li>size-1</li>
-                                                <li>size-2</li>
-                                                <li>size-3</li>
-                                                <li>size-4</li>
+                                                {sneakers.result.map((sneaker) => {
+                                                    return (
+                                                        <li key={sneaker.id}>
+                                                            {sneaker.variant_sizes}
+                                                        </li>
+                                                    );
+                                                })}
                                             </ul>
                                         )}
                                         <div
