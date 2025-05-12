@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import LatestProducts from "../components/LatestProducts";
+import MostPopular from "../components/MostPopular";
 
 export default function CartPage() {
   const cartItems = [
@@ -16,10 +18,10 @@ export default function CartPage() {
   ];
 
   return (
-    <div className="cart-page container my-5">
+    <div className="cart-page container my-4">
       {/* Carrello */}
-      <h1 className="mb-4">Il tuo carrello</h1>
-      <div className="cart-items mb-4">
+      <h1 className="fs-3 fs-md-2 fw-bold">Your Cart</h1>
+      <div className="cart-items mb-4 container rounded-3 p-4" style={{ backgroundColor: "var(--bs-secondary)" }}>
         {cartItems.length > 0 ? (
           cartItems.map((item) => (
             <div key={item.id} className="cart-item card mb-2">
@@ -27,7 +29,7 @@ export default function CartPage() {
                 <div className="flex-grow-1">
                   <h6>{item.name}</h6>
                   <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-                    <span className="mb-2 mb-md-0"  style={{ width: "150px" }}>Prezzo: {item.price.toFixed(2)}€</span>
+                    <span className="mb-2 mb-md-0" style={{ width: "150px" }}>Price: {item.price.toFixed(2)}€</span>
                     <div className="d-flex align-items-center">
                       <button
                         className="btn btn-sm btn-outline-secondary me-2"
@@ -45,7 +47,7 @@ export default function CartPage() {
                     </div>
                   </div>
                 </div>
-                <span className="mb-0">Totale: {(item.price * item.quantity).toFixed(2)}€</span>
+                <span className="mb-0">Total: {(item.price * item.quantity).toFixed(2)}€</span>
                 <button
                   className="btn btn-sm btn-danger ms-3"
                   onClick={() => removeItem(item.id)}
@@ -56,44 +58,23 @@ export default function CartPage() {
             </div>
           ))
         ) : (
-          <p>Il tuo carrello è vuoto.</p>
+          <p>Your cart is empty.</p>
         )}
+
+
+        {/* Totale */}
+        <div className="cart-total d-flex justify-content-between align-items-center text-light mt-3">
+          <h5 className="m-0">Total: {total.toFixed(2)}€</h5>
+          <button className="btn btn-main-light">Proceed to checkout</button>
+        </div>
       </div>
 
-      {/* Totale */}
-      <div className="cart-total d-flex justify-content-between align-items-center mb-5">
-        <h5>Totale: {total.toFixed(2)}€</h5>
-        <button className="btn btn-main-light">Procedi al checkout</button>
-      </div>
 
       {/* Hero Section */}
-      <div className="hero-section text-center py-5 mb-5" style={{ backgroundColor: "#f8f9fa" }}>
-        <h2 className="mb-3">Scopri le ultime novità</h2>
-        <p className="mb-4">Trova i prodotti perfetti per te nella nostra collezione esclusiva.</p>
-        <Link to="/all-products" className="btn btn-main-light">
-          Esplora ora
-        </Link>
-      </div>
+      <div className="home-displayer mt-5">
 
-      {/* Ti potrebbe interessare */}
-      <div className="recommended-section">
-        <h2 className="mb-4">Ti potrebbe interessare</h2>
-        <div className="row">
-          {recommendedItems.map((item) => (
-            <div key={item.id} className="col-12 col-md-4 mb-4">
-              <div className="recommended-item card">
-                <img src={item.image} className="card-img-top" alt={item.name} />
-                <div className="card-body text-center">
-                  <h6 className="card-title">{item.name}</h6>
-                  <p className="card-text">{item.price.toFixed(2)}€</p>
-                  <Link to={`/product/${item.id}`} className="btn btn-main-light">
-                    Scopri di più
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <LatestProducts />
+        <MostPopular />
       </div>
     </div>
   )
