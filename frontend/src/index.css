@@ -23,6 +23,29 @@ body {
   font-family: "Overpass", sans-serif;
 }
 
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--bs-bg-primary);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.header-hidden {
+    transform: translateY(-100%);
+}
+
+.header-visible {
+    transform: translateY(0);
+}
+
+/* Aggiungi padding al main per compensare l'header fixed */
+main {
+    padding-top: 70px;  /* Altezza dell'header */
+}
+
 header {
   width: 100%;
   margin: auto;
@@ -110,20 +133,22 @@ header {
   .cart-dropdown {
     position: fixed;
     top: 0;
-    right: 0; /* Nasconde il carrello fuori dalla vista */
+    right: -300px; /* Inizialmente nascosto fuori dalla vista */
     width: 300px;
-    height: 100%;
+    height: 100vh; /* Usa viewport height invece di % */
     background-color: var(--bs-secondary);
     color: var(--bs-bg-primary);
     box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
     padding: 1rem;
-    transition: right 0.3s ease; /* Transizione fluida */
+    transition: right 0.3s ease;
     z-index: 1050;
-  }
+    transform: translateZ(0); /* Forza hardware acceleration */
+    backface-visibility: hidden; /* Aiuta con problemi di rendering */
+}
 
-  .cart-dropdown.open {
-    right: 0; /* Mostra il carrello scorrendo da destra */
-  }
+.cart-dropdown.open {
+  right: 0;
+}
 
   .close-cart {
     background-color: var(--main-light);
@@ -269,7 +294,7 @@ ul {
       max-height: 450px;
       width: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position:bottom;
     }
   }
 }
