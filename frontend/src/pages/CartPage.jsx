@@ -19,36 +19,38 @@ export default function CartPage() {
     <div className="cart-page container my-5">
       {/* Carrello */}
       <h1 className="mb-4">Il tuo carrello</h1>
-      <div className="cart-items mb-5">
+      <div className="cart-items mb-4">
         {cartItems.length > 0 ? (
           cartItems.map((item) => (
-            <div key={item.id} className="cart-item card mb-3">
+            <div key={item.id} className="cart-item card mb-2">
               <div className="card-body d-flex align-items-center">
                 <div className="flex-grow-1">
                   <h6>{item.name}</h6>
-                  <p className="mb-0">Prezzo: {item.price.toFixed(2)}€</p>
-                  <p className="mb-0">Totale: {(item.price * item.quantity).toFixed(2)}€</p>
+                  <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
+                    <span className="me-md-3 mb-2 mb-md-0">Prezzo: {item.price.toFixed(2)}€</span>
+                    <div className="d-flex align-items-center">
+                      <button
+                        className="btn btn-sm btn-outline-secondary me-2"
+                        onClick={() => decreaseQuantity(item.id)}
+                      >
+                        -
+                      </button>
+                      <span>{item.quantity}</span>
+                      <button
+                        className="btn btn-sm btn-outline-secondary ms-2"
+                        onClick={() => increaseQuantity(item.id)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="d-flex align-items-center">
-                  <button
-                    className="btn btn-sm btn-outline-secondary me-2"
-                    onClick={() => decreaseQuantity(item.id)}
-                  >
-                    -
-                  </button>
-                  <span>{item.quantity}</span>
-                  <button
-                    className="btn btn-sm btn-outline-secondary ms-2"
-                    onClick={() => increaseQuantity(item.id)}
-                  >
-                    +
-                  </button>
-                </div>
+                <span className="mb-0">Totale: {(item.price * item.quantity).toFixed(2)}€</span>
                 <button
                   className="btn btn-sm btn-danger ms-3"
                   onClick={() => removeItem(item.id)}
                 >
-                  Rimuovi
+                  <i class="bi bi-trash"></i>
                 </button>
               </div>
             </div>
@@ -60,10 +62,9 @@ export default function CartPage() {
 
       {/* Totale */}
       <div className="cart-total d-flex justify-content-between align-items-center mb-5">
-        <h5>Totale:</h5>
-        <h5>{total.toFixed(2)}€</h5>
+        <h5>Totale: {total.toFixed(2)}€</h5>
+        <button className="btn btn-main-light">Procedi al checkout</button>
       </div>
-      <button className="btn btn-main-light w-100 mb-5">Procedi al checkout</button>
 
       {/* Hero Section */}
       <div className="hero-section text-center py-5 mb-5" style={{ backgroundColor: "#f8f9fa" }}>
