@@ -27,7 +27,7 @@ export default function CartPage() {
                 <div className="flex-grow-1">
                   <h6>{item.name}</h6>
                   <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-                    <span className="me-md-3 mb-2 mb-md-0">Prezzo: {item.price.toFixed(2)}€</span>
+                    <span className="mb-2 mb-md-0"  style={{ width: "150px" }}>Prezzo: {item.price.toFixed(2)}€</span>
                     <div className="d-flex align-items-center">
                       <button
                         className="btn btn-sm btn-outline-secondary me-2"
