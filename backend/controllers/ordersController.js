@@ -1,94 +1,76 @@
 const connection = require('../db/boolshop_db.js')
 
 function store(req, res) {
-    const { 
-        name, 
-        email, 
-        address, 
+    const {
+        name,
+        email,
+        address,
         phone,
-        total_price, 
-        status, 
-        discount_id, 
-        delivery_fee, 
+        total_price,
+        status,
+        discount_id,
+        delivery_fee,
         items,
-        payment_type 
+        payment_type
     } = req.body
 
-    // Prima creiamo il guest
-    const guestSql = `
-        INSERT INTO guests (name, email, address, phone)
-        VALUES (?, ?, ?, ?)
-    `
+    const orderSql = `
+            INSERT INTO orders (name, email, address, phone, total_price, status, discount_id, delivery_fee, payment_type, purchase_order) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `
 
-    connection.query(guestSql, [name, email, address, phone], (err, guestResult) => {
+    connection.query(orderSql, [
+        name,
+        email,
+        address,
+        phone,
+        total_price,
+        status || 'pending',
+        discount_id || null,
+        delivery_fee || 0.00,
+        payment_type,
+        generatePurchaseOrder()
+    ], (err, orderResult) => {
         if (err) {
             return res.status(500).json({
-                message: "Errore durante la creazione del guest",
+                message: "Errore durante la creazione dell'ordine",
                 error: err.message
             })
         }
 
-        const guest_id = guestResult.insertId
+        const orderId = orderResult.insertId
 
-        // Poi creiamo l'ordine collegato al guest appena creato
-        const orderSql = `
-            INSERT INTO orders (guest_id, total_price, status, discount_id, delivery_fee, payment_type, purchase_order) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        `
+        if (!items || items.length === 0) {
+            return res.status(201).json({
+                message: "Ordine creato con successo",
+                order_id: orderId
+            })
+        }
 
-        connection.query(orderSql, [
-            guest_id,
-            total_price,
-            status || 'pending',
-            discount_id || null,
-            delivery_fee || 0.00,
-            payment_type,
-            generatePurchaseOrder()
-        ], (err, orderResult) => {
-            if (err) {
-                return res.status(500).json({
-                    message: "Errore durante la creazione dell'ordine",
-                    error: err.message
-                })
-            }
-
-            const orderId = orderResult.insertId
-
-            // Se non ci sono prodotti, restituiamo subito la risposta
-            if (!items || items.length === 0) {
-                return res.status(201).json({
-                    message: "Ordine creato con successo",
-                    order_id: orderId,
-                    guest_id: guest_id
-                })
-            }
-
-            // Inseriamo i prodotti dell'ordine
-            const orderItemsSql = `
+        // Inseriamo i prodotti dell'ordine
+        const orderItemsSql = `
                 INSERT INTO order_items (order_id, variant_id, quantity, price)
                 VALUES ?
             `
 
-            const orderItemsValues = items.map(item => [
-                orderId,
-                item.variant_id,
-                item.quantity,
-                item.price
-            ])
+        const orderItemsValues = items.map(item => [
+            orderId,
+            item.variant_id,
+            item.quantity,
+            item.price
+        ])
 
-            connection.query(orderItemsSql, [orderItemsValues], (err) => {
-                if (err) {
-                    return res.status(500).json({
-                        message: "Errore durante l'inserimento degli items dell'ordine",
-                        error: err.message
-                    })
-                }
-
-                res.status(201).json({
-                    message: "Ordine e guest creati con successo",
-                    order_id: orderId,
-                    guest_id: guest_id
+        connection.query(orderItemsSql, [orderItemsValues], (err) => {
+            if (err) {
+                return res.status(500).json({
+                    message: "Errore durante l'inserimento degli items dell'ordine",
+                    error: err.message
                 })
+            }
+
+            res.status(201).json({
+                message: "Ordine creato con successo",
+                order_id: orderId
             })
         })
     })
