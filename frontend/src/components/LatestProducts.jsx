@@ -1,15 +1,34 @@
-import { useGlobalContext } from "../context/GlobalContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function LatestProducts() {
-  const { sneakers } = useGlobalContext();
+  const [newestSneakers, setNewestSneakers] = useState({
+    state: "loading",
+  });
+  useEffect(() => {
+    fetch("http://localhost:3000/boolshop/api/v1/shoes/new")
+      .then((res) => res.json())
+      .then((data) => {
+        setNewestSneakers({
+          state: "success",
+          result: data,
+        });
+        console.log(newestSneakers.result)
+      })
+      .catch((err) => {
+        setNewestSneakers({
+          state: "error",
+          message: err.message,
+        });
+        console.error;
+      });
+  }, []);
   //grid display logic
   const [isNewestGrid, setIsNewestGrid] = useState(true);
   //carousel logic
   const [newestPage, setNewestPage] = useState(0);
   const itemsPerPage = 3;
-  switch (sneakers.state) {
+  switch (newestSneakers.state) {
     case "loading":
       return (
         <h1>Loading...{/* Create a loader component to replace this */}</h1>
@@ -26,12 +45,7 @@ export default function LatestProducts() {
       function switchNewestDisplay() {
         setIsNewestGrid(!isNewestGrid);
       }
-
-      //sort by latest
-      const newestSneaker = [...sneakers.result].sort(
-        (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
-      );
-      const newestTotalPages = Math.ceil(newestSneaker.length / itemsPerPage);
+      const newestTotalPages = Math.ceil(newestSneakers.result.length / itemsPerPage);
       //move back and forward for latest items
       function nextNewestPage() {
         if (newestPage < newestTotalPages - 1) {
@@ -82,7 +96,7 @@ export default function LatestProducts() {
                   </button>
                 </div>
                 <div className="row g-3">
-                  {newestSneaker
+                  {newestSneakers.result
                     .slice(
                       newestPage * itemsPerPage,
                       newestPage * itemsPerPage + itemsPerPage
@@ -130,7 +144,7 @@ export default function LatestProducts() {
               </div>
             ) : (
               <div className="list-group">
-                {newestSneaker.map((sneaker) => (
+                {newestSneakers.result.map((sneaker) => (
                   <div className="list-group-item mb-3" key={sneaker.id}>
                     <div className="d-flex flex-column flex-md-row">
                       <img
