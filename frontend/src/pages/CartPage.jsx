@@ -65,7 +65,7 @@ export default function CartPage() {
         {/* Totale */}
         <div className="cart-total d-flex justify-content-between align-items-center text-light mt-3">
           <h5 className="m-0">Total: {total.toFixed(2)}€</h5>
-          <button className="btn btn-main-light">Proceed to checkout</button>
+          <button className="btn btn-main-light">Go to checkout</button>
         </div>
       </div>
 
