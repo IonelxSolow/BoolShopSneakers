@@ -95,6 +95,10 @@ export default function SingleProduct() {
               ? product.result.variant_sku.split(",")[0]
               : product.result.variant_sku.split(",")[1],
           quantity: 1,
+          variant_id:
+            variant === 0
+              ? product.result.variant_ids.split(",")[0]
+              : product.result.variant_ids.split(",")[1],
         };
 
         // check if item already is in cart
@@ -118,7 +122,6 @@ export default function SingleProduct() {
         console.log("Updated cart:", updatedCart);
       }
       console.log(cart);
-      
 
       // parses the string with an array format into an actual array
       const images = JSON.parse(product.result.image_urls);
