@@ -31,13 +31,16 @@ export default function Checkout() {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/api/orders', {
-                method: 'POST',
+            const response = await fetch(
+              "http://localhost:3000/boolshop/api/v1/orders",
+              {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                  "Content-Type": "application/json",
                 },
-                body: JSON.stringify(orderData)
-            });
+                body: JSON.stringify(orderData),
+              }
+            );
 
             if (!response.ok) {
                 throw new Error('Errore nella risposta del server');
