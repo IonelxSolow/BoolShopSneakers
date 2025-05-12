@@ -397,6 +397,10 @@ ul {
   border: 2px solid var(--main-light);
   font-weight: 600;
 }
+.active-filter{
+  background-color: var(--main-light);
+  font-weight: bold;
+}
 .all-products {
   .tool-bar {
     .filters-list {
@@ -416,6 +420,14 @@ ul {
         list-style: none;
         margin: 0;
         border-bottom: 1px solid #ddd;
+        li{
+          cursor: pointer;
+          &:hover{
+            border: 2px solid var(--main-light);
+            font-weight: 600;
+          }
+          
+        }
       }
     }
   }

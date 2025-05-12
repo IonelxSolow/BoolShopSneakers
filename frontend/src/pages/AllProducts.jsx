@@ -11,6 +11,7 @@ export default function AllProducts() {
         price: "",
         /* tag: "",  implement further*/
     });
+    const [activeBrand, setActiveBrand] = useState("")
     const [filteredSneakers, setFilteredSneakers] = useState([]);
     const [isBrandOpen, setIsBrandOpen] = useState(false);
     const sneakersSizes = [37, 38, 39, 40, 41, 42, 43, 44, 45];
@@ -58,6 +59,9 @@ export default function AllProducts() {
             ...filters,
             [key]: value,
         }));
+        if (key === "brand") {
+            setActiveBrand(value); // Update active brand
+        }
     };
 
     switch (sneakers.state) {
@@ -97,7 +101,7 @@ export default function AllProducts() {
                                                     return sneakers.result.map((sneaker, index) => {
                                                         if (duplicateBrands.includes(sneaker.brand)) return null;
                                                         duplicateBrands.push(sneaker.brand);
-                                                        return <li onClick={() => { handleFilterChange("brand", sneaker.brand) }} key={sneaker.id}>{sneaker.brand}</li>;
+                                                        return <li onClick={() => { handleFilterChange("brand", sneaker.brand) }} key={sneaker.id} className={activeBrand === sneaker.brand ? "active-filter ps-2" : ""}>{sneaker.brand}</li>;
                                                     });
                                                 })()}
                                             </ul>
@@ -115,7 +119,7 @@ export default function AllProducts() {
                                                     //map through colors and return li for each size
                                                     sneakersSizes.map((size, index) => {
                                                         return (
-                                                            <li key={`${index}-${size}`} onClick={() => handleFilterChange("size", size)}>
+                                                            <li key={`${index}-${size}`} onClick={() => handleFilterChange("size", size)}  >
                                                                 {size}
                                                             </li>
                                                         );
