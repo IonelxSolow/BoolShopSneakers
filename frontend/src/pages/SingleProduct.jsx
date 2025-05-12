@@ -117,6 +117,8 @@ export default function SingleProduct() {
         console.log("Added item:", newItem);
         console.log("Updated cart:", updatedCart);
       }
+      console.log(cart);
+      
 
       // parses the string with an array format into an actual array
       const images = JSON.parse(product.result.image_urls);

@@ -1,4 +1,4 @@
-const connection = require('../db/boolshop_db.js')
+/* const connection = require('../db/boolshop_db.js')
 
 function store(req, res) {
     const { name, email, address, phone } = req.body
@@ -25,4 +25,4 @@ function store(req, res) {
 
 module.exports = {
     store
-}
+} */
