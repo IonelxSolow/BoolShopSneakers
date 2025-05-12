@@ -4,16 +4,26 @@ import { useState } from "react";
 export default function AllProducts() {
     const { sneakers } = useGlobalContext();
 
-    const [selectedBrand, setSelectedBrand] = useState("");
-    const [selectedPrice, setSelectedPrice] = useState("");
-    const [selectedSize, setSelectedSize] = useState("");
-    const [selectedColor, setSelectedColor] = useState("");
-    const [selectedTag, setSelectedTag] = useState("");
+    const [filters, setFilters] = useState({
+        brand: "",
+        size: "",
+        color: "",
+        price: "",
+        tag: "",
+    });
+    const [filteredSneakers, setFilteredSneakers] = useState([]);
     const [isBrandOpen, setIsBrandOpen] = useState(false);
     const [isPriceOpen, setIsPriceOpen] = useState(false);
     const [isSizeOpen, setIsSizeOpen] = useState(false);
     const [isColorOpen, setIsColorOpen] = useState(false);
     const [isTagOpen, setIsTagOpen] = useState(false);
+
+    const handleFilterChange = (key, value) => {
+        setFilters(() => ({
+            ...filters,
+            [key]: value,
+        }));
+    };
 
     switch (sneakers.state) {
         case "loading":
@@ -28,7 +38,7 @@ export default function AllProducts() {
                 </>
             );
         case "success":
-            console.log(sneakers.result)
+            console.log(filters)
 
 
             return (
@@ -52,11 +62,12 @@ export default function AllProducts() {
                                                     return sneakers.result.map((sneaker, index) => {
                                                         if (duplicateBrands.includes(sneaker.brand)) return null;
                                                         duplicateBrands.push(sneaker.brand);
-                                                        return <li key={sneaker.id}>{sneaker.brand}</li>;
+                                                        return <li onClick={() => { handleFilterChange("brand", sneaker.brand) }} key={sneaker.id}>{sneaker.brand}</li>;
                                                     });
                                                 })()}
                                             </ul>
-                                        )}
+                                        )
+                                        }
                                         <div
                                             className="filter-items d-flex justify-content-between"
                                             onClick={() => setIsSizeOpen(!isSizeOpen)}
@@ -67,7 +78,7 @@ export default function AllProducts() {
                                             <ul>
                                                 {sneakers.result.map((sneaker) => {
                                                     return (
-                                                        <li key={sneaker.id}>
+                                                        <li key={sneaker.id} onClick={() => { handleFilterChange("size", sneaker.variant_sizes) }}>
                                                             {sneaker.variant_sizes}
                                                         </li>
                                                     );
