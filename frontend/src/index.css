@@ -362,6 +362,11 @@ ul {
       margin-top: auto;
     }
   }
+  .suggestedItemsContainer {
+    .suggestedItemWrapper {
+      background-color: #ededed;
+    }
+  }
 }
 .active-link {
   border: 2px solid var(--main-light);

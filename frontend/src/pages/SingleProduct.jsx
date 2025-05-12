@@ -118,8 +118,6 @@ export default function SingleProduct() {
         console.log("Updated cart:", updatedCart);
       }
 
-      console.log(cart);
-
       // parses the string with an array format into an actual array
       const images = JSON.parse(product.result.image_urls);
       const variantImages = JSON.parse(product.result.variants[1].image_urls);
@@ -228,9 +226,14 @@ export default function SingleProduct() {
               </div>
               <div className="col-12 col-xxl-3 order-3 d-flex">
                 <div className="d-flex flex-column detailsContainer justify-content-between">
-                  <h1>{product.result.name}</h1>
+                  <h1 className="fw-bold text-uppercase">
+                    {product.result.name}
+                  </h1>
                   <h2>
-                    <Link to={""} className="text-secondary">
+                    <Link
+                      to={`/all-products?brand=${product.result.brand}`}
+                      className="text-secondary"
+                    >
                       {product.result.brand}
                     </Link>
                   </h2>
@@ -334,6 +337,25 @@ export default function SingleProduct() {
                     Add to Cart
                   </button>
                 </div>
+              </div>
+            </div>
+            <h1 className="pt-3 px-3 fw-bold text-uppercase">
+              You might also like:
+            </h1>
+            <div className="suggestedItemsContainer d-flex pt-3 pb-4 px-3 gap-4">
+              <div className="suggestedItemWrapper">
+                {" "}
+                {/*Replace with dynamic map*/}
+                <img className="img-fluid" src="/assets/01.webp" alt="" />
+              </div>
+              <div className="suggestedItemWrapper">
+                <img className="img-fluid" src="/assets/01.webp" alt="" />
+              </div>
+              <div className="suggestedItemWrapper">
+                <img className="img-fluid" src="/assets/01.webp" alt="" />
+              </div>
+              <div className="suggestedItemWrapper">
+                <img className="img-fluid" src="/assets/01.webp" alt="" />
               </div>
             </div>
           </div>
