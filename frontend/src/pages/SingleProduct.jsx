@@ -2,9 +2,11 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useGlobalContext } from "../context/GlobalContext";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 export default function SingleProduct() {
   const { sneakers } = useGlobalContext();
+  const { cart, setCart } = useCart();
   const { slug } = useParams();
   const [productId, setProductId] = useState({
     state: "loading",
@@ -15,13 +17,7 @@ export default function SingleProduct() {
   const [counter, setCounter] = useState(0);
   const [variant, setVariant] = useState(0);
   const [activeIndex, setActiveIndex] = useState(null);
-  const [item, setItem] = useState({
-    name: "",
-    color: "",
-    size: "",
-    price: "",
-    image: "",
-  });
+
   // gets the sneaker id starting from the slug so i can correctly to the fetch call
   function getSneakerId() {
     if (sneakers.state === "success") {
@@ -88,14 +84,40 @@ export default function SingleProduct() {
       );
     case "success":
       function addToCart() {
-        setItem({
+        const newItem = {
           name: product.result.brand + " " + product.result.name,
           color: variant === 0 ? colors[0] : colors[1],
           size: variant === 0 ? sizes[0][activeIndex] : sizes[1][activeIndex],
           price: product.result.price,
           image: variant === 0 ? images[0] : variantImages[0],
-        });
+          sku:
+            variant === 0
+              ? product.result.variant_sku[0]
+              : product.result.variant_sku[1],
+          quantity: 1,
+        };
+
+        // check if item already is in cart
+        const existingItem = cart.find(
+          (cartItem) => cartItem.sku === newItem.sku
+        );
+        let updatedCart;
+        if (existingItem) {
+          updatedCart = cart.map((item) =>
+            item.sku === newItem.sku
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+        } else {
+          updatedCart = [...cart, newItem];
+        }
+
+        setCart(updatedCart);
+
+        console.log("Added item:", newItem);
+        console.log("Updated cart:", updatedCart);
       }
+
       // parses the string with an array format into an actual array
       const images = JSON.parse(product.result.image_urls);
       const variantImages = JSON.parse(product.result.variants[1].image_urls);
@@ -106,7 +128,7 @@ export default function SingleProduct() {
       const formatSizes = `[${product.result.variant_sizes}]`;
       const sizes = JSON.parse(formatSizes);
       const colorString = colors.join(", ");
-      console.log(item);
+
       return (
         <>
           <div className="container single-page">
@@ -204,9 +226,14 @@ export default function SingleProduct() {
               </div>
               <div className="col-12 col-xxl-3 order-3 d-flex">
                 <div className="d-flex flex-column detailsContainer justify-content-between">
-                  <h1>{product.result.name}</h1>
+                  <h1 className="fw-bold text-uppercase">
+                    {product.result.name}
+                  </h1>
                   <h2>
-                    <Link to={""} className="text-secondary">
+                    <Link
+                      to={`/all-products?brand=${product.result.brand}`}
+                      className="text-secondary"
+                    >
                       {product.result.brand}
                     </Link>
                   </h2>
@@ -310,6 +337,25 @@ export default function SingleProduct() {
                     Add to Cart
                   </button>
                 </div>
+              </div>
+            </div>
+            <h1 className="pt-3 px-3 fw-bold text-uppercase">
+              You might also like:
+            </h1>
+            <div className="suggestedItemsContainer d-flex pt-3 pb-4 px-3 gap-4">
+              <div className="suggestedItemWrapper">
+                {" "}
+                {/*Replace with dynamic map*/}
+                <img className="img-fluid" src="/assets/01.webp" alt="" />
+              </div>
+              <div className="suggestedItemWrapper">
+                <img className="img-fluid" src="/assets/01.webp" alt="" />
+              </div>
+              <div className="suggestedItemWrapper">
+                <img className="img-fluid" src="/assets/01.webp" alt="" />
+              </div>
+              <div className="suggestedItemWrapper">
+                <img className="img-fluid" src="/assets/01.webp" alt="" />
               </div>
             </div>
           </div>
