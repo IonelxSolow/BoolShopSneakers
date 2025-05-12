@@ -8,6 +8,7 @@ export default function CartPage() {
   const { cart, setCart } = useCart();
 
   const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
   // Funzione per aumentare la quantità
   function increaseQuantity(sku) {
     const skuIncrease = cart.find((item) => item.sku === sku);
@@ -28,28 +29,28 @@ export default function CartPage() {
 
   // Funzione per rimuovere un prodotto
 
- function removeItem(sku) {
-  const skuRemove = cart.find((item) => item.sku === sku);
-  const updatedCart = cart.filter((item) => item.sku !== skuRemove.sku);
+  function removeItem(sku) {
+    const skuRemove = cart.find((item) => item.sku === sku);
+    const updatedCart = cart.filter((item) => item.sku !== skuRemove.sku);
 
-  setCart(updatedCart);
- }
+    setCart(updatedCart);
+  }
 
   return (
     <div className="cart-page container my-4">
       {/* Carrello */}
       <h1 className="fs-3 fs-md-2 fw-bold">Your Cart</h1>
-
-
-      <div className="cart-items mb-4 container rounded-3 p-4" style={{ backgroundColor: "var(--bs-secondary)" }}>
-        {cart && cart.length > 0 ? (
-          cart.map((item) => (
+      {cart.length > 0 ? ( // Usa cart invece di cartItems
+        <div className="cart-items mb-4 container rounded-3 p-4" style={{ backgroundColor: "var(--bs-secondary)" }}>
+          {cart.map((item) => ( // Usa cart invece di cartItems
             <div key={item.sku} className="cart-item card mb-2">
               <div className="card-body d-flex align-items-center">
                 <div className="flex-grow-1">
                   <h6>{item.name}</h6>
                   <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-                    <span className="mb-2 mb-md-0" style={{ width: "150px" }}>Price: {Number(item.price).toFixed(2)}€</span>
+                    <span className="mb-2 mb-md-0" style={{ width: "150px" }}>
+                      Price: {Number(item.price).toFixed(2)}€
+                    </span>
                     <div className="d-flex align-items-center">
                       <button
                         className="btn btn-sm btn-outline-secondary me-2"
@@ -67,7 +68,9 @@ export default function CartPage() {
                     </div>
                   </div>
                 </div>
-                <span className="mb-0">Total: {(item.price * item.quantity).toFixed(2)}€</span>
+                <span className="mb-0">
+                  Total: {(item.price * item.quantity).toFixed(2)}€
+                </span>
                 <button
                   className="btn btn-sm btn-danger ms-3"
                   onClick={() => removeItem(item.sku)}
@@ -76,26 +79,28 @@ export default function CartPage() {
                 </button>
               </div>
             </div>
-          ))
-        ) : (
-          <p>Your cart is empty.</p>
-        )}
+          ))}
 
-        {/* Totale */}
-        <div className="cart-total d-flex justify-content-between align-items-center text-light mt-3">
-          <h5 className="m-0">Total: {total.toFixed(2)}€</h5>
-          <button className="btn btn-main-light">Go to checkout</button>
+          {/* Totale */}
+          <div className="cart-total d-flex justify-content-between align-items-center text-light mt-3">
+            <h5 className="m-0">Total: {total.toFixed(2)}€</h5>
+            <button className="btn btn-main-light">Go to checkout</button>
+          </div>
         </div>
-      </div>
-
-
+      ) : (
+        <div className="cart-items mb-4 container rounded-3 p-4 d-flex align-items-center justify-content-between" style={{ backgroundColor: "var(--bs-secondary)" }}>
+          <h3 className="text-light m-0">Your cart is empty!</h3>
+          <Link type="button" to={'/all-products'} className="btn btn-main-light">
+            All shoes
+          </Link>
+        </div>
+      )}
 
       {/* Hero Section */}
       <div className="home-displayer mt-5">
-
         <LatestProducts />
         <MostPopular />
       </div>
     </div>
-  )
+  );
 }
