@@ -11,7 +11,7 @@ export default function Cart({ toggleCart, isOpen }) {
 
   // Calcolo del totale
   const total = cartItems.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
-  
+
   return (
     <div className={`cart-content d-flex flex-column ${isOpen ? "open" : ""}`}>
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -20,12 +20,12 @@ export default function Cart({ toggleCart, isOpen }) {
         </button>
         <span>
           <Link to="/cart" className="nav-link">
-            <a className="cart-link" href="">Vai al carrello</a>
+            <a className="cart-link" href="">View the cart</a>
           </Link>
         </span>
       </div>
 
-      <h5 className="mb-3">Il tuo carrello</h5>
+      <h5 className="mb-3">Your Cart</h5>
 
       <div className="cart-items">
         {cartItems.length > 0 ? (
@@ -36,17 +36,17 @@ export default function Cart({ toggleCart, isOpen }) {
             </div>
           ))
         ) : (
-          <p>Il tuo carrello è vuoto.</p>
+          <p>Your cart is empty</p>
         )}
       </div>
 
       {/* Totale */}
       <div className="mt-auto">
         <h6 className="d-flex justify-content-between">
-          <span>Totale:</span>
+          <span>Total:</span>
           <span>{total}€</span>
         </h6>
-        <button className="btn btn-main-light w-100 mt-3">Procedi al checkout</button>
+        <Link to="/checkout" className="btn btn-main-light w-100 mt-3">Procede to checkout</Link>
       </div>
     </div>
   );
