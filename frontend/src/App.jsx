@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GlobalProvider } from "./context/GlobalContext";
+import { CartProvider } from "./context/CartContext";
 
 import Home from "./pages/Home";
 import DefaultLayout from "./layout/DefaultLayout";
@@ -13,19 +14,21 @@ import CartPage from "./pages/CartPage";
 export default function App() {
   return (
     <GlobalProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<DefaultLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/product/:slug" element={<SingleProduct />} />
-            <Route path="/men" element={<Men />} />
-            <Route path="/women" element={<Women />} />
-            <Route path="/kids" element={<Kids />} />
-            <Route path="/all-products" element={<AllProducts />} />
-            <Route path="/cart" element={<CartPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <CartProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<DefaultLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/product/:slug" element={<SingleProduct />} />
+              <Route path="/men" element={<Men />} />
+              <Route path="/women" element={<Women />} />
+              <Route path="/kids" element={<Kids />} />
+              <Route path="/all-products" element={<AllProducts />} />
+              <Route path="/cart" element={<CartPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
     </GlobalProvider>
   );
 }

@@ -2,9 +2,11 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useGlobalContext } from "../context/GlobalContext";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 export default function SingleProduct() {
   const { sneakers } = useGlobalContext();
+  const { cart, setCart } = useCart();
   const { slug } = useParams();
   const [productId, setProductId] = useState({
     state: "loading",
@@ -15,13 +17,7 @@ export default function SingleProduct() {
   const [counter, setCounter] = useState(0);
   const [variant, setVariant] = useState(0);
   const [activeIndex, setActiveIndex] = useState(null);
-  const [item, setItem] = useState({
-    name: "",
-    color: "",
-    size: "",
-    price: "",
-    image: "",
-  });
+
   // gets the sneaker id starting from the slug so i can correctly to the fetch call
   function getSneakerId() {
     if (sneakers.state === "success") {
@@ -88,14 +84,38 @@ export default function SingleProduct() {
       );
     case "success":
       function addToCart() {
-        setItem({
+        const newItem = {
           name: product.result.brand + " " + product.result.name,
           color: variant === 0 ? colors[0] : colors[1],
           size: variant === 0 ? sizes[0][activeIndex] : sizes[1][activeIndex],
           price: product.result.price,
           image: variant === 0 ? images[0] : variantImages[0],
-        });
+          sku: product.result.variant_sku,
+          quantity: 1,
+        };
+
+        // check if item already is in cart
+        const existingItem = cart.find(
+          (cartItem) => cartItem.sku === newItem.sku
+        );
+        let updatedCart;
+        if (existingItem) {
+          updatedCart = cart.map((item) =>
+            item.sku === newItem.sku
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+        } else {
+          updatedCart = [...cart, newItem];
+        }
+
+        setCart(updatedCart);
+
+        console.log("Added item:", newItem);
+        console.log("Updated cart:", updatedCart);
+        console.log(cart);
       }
+
       // parses the string with an array format into an actual array
       const images = JSON.parse(product.result.image_urls);
       const variantImages = JSON.parse(product.result.variants[1].image_urls);
@@ -106,7 +126,7 @@ export default function SingleProduct() {
       const formatSizes = `[${product.result.variant_sizes}]`;
       const sizes = JSON.parse(formatSizes);
       const colorString = colors.join(", ");
-      console.log(item);
+
       return (
         <>
           <div className="container single-page">

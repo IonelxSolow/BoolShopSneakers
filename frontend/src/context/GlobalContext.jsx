@@ -46,6 +46,7 @@ const GlobalProvider = ({ children }) => {
         console.error;
       });
   }
+
   return (
     <GlobalContext.Provider value={{ sneakers, sneakersBrand, fetchBrand }}>
       {children}
