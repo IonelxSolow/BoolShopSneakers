@@ -13,7 +13,7 @@ export default function AllProducts() {
     });
     const [filteredSneakers, setFilteredSneakers] = useState([]);
     const [isBrandOpen, setIsBrandOpen] = useState(false);
-    const sneakersSizes = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46];
+    const sneakersSizes = [37, 38, 39, 40, 41, 42, 43, 44, 45];
     const [isPriceOpen, setIsPriceOpen] = useState(false);
     const sneakersColors = ["red", "blue", "green", "yellow", "black", "white", "gray", "beige", "brown", "pink"];
     const [isSizeOpen, setIsSizeOpen] = useState(false);
@@ -36,14 +36,15 @@ export default function AllProducts() {
     // Fetch sneakers whenever filters change
     useEffect(() => {
         const query = buildQueryString(filters);
-        const url = `http://localhost:3000/api/v1/shoes/search?${query}`;
-
+        const url = `http://localhost:3000/boolshop/api/v1/shoes/search?${query}`;
+        console.log(url)
         setLoading(true);
         fetch(url)
             .then((res) => res.json())
             .then((data) => {
-                setFilteredSneakers(data.result); // assume API returns { result: [...] }
+                setFilteredSneakers(data); // assume API returns { result: [...] }
                 setError(null);
+                console.log(data)
             })
             .catch((err) => {
                 console.error("Failed to fetch sneakers:", err);
@@ -176,7 +177,7 @@ export default function AllProducts() {
                                     </div>
                                 </div>
                                 <div className="products-displayer col-8 col-md-10 row">
-                                    {sneakers.result.map((sneaker) => {
+                                    {filteredSneakers.map((sneaker) => {
                                         return (
                                             <div className="col-sm-12 col-md-4 mb-4" key={sneaker.id}>
                                                 <div className="card">
