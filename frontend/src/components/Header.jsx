@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { NavLink } from "react-router-dom"
+import { useCart } from "../context/CartContext"
 
 import SearchBar from "./SearchBar"
 import Cart from "./Cart"
@@ -53,6 +54,9 @@ export default function Header() {
         };
     }, []);
 
+    const { cart } = useCart();
+    const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+
     return (
         <>
             <header>
@@ -80,7 +84,12 @@ export default function Header() {
                         <div className="d-flex justify-content-end align-items-center gap-3">
                             <a href="#" className="nav-link" onClick={toggleSearch}><i className="bi bi-search"></i></a>
                             <a href="#" className="nav-link"><i className="bi bi-person"></i></a>
-                            <a href="#" className="nav-link icon-btn" onClick={toggleCart}><i className="bi bi-cart"></i></a>
+                            <a href="#" className="nav-link icon-btn cart-btn" onClick={toggleCart}><i className="bi bi-cart"></i></a>
+                            {cartItemCount > 0 && (
+                                <span className="badge bg-dark text-white position-absolute translate-middle">
+                                    {cartItemCount}
+                                </span>
+                            )}
                         </div>
                     </div>
                     {isSearchOpen && (
