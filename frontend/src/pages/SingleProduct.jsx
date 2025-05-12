@@ -92,8 +92,8 @@ export default function SingleProduct() {
           image: variant === 0 ? images[0] : variantImages[0],
           sku:
             variant === 0
-              ? product.result.variant_sku[0]
-              : product.result.variant_sku[1],
+              ? product.result.variant_sku.split(",")[0]
+              : product.result.variant_sku.split(",")[1],
           quantity: 1,
         };
 
