@@ -1,21 +1,41 @@
 import { Link } from "react-router-dom";
 import LatestProducts from "../components/LatestProducts";
 import MostPopular from "../components/MostPopular";
+import { useState } from "react";
 
 export default function CartPage() {
-  const cartItems = [
+  const [cartItems, setCartItems] = useState([
     { id: 1, name: "Product 1", price: 29.99, quantity: 1 },
     { id: 2, name: "Product 2", price: 49.99, quantity: 2 },
     { id: 3, name: "Product 3", price: 19.99, quantity: 1 },
-  ];
+  ]);
 
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const recommendedItems = [
-    { id: 4, name: "Recommended 1", price: 39.99, image: "/assets/recommended1.jpg" },
-    { id: 5, name: "Recommended 2", price: 59.99, image: "/assets/recommended2.jpg" },
-    { id: 6, name: "Recommended 3", price: 79.99, image: "/assets/recommended3.jpg" },
-  ];
+  // Funzione per aumentare la quantità
+  const increaseQuantity = (id) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  // Funzione per diminuire la quantità
+  const decreaseQuantity = (id) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };
+
+  // Funzione per rimuovere un prodotto
+  const removeItem = (id) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
 
   return (
     <div className="cart-page container my-4">
