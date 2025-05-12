@@ -52,8 +52,6 @@ app.use('/boolshop/api/v1/orders', ordersRouter)
 // email routes
 app.use('/boolshop/api/v1/send-email', emailRouter)
 
-// Route for guests
-/* app.use('/boolshop/api/v1/guests', guestRouter) */
 
 // Server Error Handler Middleware
 
