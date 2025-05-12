@@ -90,7 +90,10 @@ export default function SingleProduct() {
           size: variant === 0 ? sizes[0][activeIndex] : sizes[1][activeIndex],
           price: product.result.price,
           image: variant === 0 ? images[0] : variantImages[0],
-          sku: product.result.variant_sku,
+          sku:
+            variant === 0
+              ? product.result.variant_sku[0]
+              : product.result.variant_sku[1],
           quantity: 1,
         };
 
@@ -113,8 +116,9 @@ export default function SingleProduct() {
 
         console.log("Added item:", newItem);
         console.log("Updated cart:", updatedCart);
-        console.log(cart);
       }
+
+      console.log(cart);
 
       // parses the string with an array format into an actual array
       const images = JSON.parse(product.result.image_urls);
