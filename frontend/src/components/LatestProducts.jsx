@@ -13,7 +13,6 @@ export default function LatestProducts() {
           state: "success",
           result: data,
         });
-        console.log(newestSneakers.result)
       })
       .catch((err) => {
         setNewestSneakers({
@@ -165,7 +164,7 @@ export default function LatestProducts() {
                           <>
                             <p className="mb-0">Price: {sneaker.price}$</p>
                             <p>
-                              Discounted:{" "}
+                              Discounted:
                               {parseFloat(sneaker.discounted_price).toFixed(2)}$
                             </p>
                           </>

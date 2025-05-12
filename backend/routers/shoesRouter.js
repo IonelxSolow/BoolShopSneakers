@@ -6,7 +6,8 @@ router.get('/search', shoesController.indexSearch)
 router.get('/', shoesController.index)
 //get newest shoes
 router.get('/new', shoesController.indexNewProducts)
-
+//get popular shoes
+router.get('/popular', shoesController.indexPopularProducts)
 //get dhoes for brand
 router.get('/brand/:brand', shoesController.indexBrand)
 //get single shoe

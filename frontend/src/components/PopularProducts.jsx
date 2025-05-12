@@ -1,15 +1,33 @@
-import { useState } from "react";
-import { useGlobalContext } from "../context/GlobalContext";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function PopularProducts() {
-  const { sneakers } = useGlobalContext();
+  const [popularSneakers, setPopularSneakers] = useState({
+    state: "loading",
+  });
+  useEffect(() => {
+    fetch("http://localhost:3000/boolshop/api/v1/shoes/popular")
+      .then((res) => res.json())
+      .then((data) => {
+        setPopularSneakers({
+          state: "success",
+          result: data,
+        });
+      })
+      .catch((err) => {
+        setPopularSneakers({
+          state: "error",
+          message: err.message,
+        });
+        console.error;
+      });
+  }, []);
   //grid display logic
   const [isPopularGrid, setIsPopularGrid] = useState(true);
   //carousel logic
   const [popularPage, setPopularPage] = useState(0);
   const itemsPerPage = 3;
-  switch (sneakers.state) {
+  switch (popularSneakers.state) {
     case "loading":
       return (
         <h1>Loading...{/* Create a loader component to replace this */}</h1>
@@ -27,11 +45,7 @@ export default function PopularProducts() {
         setIsPopularGrid(!isPopularGrid);
       }
 
-      //sort by popular
-      const popularSneaker = [...sneakers.result].sort(
-        (a, b) => b.sold_copies - a.sold_copies
-      );
-      const popularTotalPages = Math.ceil(popularSneaker.length / itemsPerPage);
+      const popularTotalPages = Math.ceil(popularSneakers.result.length / itemsPerPage);
       //move back and forward for popular items
       function nextPopularPage() {
         if (popularPage < popularTotalPages - 1) {
@@ -84,7 +98,7 @@ export default function PopularProducts() {
                 </div>
 
                 <div className="row g-3">
-                  {popularSneaker
+                  {popularSneakers.result
                     .slice(
                       popularPage * itemsPerPage,
                       popularPage * itemsPerPage + itemsPerPage
@@ -131,7 +145,7 @@ export default function PopularProducts() {
               </div>
             ) : (
               <div className="list-group">
-                {popularSneaker.map((sneaker) => (
+                {popularSneakers.result.map((sneaker) => (
                   <div className="list-group-item mb-3" key={sneaker.id}>
                     <div className="d-flex flex-column flex-md-row">
                       <img
