@@ -10,6 +10,7 @@ import Women from "./pages/Women";
 import Kids from "./pages/Kids";
 import AllProducts from "./pages/AllProducts";
 import CartPage from "./pages/CartPage";
+import Checkout from "./pages/Checkout";
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
               <Route path="/kids" element={<Kids />} />
               <Route path="/all-products" element={<AllProducts />} />
               <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<Checkout />} />
             </Route>
           </Routes>
         </BrowserRouter>
