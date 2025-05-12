@@ -1,30 +1,36 @@
 const connection = require('../db/boolshop_db.js')
 
 function store(req, res) {
-    const { guest_id, total_price, status, discount_id, delivery_fee, items, payment_type } = req.body
+    const {
+        name,
+        email,
+        address,
+        phone,
+        total_price,
+        status,
+        discount_id,
+        delivery_fee,
+        items,
+        payment_type
+    } = req.body
 
-    // Prima inserisci l'ordine principale
     const orderSql = `
-        INSERT INTO orders (guest_id, total_price, status, discount_id, delivery_fee, payment_type, purchase_order) 
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-    `
-
-    function generatePurchaseOrder() {
-        const timestamp = Date.now().toString();
-        const randomDigit = Math.floor(Math.random() * 10);
-        return timestamp + randomDigit;
-    }
+            INSERT INTO orders (name, email, address, phone, total_price, status, discount_id, delivery_fee, payment_type, purchase_order) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `
 
     connection.query(orderSql, [
-        guest_id || null,
+        name,
+        email,
+        address,
+        phone,
         total_price,
         status || 'pending',
         discount_id || null,
         delivery_fee || 0.00,
         payment_type,
         generatePurchaseOrder()
-
-    ], (err, result) => {
+    ], (err, orderResult) => {
         if (err) {
             return res.status(500).json({
                 message: "Errore durante la creazione dell'ordine",
@@ -32,9 +38,8 @@ function store(req, res) {
             })
         }
 
-        const orderId = result.insertId
+        const orderId = orderResult.insertId
 
-        // Se non ci sono items, restituisci subito la risposta
         if (!items || items.length === 0) {
             return res.status(201).json({
                 message: "Ordine creato con successo",
@@ -42,11 +47,11 @@ function store(req, res) {
             })
         }
 
-        // Poi inserisci gli items dell'ordine
+        // Inseriamo i prodotti dell'ordine
         const orderItemsSql = `
-            INSERT INTO order_items (order_id, variant_id, quantity, price)
-            VALUES ?
-        `
+                INSERT INTO order_items (order_id, variant_id, quantity, price)
+                VALUES ?
+            `
 
         const orderItemsValues = items.map(item => [
             orderId,
@@ -71,11 +76,23 @@ function store(req, res) {
     })
 }
 
+function generatePurchaseOrder() {
+    const timestamp = Date.now().toString()
+    const randomDigit = Math.floor(Math.random() * 10)
+    return timestamp + randomDigit
+}
+
 function show(req, res) {
 
     const id = Number(req.params.id)
 
-    const sql = 'SELECT * FROM ORDERS WHERE id = ?'
+    const sql = `
+SELECT *
+FROM orders
+JOIN order_items ON orders.id = order_items.order_id
+JOIN variants ON variants.id = order_items.variant_id
+WHERE orders.id = ?
+    `
 
     connection.query(sql, [id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message })

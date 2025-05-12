@@ -1,12 +1,72 @@
 import React from 'react';
+import { useCart } from '../context/CartContext';
 
 export default function Checkout() {
+    const { cart } = useCart();
+    
+    // Calcola il totale
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Raccogli i dati dal form
+        const formData = new FormData(e.target);
+        
+        // Crea l'oggetto con i dati dell'ordine
+        const orderData = {
+            name: `${formData.get('firstName')} ${formData.get('lastName')}`,
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            address: `${formData.get('address')}, ${formData.get('city')}, ${formData.get('state')} ${formData.get('zipCode')}, ${formData.get('country')}`,
+            total_price: total,
+            status: 'pending',
+            payment_type: 'card',
+            delivery_fee: formData.get('shippingMethod') === 'express' ? 15 : 5,
+            items: cart.map(item => ({
+                variant_id: item.variant_id,
+                quantity: item.quantity,
+                price: item.price
+            }))
+        };
+
+        try {
+            const response = await fetch(
+              "http://localhost:3000/boolshop/api/v1/orders",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(orderData),
+              }
+            );
+
+            if (!response.ok) {
+                throw new Error('Errore nella risposta del server');
+            }
+
+            const data = await response.json();
+            
+            // Se tutto va bene
+            console.log('Ordine creato con successo:', data);
+            // Qui puoi aggiungere:
+            // - Pulizia del carrello
+            // - Redirezione alla pagina di conferma
+            // - Messaggio di successo all'utente
+
+        } catch (error) {
+            console.error('Errore durante la creazione dell\'ordine:', error);
+            // Gestisci l'errore (es. mostra un messaggio all'utente)
+        }
+    };
+
     return (
         <div className="container my-5 bg-light p-4 rounded">
             <div className="row">
                 <div className="col-md-7">
                     <h2 className="mb-4 fw-bolder">Checkout</h2>
-                    <form>
+                    <form onSubmit={handleSubmit}>
 
                         {/* Info Personali */}
 
