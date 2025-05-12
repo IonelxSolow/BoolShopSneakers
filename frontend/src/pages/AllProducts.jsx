@@ -1,5 +1,5 @@
 import { useGlobalContext } from "../context/GlobalContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function AllProducts() {
     const { sneakers } = useGlobalContext();
@@ -9,14 +9,48 @@ export default function AllProducts() {
         size: "",
         color: "",
         price: "",
-        tag: "",
+        /* tag: "",  implement further*/
     });
     const [filteredSneakers, setFilteredSneakers] = useState([]);
     const [isBrandOpen, setIsBrandOpen] = useState(false);
+    const sneakersSizes = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46];
     const [isPriceOpen, setIsPriceOpen] = useState(false);
+    const sneakersColors = ["red", "blue", "green", "yellow", "black", "white", "gray", "beige", "brown", "pink"];
     const [isSizeOpen, setIsSizeOpen] = useState(false);
     const [isColorOpen, setIsColorOpen] = useState(false);
     const [isTagOpen, setIsTagOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    // Utility: convert filters to query string
+    const buildQueryString = (filtersObj) => {
+        const params = new URLSearchParams();
+        for (let key in filtersObj) {
+            if (filtersObj[key]) {
+                params.append(key, filtersObj[key]);
+            }
+        }
+        return params.toString(); // brand=nike&size=42
+    };
+
+    // Fetch sneakers whenever filters change
+    useEffect(() => {
+        const query = buildQueryString(filters);
+        const url = `http://localhost:3000/api/v1/shoes/search?${query}`;
+
+        setLoading(true);
+        fetch(url)
+            .then((res) => res.json())
+            .then((data) => {
+                setFilteredSneakers(data.result); // assume API returns { result: [...] }
+                setError(null);
+            })
+            .catch((err) => {
+                console.error("Failed to fetch sneakers:", err);
+                setError("Something went wrong!");
+            })
+            .finally(() => setLoading(false));
+    }, [filters]);
 
     const handleFilterChange = (key, value) => {
         setFilters(() => ({
@@ -76,15 +110,20 @@ export default function AllProducts() {
                                         </div>
                                         {isSizeOpen && (
                                             <ul>
-                                                {sneakers.result.map((sneaker) => {
-                                                    return (
-                                                        <li key={sneaker.id} onClick={() => { handleFilterChange("size", sneaker.variant_sizes) }}>
-                                                            {sneaker.variant_sizes}
-                                                        </li>
-                                                    );
-                                                })}
+                                                {
+                                                    //map through colors and return li for each size
+                                                    sneakersSizes.map((size, index) => {
+                                                        return (
+                                                            <li key={`${index}-${size}`} onClick={() => handleFilterChange("size", size)}>
+                                                                {size}
+                                                            </li>
+                                                        );
+                                                    })
+
+                                                }
                                             </ul>
                                         )}
+
                                         <div
                                             className="filter-items d-flex justify-content-between"
                                             onClick={() => setIsColorOpen(!isColorOpen)}
@@ -93,10 +132,17 @@ export default function AllProducts() {
                                         </div>
                                         {isColorOpen && (
                                             <ul>
-                                                <li>color 1</li>
-                                                <li>color 2</li>
-                                                <li>color 3</li>
-                                                <li>color 4</li>
+                                                {
+                                                    //map through colors and return li for each color
+                                                    sneakersColors.map((color, index) => {
+                                                        return (
+                                                            <li key={`${index}-${color}`} onClick={() => handleFilterChange("color", color)}>
+                                                                {color}
+                                                            </li>
+                                                        );
+                                                    })
+
+                                                }
                                             </ul>
                                         )}
                                         <div
@@ -107,10 +153,10 @@ export default function AllProducts() {
                                         </div>
                                         {isPriceOpen && (
                                             <ul>
-                                                <li>0 - 50$</li>
-                                                <li>50 - 100$</li>
-                                                <li>100 - 200$</li>
-                                                <li>200+$</li>
+                                                <li value={50} onClick={(e) => handleFilterChange("price", e.target.value)}>50+</li>
+                                                <li value={100} onClick={(e) => handleFilterChange("price", e.target.value)}>100+</li>
+                                                <li value={200} onClick={(e) => handleFilterChange("price", e.target.value)}>200+</li>
+                                                <li value={300} onClick={(e) => handleFilterChange("price", e.target.value)}>300+</li>
                                             </ul>
                                         )}
                                         <div
