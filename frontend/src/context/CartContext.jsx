@@ -5,12 +5,19 @@ const CartContext = createContext();
 function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
-  if (cart) {
-    useEffect(() => {
-      const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
-      setCart(savedCart);
-    }, []);
-  }
+  
+  // Carica il carrello da localStorage all'inizio
+  useEffect(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(savedCart);
+  }, []); // Questo effetto viene eseguito solo al montaggio del componente
+
+
+  // Salva il carrello in localStorage ogni volta che cambia
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]); // Questo effetto si attiva ogni volta che `cart` cambia
+
 
   function updateCart(newCart) {
     setCart(newCart);
