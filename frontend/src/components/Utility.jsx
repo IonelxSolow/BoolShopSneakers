@@ -11,7 +11,7 @@ const FeaturesSection = () => {
               </div>
               <div>
                 <h5 className="mb-1">Spedizione Gratuita</h5>
-                <p className="mb-0">Per ordini superiori a 50€</p>
+                <p className="mb-0">Per ordini superiori a 100€</p>
               </div>
             </div>
           </div>
