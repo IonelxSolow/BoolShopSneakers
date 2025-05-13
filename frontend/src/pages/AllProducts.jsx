@@ -14,6 +14,7 @@ export default function AllProducts() {
         size: "",
         color: "",
         price: "",
+        name: "",
         /* tag: "",  implement further*/
     });
     //array to iterate on after filter
@@ -42,6 +43,8 @@ export default function AllProducts() {
             size: params.get("size") || "",
             color: params.get("color") || "",
             price: params.get("price") || "",
+            name: params.get("name") || "",
+            search: params.get("search") || "",
         };
         setFilters(newFilters);
     }, [location.search]);

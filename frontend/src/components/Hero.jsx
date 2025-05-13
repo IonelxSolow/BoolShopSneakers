@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Hero() {
     return (
         <>
@@ -5,15 +7,16 @@ export default function Hero() {
                 <div className="top-bar border border-black">
                     <ul className="container d-flex flex-wrap list-unstyled py-4 px-2 justify-content-between mb-0">
                         <li>
-                            <a href="">Popular</a>
+                            <Link to="/all-products">sneakers</Link>
                         </li>
                         <i className="bi bi-lightning-charge-fill"></i>
                         <li>
-                            <a href="">Nike</a>
+                            <Link to="/all-products?brand=Jordan">Jordan</Link>
                         </li>
                         <i className="bi bi-lightning-charge-fill"></i>
                         <li>
-                            <a href="">Jordan</a>
+                            <Link to="/all-products?brand=New+balance">new balance</Link>
+
                         </li>
                     </ul>
                 </div>
@@ -24,12 +27,13 @@ export default function Hero() {
                             className="img-fluid"
                             alt="hero-force1"
                         />
-                        <button
+                        <Link
                             className="btn position-absolute btn-lg btn-nike rounded-4"
                             type="button"
+                            to="/all-products?brand=Nike"
                         >
                             Nike
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </section>

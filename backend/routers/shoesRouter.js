@@ -12,8 +12,11 @@ router.get('/popular', shoesController.indexPopularProducts)
 router.get('/sale', shoesController.indexOnSale)
 //get dhoes for brand
 router.get('/brand/:brand', shoesController.indexBrand)
+//get shoes with related tags
+router.get('/tags', shoesController.showItemsOnTags)
 //get single shoe
 router.get('/:id', shoesController.show)
+
 //update sold copies
 router.patch('/:id/sold', shoesController.updateSoldCopies)
 
