@@ -13,18 +13,38 @@ export default function CartPage() {
 
       {/* Carrello */}
       <h1 className="fs-3 fs-md-2 fw-bold">Your Cart</h1>
-      {cart.length > 0 ? ( 
+      {cart.length > 0 ? (
         <div className="cart-items mb-4 container rounded-3 p-4" style={{ backgroundColor: "var(--bs-secondary)" }}>
-          {cart.map((item) => ( 
+          {cart.map((item) => (
             <div key={item.sku} className="cart-item card mb-2">
               <div className="card-body d-flex align-items-center">
                 <div className="flex-grow-1">
-                  <h6>{item.name}</h6>
+                  <div className="d-flex align-items-center">
+
+                    {/* Cerchietto con immagine */}
+                    <div
+                      className="me-3"
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                        overflow: "hidden",
+                        flexShrink: 0,
+                      }}
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    </div>
+                    <h6>{item.name}</h6>
+                  </div>
                   <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
                     <span className="mb-2 mb-md-0" style={{ width: "150px" }}>
                       Price: {Number(item.price).toFixed(2)} €
                     </span>
-                                    <IncreaseDecrease item={item} />
+                    <IncreaseDecrease item={item} />
 
                   </div>
                 </div>

@@ -32,7 +32,25 @@ export default function Cart({ toggleCart, isOpen }) {
             >
               <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
 
-                <span style={{width: "150px"}}>{item.name}</span>
+                {/* Cerchietto con immagine */}
+                <div
+                  className="me-3"
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    flexShrink: 0,
+                  }}
+                >
+                  <img
+                    src={item.image} 
+                    alt={item.name}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
+
+                <span style={{ width: "150px" }}>{item.name}</span>
 
                 <div>
                   <IncreaseDecrease item={item} />
@@ -64,8 +82,8 @@ export default function Cart({ toggleCart, isOpen }) {
           <span>{total.toFixed(2)}€</span>
         </h6>
         <div className="d-flex justify-content-end align-items-center">
-          <Link to="/checkout" 
-          className={`btn btn-main-light w-auto mt-3 mb-3 ${cart.length > 0 ? "" : "disabled"}`}>
+          <Link to="/checkout"
+            className={`btn btn-main-light w-auto mt-3 mb-3 ${cart.length > 0 ? "" : "disabled"}`}>
             Procede to checkout
           </Link>
         </div>
