@@ -87,7 +87,8 @@ export default function SingleProduct() {
         const newItem = {
           name: product.result.brand + " " + product.result.name,
           color: variant === 0 ? colors[0] : colors[1],
-          size: variant === 0 ? sizes[0][activeIndex] : sizes[1][activeIndex],
+          size:
+            variant === 0 ? mainSizes[activeIndex] : variantSizes[activeIndex],
           price: product.result.price,
           image: variant === 0 ? images[0] : variantImages[0],
           sku:
@@ -121,8 +122,8 @@ export default function SingleProduct() {
         console.log("Added item:", newItem);
         console.log("Updated cart:", updatedCart);
       }
-      console.log(cart);
-      console.log(product.result.variant_ids.split(",")[1]);
+      /*   console.log(cart);
+        console.log(product.result.variant_ids.split(",")[1]); */
       // parses the string with an array format into an actual array
       const images = JSON.parse(product.result.image_urls);
       const variantImages = JSON.parse(product.result.variants[1].image_urls);
@@ -130,8 +131,9 @@ export default function SingleProduct() {
       product.result.variants.map((variant) => {
         colors.push(variant.color);
       });
-      const formatSizes = `[${product.result.variant_sizes}]`;
-      const sizes = JSON.parse(formatSizes);
+
+      const mainSizes = JSON.parse(product.result.variants[0].size);
+      const variantSizes = JSON.parse(product.result.variants[1].size);
       const colorString = colors.join(", ");
 
       return (
@@ -298,7 +300,6 @@ export default function SingleProduct() {
                         )}
                       </div>
                     </div>
-
                   </div>
                   <p className="mt-3">
                     <span>Select</span>{" "}
@@ -306,7 +307,7 @@ export default function SingleProduct() {
                   </p>
                   <div className="sizes-container d-flex gap-3 flex-wrap">
                     {variant === 0
-                      ? sizes[0].map((size, index) => (
+                      ? mainSizes.map((size, index) => (
                         <div
                           key={index}
                           onClick={() => handleSizeClick(index)}
@@ -316,7 +317,7 @@ export default function SingleProduct() {
                           {size}
                         </div>
                       ))
-                      : sizes[1].map((size, index) => (
+                      : variantSizes.map((size, index) => (
                         <div
                           key={index}
                           onClick={() => handleSizeClick(index)}

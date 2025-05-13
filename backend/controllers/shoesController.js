@@ -72,7 +72,7 @@ function indexBrand(req, res) {
   })
 }
 function indexSearch(req, res) {
-  const { brand, size, color, price /* category */ } = req.query
+  const { brand, size, color, price, name, search/* category */ } = req.query
 
   let sql = `SELECT 
   shoes.id,
@@ -116,6 +116,14 @@ function indexSearch(req, res) {
   if (price) {
     sql += ' AND shoes.price = ?'
     params.push(price)
+  }
+  if (name) {
+    sql += ' AND shoes.name LIKE ?'
+    params.push(`%${name}%`)
+  }
+  if (search) {
+    sql += ` AND (shoes.name LIKE ? OR shoes.brand LIKE ?)`;
+    params.push(`%${search}%`, `%${search}%`);
   }
   /* if (category) {
     sql += 'AND shoes.category = ?'
@@ -326,6 +334,29 @@ function updateSoldCopies(req, res) {
   })
 }
 
+
+function showItemsOnTags(req, res) {
+
+  const sneakerId = Number(req.params.id)
+
+  const sql =
+    `
+  
+  SELECT * FROM SHOES
+  JOIN shoe_tags ON shoe_tags.shoe_id = shoes.id
+  JOIN tags ON shoe_tags.tag_id = tags.id
+  WHERE shoes.id = ?
+
+  `
+
+  connection.query(sql, [sneakerId], (err, result) => {
+    if (err) { res.status(500).json({ error: err.message }) }
+    if (result.length === 0) { res.status(404).json({ message: 'sneakers not found' }) }
+    const tags = result.tag_id
+    console.log(tags)
+  })
+}
+
 module.exports = {
   index,
   indexBrand,
@@ -334,7 +365,8 @@ module.exports = {
   indexOnSale,
   indexSearch,
   show,
-  updateSoldCopies
+  updateSoldCopies,
+  showItemsOnTags
 
 }
 
