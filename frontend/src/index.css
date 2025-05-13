@@ -454,8 +454,24 @@ main {
     }
   }
   .filter-toggle {
-    color: #1877f2;
     cursor: pointer;
+    &:hover{
+      color: #1877f2;
+    }
+  }
+  .sort-dropdown{
+    list-style: none;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+    min-width: 200px;
+    li{
+      cursor: pointer;
+      &:hover{
+        background-color:black;
+        color: var(--main-light);
+      }
+    }
   }
     .tool-bar {
     width: 20%;

@@ -18,13 +18,15 @@ export default function AllProducts() {
     tags: "",
   });
   //array to iterate on after filter
+  const [originalSneakers, setOriginalSneakers] = useState([])
   const [filteredSneakers, setFilteredSneakers] = useState([]);
   //loading and error handlers(futher implementetion)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   //variable to handle tool-bar toggle
   const [isHidden, setIsHidden] = useState(false);
-
+  //variable to handle sorting toggle
+  const [isSortedOpen, setIsSortedOpen] = useState(false);
   // Utility: convert filters to query string using the params in the url
   const buildQueryString = (filtersObj) => {
     const params = new URLSearchParams();
@@ -55,6 +57,38 @@ export default function AllProducts() {
     navigate(`/all-products?${query}`, { replace: true });
   }, [filters]);
 
+  //sorting
+  const [sortConfig, setSortConfig] = useState({ key: '', direction: '' });
+  //sorting handler
+  const handleSort = (key) => {
+    let direction = 'asc';
+    // If same key is clicked again, toggle direction
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';
+    }
+    //creating the sorted array
+    const sorted = [...filteredSneakers].sort((a, b) => {
+      if (key === 'name') {
+        return direction === 'asc'
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+      } else if (key === 'price') {
+        const priceA = parseFloat(a.discounted_price || a.price);
+        const priceB = parseFloat(b.discounted_price || b.price);
+        return direction === 'asc' ? priceA - priceB : priceB - priceA;
+      }
+      return 0;
+    });
+
+    setSortConfig({ key, direction });
+    setFilteredSneakers(sorted);
+  };
+  //sort resetter
+  const resetSort = () => {
+    setFilteredSneakers(originalSneakers);
+    setSortConfig({ key: '', direction: '' });
+  };
+
   // Fetch sneakers whenever filters change
   useEffect(() => {
     const query = buildQueryString(filters);
@@ -63,6 +97,7 @@ export default function AllProducts() {
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
+        setOriginalSneakers(data)
         setFilteredSneakers(data);
         setError(null);
       })
@@ -98,20 +133,54 @@ export default function AllProducts() {
               >
                 All Sneakers
               </h1>
-              <div
-                onClick={() => setIsHidden((prev) => !prev)}
-                className="ms-3 mt-3 filter-toggle"
-              >
-                {isHidden ? "Show Filters" : "Hide Filters"}
+
+              <div className="d-flex align-items-center justify-content-between pe-5">
+                <div
+                  onClick={() => setIsHidden((prev) => !prev)}
+                  className="ms-3 mt-3 filter-toggle"
+                >
+                  {isHidden ? "Show Filters" : "Hide Filters"}
+                </div>
+                <div className="position-relative me-3 mt-3">
+                  <div onClick={() => setIsSortedOpen((prev) => !prev)} className="filter-toggle">
+                    {isSortedOpen ? (
+                      <>
+                        <i className="bi bi-funnel-fill"></i> <i className="bi bi-chevron-up"></i>
+                      </>
+                    ) : (
+                      <>
+                        <i className="bi bi-funnel-fill"></i> <i className="bi bi-chevron-down"></i>
+                      </>
+                    )}
+                  </div>
+                  {isSortedOpen && (
+                    <ul
+                      className="sort-dropdown position-absolute bg-white border rounded shadow p-2"
+                    >
+                      <li className="py-1 px-2" onClick={() => handleSort("name")}>
+                        Sort by Name ({sortConfig.key === 'name' ? (sortConfig.direction === 'asc' ? 'A-Z' : 'Z-A') : 'A-Z'})
+                      </li>
+                      <li className="py-1 px-2" onClick={() => handleSort("price")}>
+                        Sort by Price ({sortConfig.key === 'price' ? (sortConfig.direction === 'asc' ? 'Low → High' : 'High → Low') : 'Low → High'})
+                      </li>
+                      <li className="py-1 px-2" onClick={resetSort}>Reset</li>
+                    </ul>
+                  )}
+
+                </div>
               </div>
             </div>
+
             <div className="container-fluid">
               <ToolBar
                 filters={filters}
                 setFilters={setFilters}
                 isHidden={isHidden}
               />
-              <ProductDisplayer filteredSneakers={filteredSneakers} />
+              <ProductDisplayer
+                filteredSneakers={filteredSneakers}
+                error={error}
+                setFilteredSneakers={setFilteredSneakers} />
             </div>
           </section>
         </>

@@ -4,13 +4,15 @@ export default function ProductDisplayer({ filteredSneakers }) {
     return (
         <>
             <div className="products-displayer col-8 col-md-10 row">
-                {filteredSneakers.map((sneaker) => {
-                    return (
+                {filteredSneakers.error ? (
+                    <div className="text-center w-100 my-5">
+                        <h4>No sneakers found matching your filters.</h4>
+                    </div>
+                ) : (
+                    filteredSneakers.map((sneaker) => (
                         <div className="col-sm-12 col-md-6 col-lg-4 mb-4" key={sneaker.id}>
                             <Link
-                                to={`/product/${sneaker.name
-                                    .toLowerCase()
-                                    .replaceAll(" ", "-")}`}
+                                to={`/product/${sneaker.name.toLowerCase().replaceAll(" ", "-")}`}
                                 className="text-decoration-none text-dark"
                             >
                                 <div className="card h-100 text-center">
@@ -22,17 +24,13 @@ export default function ProductDisplayer({ filteredSneakers }) {
                                     <div className="card-body">
                                         <h5 className="card-title">{sneaker.name}</h5>
                                         {!sneaker.discounted_price ||
-                                            parseFloat(sneaker.discounted_price) >=
-                                            parseFloat(sneaker.price) ? (
+                                            parseFloat(sneaker.discounted_price) >= parseFloat(sneaker.price) ? (
                                             <p className="text-dark">
                                                 {parseFloat(sneaker.price).toFixed(2)}$
                                             </p>
                                         ) : (
                                             <p className="text-danger">
-                                                {parseFloat(sneaker.discounted_price).toFixed(
-                                                    2
-                                                )}
-                                                $
+                                                {parseFloat(sneaker.discounted_price).toFixed(2)}$
                                                 <span className="text-decoration-line-through text-muted ms-2">
                                                     {parseFloat(sneaker.price).toFixed(2)}$
                                                 </span>
@@ -41,10 +39,9 @@ export default function ProductDisplayer({ filteredSneakers }) {
                                     </div>
                                 </div>
                             </Link>
-
                         </div>
-                    );
-                })}
+                    ))
+                )}
             </div>
         </>
     )
