@@ -5,15 +5,15 @@ export default function Hero() {
         <>
             <section className="hero">
                 <div className="top-bar border border-black">
-                    <ul className="container d-flex flex-wrap list-unstyled py-4 px-2 justify-content-between mb-0">
+                    <ul className="container d-flex flex-wrap list-unstyled py-4 px-2 justify-content-between mb-0 responsive-font">
                         <li>
                             <Link to="/all-products">sneakers</Link>
                         </li>
-                        <i className="bi bi-lightning-charge-fill"></i>
+                        <i className="bi bi-lightning-charge-fill responsive-font"></i>
                         <li>
                             <Link to="/all-products?brand=Jordan">Jordan</Link>
                         </li>
-                        <i className="bi bi-lightning-charge-fill"></i>
+                        <i className="bi bi-lightning-charge-fill responsive-font"></i>
                         <li>
                             <Link to="/all-products?brand=New+balance">new balance</Link>
 
@@ -28,7 +28,7 @@ export default function Hero() {
                             alt="hero-force1"
                         />
                         <Link
-                            className="btn position-absolute btn-lg btn-nike rounded-4"
+                            className="btn position-absolute btn-lg btn-nike  rounded-4"
                             type="button"
                             to="/all-products?brand=Nike"
                         >

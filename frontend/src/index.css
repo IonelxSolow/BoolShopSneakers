@@ -41,11 +41,6 @@ body {
   transform: translateY(0);
 }
 
-/* Aggiungi padding al main per compensare l'header fixed */
-main {
-  padding-top: 70px; /* Altezza dell'header */
-}
-
 header {
     width: 100%;
     margin: auto;
@@ -188,16 +183,7 @@ header {
 
 main {
     min-height: calc(100vh - 70px);
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-ul {
-    list-style: none;
-    padding: 0 !important;
+    padding-top: 70px;
 }
 
 .btn-main-light {
@@ -243,6 +229,10 @@ ul {
         background-color: var(--main-light);
         border-radius: 20px;
     }
+    ul {
+    list-style: none;
+    padding: 0 !important;
+    }
 
     @media (max-width: 576px) {
         form {
@@ -258,15 +248,15 @@ ul {
         }
     }
 }
-
+.responsive-font{
+  font-size: 1.5rem;
+}
 .hero {
     .top-bar {
         background-color: var(--main-light);
-
         a {
             text-decoration: none;
             color: black;
-            font-size: 3rem;
             font-weight: bolder;
             text-transform: uppercase;
 
@@ -277,20 +267,19 @@ ul {
 
         i {
             color: black;
-            font-size: 3rem;
             font-weight: bolder;
             text-transform: uppercase;
         }
     }
 
     .hero-container {
-        border-bottom: 1px solid black;
+      border-bottom: 1px solid black;
 
         .btn-nike {
             background-color: var(--main-light);
             bottom: 2rem;
             right: 1rem;
-            font-size: 2rem;
+            font-size: 1rem;
             font-weight: bolder;
             text-transform: uppercase;
 
@@ -306,8 +295,23 @@ ul {
             object-fit: cover;
             object-position: bottom;
         }
-    }
+    }   
 }
+
+@media (min-width: 768px) {
+  .responsive-font {
+    font-size: 2rem;
+  }
+   .hero .hero-container .btn-nike {
+    font-size: 2rem;
+  }
+}
+@media (min-width: 992px) {
+  .responsive-font {
+    font-size: 3rem;
+  }
+}
+
 .brand-banner {
   background-image: url("/assets/01.webp");
   background-repeat: repeat;
