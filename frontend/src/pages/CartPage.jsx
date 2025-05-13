@@ -1,40 +1,11 @@
 import { Link } from "react-router-dom";
 import LatestProducts from "../components/LatestProducts";
 import MostPopular from "../components/MostPopular";
-import { useState } from "react";
 import { useCart } from "../context/CartContext";
 
 export default function CartPage() {
-  const { cart, setCart } = useCart();
+  const { cart, setCart, increaseQuantity, decreaseQuantity, removeItem, total } = useCart();
 
-  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
-  // Funzione per aumentare la quantità
-  function increaseQuantity(sku) {
-    const skuIncrease = cart.find((item) => item.sku === sku);
-    const updatedCart = cart.map((item) =>
-      item.sku === skuIncrease.sku ? { ...item, quantity: item.quantity + 1 } : item
-    );
-    setCart(updatedCart);
-  }
-
-  // Funzione per diminuire la quantità
-  function decreaseQuantity(sku) {
-    const skuDecrease = cart.find((item) => item.sku === sku);
-    const updatedCart = cart.map((item) =>
-      item.sku === skuDecrease.sku && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
-    );
-    setCart(updatedCart);
-  }
-
-  // Funzione per rimuovere un prodotto
-
-  function removeItem(sku) {
-    const skuRemove = cart.find((item) => item.sku === sku);
-    const updatedCart = cart.filter((item) => item.sku !== skuRemove.sku);
-
-    setCart(updatedCart);
-  }
 
   return (
     <div className="cart-page container my-4">
