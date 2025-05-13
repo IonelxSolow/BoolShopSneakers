@@ -13,6 +13,7 @@ import AllProducts from "./pages/AllProducts";
 import CartPage from "./pages/CartPage";
 import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
+import OrderDetails from "./pages/OrderDetails";
 
 export default function App() {
   return (
@@ -33,6 +34,10 @@ export default function App() {
                 <Route
                   path="/order-confirmation"
                   element={<OrderConfirmation />}
+                />
+                <Route
+                  path="/account/orders/:orderId"
+                  element={<OrderDetails />}
                 />
               </Route>
             </Routes>
