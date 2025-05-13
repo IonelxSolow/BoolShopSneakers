@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import { useGlobalContext } from "../context/GlobalContext";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import SuggestedItems from "../components/single_page_components/SuggestedItems";
+import Thumbnails from "../components/single_page_components/Thumbnails.Jsx";
+import Carousel from "../components/single_page_components/Carousel";
+import DetailSection from "../components/single_page_components/DetailSection";
 
 export default function SingleProduct() {
   const { sneakers } = useGlobalContext();
@@ -173,253 +177,39 @@ export default function SingleProduct() {
         <>
           <div className="container single-page mt-4">
             <div className="row mx-1 pt-4">
-              <div className="col-12 col-xxl-1 order-2 order-xxl-1 my-4 my-xxl-0">
-                <div className=" d-flex flex-xxl-column justify-content-center align-items-center gap-3 thumbContainer">
-                  {variant === 0
-                    ? images?.map((image, index) => (
-                        <div
-                          key={index}
-                          className={
-                            counter === index
-                              ? `thumb-wrapper wrapper-border`
-                              : "thumb-wrapper"
-                          }
-                        >
-                          <img
-                            src={
-                              images ? `/assets/${image}` : "/assets/01.webp"
-                            }
-                            alt=""
-                            onMouseOver={() => {
-                              setCounter(index);
-                            }}
-                          />
-                        </div>
-                      ))
-                    : variantImages?.map((image, index) => (
-                        <div
-                          key={index}
-                          className={
-                            counter === index
-                              ? `thumb-wrapper wrapper-border`
-                              : "thumb-wrapper"
-                          }
-                        >
-                          <img
-                            src={
-                              images ? `/assets/${image}` : "/assets/01.webp"
-                            }
-                            alt=""
-                            onMouseOver={() => {
-                              setCounter(index);
-                            }}
-                          />
-                        </div>
-                      ))}
-                </div>
-              </div>
-              <div className="col-12 col-xxl-8 order-1 order-xxl-1">
-                <div className="carouselContainer">
-                  <div className="carousel d-flex align-items-center">
-                    {variant === 0 ? (
-                      <img
-                        src={
-                          images
-                            ? `/assets/${images[counter]}`
-                            : "/assets/01.webp"
-                        }
-                        alt=""
-                      />
-                    ) : (
-                      <img
-                        src={
-                          images
-                            ? `/assets/${variantImages[counter]}`
-                            : "/assets/01.webp"
-                        }
-                        alt=""
-                      />
-                    )}
-
-                    <button
-                      onClick={() =>
-                        setCounter(
-                          counter > 0 ? counter - 1 : images.length - 1
-                        )
-                      }
-                      className=" btn-left"
-                    >
-                      <i className="bi bi-chevron-left"></i>
-                    </button>
-                    <button
-                      onClick={() =>
-                        setCounter(
-                          counter === images.length - 1 ? 0 : counter + 1
-                        )
-                      }
-                      className="btn-right"
-                    >
-                      <i className="bi bi-chevron-right"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div className="col-12 col-xxl-3 order-3 d-flex">
-                <div className="d-flex flex-column detailsContainer justify-content-between">
-                  <h1 className="fw-bold text-uppercase">
-                    {product.result.name}
-                  </h1>
-                  <h2>
-                    <Link
-                      to={`/all-products?brand=${product.result.brand}`}
-                      className="text-secondary"
-                    >
-                      {product.result.brand}
-                    </Link>
-                  </h2>
-                  {!product.result.discounted_price ||
-                  parseFloat(product.result.discounted_price) >=
-                    parseFloat(product.result.price) ? (
-                    <p className="text-dark">
-                      {parseFloat(product.result.price).toFixed(2)}&#8364;
-                    </p>
-                  ) : (
-                    <p className="text-danger">
-                      <span className="text-decoration-line-through text-muted ms-2">
-                        {parseFloat(product.result.price).toFixed(2)}&#8364;
-                      </span>{" "}
-                      {parseFloat(product.result.discounted_price).toFixed(2)}
-                      &#8364;
-                    </p>
-                  )}
-                  <div className="d-flex justify-content-between mt-4">
-                    <p>
-                      <span className="text-secondary">Color:</span>{" "}
-                      <span>{colorString}</span>
-                    </p>
-                    <p>
-                      <span>{colors.length} </span>
-                      <span className="text-secondary">colors</span>
-                    </p>
-                  </div>
-
-                  <div className="d-flex gap-2 circle-thumbs-container align-items-center flex-wrap">
-                    {" "}
-                    <div
-                      className={`circle-thumb-wrapper ${
-                        variant === 0 && " active-link"
-                      }`}
-                    >
-                      {images && (
-                        <img
-                          onClick={() => setVariant(0)}
-                          className="circle-thumb-img"
-                          src={`/assets/${images[0]}`}
-                          alt=""
-                        />
-                      )}
-                    </div>
-                    <div>
-                      <div
-                        className={`circle-thumb-wrapper ${
-                          variant === 1 && " active-link"
-                        }`}
-                      >
-                        {variantImages && (
-                          <img
-                            onClick={() => setVariant(1)}
-                            className="circle-thumb-img"
-                            src={`/assets/${variantImages[0]}`}
-                            alt=""
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  <p className="mt-3">
-                    <span>Select</span>{" "}
-                    <span className="text-secondary">size:</span>
-                  </p>
-                  <div className="sizes-container d-flex gap-3 flex-wrap">
-                    {variant === 0
-                      ? mainSizes.map((size, index) => (
-                          <div
-                            key={index}
-                            onClick={() => handleSizeClick(index)}
-                            className={`size-badge ${
-                              activeIndex === index && "active-link"
-                            }`}
-                          >
-                            {size}
-                          </div>
-                        ))
-                      : variantSizes.map((size, index) => (
-                          <div
-                            key={index}
-                            onClick={() => handleSizeClick(index)}
-                            className={`size-badge ${
-                              activeIndex === index && "active-link"
-                            }`}
-                          >
-                            {size}
-                          </div>
-                        ))}
-                  </div>
-                  <p className="my-2">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Atque iste, quaerat iusto obcaecati suscipit modi veniam
-                    ipsam ipsum ex provident.
-                  </p>
-                  <button
-                    onClick={() => addToCart()}
-                    className="btn btn-main-light rounded-4 fs-4 my-3"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
+              <Thumbnails
+                variant={variant}
+                images={images}
+                variantImages={variantImages}
+                counter={counter}
+                setCounter={setCounter}
+              />
+              <Carousel
+                variant={variant}
+                images={images}
+                variantImages={variantImages}
+                counter={counter}
+                setCounter={setCounter}
+              />
+              <DetailSection
+                product={product}
+                colorString={colorString}
+                colors={colors}
+                variant={variant}
+                setVariant={setVariant}
+                images={images}
+                variantImages={variantImages}
+                mainSizes={mainSizes}
+                variantSizes={variantSizes}
+                addToCart={addToCart}
+                activeIndex={activeIndex}
+                handleSizeClick={handleSizeClick}
+              />
             </div>
-            <h1 className="pt-3 px-3 fw-bold text-uppercase">
-              You might also like:
-            </h1>
-            <div className="suggestedItemsContainer d-flex pt-3 pb-4 px-3 gap-4">
-              {suggestedItemsCrop.map((sneaker, index) => (
-                <div key={sneaker.id} className="suggestedItem">
-                  <div className="suggestedItemWrapper">
-                    <Link
-                      to={`/product/${sneaker.name
-                        .toLowerCase()
-                        .replaceAll(" ", "-")}`}
-                    >
-                      <img
-                        className="img-fluid"
-                        src={`/assets/${parsedImages[index][0]}`}
-                        alt=""
-                      />
-                    </Link>
-                  </div>
-                  <div className="pt-2">
-                    <h4 className="fw-bold text-uppercase ">
-                      <Link
-                        to={`/product/${sneaker.name
-                          .toLowerCase()
-                          .replaceAll(" ", "-")}`}
-                      >
-                        {sneaker.name}
-                      </Link>
-                    </h4>
-                    <h6>
-                      <Link
-                        to={`/all-products?brand=${sneaker.brand}`}
-                        className="text-secondary"
-                      >
-                        {sneaker.brand}
-                      </Link>
-                    </h6>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <SuggestedItems
+              suggestedItemsCrop={suggestedItemsCrop}
+              parsedImages={parsedImages}
+            />
           </div>
         </>
       );
