@@ -8,6 +8,7 @@ import Cart from "./Cart";
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [isWishlistOpen, setIsWishlistOpen] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -37,6 +38,16 @@ export default function Header() {
     const toggleSearch = () => {
         setIsSearchOpen(!isSearchOpen);
         if (!isSearchOpen) {
+            setIsMenuOpen(false);
+            setIsCartOpen(false);
+        }
+    };
+
+    // funzione per chiudere la whishlist
+    const toggleWishlist = () => {
+        setIsWishlistOpen(!isWishlistOpen);
+        if (!isWishlistOpen) {
+            setIsSearchOpen(false);
             setIsMenuOpen(false);
             setIsCartOpen(false);
         }
@@ -148,7 +159,7 @@ export default function Header() {
                             <a className="nav-link cursor-pointer" onClick={toggleSearch}>
                                 <i className="bi bi-search"></i>
                             </a>
-                            <a className="nav-link cursor-pointer">
+                            <a className="nav-link cursor-pointer" onClick={toggleWishlist}>
                                 <i class="bi bi-box2-heart"></i>
                             </a>
 
@@ -159,7 +170,6 @@ export default function Header() {
                                 {cartItemCount > 0 && (
                                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                         {cartItemCount}
-                                        <span className="visually-hidden">unread messages</span>
                                     </span>
                                 )}
                             </div>
@@ -176,6 +186,12 @@ export default function Header() {
                             <Cart toggleCart={toggleCart} isOpen={isCartOpen} />
                         </div>
                     )}
+
+                    {/* {isWishlistOpen && (
+                        <div className={`wishlist-dropdown ${isWishlistOpen ? "open" : ""}`}>
+                            <Wishlist toggleWishlist={toggleWishlist} isOpen={isWishlistOpen} />
+                        </div>
+                    )} */}
                 </nav>
             </header>
         </>
