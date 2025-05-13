@@ -138,7 +138,7 @@ export default function SingleProduct() {
 
       return (
         <>
-          <div className="container single-page">
+          <div className="container single-page mt-4">
             <div className="row mx-1 pt-4">
               <div className="col-12 col-xxl-1 order-2 order-xxl-1 my-4 my-xxl-0">
                 <div className=" d-flex flex-xxl-column justify-content-center align-items-center gap-3 thumbContainer">
