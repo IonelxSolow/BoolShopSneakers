@@ -13,7 +13,7 @@ export default function IncreaseDecrease({ item }) {
       >
         -
       </button>
-      <span>{item.quantity}</span>
+      <span className="text-center" style={{width: "30px"}}>{item.quantity}</span>
       <button
         className="btn btn-sm btn-outline-secondary ms-2"
         onClick={() => increaseQuantity(item.sku)}

@@ -28,7 +28,7 @@ export default function Cart({ toggleCart, isOpen }) {
           cart.map((item) => (
             <div
               key={item.sku}
-              className="cart-item d-flex justify-content-between align-items-center"
+              className="cart-item d-flex justify-content-between align-items-center mb-2"
             >
               <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
 
