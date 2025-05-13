@@ -136,8 +136,7 @@ export default function SingleProduct() {
         console.log("Added item:", newItem);
         console.log("Updated cart:", updatedCart);
       }
-      /*   console.log(cart);
-        console.log(product.result.variant_ids.split(",")[1]); */
+
       // parses the string with an array format into an actual array
 
       const images = JSON.parse(product.result.image_urls);
@@ -150,11 +149,16 @@ export default function SingleProduct() {
         }
       });
 
+      const suggestedItemsCrop = [];
+      suggestedItems.map((item, index) => {
+        if (index < 5 && item.name != product.result.name) {
+          suggestedItemsCrop.push(item);
+        }
+      });
+
       const parsedImages = suggestedImages.map((image) => {
         return JSON.parse(image);
       });
-
-      console.log(parsedImages);
 
       const colors = [];
       product.result.variants.map((variant) => {
@@ -379,19 +383,40 @@ export default function SingleProduct() {
               You might also like:
             </h1>
             <div className="suggestedItemsContainer d-flex pt-3 pb-4 px-3 gap-4">
-              {suggestedItems.slice(1, 5).map((sneaker, index) => (
-                <div className="suggestedItemWrapper">
-                  <Link
-                    to={`/product/${sneaker.name
-                      .toLowerCase()
-                      .replaceAll(" ", "-")}`}
-                  >
-                    <img
-                      className="img-fluid"
-                      src={`/assets/${parsedImages[index][0]}`}
-                      alt=""
-                    />
-                  </Link>
+              {suggestedItemsCrop.map((sneaker, index) => (
+                <div key={sneaker.id} className="suggestedItem">
+                  <div className="suggestedItemWrapper">
+                    <Link
+                      to={`/product/${sneaker.name
+                        .toLowerCase()
+                        .replaceAll(" ", "-")}`}
+                    >
+                      <img
+                        className="img-fluid"
+                        src={`/assets/${parsedImages[index][0]}`}
+                        alt=""
+                      />
+                    </Link>
+                  </div>
+                  <div className="pt-2">
+                    <h4 className="fw-bold text-uppercase ">
+                      <Link
+                        to={`/product/${sneaker.name
+                          .toLowerCase()
+                          .replaceAll(" ", "-")}`}
+                      >
+                        {sneaker.name}
+                      </Link>
+                    </h4>
+                    <h6>
+                      <Link
+                        to={`/all-products?brand=${sneaker.brand}`}
+                        className="text-secondary"
+                      >
+                        {sneaker.brand}
+                      </Link>
+                    </h6>
+                  </div>
                 </div>
               ))}
             </div>
