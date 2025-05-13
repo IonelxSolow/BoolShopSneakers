@@ -61,7 +61,7 @@ export default function Cart({ toggleCart, isOpen }) {
       <div className="mt-auto">
         <h6 className="d-flex justify-content-between">
           <span>Total:</span>
-          <span>{total} €</span>
+          <span>{total.toFixed(2)}€</span>
         </h6>
         <div className="d-flex justify-content-end align-items-center">
           <Link to="/checkout" 
