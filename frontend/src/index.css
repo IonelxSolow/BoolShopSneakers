@@ -402,6 +402,17 @@ ul {
   font-weight: bold;
 }
 .all-products {
+  h1{
+    cursor: pointer;
+    &:hover{
+      color: black;
+      font-weight: bold;
+    }
+  }
+  .filter-toggle{
+    color:#1877f2;
+    cursor: pointer;
+  }
   .tool-bar {
      width: 20%;
     max-width: 300px;
@@ -422,6 +433,9 @@ ul {
         border-bottom: 1px solid #ddd;
         padding: 0.5rem 0;
         text-transform: uppercase;
+        &:hover{
+          color:var(--main-light);
+        }
       }
 
       ul {

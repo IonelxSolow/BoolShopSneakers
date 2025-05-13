@@ -86,11 +86,11 @@ export default function AllProducts() {
                 <>
                     <section className="all-products">
                         <div>
-                            <h1 className="text-center bg-light py-5"
+                            <h1 className="mt-5 ms-3"
                                 onClick={() => setFilters({ brand: "", size: "", color: "", price: "" })}>
                                 All Sneakers
                             </h1>
-                            <div onClick={() => setIsHidden((prev) => !prev)} className="ms-3 mt-3 text-success">
+                            <div onClick={() => setIsHidden((prev) => !prev)} className="ms-3 mt-3 filter-toggle">
                                 {isHidden ? "Show Filters" : "Hide Filters"}
                             </div>
                         </div>
