@@ -124,8 +124,8 @@ function indexSearch(req, res) {
     params.push(`%${name}%`)
   }
   if (search) {
-    sql += ` AND (shoes.name LIKE ? OR shoes.brand LIKE ?)`;
-    params.push(`%${search}%`, `%${search}%`);
+    sql += ` AND (shoes.name LIKE ? OR shoes.brand LIKE ? OR variants.color LIKE ? OR shoes.price LIKE ?)`;
+    params.push(`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`);
   }
   if (tags) {
     const tagArray = Array.isArray(tags) ? tags : tags.split(',');
