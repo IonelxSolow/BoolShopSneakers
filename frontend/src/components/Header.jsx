@@ -142,10 +142,9 @@ export default function Header() {
                                     <i className="bi bi-cart"></i>
                                 </a>
                                 {cartItemCount > 0 && (
-                                    <span className="badge position-absolute top-0 start-100 translate-middle d-flex justify-content-center align-items-center">
-                                        <i className="">
-                                            {cartItemCount}
-                                        </i>
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {cartItemCount}
+                                        <span className="visually-hidden">unread messages</span>
                                     </span>
                                 )}
                             </div>

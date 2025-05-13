@@ -1,16 +1,9 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
 export default function Cart({ toggleCart, isOpen }) {
 
-  const cartItems = [
-    // Simulazione di articoli nel carrello (da sostituire con dati reali in futuro)
-    { id: 1, name: "Product 1", price: 29.99 },
-    { id: 2, name: "Product 2", price: 49.99 },
-    { id: 3, name: "Product 3", price: 19.99 },
-  ];
-
-  // Calcolo del totale
-  const total = cartItems.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
+  const { cart, increaseQuantity, decreaseQuantity, removeItem, total } = useCart();
 
   return (
     <div className={`cart-content d-flex flex-column ${isOpen ? "open" : ""}`}>
@@ -30,14 +23,14 @@ export default function Cart({ toggleCart, isOpen }) {
       <h5 className="mb-3">Your Cart</h5>
 
       <div className="cart-items">
-        {cartItems.length > 0 ? (
-          cartItems.map((item) => (
+        {cart.length > 0 ? (
+          cart.map((item) => (
             <div
-              key={item.id}
+              key={item.sku}
               className="cart-item d-flex justify-content-between align-items-center mb-3"
             >
               <span>{item.name}</span>
-              <span>${item.price.toFixed(2)}</span>
+              <span>${Number(item.price).toFixed(2)}</span>
             </div>
           ))
         ) : (
