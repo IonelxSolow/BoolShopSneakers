@@ -18,7 +18,8 @@ export default function OrderDetails() {
       state: "loading",
     });
 
-    // Fetch order details
+    // Fetch order details - using the purchase_order value
+    // Note: The backend is expecting to query by ID, but we're passing a purchase_order string
     fetch(`http://localhost:3000/boolshop/api/v1/orders/${orderId}`)
       .then((response) => {
         if (!response.ok) {
@@ -27,34 +28,36 @@ export default function OrderDetails() {
         return response.json();
       })
       .then((data) => {
-        // Handle successful data response
         console.log("Order data received:", data);
 
-        // Extract the first item to get order details
-        const orderDetails =
-          Array.isArray(data) && data.length > 0
-            ? {
-                id: data[0].id,
-                purchase_order: data[0].purchase_order,
-                name: data[0].name,
-                email: data[0].email,
-                address: data[0].address,
-                phone: data[0].phone,
-                total_price: data[0].total_price,
-                status: data[0].status,
-                discount_id: data[0].discount_id,
-                delivery_fee: data[0].delivery_fee,
-                payment_type: data[0].payment_type,
-                created_at: data[0].created_at,
-              }
-            : null;
+        // Check if data is an array and has items
+        if (Array.isArray(data) && data.length > 0) {
+          // Extract the first item to get order details
+          const orderDetails = {
+            id: data[0].id,
+            purchase_order: data[0].purchase_order,
+            name: data[0].name,
+            email: data[0].email,
+            address: data[0].address,
+            phone: data[0].phone,
+            total_price: data[0].total_price,
+            status: data[0].status,
+            discount_id: data[0].discount_id,
+            delivery_fee: data[0].delivery_fee,
+            payment_type: data[0].payment_type,
+            created_at: data[0].created_at,
+          };
 
-        // Set the order data state
-        setOrderData({
-          state: "success",
-          order: orderDetails,
-          items: getItemsFromOrderData(data),
-        });
+          // Set the order data state
+          setOrderData({
+            state: "success",
+            order: orderDetails,
+            items: getItemsFromOrderData(data),
+          });
+        } else {
+          // Handle empty or non-array response
+          throw new Error("Invalid order data format received");
+        }
       })
       .catch((error) => {
         console.error("Error fetching order:", error);
@@ -67,27 +70,30 @@ export default function OrderDetails() {
 
   // Helper function to extract and organize order items
   const getItemsFromOrderData = (data) => {
-    // This implementation is adapted for your backend's response structure
-    // Based on your ordersController.js
     if (data && Array.isArray(data)) {
       // Group items by variant to consolidate quantities
       const itemsMap = {};
 
       data.forEach((item) => {
         const variantId = item.variant_id;
+
         if (!itemsMap[variantId]) {
           itemsMap[variantId] = {
             variant_id: variantId,
-            name: `${item.brand} ${item.name}`,
+            name: item.brand
+              ? `${item.brand} ${item.name}`
+              : item.name || "Product",
             sku: item.sku,
-            quantity: item.quantity,
-            price: parseFloat(item.price),
-            total: parseFloat(item.price) * item.quantity,
+            quantity: parseInt(item.quantity) || 1,
+            price: parseFloat(item.price) || 0,
+            total:
+              (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1),
           };
         } else {
           // If variant already exists, just add to quantity and total
-          itemsMap[variantId].quantity += item.quantity;
-          itemsMap[variantId].total += parseFloat(item.price) * item.quantity;
+          const qty = parseInt(item.quantity) || 1;
+          itemsMap[variantId].quantity += qty;
+          itemsMap[variantId].total += (parseFloat(item.price) || 0) * qty;
         }
       });
 
@@ -99,14 +105,21 @@ export default function OrderDetails() {
   };
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(date);
+    if (!dateString) return "N/A";
+
+    try {
+      const date = new Date(dateString);
+      return new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(date);
+    } catch (e) {
+      console.error("Date formatting error:", e);
+      return dateString;
+    }
   };
 
   // Render based on state
@@ -180,7 +193,7 @@ export default function OrderDetails() {
                 </div>
                 <h3 className="mb-3">Order Information Unavailable</h3>
                 <p className="text-muted mb-4">
-                  The order information could not be retrieved or might be
+                  Order information could not be retrieved or might be
                   incomplete. This could be due to a temporary issue.
                 </p>
                 <div className="d-flex justify-content-center">
@@ -218,7 +231,7 @@ export default function OrderDetails() {
                       Order #{order.purchase_order}
                     </h5>
                     <span className="badge bg-dark text-white">
-                      {order.status}
+                      {order.status || "Pending"}
                     </span>
                   </div>
                 </div>
@@ -251,7 +264,7 @@ export default function OrderDetails() {
                       <h6 className="text-uppercase text-secondary">
                         Payment Method
                       </h6>
-                      <p className="mb-0">{order.payment_type}</p>
+                      <p className="mb-0">{order.payment_type || "Card"}</p>
                     </div>
                   </div>
                 </div>

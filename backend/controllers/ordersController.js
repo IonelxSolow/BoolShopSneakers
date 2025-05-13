@@ -1,4 +1,4 @@
-// backend/controllers/ordersController.js (versione finale con template HTML)
+// Modified ordersController.js to support fetching by purchase_order
 
 const connection = require('../db/boolshop_db.js')
 const emailService = require('../services/emailService')
@@ -115,21 +115,45 @@ function generatePurchaseOrder() {
 }
 
 function show(req, res) {
-    const id = Number(req.params.id)
+    // Get the order identifier from the URL parameter
+    const orderIdentifier = req.params.id
 
-    const sql = `
-SELECT *
-FROM orders
-JOIN order_items ON orders.id = order_items.order_id
-JOIN variants ON variants.id = order_items.variant_id
-WHERE orders.id = ?
-    `
+    // Check if it's a numeric ID or a purchase_order string
+    const isNumeric = /^\d+$/.test(orderIdentifier) && orderIdentifier.length < 10
 
-    connection.query(sql, [id], (err, results) => {
+    // Build the appropriate SQL query based on the identifier type
+    let sql
+
+    if (isNumeric) {
+        // If it's a numeric ID, search by order ID
+        sql = `
+            SELECT orders.*, order_items.*, variants.sku, variants.color, 
+                   variants.size, shoes.name, shoes.brand
+            FROM orders
+            JOIN order_items ON orders.id = order_items.order_id
+            JOIN variants ON variants.id = order_items.variant_id
+            JOIN shoes ON variants.shoe_id = shoes.id
+            WHERE orders.id = ?
+        `
+    } else {
+        // If it's a purchase_order string, search by purchase_order
+        sql = `
+            SELECT orders.*, order_items.*, variants.sku, variants.color, 
+                   variants.size, shoes.name, shoes.brand
+            FROM orders
+            JOIN order_items ON orders.id = order_items.order_id
+            JOIN variants ON variants.id = order_items.variant_id
+            JOIN shoes ON variants.shoe_id = shoes.id
+            WHERE orders.purchase_order = ?
+        `
+    }
+
+    connection.query(sql, [orderIdentifier], (err, results) => {
         if (err) return res.status(500).json({ error: err.message })
         if (results.length === 0) return res.status(404).json({ error: 'order not found' })
-        const order = results[0]
-        res.json(order)
+
+        // Return all the results to get all order items
+        res.json(results)
     })
 }
 
