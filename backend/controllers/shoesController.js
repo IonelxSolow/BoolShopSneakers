@@ -215,7 +215,7 @@ LIMIT 9;`
   })
 }
 
-function indexOnSale() {
+function indexOnSale(req, res) {
   const sql = `SELECT
 shoes.id,
 shoes.name,
@@ -240,7 +240,8 @@ LEFT JOIN shoe_tags ON shoe_tags.shoe_id = shoes.id
 LEFT JOIN tags ON tags.id = shoe_tags.tag_id
 LEFT JOIN discounts ON discounts.id = shoes.discount_id
 WHERE discounts.value = 10
-GROUP BY shoes.id`
+GROUP BY shoes.id
+LIMIT 9;`
 
   connection.query(sql, (err, results) => {
     if (err) res.status(500).json({ message: err.message })
@@ -294,7 +295,6 @@ function show(req, res) {
 
   })
 }
-
 function updateSoldCopies(req, res) {
   const id = Number(req.params.id)
   const { quantity } = req.body
@@ -302,19 +302,16 @@ function updateSoldCopies(req, res) {
   if (!quantity || isNaN(quantity)) {
     return res.status(400).json({ error: 'Valid quantity is required' })
   }
-
   const updateSoldCopiesSql = `
     UPDATE shoes 
     SET sold_copies = sold_copies + ? 
     WHERE id = ?
   `
-
   const updateStockSql = `
   UPDATE variants
   SET stock = stock - ?
   WHERE shoe_id = ?
   `
-
   connection.query(updateSoldCopiesSql, [quantity, id], (err, result) => {
     if (err) {
       return res.status(500).json({ error: err.message })
@@ -341,48 +338,6 @@ function updateSoldCopies(req, res) {
     })
   })
 }
-
-
-// function showItemsOnTags(req, res) {
-//   // Debug the raw query parameter
-//   console.log('Raw tags query:', req.query.tags);
-
-//   // Split only if tags exist
-//   const tags = req.query.tags
-//     ? req.query.tags.split(',').map(tag => tag.trim())
-//     : [];
-
-//   // Debug the processed tags
-//   console.log('Processed tags array:', tags);
-
-//   if (tags.length === 0) {
-//     return res.status(400).json({ message: 'No tags provided' });
-//   }
-
-//   const placeholders = tags.map(() => '?').join(',');
-
-//   const sql = `
-//     SELECT 
-//       shoes.*,
-//       GROUP_CONCAT(DISTINCT tags.name) as matching_tags
-//     FROM shoes
-//     JOIN shoe_tags ON shoe_tags.shoe_id = shoes.id
-//     JOIN tags ON shoe_tags.tag_id = tags.id
-//     WHERE tags.name IN (${placeholders})
-//     GROUP BY shoes.id
-//     HAVING COUNT(DISTINCT tags.name) = ?
-//   `;
-
-//   // Debug the final SQL query
-//   console.log('SQL Query:', sql);
-//   console.log('Query parameters:', [...tags, tags.length]);
-
-//   connection.execute(sql, [...tags, tags.length], (err, results) => {
-//     if (err) return res.status(500).json({ error: err.message });
-//     res.json(results);
-//   });
-// }
-
 module.exports = {
   index,
   indexBrand,

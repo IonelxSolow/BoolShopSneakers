@@ -60,7 +60,7 @@ export default function PopularProducts() {
 
       return (
         <>
-          <section className="popular-displayer">
+          <section className="popular-displayer container">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h1 className="fs-3 fs-md-2 fw-bold">Popular Items</h1>
               <button
@@ -175,6 +175,7 @@ export default function PopularProducts() {
               </div>
             )}
           </section>
+
         </>
       );
   }

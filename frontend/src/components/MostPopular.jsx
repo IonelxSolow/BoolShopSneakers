@@ -29,7 +29,7 @@ export default function MostPopular() {
 
       return (
         <>
-          <section className="bg-light p-3 mb-5">
+          <section className="bg-light p-3 mb-5 container">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <div className="row p-4">
                 <div className="col-lg-6 d-flex flex-column justify-content-between">

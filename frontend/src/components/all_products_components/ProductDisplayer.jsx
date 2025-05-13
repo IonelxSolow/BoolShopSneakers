@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 export default function ProductDisplayer({ filteredSneakers }) {
+    console.log(filteredSneakers)
     return (
         <>
             <div className="products-displayer col-8 col-md-10 row">
