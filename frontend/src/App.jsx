@@ -12,12 +12,12 @@ import Kids from "./pages/Kids";
 import AllProducts from "./pages/AllProducts";
 import CartPage from "./pages/CartPage";
 import Checkout from "./pages/Checkout";
+import OrderConfirmation from "./pages/OrderConfirmation";
 
 export default function App() {
   return (
     <GlobalProvider>
       <SearchProvider>
-
         <CartProvider>
           <BrowserRouter>
             <Routes>
@@ -30,6 +30,10 @@ export default function App() {
                 <Route path="/all-products?" element={<AllProducts />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/checkout" element={<Checkout />} />
+                <Route
+                  path="/order-confirmation"
+                  element={<OrderConfirmation />}
+                />
               </Route>
             </Routes>
           </BrowserRouter>

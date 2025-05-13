@@ -72,7 +72,9 @@ function indexBrand(req, res) {
   })
 }
 function indexSearch(req, res) {
-  const { brand, size, color, price, name, search/* category */ } = req.query
+  const { brand, size, color, price, name, search, tags } = req.query
+
+  console.log(tags)
 
   let sql = `SELECT 
   shoes.id,
@@ -125,11 +127,17 @@ function indexSearch(req, res) {
     sql += ` AND (shoes.name LIKE ? OR shoes.brand LIKE ?)`;
     params.push(`%${search}%`, `%${search}%`);
   }
-  /* if (category) {
-    sql += 'AND shoes.category = ?'
-    params.push(category)
-  } */
-  sql += ` GROUP BY shoes.id`
+  if (tags) {
+    const tagArray = Array.isArray(tags) ? tags : tags.split(',');
+    const placeholders = tagArray.map(() => '?').join(', ');
+    sql += ` AND tags.name IN (${placeholders})`;
+    params.push(...tagArray);
+    sql += ` GROUP BY shoes.id`;
+    sql += ` HAVING COUNT(DISTINCT tags.name) = ?`;
+    params.push(tagArray.length);
+  } else {
+    sql += ` GROUP BY shoes.id`;
+  }
   connection.query(sql, params, (err, results) => {
     if (err) res.status(500).json({ message: err.message })
     if (results.length === 0) return res.status(404).json({ error: 'sneakers not found' })
@@ -361,7 +369,6 @@ module.exports = {
   indexSearch,
   show,
   updateSoldCopies,
-  showItemsOnTags
 
 }
 
