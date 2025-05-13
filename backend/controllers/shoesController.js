@@ -207,7 +207,7 @@ LIMIT 9;`
   })
 }
 
-function indexOnSale() {
+function indexOnSale(req, res) {
   const sql = `SELECT
 shoes.id,
 shoes.name,
@@ -232,7 +232,8 @@ LEFT JOIN shoe_tags ON shoe_tags.shoe_id = shoes.id
 LEFT JOIN tags ON tags.id = shoe_tags.tag_id
 LEFT JOIN discounts ON discounts.id = shoes.discount_id
 WHERE discounts.value = 10
-GROUP BY shoes.id`
+GROUP BY shoes.id
+LIMIT 9;`
 
   connection.query(sql, (err, results) => {
     if (err) res.status(500).json({ message: err.message })
@@ -286,7 +287,6 @@ function show(req, res) {
 
   })
 }
-
 function updateSoldCopies(req, res) {
   const id = Number(req.params.id)
   const { quantity } = req.body
@@ -294,19 +294,16 @@ function updateSoldCopies(req, res) {
   if (!quantity || isNaN(quantity)) {
     return res.status(400).json({ error: 'Valid quantity is required' })
   }
-
   const updateSoldCopiesSql = `
     UPDATE shoes 
     SET sold_copies = sold_copies + ? 
     WHERE id = ?
   `
-
   const updateStockSql = `
   UPDATE variants
   SET stock = stock - ?
   WHERE shoe_id = ?
   `
-
   connection.query(updateSoldCopiesSql, [quantity, id], (err, result) => {
     if (err) {
       return res.status(500).json({ error: err.message })
@@ -333,8 +330,6 @@ function updateSoldCopies(req, res) {
     })
   })
 }
-
-
 function showItemsOnTags(req, res) {
 
   const sneakerId = Number(req.params.id)

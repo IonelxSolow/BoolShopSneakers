@@ -1,6 +1,6 @@
 import { useState } from "react";
 export default function SizeFilter({ activeSize, handleFilterChange }) {
-    const sneakersSizes = [37, 38, 39, 40, 41, 42, 43, 44, 45];
+    const sneakersSizes = [39, 40, 41, 42, 43, 44];
     const [isSizeOpen, setIsSizeOpen] = useState(false);
 
     return (
