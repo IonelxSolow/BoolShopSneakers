@@ -1,3 +1,5 @@
+// backend/services/emailService.js
+
 /**
  * Email Service Module
  * This module handles sending emails using Gmail's OAuth2 authentication via Nodemailer.
@@ -52,26 +54,24 @@ async function createTransporter() {
  * @param {string} to - The recipient's email address.
  * @param {string} subject - The subject of the email.
  * @param {string} text - The plain text content of the email.
+ * @param {Object} [options] - Additional email options.
+ * @param {string} [options.html] - HTML content for the email.
+ * @param {Array} [options.attachments] - Array of attachment objects.
  * @returns {Promise<import('nodemailer').SentMessageInfo>} A promise that resolves to the result of the email sending operation.
  * @throws Will throw an error if the email fails to send.
  */
-exports.sendEmail = async (to, subject, text) => {
+exports.sendEmail = async (to, subject, text, options = {}) => {
   try {
     // Create the transporter
     const transporter = await createTransporter();
 
     // Define the email options
     const mailOptions = {
-      from: process.env.EMAIL_USER, // Sender's email address
+      from: `"KickSociety" <${process.env.EMAIL_USER}>`, // Sender's email address with name
       to, // Recipient's email address
       subject, // Email subject
       text, // Plain text content
-      /* Optional fields:
-       * html: '<p><b>This is a bold message</b></p>' // HTML content for the email
-       * attachments: [
-       *   { filename: 'file.txt', path: './file.txt' } // Attachments for the email
-       * ]
-       */
+      ...options // Additional options like HTML content or attachments
     };
 
     // Send the email and return the result
@@ -80,4 +80,18 @@ exports.sendEmail = async (to, subject, text) => {
     console.error('Error sending email:', error); // Log the error
     throw error; // Rethrow the error for the caller to handle
   }
+};
+
+/**
+ * Sends an HTML email with a template.
+ * @param {string} to - The recipient's email address.
+ * @param {string} subject - The subject of the email.
+ * @param {string} htmlContent - The HTML content of the email.
+ * @param {string} textContent - The plain text fallback content.
+ * @returns {Promise<import('nodemailer').SentMessageInfo>} A promise that resolves to the result of the email sending operation.
+ */
+exports.sendTemplatedEmail = async (to, subject, htmlContent, textContent) => {
+  return this.sendEmail(to, subject, textContent, {
+    html: htmlContent
+  });
 };
