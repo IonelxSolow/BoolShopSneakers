@@ -1,4 +1,4 @@
-// Modified ordersController.js to support fetching by purchase_order
+// backend/controllers/ordersController.js (complete version)
 
 const connection = require('../db/boolshop_db.js')
 const emailService = require('../services/emailService')
@@ -18,7 +18,7 @@ function store(req, res) {
         payment_type
     } = req.body
 
-    // Genera il purchase_order prima per poterlo usare in più punti
+    // Generate purchase_order first to be able to use it in multiple places
     const purchaseOrder = generatePurchaseOrder()
 
     const orderSql = `
@@ -40,7 +40,7 @@ function store(req, res) {
     ], (err, orderResult) => {
         if (err) {
             return res.status(500).json({
-                message: "Errore durante la creazione dell'ordine",
+                message: "Error while creating the order",
                 error: err.message
             })
         }
@@ -48,18 +48,18 @@ function store(req, res) {
         const orderId = orderResult.insertId
 
         if (!items || items.length === 0) {
-            // Invia la mail di conferma anche se non ci sono items
-            // Passiamo purchaseOrder invece di orderId
+            // Send confirmation email even if there are no items
+            // Pass purchaseOrder instead of orderId
             sendConfirmationEmails(name, email, purchaseOrder, total_price, [], address)
 
             return res.status(201).json({
-                message: "Ordine creato con successo",
+                message: "Order created successfully",
                 order_id: orderId,
                 purchase_order: purchaseOrder
             })
         }
 
-        // Inseriamo i prodotti dell'ordine
+        // Insert order products
         const orderItemsSql = `
                 INSERT INTO order_items (order_id, variant_id, quantity, price)
                 VALUES ?
@@ -75,12 +75,12 @@ function store(req, res) {
         connection.query(orderItemsSql, [orderItemsValues], (err) => {
             if (err) {
                 return res.status(500).json({
-                    message: "Errore durante l'inserimento degli items dell'ordine",
+                    message: "Error while inserting order items",
                     error: err.message
                 })
             }
 
-            // Ora recuperiamo i dettagli degli items per includerli nell'email
+            // Now retrieve item details to include in the email
             const getItemsDetailsSql = `
                 SELECT v.sku, s.name, s.brand, oi.quantity, oi.price
                 FROM order_items oi
@@ -91,15 +91,15 @@ function store(req, res) {
 
             connection.query(getItemsDetailsSql, [orderId], (err, itemDetails) => {
                 if (err) {
-                    console.error("Errore nel recupero dei dettagli degli articoli:", err)
+                    console.error("Error retrieving item details:", err)
                     itemDetails = []
                 }
 
-                // Invia le email di conferma passando purchaseOrder invece di orderId
+                // Send confirmation emails passing purchaseOrder instead of orderId
                 sendConfirmationEmails(name, email, purchaseOrder, total_price, itemDetails, address)
 
                 res.status(201).json({
-                    message: "Ordine creato con successo",
+                    message: "Order created successfully",
                     order_id: orderId,
                     purchase_order: purchaseOrder
                 })
@@ -122,13 +122,34 @@ function show(req, res) {
     const isNumeric = /^\d+$/.test(orderIdentifier) && orderIdentifier.length < 10
 
     // Build the appropriate SQL query based on the identifier type
+    // Use aliases to avoid conflicts between fields with the same name
     let sql
 
     if (isNumeric) {
         // If it's a numeric ID, search by order ID
         sql = `
-            SELECT orders.*, order_items.*, variants.sku, variants.color, 
-                   variants.size, shoes.name, shoes.brand
+            SELECT 
+                orders.id as order_id,
+                orders.name as customer_name,
+                orders.email as customer_email,
+                orders.phone as customer_phone,
+                orders.address as shipping_address,
+                orders.total_price,
+                orders.status,
+                orders.discount_id,
+                orders.delivery_fee,
+                orders.payment_type,
+                orders.purchase_order,
+                orders.created_at,
+                order_items.id as item_id,
+                order_items.variant_id,
+                order_items.quantity,
+                order_items.price as item_price,
+                variants.sku,
+                variants.color,
+                variants.size,
+                shoes.name as product_name,
+                shoes.brand as product_brand
             FROM orders
             JOIN order_items ON orders.id = order_items.order_id
             JOIN variants ON variants.id = order_items.variant_id
@@ -138,8 +159,28 @@ function show(req, res) {
     } else {
         // If it's a purchase_order string, search by purchase_order
         sql = `
-            SELECT orders.*, order_items.*, variants.sku, variants.color, 
-                   variants.size, shoes.name, shoes.brand
+            SELECT 
+                orders.id as order_id,
+                orders.name as customer_name,
+                orders.email as customer_email,
+                orders.phone as customer_phone,
+                orders.address as shipping_address,
+                orders.total_price,
+                orders.status,
+                orders.discount_id,
+                orders.delivery_fee,
+                orders.payment_type,
+                orders.purchase_order,
+                orders.created_at,
+                order_items.id as item_id,
+                order_items.variant_id,
+                order_items.quantity,
+                order_items.price as item_price,
+                variants.sku,
+                variants.color,
+                variants.size,
+                shoes.name as product_name,
+                shoes.brand as product_brand
             FROM orders
             JOIN order_items ON orders.id = order_items.order_id
             JOIN variants ON variants.id = order_items.variant_id
@@ -152,122 +193,122 @@ function show(req, res) {
         if (err) return res.status(500).json({ error: err.message })
         if (results.length === 0) return res.status(404).json({ error: 'order not found' })
 
-        // Return all the results to get all order items
+        // Return all results to get all order items
         res.json(results)
     })
 }
 
-// Funzione per inviare email di conferma
-// Modificata per usare purchaseOrder invece di orderId
+// Function to send confirmation emails
+// Modified to use purchaseOrder instead of orderId
 function sendConfirmationEmails(customerName, customerEmail, purchaseOrder, totalPrice, items, shippingAddress) {
-    // Email per il cliente
-    const customerSubject = `Conferma Ordine #${purchaseOrder} - KickSociety`
+    // Email for the customer
+    const customerSubject = `Order Confirmation #${purchaseOrder} - KickSociety`
 
-    // Genera il testo semplice dell'email per il cliente (come fallback)
+    // Generate plain text email content for the customer (as fallback)
     let customerTextContent = `
-Caro/a ${customerName},
+Dear ${customerName},
 
-Grazie per il tuo ordine su KickSociety (Numero d'ordine: ${purchaseOrder})!
+Thank you for your order at KickSociety (Order Number: ${purchaseOrder})!
 
-Dettagli dell'ordine:
+Order Details:
 ---------------------------------
 `
 
     if (items.length > 0) {
         items.forEach(item => {
             customerTextContent += `
-Prodotto: ${item.brand} ${item.name}
+Product: ${item.brand} ${item.name}
 SKU: ${item.sku}
-Quantità: ${item.quantity}
-Prezzo: €${parseFloat(item.price).toFixed(2)}
+Quantity: ${item.quantity}
+Price: €${parseFloat(item.price).toFixed(2)}
 ---------------------------------`
         })
     }
 
     customerTextContent += `
-Totale ordine: €${parseFloat(totalPrice).toFixed(2)}
+Order Total: €${parseFloat(totalPrice).toFixed(2)}
 
-Indirizzo di spedizione:
+Shipping Address:
 ${shippingAddress}
 
-Il tuo ordine è stato ricevuto e sarà elaborato al più presto. Riceverai un'email di aggiornamento quando il tuo ordine verrà spedito.
+Your order has been received and will be processed as soon as possible. You will receive an update email when your order has been shipped.
 
-Per qualsiasi domanda riguardante il tuo ordine, rispondi a questa email o contattaci all'indirizzo support@kicksociety.com.
+For any questions regarding your order, please reply to this email or contact us at support@kicksociety.com.
 
-Grazie per aver scelto KickSociety!
+Thank you for choosing KickSociety!
 
-Cordiali saluti,
-Il Team KickSociety
+Best regards,
+The KickSociety Team
 `
 
-    // Genera il contenuto HTML dell'email per il cliente
+    // Generate HTML content for the customer email
     const customerHtmlContent = emailTemplates.generateCustomerOrderConfirmationTemplate(
         customerName,
-        purchaseOrder, // Usa purchaseOrder al posto di orderId
+        purchaseOrder, // Use purchaseOrder instead of orderId
         items,
         totalPrice,
         shippingAddress
     )
 
-    // Email per il venditore/admin
-    const adminEmail = process.env.ADMIN_EMAIL || 'admin@kicksociety.com' // Email dell'admin configurata come variabile d'ambiente
-    const adminSubject = `Nuovo Ordine #${purchaseOrder} Ricevuto`
+    // Email for the seller/admin
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@kicksociety.com' // Admin email configured as environment variable
+    const adminSubject = `New Order #${purchaseOrder} Received`
 
-    // Genera il testo semplice dell'email per l'admin (come fallback)
+    // Generate plain text email content for the admin (as fallback)
     let adminTextContent = `
-Nuovo ordine ricevuto!
+New order received!
 
-Numero d'ordine: ${purchaseOrder}
-Cliente: ${customerName}
-Email cliente: ${customerEmail}
-Indirizzo di spedizione: ${shippingAddress}
+Order Number: ${purchaseOrder}
+Customer: ${customerName}
+Customer Email: ${customerEmail}
+Shipping Address: ${shippingAddress}
 
-Dettagli dell'ordine:
+Order Details:
 ---------------------------------
 `
 
     if (items.length > 0) {
         items.forEach(item => {
             adminTextContent += `
-Prodotto: ${item.brand} ${item.name}
+Product: ${item.brand} ${item.name}
 SKU: ${item.sku}
-Quantità: ${item.quantity}
-Prezzo: €${parseFloat(item.price).toFixed(2)}
+Quantity: ${item.quantity}
+Price: €${parseFloat(item.price).toFixed(2)}
 ---------------------------------`
         })
     }
 
     adminTextContent += `
-Totale ordine: €${parseFloat(totalPrice).toFixed(2)}
+Order Total: €${parseFloat(totalPrice).toFixed(2)}
 
-Accedi al pannello di amministrazione per gestire questo ordine.
+Access the admin panel to manage this order.
 `
 
-    // Genera il contenuto HTML dell'email per l'admin
+    // Generate HTML content for the admin email
     const adminHtmlContent = emailTemplates.generateAdminOrderNotificationTemplate(
         customerName,
         customerEmail,
-        purchaseOrder, // Usa purchaseOrder al posto di orderId
+        purchaseOrder, // Use purchaseOrder instead of orderId
         items,
         totalPrice,
         shippingAddress
     )
 
-    // Invio email al cliente con template HTML
+    // Send email to the customer with HTML template
     emailService.sendTemplatedEmail(
         customerEmail,
         customerSubject,
         customerHtmlContent,
         customerTextContent
-    ).catch(err => console.error('Errore nell\'invio dell\'email al cliente:', err))
+    ).catch(err => console.error('Error sending email to customer:', err))
 
-    // Invio email all'admin con template HTML
+    // Send email to the admin with HTML template
     emailService.sendTemplatedEmail(
         adminEmail,
         adminSubject,
         adminHtmlContent,
         adminTextContent
-    ).catch(err => console.error('Errore nell\'invio dell\'email all\'admin:', err))
+    ).catch(err => console.error('Error sending email to admin:', err))
 }
 
 module.exports = {

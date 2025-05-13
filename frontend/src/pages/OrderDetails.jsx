@@ -18,8 +18,7 @@ export default function OrderDetails() {
       state: "loading",
     });
 
-    // Fetch order details - using the purchase_order value
-    // Note: The backend is expecting to query by ID, but we're passing a purchase_order string
+    // Retrieve order details - using the purchase_order value
     fetch(`http://localhost:3000/boolshop/api/v1/orders/${orderId}`)
       .then((response) => {
         if (!response.ok) {
@@ -30,16 +29,16 @@ export default function OrderDetails() {
       .then((data) => {
         console.log("Order data received:", data);
 
-        // Check if data is an array and has items
+        // Check if data is an array and contains elements
         if (Array.isArray(data) && data.length > 0) {
-          // Extract the first item to get order details
+          // Extract order information from the first element
           const orderDetails = {
-            id: data[0].id,
+            id: data[0].order_id,
             purchase_order: data[0].purchase_order,
-            name: data[0].name,
-            email: data[0].email,
-            address: data[0].address,
-            phone: data[0].phone,
+            name: data[0].customer_name,
+            email: data[0].customer_email,
+            address: data[0].shipping_address,
+            phone: data[0].customer_phone,
             total_price: data[0].total_price,
             status: data[0].status,
             discount_id: data[0].discount_id,
@@ -48,22 +47,22 @@ export default function OrderDetails() {
             created_at: data[0].created_at,
           };
 
-          // Set the order data state
+          // Set order data
           setOrderData({
             state: "success",
             order: orderDetails,
             items: getItemsFromOrderData(data),
           });
         } else {
-          // Handle empty or non-array response
-          throw new Error("Invalid order data format received");
+          // Handle empty response or invalid format
+          throw new Error("Invalid order data format");
         }
       })
       .catch((error) => {
-        console.error("Error fetching order:", error);
+        console.error("Error retrieving order:", error);
         setOrderData({
           state: "error",
-          message: error.message || "Failed to load order details",
+          message: error.message || "Unable to load order details",
         });
       });
   }, [orderId]);
@@ -80,20 +79,21 @@ export default function OrderDetails() {
         if (!itemsMap[variantId]) {
           itemsMap[variantId] = {
             variant_id: variantId,
-            name: item.brand
-              ? `${item.brand} ${item.name}`
-              : item.name || "Product",
+            name: item.product_brand
+              ? `${item.product_brand} ${item.product_name}`
+              : item.product_name || "Product",
             sku: item.sku,
             quantity: parseInt(item.quantity) || 1,
-            price: parseFloat(item.price) || 0,
+            price: parseFloat(item.item_price) || 0,
             total:
-              (parseFloat(item.price) || 0) * (parseInt(item.quantity) || 1),
+              (parseFloat(item.item_price) || 0) *
+              (parseInt(item.quantity) || 1),
           };
         } else {
-          // If variant already exists, just add to quantity and total
+          // If the variant already exists, add to quantity and total
           const qty = parseInt(item.quantity) || 1;
           itemsMap[variantId].quantity += qty;
-          itemsMap[variantId].total += (parseFloat(item.price) || 0) * qty;
+          itemsMap[variantId].total += (parseFloat(item.item_price) || 0) * qty;
         }
       });
 
@@ -109,7 +109,7 @@ export default function OrderDetails() {
 
     try {
       const date = new Date(dateString);
-      return new Intl.DateTimeFormat("en-GB", {
+      return new Intl.DateTimeFormat("en-US", {
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
@@ -117,7 +117,7 @@ export default function OrderDetails() {
         minute: "2-digit",
       }).format(date);
     } catch (e) {
-      console.error("Date formatting error:", e);
+      console.error("Error formatting date:", e);
       return dateString;
     }
   };
@@ -191,9 +191,9 @@ export default function OrderDetails() {
                     style={{ fontSize: "4rem" }}
                   ></i>
                 </div>
-                <h3 className="mb-3">Order Information Unavailable</h3>
+                <h3 className="mb-3">Order Information Not Available</h3>
                 <p className="text-muted mb-4">
-                  Order information could not be retrieved or might be
+                  The order information cannot be retrieved or might be
                   incomplete. This could be due to a temporary issue.
                 </p>
                 <div className="d-flex justify-content-center">
@@ -231,7 +231,7 @@ export default function OrderDetails() {
                       Order #{order.purchase_order}
                     </h5>
                     <span className="badge bg-dark text-white">
-                      {order.status || "Pending"}
+                      {order.status === "pending" ? "Pending" : order.status}
                     </span>
                   </div>
                 </div>
@@ -264,7 +264,11 @@ export default function OrderDetails() {
                       <h6 className="text-uppercase text-secondary">
                         Payment Method
                       </h6>
-                      <p className="mb-0">{order.payment_type || "Card"}</p>
+                      <p className="mb-0">
+                        {order.payment_type === "card"
+                          ? "Credit card"
+                          : order.payment_type}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -272,7 +276,7 @@ export default function OrderDetails() {
 
               <div className="card shadow-sm mb-4">
                 <div className="card-header bg-white">
-                  <h5 className="mb-0">Order Items</h5>
+                  <h5 className="mb-0">Ordered Items</h5>
                 </div>
                 <div className="card-body p-0">
                   <div className="table-responsive">
@@ -340,12 +344,14 @@ export default function OrderDetails() {
                               : "bg-secondary"
                           }`}
                         >
-                          {order.status || "Pending"}
+                          {order.status === "pending"
+                            ? "Pending"
+                            : order.status || "Pending"}
                         </span>
                       </div>
                       <p className="small text-muted mb-0">
-                        If you have any questions about your order, please
-                        contact our customer service at support@kicksociety.com
+                        For any questions about your order, please contact our
+                        customer service at support@kicksociety.com
                       </p>
                     </div>
                     <div className="col-md-6">
