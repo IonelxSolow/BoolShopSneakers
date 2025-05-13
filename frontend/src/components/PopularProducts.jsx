@@ -85,9 +85,6 @@ export default function PopularProducts() {
                   >
                     <i className="bi bi-chevron-left"></i>
                   </button>
-                  <span>
-                    Pagina {popularPage + 1} di {popularTotalPages}
-                  </span>
                   <button
                     className="btn btn-main-light"
                     onClick={nextPopularPage}

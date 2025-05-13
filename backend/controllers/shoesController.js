@@ -154,7 +154,8 @@ LEFT JOIN shoe_tags ON shoe_tags.shoe_id = shoes.id
 LEFT JOIN tags ON tags.id = shoe_tags.tag_id
 LEFT JOIN discounts ON discounts.id = shoes.discount_id
 GROUP BY shoes.id
-ORDER BY shoes.updated_at DESC;`
+ORDER BY shoes.updated_at DESC
+LIMIT 9;`
 
   connection.query(sql, (err, results) => {
     if (err) res.status(500).json({ message: err.message })
@@ -188,7 +189,8 @@ LEFT JOIN shoe_tags ON shoe_tags.shoe_id = shoes.id
 LEFT JOIN tags ON tags.id = shoe_tags.tag_id
 LEFT JOIN discounts ON discounts.id = shoes.discount_id
 GROUP BY shoes.id
-ORDER BY shoes.sold_copies DESC;`
+ORDER BY shoes.sold_copies DESC
+LIMIT 9;`
 
   connection.query(sql, (err, results) => {
     if (err) res.status(500).json({ message: err.message })
