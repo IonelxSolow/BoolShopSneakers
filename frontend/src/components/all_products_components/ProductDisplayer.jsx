@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
-export default function ProductDisplayer({ filteredSneakers }) {
-    console.log(filteredSneakers)
+export default function ProductDisplayer({ currentItems }) {
     return (
         <>
             <div className="products-displayer col-8 col-md-10 row">
-                {filteredSneakers.error ? (
+                {currentItems.error ? (
                     <div className="text-center w-100 my-5">
                         <h4>No sneakers found matching your filters.</h4>
                     </div>
                 ) : (
-                    filteredSneakers.map((sneaker) => (
+                    currentItems.map((sneaker) => (
                         <div className="col-sm-12 col-md-6 col-lg-4 mb-4" key={sneaker.id}>
                             <Link
                                 to={`/product/${sneaker.name.toLowerCase().replaceAll(" ", "-")}`}

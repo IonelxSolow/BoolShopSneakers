@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import ToolBar from "../components/all_products_components/ToolBar";
 import ProductDisplayer from "../components/all_products_components/ProductDisplayer";
+import Pagination from "../components/all_products_components/Pagination";
 
 export default function AllProducts() {
   const { sneakers } = useGlobalContext();
@@ -107,6 +108,24 @@ export default function AllProducts() {
       })
       .finally(() => setLoading(false));
   }, [filters]);
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  //initial number of items shown
+  const [itemsPerPage, setItemsPerPage] = useState(12);
+  //calculate index of last element
+  const indexOfLast = currentPage * itemsPerPage;
+  //calculate index of first element
+  const indexOfFirst = indexOfLast - itemsPerPage;
+  //getting just the first and last element for the page
+  const currentItems = filteredSneakers.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(filteredSneakers.length / itemsPerPage);
+  //toggler
+  const [isItemsOpen, setIsItemsOpen] = useState(false);
+  //handler that set the current page
+  const changePage = (pageNum) => setCurrentPage(pageNum);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [itemsPerPage])//it changes whenever item per page is changed
 
   switch (sneakers.state) {
     case "loading":
@@ -178,10 +197,19 @@ export default function AllProducts() {
                 isHidden={isHidden}
               />
               <ProductDisplayer
-                filteredSneakers={filteredSneakers}
+                currentItems={currentItems}
                 error={error}
                 setFilteredSneakers={setFilteredSneakers} />
             </div>
+            <Pagination
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              changePage={changePage}
+              isItemsOpen={isItemsOpen}
+              setIsItemsOpen={setIsItemsOpen}
+              setItemsPerPage={setItemsPerPage} />
+
           </section>
         </>
       );
