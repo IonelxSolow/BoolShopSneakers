@@ -82,7 +82,7 @@ export default function Checkout() {
       // Reindirizza alla pagina di conferma
       navigate("/order-confirmation", {
         state: {
-          orderId: data.order_id,
+          orderId: data.purchase_order,
           customerName: orderData.name,
           total: total,
         },
