@@ -178,6 +178,16 @@ header {
             color: var(--bs-bg-primary);
         }
     }
+
+    .badge {
+        background-color: var(--instagram);
+        display: flex;
+        align-items: center;
+        color: var(--bs-bg-primary);
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 20px;
+    }
 }
 
 main {
