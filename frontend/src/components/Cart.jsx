@@ -84,7 +84,7 @@ export default function Cart({ toggleCart, isOpen }) {
         <div className="d-flex justify-content-end align-items-center">
           <Link to="/checkout"
             className={`btn btn-main-light w-auto mt-3 mb-3 ${cart.length > 0 ? "" : "disabled"}`}>
-            Procede to checkout
+            Go to checkout
           </Link>
         </div>
       </div>
