@@ -122,8 +122,8 @@ export default function SingleProduct() {
         console.log("Added item:", newItem);
         console.log("Updated cart:", updatedCart);
       }
-      console.log(cart);
-      console.log(product.result.variant_ids.split(",")[1]);
+      /*   console.log(cart);
+        console.log(product.result.variant_ids.split(",")[1]); */
       // parses the string with an array format into an actual array
       const images = JSON.parse(product.result.image_urls);
       const variantImages = JSON.parse(product.result.variants[1].image_urls);
