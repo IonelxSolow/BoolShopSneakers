@@ -59,7 +59,7 @@ export default function LatestProducts() {
 
       return (
         <>
-          <section className="newest-displayer mb-5">
+          <section className="newest-displayer mb-5 container">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h1 className="fs-3 fs-md-2 fw-bold">Newest Drops</h1>
               <button

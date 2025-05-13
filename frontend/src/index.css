@@ -308,6 +308,17 @@ ul {
         }
     }
 }
+.brand-banner {
+  background-image: url('/assets/01.webp');
+  background-repeat: repeat; 
+  background-size: 150px auto;
+  background-position: center;
+  background-color: white;
+  height: 150px;
+  margin-top: 3rem;
+  margin-bottom:3rem;
+  
+}
 
 .wrapper-border {
     border: 2px solid var(--main-light);
@@ -532,3 +543,25 @@ ul {
 }
 
 
+.bg-black {
+  background-color: var(--bs-secondary);
+}
+
+.bg-main-light {
+  background-color: var(--main-light);
+}
+
+.secondary-color {
+  color: var(--main-secondary);
+}
+
+.order-details .badge {
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.order-details .table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
