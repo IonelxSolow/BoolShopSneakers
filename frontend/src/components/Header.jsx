@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { NavLink, useLocation } from "react-router-dom"
+import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { useCart } from "../context/CartContext"
 
 import SearchBar from "./SearchBar"
@@ -14,6 +14,8 @@ export default function Header() {
 
     // usiamo useLocation per ottenere i cambiamenti di posizione
     const location = useLocation();
+
+    const navigate = useNavigate();
 
     // chiudiamo il menu quando la posizione cambia
     useEffect(() => {
@@ -49,6 +51,13 @@ export default function Header() {
         if (!isCartOpen) {
             setIsMenuOpen(false);
             setIsSearchOpen(false);
+        }
+        if (window.innerWidth <= 768) {
+            // Reindirizza alla pagina del carrello su dispositivi mobili
+            navigate("/cart");
+        } else {
+            // Mostra il carrello come componente su desktop
+            setIsCartOpen(!isCartOpen);
         }
     };
 
