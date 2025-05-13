@@ -72,7 +72,9 @@ function indexBrand(req, res) {
   })
 }
 function indexSearch(req, res) {
-  const { brand, size, color, price, name, search/* category */ } = req.query
+  const { brand, size, color, price, name, search, tags } = req.query
+
+  console.log(tags)
 
   let sql = `SELECT 
   shoes.id,
@@ -125,11 +127,17 @@ function indexSearch(req, res) {
     sql += ` AND (shoes.name LIKE ? OR shoes.brand LIKE ?)`;
     params.push(`%${search}%`, `%${search}%`);
   }
-  /* if (category) {
-    sql += 'AND shoes.category = ?'
-    params.push(category)
-  } */
-  sql += ` GROUP BY shoes.id`
+  if (tags) {
+    const tagArray = Array.isArray(tags) ? tags : tags.split(',');
+    const placeholders = tagArray.map(() => '?').join(', ');
+    sql += ` AND tags.name IN (${placeholders})`;
+    params.push(...tagArray);
+    sql += ` GROUP BY shoes.id`;
+    sql += ` HAVING COUNT(DISTINCT tags.name) = ?`;
+    params.push(tagArray.length);
+  } else {
+    sql += ` GROUP BY shoes.id`;
+  }
   connection.query(sql, params, (err, results) => {
     if (err) res.status(500).json({ message: err.message })
     if (results.length === 0) return res.status(404).json({ error: 'sneakers not found' })
@@ -335,45 +343,45 @@ function updateSoldCopies(req, res) {
 }
 
 
-function showItemsOnTags(req, res) {
-  // Debug the raw query parameter
-  console.log('Raw tags query:', req.query.tags);
+// function showItemsOnTags(req, res) {
+//   // Debug the raw query parameter
+//   console.log('Raw tags query:', req.query.tags);
 
-  // Split only if tags exist
-  const tags = req.query.tags
-    ? req.query.tags.split(',').map(tag => tag.trim())
-    : [];
+//   // Split only if tags exist
+//   const tags = req.query.tags
+//     ? req.query.tags.split(',').map(tag => tag.trim())
+//     : [];
 
-  // Debug the processed tags
-  console.log('Processed tags array:', tags);
+//   // Debug the processed tags
+//   console.log('Processed tags array:', tags);
 
-  if (tags.length === 0) {
-    return res.status(400).json({ message: 'No tags provided' });
-  }
+//   if (tags.length === 0) {
+//     return res.status(400).json({ message: 'No tags provided' });
+//   }
 
-  const placeholders = tags.map(() => '?').join(',');
+//   const placeholders = tags.map(() => '?').join(',');
 
-  const sql = `
-    SELECT 
-      shoes.*,
-      GROUP_CONCAT(DISTINCT tags.name) as matching_tags
-    FROM shoes
-    JOIN shoe_tags ON shoe_tags.shoe_id = shoes.id
-    JOIN tags ON shoe_tags.tag_id = tags.id
-    WHERE tags.name IN (${placeholders})
-    GROUP BY shoes.id
-    HAVING COUNT(DISTINCT tags.name) = ?
-  `;
+//   const sql = `
+//     SELECT 
+//       shoes.*,
+//       GROUP_CONCAT(DISTINCT tags.name) as matching_tags
+//     FROM shoes
+//     JOIN shoe_tags ON shoe_tags.shoe_id = shoes.id
+//     JOIN tags ON shoe_tags.tag_id = tags.id
+//     WHERE tags.name IN (${placeholders})
+//     GROUP BY shoes.id
+//     HAVING COUNT(DISTINCT tags.name) = ?
+//   `;
 
-  // Debug the final SQL query
-  console.log('SQL Query:', sql);
-  console.log('Query parameters:', [...tags, tags.length]);
+//   // Debug the final SQL query
+//   console.log('SQL Query:', sql);
+//   console.log('Query parameters:', [...tags, tags.length]);
 
-  connection.execute(sql, [...tags, tags.length], (err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(results);
-  });
-}
+//   connection.execute(sql, [...tags, tags.length], (err, results) => {
+//     if (err) return res.status(500).json({ error: err.message });
+//     res.json(results);
+//   });
+// }
 
 module.exports = {
   index,
@@ -384,7 +392,6 @@ module.exports = {
   indexSearch,
   show,
   updateSoldCopies,
-  showItemsOnTags
 
 }
 

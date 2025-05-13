@@ -17,6 +17,7 @@ export default function SingleProduct() {
   const [counter, setCounter] = useState(0);
   const [variant, setVariant] = useState(0);
   const [activeIndex, setActiveIndex] = useState(null);
+  const [suggestedItems, setSuggestedItems] = useState([]);
 
   // gets the sneaker id starting from the slug so i can correctly to the fetch call
   function getSneakerId() {
@@ -68,6 +69,19 @@ export default function SingleProduct() {
   function handleSizeClick(index) {
     setActiveIndex(index);
   }
+
+  useEffect(() => {
+    if (product.state === "success") {
+      fetch(
+        `http://localhost:3000/boolshop/api/v1/shoes/search/?tags=${product.result.tags}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setSuggestedItems(data);
+        })
+        .catch((err) => err.message);
+    }
+  }, [product]);
 
   // switch case to ensure every situation is handled correctly
   switch (product.state) {
@@ -125,8 +139,18 @@ export default function SingleProduct() {
       /*   console.log(cart);
         console.log(product.result.variant_ids.split(",")[1]); */
       // parses the string with an array format into an actual array
+
       const images = JSON.parse(product.result.image_urls);
       const variantImages = JSON.parse(product.result.variants[1].image_urls);
+
+      const suggestedImages = [];
+      suggestedItems.map((item, index) => {
+        if (index < 8) {
+          suggestedImages.push(item.image_urls);
+        }
+      });
+      console.log(suggestedImages[0]);
+
       const colors = [];
       product.result.variants.map((variant) => {
         colors.push(variant.color);
@@ -350,20 +374,17 @@ export default function SingleProduct() {
               You might also like:
             </h1>
             <div className="suggestedItemsContainer d-flex pt-3 pb-4 px-3 gap-4">
-              <div className="suggestedItemWrapper">
-                {" "}
-                {/*Replace with dynamic map*/}
-                <img className="img-fluid" src="/assets/01.webp" alt="" />
-              </div>
-              <div className="suggestedItemWrapper">
-                <img className="img-fluid" src="/assets/01.webp" alt="" />
-              </div>
-              <div className="suggestedItemWrapper">
-                <img className="img-fluid" src="/assets/01.webp" alt="" />
-              </div>
-              <div className="suggestedItemWrapper">
-                <img className="img-fluid" src="/assets/01.webp" alt="" />
-              </div>
+              {suggestedItems.slice(0, 8).map((sneaker) => (
+                <div className="suggestedItemWrapper">
+                  <Link
+                    to={`/product/${sneaker.name
+                      .toLowerCase()
+                      .replaceAll(" ", "-")}`}
+                  >
+                    <img className="img-fluid" src={`/assets/01.webp`} alt="" />
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
         </>
