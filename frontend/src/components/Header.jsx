@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import { useCart } from "../context/CartContext"
 
 import SearchBar from "./SearchBar"
@@ -9,6 +9,16 @@ export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
     const [isCartOpen, setIsCartOpen] = useState(false)
+
+    // usiamo useLocation per ottenere i cambiamenti di posizione
+    const location = useLocation(); 
+
+    // chiudiamo il menu quando la posizione cambia
+    useEffect(() => {
+        setIsMenuOpen(false);
+        setIsSearchOpen(false);
+        setIsCartOpen(false);
+    }, [location]);
 
     // funzione per aprire e chiudere il menu
     const toggleMenu = () => {
