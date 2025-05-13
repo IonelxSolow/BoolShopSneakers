@@ -21,9 +21,9 @@ export default function Hero() {
                     </ul>
                 </div>
                 <div className="mb-4 bg-light hero-container position-relative">
-                    <div>
+                    <div className="container position-absolute bottom-0 start-50 translate-middle-x text-end mb-5">
                         <Link
-                            className="btn position-absolute btn-lg btn-nike  rounded-4"
+                            className="btn btn-lg btn-nike rounded-4"
                             type="button"
                             to="/all-products?brand=Nike"
                         >
