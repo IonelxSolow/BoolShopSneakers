@@ -203,6 +203,7 @@ export default function SingleProduct() {
                 variantSizes={variantSizes}
                 addToCart={addToCart}
                 activeIndex={activeIndex}
+                handleSizeClick={handleSizeClick}
               />
             </div>
             <SuggestedItems

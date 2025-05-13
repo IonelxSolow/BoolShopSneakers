@@ -12,6 +12,7 @@ export default function DetailSection({
   variantSizes,
   addToCart,
   activeIndex,
+  handleSizeClick,
 }) {
   return (
     <>
