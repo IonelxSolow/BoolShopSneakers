@@ -4,7 +4,7 @@ import MostPopular from "../components/MostPopular";
 import { useCart } from "../context/CartContext";
 
 export default function CartPage() {
-  const { cart, setCart, increaseQuantity, decreaseQuantity, removeItem, total } = useCart();
+  const { cart, increaseQuantity, decreaseQuantity, removeItem, total } = useCart();
 
 
   return (
