@@ -592,3 +592,37 @@ main {
   text-transform: uppercase;
   font-size: 0.85rem;
 }
+.custom-pagination {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding-left: 0;
+}
+.custom-page-link {
+    border: 1px solid black;
+    padding: 0.5rem 0.75rem;
+    border-radius: 5px;
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.custom-page-link:hover {
+    background-color: black;
+    color: var(--main-light);
+}
+
+.custom-page-item.active .custom-page-link {
+    background-color: var(--main-light);
+    color: white;
+    border-color: black;
+}
+.pagination-option{
+  cursor: pointer;
+  &:hover{
+    background-color: black;
+    color: var(--main-light);
+  }
+}
