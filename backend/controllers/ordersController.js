@@ -86,7 +86,13 @@ function show(req, res) {
 
     const id = Number(req.params.id)
 
-    const sql = 'SELECT * FROM ORDERS WHERE id = ?'
+    const sql = `
+SELECT *
+FROM orders
+JOIN order_items ON orders.id = order_items.order_id
+JOIN variants ON variants.id = order_items.variant_id
+WHERE orders.id = ?
+    `
 
     connection.query(sql, [id], (err, results) => {
         if (err) return res.status(500).json({ error: err.message })

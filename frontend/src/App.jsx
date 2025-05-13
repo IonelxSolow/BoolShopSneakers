@@ -24,7 +24,7 @@ export default function App() {
               <Route path="/men" element={<Men />} />
               <Route path="/women" element={<Women />} />
               <Route path="/kids" element={<Kids />} />
-              <Route path="/all-products" element={<AllProducts />} />
+              <Route path="/all-products?" element={<AllProducts />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<Checkout />} />
             </Route>

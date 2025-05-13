@@ -23,6 +23,29 @@ body {
     font-family: "Overpass", sans-serif;
 }
 
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--bs-bg-primary);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.header-hidden {
+    transform: translateY(-100%);
+}
+
+.header-visible {
+    transform: translateY(0);
+}
+
+/* Aggiungi padding al main per compensare l'header fixed */
+main {
+    padding-top: 70px;  /* Altezza dell'header */
+}
+
 header {
     width: 100%;
     margin: auto;
@@ -111,23 +134,25 @@ header {
     .cart-dropdown {
         position: fixed;
         top: 0;
-        right: 0;
-        /* Nasconde il carrello fuori dalla vista */
+        right: -300px;
+        /* Inizialmente nascosto fuori dalla vista */
         width: 300px;
-        height: 100%;
+        height: 100vh; /* Usa viewport height invece di % */
         background-color: var(--bs-secondary);
         color: var(--bs-bg-primary);
         box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
         padding: 1rem;
         transition: right 0.3s ease;
-        /* Transizione fluida */
+       
         z-index: 1050;
-    }
+    transform: translateZ(0); /* Forza hardware acceleration */
+    backface-visibility: hidden; /* Aiuta con problemi di rendering */
+  }
 
-    .cart-dropdown.open {
-        right: 0;
-        /* Mostra il carrello scorrendo da destra */
-    }
+  .cart-dropdown.open {
+      right: 0;
+       
+  }
 
     .close-cart {
         background-color: var(--main-light);
@@ -273,7 +298,7 @@ ul {
             max-height: 450px;
             width: 100%;
             object-fit: cover;
-            object-position: center;
+            object-position:bottom;
         }
     }
 }
@@ -390,10 +415,34 @@ ul {
     border: 2px solid var(--main-light);
     font-weight: 600;
 }
+.active-filter{
+  background-color: var(--main-light);
+  font-weight: bold;
+}
 
 .all-products {
+  h1{
+    cursor: pointer;
+    &:hover{
+      color: black;
+      font-weight: bold;
+    }
+  }
+  .filter-toggle{
+    color:#1877f2;
+    cursor: pointer;
+  }
     .tool-bar {
-        .filters-list {
+     width: 20%;
+    max-width: 300px;
+    min-width: 200px;
+    background-color: #f8f8f8;
+    padding: 1rem;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+          .filters-list {
             margin-bottom: 1rem;
 
             .filter-items {
@@ -403,14 +452,77 @@ ul {
                 border-bottom: 1px solid #ddd;
                 padding: 0.5rem 0;
                 text-transform: uppercase;
+        &:hover{
+          color:var(--main-light);
+        }
             }
 
-            ul {
-                padding-left: 0;
-                list-style: none;
-                margin: 0;
-                border-bottom: 1px solid #ddd;
-            }
+      ul {
+        padding-left: 0;
+        list-style: none;
+        margin: 0;
+        border-bottom: 1px solid #ddd;
+        li{
+          cursor: pointer;
+          &:hover{
+            border: 2px solid var(--main-light);
+            font-weight: 600;
+          }
+          
         }
+      }
     }
+  }
+.products-displayer {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  height: 100vh;
+    .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+      .card-body {
+    flex-grow: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .card-text {
+    font-size: 1rem;
+    color: #555;
+  }
+
+  .card-footer {
+    padding: 0.5rem;
+    background-color: #f8f8f8;
+    text-align: center;
+  }
+
+  .card-img-top {
+    width: 100%;
+    object-fit: cover;
+      }
+    }
+  }
 }
+.all-products .container-fluid {
+  display: flex;
+  flex-direction: row;
+  height: 100vh; /* Full height of the viewport */
+  overflow: hidden;
+}
+
+

@@ -19,8 +19,10 @@ export default function Cart({ toggleCart, isOpen }) {
           <i className="d-flex bi bi-x"></i>
         </button>
         <span>
-          <Link to="/cart" className="nav-link">
-            <a className="cart-link" href="">View the cart</a>
+          <Link to="/cart" className="nav-link cart-link">
+            
+              View the cart
+            
           </Link>
         </span>
       </div>
@@ -30,7 +32,10 @@ export default function Cart({ toggleCart, isOpen }) {
       <div className="cart-items">
         {cartItems.length > 0 ? (
           cartItems.map((item) => (
-            <div key={item.id} className="cart-item d-flex justify-content-between align-items-center mb-3">
+            <div
+              key={item.id}
+              className="cart-item d-flex justify-content-between align-items-center mb-3"
+            >
               <span>{item.name}</span>
               <span>${item.price.toFixed(2)}</span>
             </div>
@@ -46,7 +51,9 @@ export default function Cart({ toggleCart, isOpen }) {
           <span>Total:</span>
           <span>{total}€</span>
         </h6>
-        <Link to="/checkout" className="btn btn-main-light w-100 mt-3">Procede to checkout</Link>
+        <Link to="/checkout" className="btn btn-main-light w-100 mt-3">
+          Procede to checkout
+        </Link>
       </div>
     </div>
   );
