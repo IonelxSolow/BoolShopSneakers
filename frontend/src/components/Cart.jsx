@@ -44,7 +44,7 @@ export default function Cart({ toggleCart, isOpen }) {
                   }}
                 >
                   <img
-                    src={item.image} 
+                    src={item.image}
                     alt={item.name}
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
