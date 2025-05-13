@@ -145,11 +145,16 @@ export default function SingleProduct() {
 
       const suggestedImages = [];
       suggestedItems.map((item, index) => {
-        if (index < 8) {
+        if (index < 5 && item.name != product.result.name) {
           suggestedImages.push(item.image_urls);
         }
       });
-      console.log(suggestedImages[0]);
+
+      const parsedImages = suggestedImages.map((image) => {
+        return JSON.parse(image);
+      });
+
+      console.log(parsedImages);
 
       const colors = [];
       product.result.variants.map((variant) => {
@@ -374,14 +379,18 @@ export default function SingleProduct() {
               You might also like:
             </h1>
             <div className="suggestedItemsContainer d-flex pt-3 pb-4 px-3 gap-4">
-              {suggestedItems.slice(0, 8).map((sneaker) => (
+              {suggestedItems.slice(1, 5).map((sneaker, index) => (
                 <div className="suggestedItemWrapper">
                   <Link
                     to={`/product/${sneaker.name
                       .toLowerCase()
                       .replaceAll(" ", "-")}`}
                   >
-                    <img className="img-fluid" src={`/assets/01.webp`} alt="" />
+                    <img
+                      className="img-fluid"
+                      src={`/assets/${parsedImages[index][0]}`}
+                      alt=""
+                    />
                   </Link>
                 </div>
               ))}
