@@ -22,11 +22,6 @@ export default function Hero() {
                 </div>
                 <div className="mb-4 bg-light hero-container position-relative">
                     <div>
-                        <img
-                            src="/hero-force1.webp"
-                            className="img-fluid"
-                            alt="hero-force1"
-                        />
                         <Link
                             className="btn position-absolute btn-lg btn-nike  rounded-4"
                             type="button"

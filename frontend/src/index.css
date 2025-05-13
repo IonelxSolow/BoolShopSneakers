@@ -186,6 +186,10 @@ main {
     padding-top: 70px;
 }
 
+.text-main-light{
+  color: var(--main-light);
+}
+
 .btn-main-light {
     border: 1px solid black;
     font-weight: bold;
@@ -274,7 +278,11 @@ main {
 
     .hero-container {
       border-bottom: 1px solid black;
-
+      min-height: 70vh;
+      overflow: hidden;
+      background-image: url("/hero-force1.webp");
+      background-size: cover;
+      background-position: right bottom;
         .btn-nike {
             background-color: var(--main-light);
             bottom: 2rem;
@@ -287,13 +295,6 @@ main {
                 background-color: black;
                 color: white;
             }
-        }
-
-        img {
-            max-height: 450px;
-            width: 100%;
-            object-fit: cover;
-            object-position: bottom;
         }
     }   
 }
@@ -456,7 +457,7 @@ main {
   .filter-toggle {
     cursor: pointer;
     &:hover{
-      color: #1877f2;
+      color:#1877f2;
     }
   }
   .sort-dropdown{
