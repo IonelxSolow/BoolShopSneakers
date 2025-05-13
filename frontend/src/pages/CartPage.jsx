@@ -2,14 +2,15 @@ import { Link } from "react-router-dom";
 import LatestProducts from "../components/LatestProducts";
 import MostPopular from "../components/MostPopular";
 import { useCart } from "../context/CartContext";
+import IncreaseDecrease from "../components/IncreaseDecrease";
 
 export default function CartPage() {
-  const { cart, increaseQuantity, decreaseQuantity, removeItem, total } = useCart();
+  const { cart, removeItem, total } = useCart();
 
 
   return (
     <div className="cart-page container my-4">
-      
+
       {/* Carrello */}
       <h1 className="fs-3 fs-md-2 fw-bold">Your Cart</h1>
       {cart.length > 0 ? ( 
@@ -21,27 +22,14 @@ export default function CartPage() {
                   <h6>{item.name}</h6>
                   <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
                     <span className="mb-2 mb-md-0" style={{ width: "150px" }}>
-                      Price: {Number(item.price).toFixed(2)}€
+                      Price: {Number(item.price).toFixed(2)} €
                     </span>
-                    <div className="d-flex align-items-center">
-                      <button
-                        className="btn btn-sm btn-outline-secondary me-2"
-                        onClick={() => decreaseQuantity(item.sku)}
-                      >
-                        -
-                      </button>
-                      <span>{item.quantity}</span>
-                      <button
-                        className="btn btn-sm btn-outline-secondary ms-2"
-                        onClick={() => increaseQuantity(item.sku)}
-                      >
-                        +
-                      </button>
-                    </div>
+                                    <IncreaseDecrease item={item} />
+
                   </div>
                 </div>
                 <span className="mb-0">
-                  Total: {(item.price * item.quantity).toFixed(2)}€
+                  Total: {(item.price * item.quantity).toFixed(2)} €
                 </span>
                 <button
                   className="btn btn-sm btn-danger ms-3"

@@ -133,20 +133,16 @@ header {
 
     .cart-dropdown {
         position: fixed;
-        top: 0;
-        right: -300px;
-        /* Inizialmente nascosto fuori dalla vista */
-        width: 300px;
-        height: 100vh; /* Usa viewport height invece di % */
+        top: 70px;
+        right: -300px; /* Inizialmente nascosto */
+        width: 100%;
         background-color: var(--bs-secondary);
         color: var(--bs-bg-primary);
         box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
         padding: 1rem;
-        transition: right 0.3s ease;
-       
+        transition: right 0.3s ease;       
         z-index: 1050;
-    transform: translateZ(0); /* Forza hardware acceleration */
-    backface-visibility: hidden; /* Aiuta con problemi di rendering */
+
   }
 
   .cart-dropdown.open {

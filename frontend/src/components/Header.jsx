@@ -42,6 +42,9 @@ export default function Header() {
 
     // funzione per aprire e chiudere il carrello
     const toggleCart = () => {
+        if (location.pathname === "/cart") {
+            return
+        }
         setIsCartOpen(!isCartOpen);
         if (!isCartOpen) {
             setIsMenuOpen(false);
