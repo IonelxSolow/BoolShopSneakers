@@ -3,20 +3,21 @@ import { useCart } from "../context/CartContext";
 import IncreaseDecrease from "./IncreaseDecrease";
 
 export default function Cart({ toggleCart, isOpen }) {
-
   const { cart, removeItem, total } = useCart();
 
   return (
-    <div className={`container cart-content d-flex flex-column ${isOpen ? "open" : ""}`}>
+    <div
+      className={`container cart-content d-flex flex-column ${
+        isOpen ? "open" : ""
+      }`}
+    >
       <div className="d-flex justify-content-between align-items-center mb-4">
         <button className="btn close-cart " onClick={toggleCart}>
           <i className="d-flex bi bi-x"></i>
         </button>
         <span>
           <Link to="/cart" className="nav-link cart-link">
-
             View the cart
-
           </Link>
         </span>
       </div>
@@ -31,7 +32,6 @@ export default function Cart({ toggleCart, isOpen }) {
               className="cart-item d-flex justify-content-between align-items-center mb-2"
             >
               <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-
                 {/* Cerchietto con immagine */}
                 <div
                   className="me-3"
@@ -44,9 +44,13 @@ export default function Cart({ toggleCart, isOpen }) {
                   }}
                 >
                   <img
-                    src={item.image}
+                    src={`/assets/${item.image}`}
                     alt={item.name}
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
                   />
                 </div>
 
@@ -82,8 +86,12 @@ export default function Cart({ toggleCart, isOpen }) {
           <span>{total.toFixed(2)}€</span>
         </h6>
         <div className="d-flex justify-content-end align-items-center">
-          <Link to="/checkout"
-            className={`btn btn-main-light w-auto mt-3 mb-3 ${cart.length > 0 ? "" : "disabled"}`}>
+          <Link
+            to="/checkout"
+            className={`btn btn-main-light w-auto mt-3 mb-3 ${
+              cart.length > 0 ? "" : "disabled"
+            }`}
+          >
             Go to checkout
           </Link>
         </div>

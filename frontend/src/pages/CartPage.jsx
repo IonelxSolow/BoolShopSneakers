@@ -7,20 +7,20 @@ import IncreaseDecrease from "../components/IncreaseDecrease";
 export default function CartPage() {
   const { cart, removeItem, total } = useCart();
 
-
   return (
     <div className="cart-page container my-4">
-
       {/* Carrello */}
       <h1 className="fs-3 fs-md-2 fw-bold">Your Cart</h1>
       {cart.length > 0 ? (
-        <div className="cart-items mb-4 container rounded-3 p-4" style={{ backgroundColor: "var(--bs-secondary)" }}>
+        <div
+          className="cart-items mb-4 container rounded-3 p-4"
+          style={{ backgroundColor: "var(--bs-secondary)" }}
+        >
           {cart.map((item) => (
             <div key={item.sku} className="cart-item card mb-2">
               <div className="card-body d-flex align-items-center">
                 <div className="flex-grow-1">
                   <div className="d-flex align-items-center">
-
                     {/* Cerchietto con immagine */}
                     <div
                       className="me-3"
@@ -33,9 +33,13 @@ export default function CartPage() {
                       }}
                     >
                       <img
-                        src={item.image}
+                        src={`/assets/${item.image}`}
                         alt={item.name}
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
                       />
                     </div>
                     <h6>{item.name}</h6>
@@ -45,7 +49,6 @@ export default function CartPage() {
                       Price: {Number(item.price).toFixed(2)} €
                     </span>
                     <IncreaseDecrease item={item} />
-
                   </div>
                 </div>
                 <span className="mb-0">
@@ -68,9 +71,16 @@ export default function CartPage() {
           </div>
         </div>
       ) : (
-        <div className="cart-items mb-4 container rounded-3 p-4 d-flex align-items-center justify-content-between" style={{ backgroundColor: "var(--bs-secondary)" }}>
+        <div
+          className="cart-items mb-4 container rounded-3 p-4 d-flex align-items-center justify-content-between"
+          style={{ backgroundColor: "var(--bs-secondary)" }}
+        >
           <h3 className="text-light m-0">Your cart is empty!</h3>
-          <Link type="button" to={'/all-products'} className="btn btn-main-light">
+          <Link
+            type="button"
+            to={"/all-products"}
+            className="btn btn-main-light"
+          >
             All shoes
           </Link>
         </div>
