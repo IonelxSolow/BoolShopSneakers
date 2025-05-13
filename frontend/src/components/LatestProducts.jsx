@@ -83,9 +83,6 @@ export default function LatestProducts() {
                   >
                     <i className="bi bi-chevron-left"></i>
                   </button>
-                  <span>
-                    Pagina {newestPage + 1} di {newestTotalPages}
-                  </span>
                   <button
                     className="btn btn-main-light"
                     onClick={nextNewestPage}
