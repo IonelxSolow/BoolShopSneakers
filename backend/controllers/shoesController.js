@@ -72,7 +72,7 @@ function indexBrand(req, res) {
   })
 }
 function indexSearch(req, res) {
-  const { brand, size, color, price /* category */ } = req.query
+  const { brand, size, color, price, name, search/* category */ } = req.query
 
   let sql = `SELECT 
   shoes.id,
@@ -116,6 +116,14 @@ function indexSearch(req, res) {
   if (price) {
     sql += ' AND shoes.price = ?'
     params.push(price)
+  }
+  if (name) {
+    sql += ' AND shoes.name LIKE ?'
+    params.push(`%${name}%`)
+  }
+  if (search) {
+    sql += ` AND (shoes.name LIKE ? OR shoes.brand LIKE ?)`;
+    params.push(`%${search}%`, `%${search}%`);
   }
   /* if (category) {
     sql += 'AND shoes.category = ?'
