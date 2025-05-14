@@ -1,0 +1,168 @@
+.header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--bs-bg-primary);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.header-hidden {
+  transform: translateY(-100%);
+}
+
+.header-visible {
+  transform: translateY(0);
+}
+
+header {
+  width: 100%;
+  margin: auto;
+}
+
+header .burger-menu {
+  font-size: 1.5rem;
+  cursor: pointer;
+  background-color: var(--bs-bg-primary);
+}
+
+header .burger-menu .bi {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+header .burger-menu .bi-x {
+  background-color: var(--bs-secondary);
+  color: var(--bs-bg-primary);
+}
+
+header .burger-menu .bi-x:hover {
+  color: var(--main-light);
+}
+
+header .menu-list {
+  gap: 1rem;
+}
+
+header .menu-list.open {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  background-color: var(--bs-secondary);
+  color: var(--bs-bg-primary);
+  width: 100%;
+  padding: 1rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+header .menu-list.open a.nav-link {
+  display: inline-block;
+  width: auto;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border-radius: 20px;
+  color: var(--bs-bg-primary);
+  transition: all 0.3s ease;
+}
+
+header .menu-list.open a:hover,
+header .menu-list.open a.active {
+  color: #232321 !important;
+  background-color: var(--main-light);
+  border-radius: 20px;
+}
+
+header .cart-dropdown {
+  position: fixed;
+  top: 70px;
+  right: -300px;
+  width: 100%;
+  background-color: var(--bs-secondary);
+  color: var(--bs-bg-primary);
+  box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  transition: right 0.3s ease;
+  z-index: 1050;
+}
+
+header .cart-dropdown.open {
+  right: 0;
+}
+
+header .cart-link {
+  color: var(--main-light);
+  text-decoration: underline;
+}
+
+header .cart-link:hover {
+  color: var(--bs-bg-primary);
+}
+
+header .badge {
+  background-color: var(--instagram);
+  display: flex;
+  align-items: center;
+  color: var(--bs-bg-primary);
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+header .cursor-pointer {
+  cursor: pointer;
+}
+
+/* Hero Section */
+.hero .top-bar {
+  background-color: var(--main-light);
+}
+
+.hero .top-bar a {
+  text-decoration: none;
+  color: black;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.hero .top-bar a:hover {
+  text-decoration: underline;
+}
+
+.hero .top-bar i {
+  color: black;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.hero .hero-container {
+  border-bottom: 1px solid black;
+  min-height: 70vh;
+  overflow: hidden;
+  background-image: url("/hero-force1.webp");
+  background-size: cover;
+  background-position: right bottom;
+}
+
+.hero .hero-container .btn-nike {
+  background-color: var(--main-light);
+  bottom: 2rem;
+  right: 1rem;
+  font-size: 1rem;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.hero .hero-container .btn-nike:hover {
+  background-color: black;
+  color: white;
+}
+
+@media (min-width: 768px) {
+  .hero .hero-container .btn-nike {
+    font-size: 2rem;
+  }
+}
