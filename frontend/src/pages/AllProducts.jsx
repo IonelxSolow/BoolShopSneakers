@@ -17,9 +17,11 @@ export default function AllProducts() {
     tags: "",
   });
   //array to iterate on after filter
-  const [originalSneakers, setOriginalSneakers] = useState([])
-  const [filteredSneakers, setFilteredSneakers] = useState({ state: "loading" });
-  const [isInitial, setIsInitial] = useState(true);
+  const [originalSneakers, setOriginalSneakers] = useState([]);
+  const [filteredSneakers, setFilteredSneakers] = useState({
+    state: "loading",
+  });
+
   //loading and error handlers(futher implementetion)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -37,6 +39,7 @@ export default function AllProducts() {
     }
     return params.toString();
   };
+
   //first rendering of the page get filter in the url with the params
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -53,14 +56,10 @@ export default function AllProducts() {
     if (JSON.stringify(filters) !== JSON.stringify(newFilters)) {
       setFilters(newFilters);
     }
-
   }, [location.search]);
+
   //every time filters changes replace the old url with a new one
   useEffect(() => {
-    if (isInitial) {
-      setIsInitial(false);
-      return;
-    }
     const query = buildQueryString(filters);
     navigate(`/all-products?${query}`, { replace: true });
   }, [filters]);
@@ -82,7 +81,6 @@ export default function AllProducts() {
             state: "success",
             result: data,
           });
-
         }
       })
       .catch((err) => {
@@ -90,30 +88,30 @@ export default function AllProducts() {
         setFilteredSneakers({
           state: "error",
           message: err,
-        })
+        });
       })
       .finally(() => setLoading(false));
   }, [filters]);
 
   //sorting
-  const [sortConfig, setSortConfig] = useState({ key: '', direction: '' });
+  const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
   //sorting handler
   const handleSort = (key) => {
-    let direction = 'asc';
+    let direction = "asc";
     // If same key is clicked again, toggle direction
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
     }
     //creating the sorted array
     const sorted = [...filteredSneakers.result].sort((a, b) => {
-      if (key === 'name') {
-        return direction === 'asc'
+      if (key === "name") {
+        return direction === "asc"
           ? a.name.localeCompare(b.name)
           : b.name.localeCompare(a.name);
-      } else if (key === 'price') {
+      } else if (key === "price") {
         const priceA = parseFloat(a.discounted_price || a.price);
         const priceB = parseFloat(b.discounted_price || b.price);
-        return direction === 'asc' ? priceA - priceB : priceB - priceA;
+        return direction === "asc" ? priceA - priceB : priceB - priceA;
       }
       return 0;
     });
@@ -130,7 +128,7 @@ export default function AllProducts() {
       ...filteredSneakers,
       result: originalSneakers,
     });
-    setSortConfig({ key: '', direction: '' });
+    setSortConfig({ key: "", direction: "" });
   };
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -151,7 +149,7 @@ export default function AllProducts() {
   const changePage = (pageNum) => setCurrentPage(pageNum);
   useEffect(() => {
     setCurrentPage(1);
-  }, [itemsPerPage, filters])//it changes whenever item per page is change
+  }, [itemsPerPage, filters]); //it changes whenever item per page is change
 
   switch (filteredSneakers.state) {
     case "loading":
@@ -166,7 +164,6 @@ export default function AllProducts() {
         </>
       );
     case "success":
-
       return (
         <>
           <section className="all-products">
@@ -188,28 +185,51 @@ export default function AllProducts() {
                   {isHidden ? "Show Filters" : "Hide Filters"}
                 </div>
                 <div className="position-relative me-3 mt-3">
-                  <div onClick={() => setIsSortedOpen((prev) => !prev)} className="filter-toggle">
+                  <div
+                    onClick={() => setIsSortedOpen((prev) => !prev)}
+                    className="filter-toggle"
+                  >
                     {isSortedOpen ? (
                       <>
-                        <i className="bi bi-funnel-fill"></i> <i className="bi bi-chevron-up"></i>
+                        <i className="bi bi-funnel-fill"></i>{" "}
+                        <i className="bi bi-chevron-up"></i>
                       </>
                     ) : (
                       <>
-                        <i className="bi bi-funnel-fill"></i> <i className="bi bi-chevron-down"></i>
+                        <i className="bi bi-funnel-fill"></i>{" "}
+                        <i className="bi bi-chevron-down"></i>
                       </>
                     )}
                   </div>
                   {isSortedOpen && (
-                    <ul
-                      className="sort-dropdown position-absolute bg-white border rounded shadow p-2"
-                    >
-                      <li className="py-1 px-2" onClick={() => handleSort("name")}>
-                        Sort by Name ({sortConfig.key === 'name' ? (sortConfig.direction === 'asc' ? 'A-Z' : 'Z-A') : 'A-Z'})
+                    <ul className="sort-dropdown position-absolute bg-white border rounded shadow p-2">
+                      <li
+                        className="py-1 px-2"
+                        onClick={() => handleSort("name")}
+                      >
+                        Sort by Name (
+                        {sortConfig.key === "name"
+                          ? sortConfig.direction === "asc"
+                            ? "A-Z"
+                            : "Z-A"
+                          : "A-Z"}
+                        )
                       </li>
-                      <li className="py-1 px-2" onClick={() => handleSort("price")}>
-                        Sort by Price ({sortConfig.key === 'price' ? (sortConfig.direction === 'asc' ? 'Low → High' : 'High → Low') : 'Low → High'})
+                      <li
+                        className="py-1 px-2"
+                        onClick={() => handleSort("price")}
+                      >
+                        Sort by Price (
+                        {sortConfig.key === "price"
+                          ? sortConfig.direction === "asc"
+                            ? "Low → High"
+                            : "High → Low"
+                          : "Low → High"}
+                        )
                       </li>
-                      <li className="py-1 px-2" onClick={resetSort}>Reset</li>
+                      <li className="py-1 px-2" onClick={resetSort}>
+                        Reset
+                      </li>
                     </ul>
                   )}
                 </div>
@@ -224,7 +244,8 @@ export default function AllProducts() {
               />
               <ProductDisplayer
                 currentItems={currentItems}
-                filteredSneakers={filteredSneakers} />
+                filteredSneakers={filteredSneakers}
+              />
             </div>
             <Pagination
               itemsPerPage={itemsPerPage}
@@ -233,11 +254,10 @@ export default function AllProducts() {
               changePage={changePage}
               isItemsOpen={isItemsOpen}
               setIsItemsOpen={setIsItemsOpen}
-              setItemsPerPage={setItemsPerPage} />
-
+              setItemsPerPage={setItemsPerPage}
+            />
           </section>
         </>
       );
   }
 }
-

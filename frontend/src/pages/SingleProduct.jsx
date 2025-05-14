@@ -136,9 +136,6 @@ export default function SingleProduct() {
         }
 
         setCart(updatedCart);
-
-        console.log("Added item:", newItem);
-        console.log("Updated cart:", updatedCart);
       }
 
       // parses the string with an array format into an actual array
