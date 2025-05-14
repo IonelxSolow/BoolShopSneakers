@@ -13,8 +13,13 @@ export default function Checkout() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+  // Free shipping threshold
+  const FREE_SHIPPING_THRESHOLD = 100;
+  // Calculate if shipping is free
+  const isFreeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
   const [shippingMethod, setShippingMethod] = useState("standard");
-  const shippingCost = shippingMethod === "express" ? 15 : 5;
+  // Calculate shipping cost
+  const shippingCost = isFreeShipping ? 0 : (shippingMethod === "express" ? 15 : 5);
   const total = subtotal + shippingCost;
 
   const handleSubmit = async (e) => {
@@ -47,7 +52,7 @@ export default function Checkout() {
       total_price: total,
       status: "pending",
       payment_type: "card",
-      delivery_fee: shippingMethod === "express" ? 15 : 5,
+      delivery_fee: shippingCost,
       items: cart.map((item) => ({
         variant_id: item.variant_id,
         quantity: item.quantity,
@@ -362,7 +367,7 @@ export default function Checkout() {
                 </div>
                 <div className="d-flex justify-content-between mb-2">
                   <span>Shipping</span>
-                  <span>€{shippingCost.toFixed(2)}</span>
+                  <span>{isFreeShipping ? <span style={{color: '#4caf50', fontWeight: 600}}>Free</span> : `€${shippingCost.toFixed(2)}`}</span>
                 </div>
                 <hr />
                 <div className="d-flex justify-content-between mb-0">
