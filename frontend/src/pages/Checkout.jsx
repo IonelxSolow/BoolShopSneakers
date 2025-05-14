@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../context/GlobalContext";
 
 export default function Checkout() {
+  const { sneakers } = useGlobalContext()
   const { cart, setCart } = useCart();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState("");
+  console.log(sneakers)
 
   // Calcola il totale
   const subtotal = cart.reduce(
@@ -367,7 +370,7 @@ export default function Checkout() {
                 </div>
                 <div className="d-flex justify-content-between mb-2">
                   <span>Shipping</span>
-                  <span>{isFreeShipping ? <span style={{color: '#4caf50', fontWeight: 600}}>Free</span> : `€${shippingCost.toFixed(2)}`}</span>
+                  <span>{isFreeShipping ? <span style={{ color: '#4caf50', fontWeight: 600 }}>Free</span> : `€${shippingCost.toFixed(2)}`}</span>
                 </div>
                 <hr />
                 <div className="d-flex justify-content-between mb-0">
