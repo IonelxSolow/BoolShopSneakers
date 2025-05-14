@@ -160,7 +160,7 @@ export default function Header() {
                                 <i className="bi bi-search"></i>
                             </a>
                             <a className="nav-link cursor-pointer" onClick={toggleWishlist}>
-                                <i class="bi bi-box2-heart"></i>
+                                <i className="bi bi-box2-heart"></i>
                             </a>
 
                             <div className="position-relative">
