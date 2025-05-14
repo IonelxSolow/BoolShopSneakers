@@ -139,7 +139,7 @@ header {
     margin: auto;
     position: absolute;
     top: 70px;
-    width: 40vh;
+    width: 50vh;
     /* Inizialmente nascosto */
     background-color: var(--bs-secondary);
     color: var(--bs-bg-primary);
