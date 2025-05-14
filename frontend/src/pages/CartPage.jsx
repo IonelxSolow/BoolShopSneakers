@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import LatestProducts from "../components/LatestProducts";
-import MostPopular from "../components/MostPopular";
+import LatestProducts from "../components/home_page_components/LatestProducts";
+import MostPopular from "../components/home_page_components/MostPopular";
 import { useCart } from "../context/CartContext";
 import IncreaseDecrease from "../components/IncreaseDecrease";
 
