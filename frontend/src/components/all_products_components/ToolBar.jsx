@@ -12,6 +12,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
   const [activeSize, setActiveSize] = useState("");
   const [activeColor, setActiveColor] = useState("");
   const [activePrice, setActivePrice] = useState("");
+  const [activeTags, setActiveTags] = useState("");
   const [activeKeys, setActiveKeys] = useState([]);
   const [searchParams] = useSearchParams();
 
@@ -23,6 +24,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
     setActiveSize(currentParams.size || "");
     setActiveColor(currentParams.color || "");
     setActivePrice(currentParams.price || "");
+    setActiveTags(currentParams.tags || "");
 
     setActiveKeys(currentParams);
   }, [searchParams]);
@@ -54,6 +56,9 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
       case "price":
         setActivePrice((prev) => (prev === value ? "" : value));
         break;
+      case "tags":
+        setActiveTags((prev) => (prev === value ? "" : value));
+        break;
       default:
         break;
     }
@@ -83,7 +88,11 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
             handleFilterChange={handleFilterChange}
             activeKeys={activeKeys}
           />
-          <TagFilter />
+          <TagFilter
+            actviveTags={activeTags}
+            handleFilterChange={handleFilterChange}
+            activeKeys={activeKeys}
+          />
         </div>
       </div>
     </>

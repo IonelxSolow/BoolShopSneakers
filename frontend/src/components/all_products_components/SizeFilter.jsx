@@ -9,6 +9,8 @@ export default function SizeFilter({
   useEffect(() => {
     if (activeKeys.size) {
       setIsSizeOpen(true);
+    } else {
+      setIsSizeOpen(false);
     }
   }, [activeKeys]);
 

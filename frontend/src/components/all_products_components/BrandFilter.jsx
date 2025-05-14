@@ -12,6 +12,8 @@ export default function BrandFilter({
   useEffect(() => {
     if (activeKeys.brand) {
       setIsBrandOpen(true);
+    } else {
+      setIsBrandOpen(false);
     }
   }, [activeKeys]);
 

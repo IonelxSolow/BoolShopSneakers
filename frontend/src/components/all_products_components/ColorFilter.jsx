@@ -22,6 +22,8 @@ export default function ColorFilter({
   useEffect(() => {
     if (activeKeys.color) {
       setIsColorOpen(true);
+    } else {
+      setIsColorOpen(false);
     }
   }, [activeKeys]);
   return (

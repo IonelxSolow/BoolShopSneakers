@@ -9,6 +9,8 @@ export default function PriceFilter({
   useEffect(() => {
     if (activeKeys.price) {
       setIsPriceOpen(true);
+    } else {
+      setIsPriceOpen(false);
     }
   }, [activeKeys]);
   return (
