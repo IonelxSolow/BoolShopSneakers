@@ -21,7 +21,6 @@ export default function AllProducts() {
   const [filteredSneakers, setFilteredSneakers] = useState({
     state: "loading",
   });
-
   //variable to handle tool-bar toggle
   const [isHidden, setIsHidden] = useState(false);
   //variable to handle sorting toggle
