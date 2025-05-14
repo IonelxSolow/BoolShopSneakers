@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 
 export default function TagFilter({
-  activeTag,
+  activeTags,
   handleFilterChange,
   activeKeys,
 }) {
   const [isTagOpen, setIsTagOpen] = useState(false);
+  console.log(activeTags)
 
   useEffect(() => {
     if (activeKeys.tags) {
@@ -37,7 +38,7 @@ export default function TagFilter({
               onClick={() => {
                 handleFilterChange("tags", tag);
               }}
-              className={activeTag === tag ? "active-filter ps-2" : ""}
+              className={activeTags === tag ? "active-filter ps-2" : ""}
             >
               {tag}
             </li>
