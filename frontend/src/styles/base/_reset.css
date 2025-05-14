@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bs-bg-primary);
+  font-family: "Overpass", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: var(--bs-secondary);
+}
+
+a:hover {
+  color: var(--main-light);
+}
+
+main {
+  min-height: calc(100vh - 70px);
+  padding-top: 70px;
+}
+
+.custom-width {
+  max-width: 980px;
+  margin: auto;
+}
+
+.bg-black {
+  background-color: var(--bs-secondary);
+}
+
+.bg-main-light {
+  background-color: var(--main-light);
+}
+
+.secondary-color {
+  color: var(--main-secondary);
+}
+
+.text-main-light {
+  color: var(--main-light);
+}
+
+.responsive-font {
+  font-size: 1.5rem;
+}
+
+.wrapper-border {
+  border: 2px solid var(--main-light);
+}
+
+.brand-banner {
+  background-image: url("/assets/01.webp");
+  background-repeat: repeat;
+  background-size: 150px auto;
+  background-position: center;
+  background-color: white;
+  height: 150px;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+  .responsive-font {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .responsive-font {
+    font-size: 3rem;
+  }
+}

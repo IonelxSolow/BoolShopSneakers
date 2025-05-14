@@ -1,0 +1,125 @@
+.active-link {
+  border: 2px solid var(--main-light);
+  font-weight: 600;
+}
+
+.single-page {
+  background-color: white;
+  border-radius: 5px;
+  min-height: calc(100vh - 70px);
+
+  .suggestedItemsContainer {
+    a {
+      &:hover {
+        filter: brightness(70%);
+      }
+    }
+  }
+
+  .thumbContainer {
+    .thumb-wrapper {
+      padding: 0.5rem 0;
+      background-color: #ededed;
+      border-radius: 5px;
+      border-color: var(--main-light);
+
+      &:hover {
+        filter: brightness(95%);
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .carousel {
+    background-color: #ededed;
+    border-radius: 5px;
+
+    img {
+      width: 100%;
+      height: auto;
+      margin-bottom: auto;
+    }
+
+    .btn-left {
+      font-size: 1.6rem;
+      background-color: transparent;
+      border: 0;
+      position: absolute;
+      left: 1%;
+
+      &:hover {
+        scale: 1.4;
+      }
+    }
+
+    .btn-right {
+      font-size: 1.6rem;
+      border: 0;
+      background-color: transparent;
+      position: absolute;
+      right: 1%;
+
+      &:hover {
+        scale: 1.4;
+      }
+    }
+  }
+
+  .detailsContainer {
+    a {
+      &:hover {
+        filter: brightness(70%);
+      }
+    }
+
+    .circle-thumb-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ededed;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+
+      .circle-thumb-img {
+        width: 90%;
+        border-radius: 50%;
+      }
+    }
+
+    .size-badge {
+      border: 2px solid #ededed;
+      padding: 0.5rem 1.4rem;
+      border-radius: 25px;
+    }
+
+    .size-badge.active-link {
+      border: 2px solid var(--main-light);
+      font-weight: 600;
+    }
+
+    .btn {
+      margin-top: auto;
+    }
+  }
+
+  .suggestedItemsContainer {
+    .suggestedItemWrapper {
+      background-color: #ededed;
+    }
+  }
+}
+
+.order-details .badge {
+  font-size: 0.9rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.order-details .table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}

@@ -1,12 +1,10 @@
-import { useGlobalContext } from "../context/GlobalContext";
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ToolBar from "../components/all_products_components/ToolBar";
 import ProductDisplayer from "../components/all_products_components/ProductDisplayer";
 import Pagination from "../components/all_products_components/Pagination";
 
 export default function AllProducts() {
-  const { sneakers } = useGlobalContext();
   const navigate = useNavigate();
   const location = useLocation();
   //filter initial state
@@ -20,7 +18,8 @@ export default function AllProducts() {
   });
   //array to iterate on after filter
   const [originalSneakers, setOriginalSneakers] = useState([])
-  const [filteredSneakers, setFilteredSneakers] = useState([]);
+  const [filteredSneakers, setFilteredSneakers] = useState({ state: "loading" });
+  const [isInitial, setIsInitial] = useState(true);
   //loading and error handlers(futher implementetion)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -50,12 +49,50 @@ export default function AllProducts() {
       search: params.get("search") || "",
       tags: params.get("tags") || "",
     };
-    setFilters(newFilters);
+
+    if (JSON.stringify(filters) !== JSON.stringify(newFilters)) {
+      setFilters(newFilters);
+    }
+
   }, [location.search]);
   //every time filters changes replace the old url with a new one
   useEffect(() => {
-    const query = buildQueryString(filters); //converter in use
+    if (isInitial) {
+      setIsInitial(false);
+      return;
+    }
+    const query = buildQueryString(filters);
     navigate(`/all-products?${query}`, { replace: true });
+  }, [filters]);
+
+  // Fetch sneakers whenever filters change
+  useEffect(() => {
+    const query = buildQueryString(filters);
+    const url = `http://localhost:3000/boolshop/api/v1/shoes/search?${query}`;
+    setLoading(true);
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        const stringifiedNew = JSON.stringify(data);
+        const stringifiedOld = JSON.stringify(originalSneakers);
+
+        if (stringifiedNew !== stringifiedOld) {
+          setOriginalSneakers(data);
+          setFilteredSneakers({
+            state: "success",
+            result: data,
+          });
+
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to fetch sneakers:", err);
+        setFilteredSneakers({
+          state: "error",
+          message: err,
+        })
+      })
+      .finally(() => setLoading(false));
   }, [filters]);
 
   //sorting
@@ -68,7 +105,7 @@ export default function AllProducts() {
       direction = 'desc';
     }
     //creating the sorted array
-    const sorted = [...filteredSneakers].sort((a, b) => {
+    const sorted = [...filteredSneakers.result].sort((a, b) => {
       if (key === 'name') {
         return direction === 'asc'
           ? a.name.localeCompare(b.name)
@@ -82,32 +119,19 @@ export default function AllProducts() {
     });
 
     setSortConfig({ key, direction });
-    setFilteredSneakers(sorted);
+    setFilteredSneakers({
+      ...filteredSneakers,
+      result: sorted,
+    });
   };
   //sort resetter
   const resetSort = () => {
-    setFilteredSneakers(originalSneakers);
+    setFilteredSneakers({
+      ...filteredSneakers,
+      result: originalSneakers,
+    });
     setSortConfig({ key: '', direction: '' });
   };
-
-  // Fetch sneakers whenever filters change
-  useEffect(() => {
-    const query = buildQueryString(filters);
-    const url = `http://localhost:3000/boolshop/api/v1/shoes/search?${query}`;
-    setLoading(true);
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setOriginalSneakers(data)
-        setFilteredSneakers(data);
-        setError(null);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch sneakers:", err);
-        setError("Something went wrong!");
-      })
-      .finally(() => setLoading(false));
-  }, [filters]);
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   //initial number of items shown
@@ -116,20 +140,20 @@ export default function AllProducts() {
   const indexOfLast = currentPage * itemsPerPage;
   //calculate index of first element
   const indexOfFirst = indexOfLast - itemsPerPage;
+  const totalPages = Math.ceil(filteredSneakers.result?.length / itemsPerPage);
   //getting just the first and last element for the page
-  const currentItems = Array.isArray(filteredSneakers)
-    ? filteredSneakers.slice(indexOfFirst, indexOfLast)
+  const currentItems = Array.isArray(filteredSneakers.result)
+    ? filteredSneakers.result.slice(indexOfFirst, indexOfLast)
     : [];
-  const totalPages = Math.ceil(filteredSneakers.length / itemsPerPage);
   //toggler
   const [isItemsOpen, setIsItemsOpen] = useState(false);
   //handler that set the current page
   const changePage = (pageNum) => setCurrentPage(pageNum);
   useEffect(() => {
     setCurrentPage(1);
-  }, [itemsPerPage])//it changes whenever item per page is changed
+  }, [itemsPerPage, filters])//it changes whenever item per page is change
 
-  switch (sneakers.state) {
+  switch (filteredSneakers.state) {
     case "loading":
       return (
         <h1>Loading...{/* Create a loader component to replace this */}</h1>
@@ -138,10 +162,11 @@ export default function AllProducts() {
       return (
         <>
           <h1>Error loading product</h1>
-          <p>{sneakers.message}</p>
+          <p>{filteredSneakers.message}</p>
         </>
       );
     case "success":
+
       return (
         <>
           <section className="all-products">
@@ -187,7 +212,6 @@ export default function AllProducts() {
                       <li className="py-1 px-2" onClick={resetSort}>Reset</li>
                     </ul>
                   )}
-
                 </div>
               </div>
             </div>
@@ -216,3 +240,4 @@ export default function AllProducts() {
       );
   }
 }
+

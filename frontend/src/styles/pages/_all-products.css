@@ -1,0 +1,139 @@
+.active-filter {
+  background-color: var(--main-light);
+  font-weight: bold;
+}
+
+.all-products {
+  h1 {
+    cursor: pointer;
+
+    &:hover {
+      color: black;
+      font-weight: bold;
+    }
+  }
+
+  .filter-toggle {
+    cursor: pointer;
+
+    &:hover {
+      color: #1877f2;
+    }
+  }
+
+  .sort-dropdown {
+    list-style: none;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+    min-width: 200px;
+
+    li {
+      cursor: pointer;
+
+      &:hover {
+        background-color: black;
+        color: var(--main-light);
+      }
+    }
+  }
+
+  .tool-bar {
+    width: 20%;
+    max-width: 300px;
+    min-width: 200px;
+    background-color: #f8f8f8;
+    padding: 1rem;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+
+    .filters-list {
+      margin-bottom: 1rem;
+
+      .filter-items {
+        cursor: pointer;
+        font-weight: bold;
+        font-size: larger;
+        border-bottom: 1px solid #ddd;
+        padding: 0.5rem 0;
+        text-transform: uppercase;
+
+        &:hover {
+          color: var(--main-light);
+        }
+      }
+
+      ul {
+        padding-left: 0;
+        list-style: none;
+        margin: 0;
+        border-bottom: 1px solid #ddd;
+
+        li {
+          cursor: pointer;
+
+          &:hover {
+            border: 2px solid var(--main-light);
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+
+  .products-displayer {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    height: 100vh;
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+
+      .card-body {
+        flex-grow: 1;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+
+      .card-text {
+        font-size: 1rem;
+        color: #555;
+      }
+
+      .card-footer {
+        padding: 0.5rem;
+        background-color: #f8f8f8;
+        text-align: center;
+      }
+
+      .card-img-top {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.all-products .container-fluid {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  overflow: hidden;
+}
