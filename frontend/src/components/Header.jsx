@@ -5,6 +5,7 @@ import { useCart } from "../context/CartContext";
 import SearchBar from "./SearchBar";
 import Cart from "./Cart";
 import Wishlist from "./Wishlist";
+import { useWishlist } from "../context/WhishlistContext";
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -124,6 +125,10 @@ export default function Header() {
 
     const { cart } = useCart();
     const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+    const { wishlist } = useWishlist()
+    const WishlistItemCount = wishlist.reduce((acc, item) => acc + item.quantity, 0);
+
+
 
     return (
         <>
@@ -177,9 +182,17 @@ export default function Header() {
                             <a className="nav-link cursor-pointer" onClick={toggleSearch}>
                                 <i className="bi bi-search"></i>
                             </a>
-                            <a className="nav-link cursor-pointer" onClick={toggleWishlist}>
-                                <i className="bi bi-box2-heart"></i>
-                            </a>
+                            <div className="position-relative">
+                                <a className="nav-link cursor-pointer" onClick={toggleWishlist}>
+                                    <i className="bi bi-box2-heart"></i>
+                                </a>
+                                {WishlistItemCount > 0 && (
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {WishlistItemCount}
+                                    </span>
+                                )}
+
+                            </div>
 
                             <div className="position-relative">
                                 <a
@@ -210,7 +223,7 @@ export default function Header() {
 
                     {isWishlistOpen && (
                         <div className={`cart-dropdown container d-flex justify-content-end ${isWishlistOpen ? "open" : ""}`}>
-                            <Wishlist toggleWishlist={toggleWishlist} isOpen={isWishlistOpen}/>
+                            <Wishlist toggleWishlist={toggleWishlist} isOpen={isWishlistOpen} />
                         </div>
                     )}
                 </nav>
