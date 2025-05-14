@@ -102,12 +102,16 @@ export default function SingleProduct() {
       );
     case "success":
       function addToCart() {
+        // Use discounted price if available and less than original price
+        const price = (product.result.discounted_price && parseFloat(product.result.discounted_price) < parseFloat(product.result.price))
+          ? parseFloat(product.result.discounted_price)
+          : parseFloat(product.result.price);
         const newItem = {
           name: product.result.brand + " " + product.result.name,
           color: variant === 0 ? colors[0] : colors[1],
           size:
             variant === 0 ? mainSizes[activeIndex] : variantSizes[activeIndex],
-          price: product.result.price,
+          price: price,
           image: variant === 0 ? images[0] : variantImages[0],
           sku:
             variant === 0
