@@ -14,6 +14,7 @@ import CartPage from "./pages/CartPage";
 import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import OrderDetails from "./pages/OrderDetails";
+import NotFound from "./pages/NotFound";
 import { WishlistProvider } from "./context/WhishlistContext";
 
 export default function App() {
@@ -41,6 +42,7 @@ export default function App() {
                     path="/account/orders/:orderId"
                     element={<OrderDetails />}
                   />
+                  <Route path="*" element={<NotFound />} />
                 </Route>
               </Routes>
             </BrowserRouter>
