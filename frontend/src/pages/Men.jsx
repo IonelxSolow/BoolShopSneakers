@@ -1,8 +1,241 @@
+import { useGlobalContext } from "../context/GlobalContext";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import ToolBar from "../components/all_products_components/ToolBar";
+import ProductDisplayer from "../components/all_products_components/ProductDisplayer";
+import Pagination from "../components/all_products_components/Pagination";
+
 export default function Men() {
-  return (
-      <div className="container my-5">
-          <h1>Men's Collection</h1>
-          <p>Explore our exclusive collection for men.</p>
-      </div>
-  );
+  const { sneakers } = useGlobalContext();
+  const navigate = useNavigate();
+  const location = useLocation();
+  //filter initial state
+  const [filters, setFilters] = useState({
+    brand: "",
+    size: "",
+    color: "",
+    price: "",
+    name: "",
+    tags: "",
+  });
+  //array to iterate on after filter
+  const [originalSneakers, setOriginalSneakers] = useState([]);
+  const [filteredSneakers, setFilteredSneakers] = useState([]);
+  //loading and error handlers(futher implementetion)
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  //variable to handle tool-bar toggle
+  const [isHidden, setIsHidden] = useState(false);
+  //variable to handle sorting toggle
+  const [isSortedOpen, setIsSortedOpen] = useState(false);
+  // Utility: convert filters to query string using the params in the url
+  const buildQueryString = (filtersObj) => {
+    const params = new URLSearchParams();
+    for (let key in filtersObj) {
+      if (filtersObj[key]) {
+        params.append(key, filtersObj[key]);
+      }
+    }
+    return params.toString();
+  };
+  //first rendering of the page get filter in the url with the params
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const newFilters = {
+      brand: params.get("brand") || "",
+      size: params.get("size") || "",
+      color: params.get("color") || "",
+      price: params.get("price") || "",
+      name: params.get("name") || "",
+      search: params.get("search") || "",
+      tags: params.get("tags") || "",
+    };
+    setFilters(newFilters);
+  }, [location.search]);
+  //every time filters changes replace the old url with a new one
+  useEffect(() => {
+    const query = buildQueryString(filters); //converter in use
+    navigate(`/all-products?${query}`, { replace: true });
+  }, [filters]);
+
+  //sorting
+  const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
+  //sorting handler
+  const handleSort = (key) => {
+    let direction = "asc";
+    // If same key is clicked again, toggle direction
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    //creating the sorted array
+    const sorted = [...filteredSneakers].sort((a, b) => {
+      if (key === "name") {
+        return direction === "asc"
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+      } else if (key === "price") {
+        const priceA = parseFloat(a.discounted_price || a.price);
+        const priceB = parseFloat(b.discounted_price || b.price);
+        return direction === "asc" ? priceA - priceB : priceB - priceA;
+      }
+      return 0;
+    });
+
+    setSortConfig({ key, direction });
+    setFilteredSneakers(sorted);
+  };
+  //sort resetter
+  const resetSort = () => {
+    setFilteredSneakers(originalSneakers);
+    setSortConfig({ key: "", direction: "" });
+  };
+
+  // Fetch sneakers whenever filters change
+  useEffect(() => {
+    const query = buildQueryString(filters);
+    const url = `http://localhost:3000/boolshop/api/v1/shoes/search?${query}`;
+    setLoading(true);
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setOriginalSneakers(data);
+        setFilteredSneakers(data);
+        setError(null);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch sneakers:", err);
+        setError("Something went wrong!");
+      })
+      .finally(() => setLoading(false));
+  }, [filters]);
+  //pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  //initial number of items shown
+  const [itemsPerPage, setItemsPerPage] = useState(12);
+  //calculate index of last element
+  const indexOfLast = currentPage * itemsPerPage;
+  //calculate index of first element
+  const indexOfFirst = indexOfLast - itemsPerPage;
+  //getting just the first and last element for the page
+  const currentItems = Array.isArray(filteredSneakers)
+    ? filteredSneakers.slice(indexOfFirst, indexOfLast)
+    : [];
+  const totalPages = Math.ceil(filteredSneakers.length / itemsPerPage);
+  //toggler
+  const [isItemsOpen, setIsItemsOpen] = useState(false);
+  //handler that set the current page
+  const changePage = (pageNum) => setCurrentPage(pageNum);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [itemsPerPage]); //it changes whenever item per page is changed
+
+  switch (sneakers.state) {
+    case "loading":
+      return (
+        <h1>Loading...{/* Create a loader component to replace this */}</h1>
+      );
+    case "error":
+      return (
+        <>
+          <h1>Error loading product</h1>
+          <p>{sneakers.message}</p>
+        </>
+      );
+    case "success":
+      return (
+        <>
+          <section className="all-products">
+            <div>
+              <h1
+                className="mt-5 ms-3"
+                onClick={() =>
+                  setFilters({ brand: "", size: "", color: "", price: "" })
+                }
+              >
+                All Sneakers
+              </h1>
+
+              <div className="d-flex align-items-center justify-content-between pe-5">
+                <div
+                  onClick={() => setIsHidden((prev) => !prev)}
+                  className="ms-3 mt-3 filter-toggle"
+                >
+                  {isHidden ? "Show Filters" : "Hide Filters"}
+                </div>
+                <div className="position-relative me-3 mt-3">
+                  <div
+                    onClick={() => setIsSortedOpen((prev) => !prev)}
+                    className="filter-toggle"
+                  >
+                    {isSortedOpen ? (
+                      <>
+                        <i className="bi bi-funnel-fill"></i>{" "}
+                        <i className="bi bi-chevron-up"></i>
+                      </>
+                    ) : (
+                      <>
+                        <i className="bi bi-funnel-fill"></i>{" "}
+                        <i className="bi bi-chevron-down"></i>
+                      </>
+                    )}
+                  </div>
+                  {isSortedOpen && (
+                    <ul className="sort-dropdown position-absolute bg-white border rounded shadow p-2">
+                      <li
+                        className="py-1 px-2"
+                        onClick={() => handleSort("name")}
+                      >
+                        Sort by Name (
+                        {sortConfig.key === "name"
+                          ? sortConfig.direction === "asc"
+                            ? "A-Z"
+                            : "Z-A"
+                          : "A-Z"}
+                        )
+                      </li>
+                      <li
+                        className="py-1 px-2"
+                        onClick={() => handleSort("price")}
+                      >
+                        Sort by Price (
+                        {sortConfig.key === "price"
+                          ? sortConfig.direction === "asc"
+                            ? "Low → High"
+                            : "High → Low"
+                          : "Low → High"}
+                        )
+                      </li>
+                      <li className="py-1 px-2" onClick={resetSort}>
+                        Reset
+                      </li>
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="container-fluid">
+              <ToolBar
+                filters={filters}
+                setFilters={setFilters}
+                isHidden={isHidden}
+              />
+              <ProductDisplayer
+                currentItems={currentItems}
+                filteredSneakers={filteredSneakers}
+              />
+            </div>
+            <Pagination
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              changePage={changePage}
+              isItemsOpen={isItemsOpen}
+              setIsItemsOpen={setIsItemsOpen}
+              setItemsPerPage={setItemsPerPage}
+            />
+          </section>
+        </>
+      );
+  }
 }
