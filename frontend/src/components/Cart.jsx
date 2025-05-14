@@ -7,9 +7,8 @@ export default function Cart({ toggleCart, isOpen }) {
 
   return (
     <div
-      className={`container cart-content d-flex flex-column ${
-        isOpen ? "open" : ""
-      }`}
+      className={`container cart-content d-flex flex-column ${isOpen ? "open" : ""
+        }`}
     >
       <div className="d-flex justify-content-between align-items-center mb-4">
         <button className="btn close-cart " onClick={toggleCart}>
@@ -24,41 +23,43 @@ export default function Cart({ toggleCart, isOpen }) {
 
       <h5 className="mt-3 mb-3">Your Cart</h5>
 
-      <div className="cart-items">
+      <div className="cart-items mt-3">
         {cart.length > 0 ? (
           cart.map((item) => (
             <div
               key={item.sku}
-              className="cart-item d-flex justify-content-between align-items-center mb-2"
+              className="cart-item d-flex justify-content-between align-items-center mb-3"
             >
-              <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center">
+              <div className="d-flex flex-column flex-row align-items-start">
                 {/* Cerchietto con immagine */}
-                <div
-                  className="me-3"
-                  style={{
-                    width: "50px",
-                    height: "50px",
-                    borderRadius: "50%",
-                    overflow: "hidden",
-                    flexShrink: 0,
-                  }}
-                >
-                  <img
-                    src={`/assets/${item.image}`}
-                    alt={item.name}
+                <div className="d-flex align-items-center">
+                  <div
+                    className="me-3"
                     style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
+                      width: "70px",
+                      height: "70px",
+                      borderRadius: "20%",
+                      overflow: "hidden",
+                      flexShrink: 0,
                     }}
-                  />
+                  >
+                    <img
+                      src={`/assets/${item.image}`}
+                      alt={item.name}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+
+                  <div className="d-flex flex-column justify-content-between h-100">
+                  <span>{item.name}</span>
+                    <IncreaseDecrease item={item} />
+                  </div>
                 </div>
 
-                <span style={{ width: "150px" }}>{item.name}</span>
-
-                <div>
-                  <IncreaseDecrease item={item} />
-                </div>
               </div>
 
               <div>
@@ -80,17 +81,16 @@ export default function Cart({ toggleCart, isOpen }) {
       <hr />
 
       {/* Totale */}
-      <div className="mt-auto">
+      <div>
         <h6 className="d-flex justify-content-between">
           <span>Total:</span>
           <span>{total.toFixed(2)}€</span>
         </h6>
-        <div className="d-flex justify-content-end align-items-center">
+        <div className="d-flex align-items-center">
           <Link
             to="/checkout"
-            className={`btn btn-main-light w-auto mt-3 mb-3 ${
-              cart.length > 0 ? "" : "disabled"
-            }`}
+            className={`btn btn-main-light mt-3 mb-3 w-100 ${cart.length > 0 ? "" : "disabled"
+              }`}
           >
             Go to checkout
           </Link>
