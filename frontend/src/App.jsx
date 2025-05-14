@@ -8,6 +8,7 @@ import DefaultLayout from "./layout/DefaultLayout";
 import SingleProduct from "./pages/SingleProduct";
 import AllProducts from "./pages/AllProducts";
 import CartPage from "./pages/CartPage";
+import WishlistPage from "./pages/WhishlistPage";
 import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import OrderDetails from "./pages/OrderDetails";
@@ -27,6 +28,7 @@ export default function App() {
                   <Route path="/product/:slug" element={<SingleProduct />} />
                   <Route path="/all-products?" element={<AllProducts />} />
                   <Route path="/cart" element={<CartPage />} />
+                  <Route path="/wishlist" element={<WishlistPage />} />
                   <Route path="/checkout" element={<Checkout />} />
                   <Route
                     path="/order-confirmation"

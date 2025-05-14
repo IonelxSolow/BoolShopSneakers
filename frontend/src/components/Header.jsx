@@ -4,6 +4,7 @@ import { useCart } from "../context/CartContext";
 
 import SearchBar from "./SearchBar";
 import Cart from "./Cart";
+import Wishlist from "./Wishlist";
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,6 +24,7 @@ export default function Header() {
         setIsMenuOpen(false);
         setIsSearchOpen(false);
         setIsCartOpen(false);
+        setIsWishlistOpen(false);
     }, [location]);
 
     // funzione per aprire e chiudere il menu
@@ -31,6 +33,7 @@ export default function Header() {
         if (!isMenuOpen) {
             setIsSearchOpen(false);
             setIsCartOpen(false);
+            setIsWishlistOpen(false);
         }
     };
 
@@ -40,16 +43,29 @@ export default function Header() {
         if (!isSearchOpen) {
             setIsMenuOpen(false);
             setIsCartOpen(false);
+            setIsWishlistOpen(false);
         }
     };
 
     // funzione per chiudere la whishlist
     const toggleWishlist = () => {
+        if (location.pathname === "/wishlist") {
+            return;
+        }
+
         setIsWishlistOpen(!isWishlistOpen);
         if (!isWishlistOpen) {
             setIsSearchOpen(false);
             setIsMenuOpen(false);
             setIsCartOpen(false);
+        }
+
+        if (window.innerWidth <= 768) {
+            // Reindirizza alla pagina del wishlist su dispositivi mobili
+            navigate("/wishlist");
+        } else {
+            // Mostra il wishlist come componente su desktop
+            setIsWishlistOpen(!isWishlistOpen);
         }
     };
 
@@ -58,10 +74,12 @@ export default function Header() {
         if (location.pathname === "/cart") {
             return;
         }
+
         setIsCartOpen(!isCartOpen);
         if (!isCartOpen) {
             setIsMenuOpen(false);
             setIsSearchOpen(false);
+            setIsWishlistOpen(false);
         }
         if (window.innerWidth <= 768) {
             // Reindirizza alla pagina del carrello su dispositivi mobili
@@ -190,11 +208,11 @@ export default function Header() {
                         </div>
                     )}
 
-                    {/* {isWishlistOpen && (
-                        <div className={`wishlist-dropdown ${isWishlistOpen ? "open" : ""}`}>
-                            <Wishlist toggleWishlist={toggleWishlist} isOpen={isWishlistOpen} />
+                    {isWishlistOpen && (
+                        <div className={`cart-dropdown container d-flex justify-content-end ${isWishlistOpen ? "open" : ""}`}>
+                            <Wishlist toggleWishlist={toggleWishlist} isOpen={isWishlistOpen}/>
                         </div>
-                    )} */}
+                    )}
                 </nav>
             </header>
         </>
