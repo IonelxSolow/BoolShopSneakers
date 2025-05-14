@@ -251,7 +251,7 @@ The KickSociety Team
     )
 
     // Email for the seller/admin
-    const adminEmail = process.env.ADMIN_EMAIL || 'admin@kicksociety.com' // Admin email configured as environment variable
+    const adminEmail = process.env.ADMIN_EMAIL || 'kickssocietycs@gmail.com' // Admin email configured as environment variable
     const adminSubject = `New Order #${purchaseOrder} Received`
 
     // Generate plain text email content for the admin (as fallback)

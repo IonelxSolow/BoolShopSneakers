@@ -191,7 +191,7 @@ exports.generateAdminOrderNotificationTemplate = (customerName, customerEmail, o
     </div>
     
     <div style="text-align: center; margin-top: 25px;">
-      <a href="https://admin.kicksociety.com/orders/${orderId}" style="display: inline-block; padding: 10px 20px; background-color: #cfef1b; color: #232321; text-decoration: none; font-weight: bold; border-radius: 4px;">Manage Order</a>
+      <a href="http://localhost:5173/account/orders/${orderId}" style="display: inline-block; padding: 10px 20px; background-color: #cfef1b; color: #232321; text-decoration: none; font-weight: bold; border-radius: 4px;">Manage Order</a>
     </div>
     
     <div style="text-align: center; color: #666; font-size: 14px; margin-top: 30px; padding-top: 15px; border-top: 1px solid #ddd;">
