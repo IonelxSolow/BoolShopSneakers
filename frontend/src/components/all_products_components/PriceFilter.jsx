@@ -13,16 +13,16 @@ export default function PriceFilter({ activePrice, handleFilterChange }) {
             </div>
             {isPriceOpen && (
                 <ul>
-                    <li value={50} onClick={(e) => handleFilterChange("price", e.target.value)} className={activePrice === 50 ? "active-filter ps-2" : ""}>
+                    <li value={50} onClick={(e) => handleFilterChange("price", 50)} className={activePrice === 50 ? "active-filter ps-2" : ""}>
                         50+
                     </li>
-                    <li value={100} onClick={(e) => handleFilterChange("price", e.target.value)} className={activePrice === 100 ? "active-filter ps-2" : ""}>
+                    <li value={100} onClick={(e) => handleFilterChange("price", 100)} className={activePrice === 100 ? "active-filter ps-2" : ""}>
                         100+
                     </li>
-                    <li value={200} onClick={(e) => handleFilterChange("price", e.target.value)} className={activePrice === 200 ? "active-filter ps-2" : ""}>
+                    <li value={200} onClick={(e) => handleFilterChange("price", 200)} className={activePrice === 200 ? "active-filter ps-2" : ""}>
                         200+
                     </li>
-                    <li value={300} onClick={(e) => handleFilterChange("price", e.target.value)} className={activePrice === 300 ? "active-filter ps-2" : ""}>
+                    <li value={300} onClick={(e) => handleFilterChange("price", 300)} className={activePrice === 300 ? "active-filter ps-2" : ""}>
                         300+
                     </li>
                 </ul>

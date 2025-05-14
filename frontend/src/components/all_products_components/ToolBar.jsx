@@ -13,11 +13,16 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
 
     // to handle the filter toggle
     const handleFilterChange = (key, value) => {
-        setFilters(() => ({
-            ...filters,
-            [key]: filters[key] === value ? "" : value,
-            search: "", // Toggle value
-        }));
+        setFilters((prev) => {
+            const newValue = prev[key] === value ? "" : value;
+            const updated = {
+                ...prev,
+                [key]: newValue,
+                // reset search
+            };
+
+            return updated;
+        });
 
         switch (key) {
             case "brand":
