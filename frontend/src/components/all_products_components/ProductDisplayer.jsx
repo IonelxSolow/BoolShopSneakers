@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-export default function ProductDisplayer({ currentItems }) {
+export default function ProductDisplayer({ currentItems, filteredSneakers }) {
+    console.log(filteredSneakers)
     return (
         <>
             <div className="products-displayer col-8 col-md-10 row">
-                {currentItems.error ? (
+                {filteredSneakers.error ? (
                     <div className="text-center w-100 my-5">
                         <h4>No sneakers found matching your filters.</h4>
                     </div>

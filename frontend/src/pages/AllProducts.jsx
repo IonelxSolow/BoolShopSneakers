@@ -117,7 +117,9 @@ export default function AllProducts() {
   //calculate index of first element
   const indexOfFirst = indexOfLast - itemsPerPage;
   //getting just the first and last element for the page
-  const currentItems = filteredSneakers.slice(indexOfFirst, indexOfLast);
+  const currentItems = Array.isArray(filteredSneakers)
+    ? filteredSneakers.slice(indexOfFirst, indexOfLast)
+    : [];
   const totalPages = Math.ceil(filteredSneakers.length / itemsPerPage);
   //toggler
   const [isItemsOpen, setIsItemsOpen] = useState(false);
@@ -136,7 +138,7 @@ export default function AllProducts() {
       return (
         <>
           <h1>Error loading product</h1>
-          <p>{product.message}</p>
+          <p>{sneakers.message}</p>
         </>
       );
     case "success":
@@ -198,8 +200,7 @@ export default function AllProducts() {
               />
               <ProductDisplayer
                 currentItems={currentItems}
-                error={error}
-                setFilteredSneakers={setFilteredSneakers} />
+                filteredSneakers={filteredSneakers} />
             </div>
             <Pagination
               itemsPerPage={itemsPerPage}

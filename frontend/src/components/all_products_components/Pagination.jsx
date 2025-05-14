@@ -6,11 +6,13 @@ export default function Pagination({
     setItemsPerPage,
     itemsPerPage,
     isItemsOpen }) {
+
+    const validTotalPages = Number.isInteger(totalPages) && totalPages > 0 ? totalPages : 0;
     return (
         <>
             <nav className="mt-4">
                 <ul className="custom-pagination">
-                    {[...Array(totalPages)].map((_, i) => (
+                    {[...Array(validTotalPages)].map((_, i) => (
                         <li key={i} className={`custom-page-item ${currentPage === i + 1 ? "active" : ""}`}>
                             <button className="custom-page-link" onClick={() => changePage(i + 1)}>
                                 {i + 1}
