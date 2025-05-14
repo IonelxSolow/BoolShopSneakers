@@ -12,10 +12,13 @@ export default function DetailSection({
   mainSizes,
   variantSizes,
   addToCart,
+  addToWishList,
   activeIndex,
   handleSizeClick,
 }) {
   const [showToast, setShowToast] = useState(false);
+  const [showToastWish, setShowToastWish] = useState(false);
+
   const [showErrorToast, setShowErrorToast] = useState(false);
 
   function handleAddToCart() {
@@ -26,6 +29,16 @@ export default function DetailSection({
     }
     addToCart();
     setShowToast(true);
+    setTimeout(() => setShowToast(false), 5000);
+  }
+  function handleAddToWishList() {
+    if (activeIndex === null || activeIndex === undefined) {
+      setShowErrorToast(true);
+      setTimeout(() => setShowErrorToast(false), 5000);
+      return;
+    }
+    addToWishList();
+    setShowToastWish(true);
     setTimeout(() => setShowToast(false), 5000);
   }
 
@@ -43,7 +56,7 @@ export default function DetailSection({
             </Link>
           </h2>
           {!product.result.discounted_price ||
-          parseFloat(product.result.discounted_price) >=
+            parseFloat(product.result.discounted_price) >=
             parseFloat(product.result.price) ? (
             <p className="text-dark">
               {parseFloat(product.result.price).toFixed(2)}&#8364;
@@ -71,9 +84,8 @@ export default function DetailSection({
           <div className="d-flex gap-2 circle-thumbs-container align-items-center flex-wrap">
             {" "}
             <div
-              className={`circle-thumb-wrapper ${
-                variant === 0 && " active-link"
-              }`}
+              className={`circle-thumb-wrapper ${variant === 0 && " active-link"
+                }`}
             >
               {images && (
                 <img
@@ -86,9 +98,8 @@ export default function DetailSection({
             </div>
             <div>
               <div
-                className={`circle-thumb-wrapper ${
-                  variant === 1 && " active-link"
-                }`}
+                className={`circle-thumb-wrapper ${variant === 1 && " active-link"
+                  }`}
               >
                 {variantImages && (
                   <img
@@ -107,27 +118,25 @@ export default function DetailSection({
           <div className="sizes-container d-flex gap-3 flex-wrap">
             {variant === 0
               ? mainSizes.map((size, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleSizeClick(index)}
-                    className={`size-badge ${
-                      activeIndex === index && "active-link"
+                <div
+                  key={index}
+                  onClick={() => handleSizeClick(index)}
+                  className={`size-badge ${activeIndex === index && "active-link"
                     }`}
-                  >
-                    {size}
-                  </div>
-                ))
+                >
+                  {size}
+                </div>
+              ))
               : variantSizes.map((size, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleSizeClick(index)}
-                    className={`size-badge ${
-                      activeIndex === index && "active-link"
+                <div
+                  key={index}
+                  onClick={() => handleSizeClick(index)}
+                  className={`size-badge ${activeIndex === index && "active-link"
                     }`}
-                  >
-                    {size}
-                  </div>
-                ))}
+                >
+                  {size}
+                </div>
+              ))}
           </div>
           <p className="my-2">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque
@@ -140,6 +149,9 @@ export default function DetailSection({
           >
             Add to Cart
           </button>
+          <div
+            onClick={handleAddToWishList}
+            className="btn btn-main-light rounded-4 fs-4 my-3">love</div>
           {showToast && (
             <div
               style={{
@@ -178,6 +190,44 @@ export default function DetailSection({
               </span>
             </div>
           )}
+          {
+            showToastWish && (<div
+              style={{
+                position: "fixed",
+                bottom: 40,
+                right: 40,
+                background: "#fff",
+                borderRadius: 12,
+                boxShadow: "0 2px 16px rgba(0,0,0,0.12)",
+                padding: "24px 32px",
+                display: "flex",
+                alignItems: "center",
+                zIndex: 9999,
+                minWidth: 320,
+                border: "1px solid #e0e0e0",
+              }}
+            >
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 32,
+                  height: 32,
+                  background: "#4caf50",
+                  borderRadius: "50%",
+                  color: "#fff",
+                  fontSize: 20,
+                  marginRight: 16,
+                }}
+              >
+                ✓
+              </span>
+              <span style={{ fontSize: 22, color: "#757575" }}>
+                Prodotto aggiunto alla wish list
+              </span>
+            </div>)
+          }
           {showErrorToast && (
             <div
               style={{

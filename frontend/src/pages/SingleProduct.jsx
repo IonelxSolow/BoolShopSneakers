@@ -7,10 +7,12 @@ import SuggestedItems from "../components/single_page_components/SuggestedItems"
 import Thumbnails from "../components/single_page_components/Thumbnails.Jsx";
 import Carousel from "../components/single_page_components/Carousel";
 import DetailSection from "../components/single_page_components/DetailSection";
+import { useWishlist } from "../context/WhishlistContext";
 
 export default function SingleProduct() {
   const { sneakers } = useGlobalContext();
   const { cart, setCart } = useCart();
+  const { wishlist, setWishlist } = useWishlist()
   const { slug } = useParams();
   const [productId, setProductId] = useState({
     state: "loading",
@@ -141,6 +143,46 @@ export default function SingleProduct() {
 
         setCart(updatedCart);
       }
+      function addToWishList() {
+        // Use discounted price if available and less than original price
+        const price = (product.result.discounted_price && parseFloat(product.result.discounted_price) < parseFloat(product.result.price))
+          ? parseFloat(product.result.discounted_price)
+          : parseFloat(product.result.price);
+        const newItem = {
+          name: product.result.brand + " " + product.result.name,
+          color: variant === 0 ? colors[0] : colors[1],
+          size:
+            variant === 0 ? mainSizes[activeIndex] : variantSizes[activeIndex],
+          price: price,
+          image: variant === 0 ? images[0] : variantImages[0],
+          sku:
+            variant === 0
+              ? product.result.variant_sku.split(",")[0]
+              : product.result.variant_sku.split(",")[1],
+          quantity: 1,
+          variant_id:
+            variant === 0
+              ? product.result.variant_ids.split(",")[0]
+              : product.result.variant_ids.split(",")[1],
+        };
+
+        // check if item already is in cart
+        const existingItem = wishlist.find(
+          (cartItem) => cartItem.sku === newItem.sku
+        );
+        let updatedWishList;
+        if (existingItem) {
+          updatedWishList = wishlist.map((item) =>
+            item.sku === newItem.sku
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+        } else {
+          updatedWishList = [...wishlist, newItem];
+        }
+
+        setWishlist(updatedWishList);
+      }
 
       // parses the string with an array format into an actual array
 
@@ -203,6 +245,7 @@ export default function SingleProduct() {
                 mainSizes={mainSizes}
                 variantSizes={variantSizes}
                 addToCart={addToCart}
+                addToWishList={addToWishList}
                 activeIndex={activeIndex}
                 handleSizeClick={handleSizeClick}
               />

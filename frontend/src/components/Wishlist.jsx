@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { useWishlist } from "../context/WhishlistContext";
+import IncreaseDecrease from "../components/IncreaseDecrease"
 
 export default function Wishlist({ isOpen, toggleWishlist }) {
-  const { wishlist, removeItem } = useWishlist();
+  const { wishlist, removeFromWishlist } = useWishlist();
 
   return (
     <div
@@ -55,17 +56,15 @@ export default function Wishlist({ isOpen, toggleWishlist }) {
 
                   <div className="d-flex flex-column justify-content-between h-100">
                     <span style={{ maxWidth: "150px" }}>{item.name}</span>
-                    <IncreaseDecrease item={item} />
                   </div>
                 </div>
 
               </div>
 
               <div>
-                <span>{Number(item.price).toFixed(2)} €</span>
                 <button
                   className="btn btn-sm btn-danger ms-3"
-                  onClick={() => removeItem(item.sku)}
+                  onClick={() => removeFromWishlist(item.sku)}
                 >
                   <i className="bi bi-trash"></i>
                 </button>
