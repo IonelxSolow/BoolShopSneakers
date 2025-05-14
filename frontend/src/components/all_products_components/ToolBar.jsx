@@ -63,11 +63,26 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
         break;
     }
   };
+  function handleResetFilters() {
+    setFilters({
+      brand: "",
+      size: "",
+      color: "",
+      price: "",
+      name: "",
+      tags: "",
+    })
+    console.log("clicked")
+  }
 
   return (
     <>
       <div className={isHidden ? "d-none" : "tool-bar col-4 col-md-2"}>
         <div className="filters-list">
+          {
+            filters.brand === "" && filters.size === "" && filters.color === "" && filters.price === "" && filters.tags === ""
+              ? (<></>) : (<div className="filter-toggle" onClick={handleResetFilters}>Reset filters</div>)
+          }
           <BrandFilter
             activeBrand={activeBrand}
             handleFilterChange={handleFilterChange}
@@ -89,12 +104,12 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
             activeKeys={activeKeys}
           />
           <TagFilter
-            actviveTags={activeTags}
+            activeTags={activeTags}
             handleFilterChange={handleFilterChange}
             activeKeys={activeKeys}
           />
         </div>
-      </div>
+      </div >
     </>
   );
 }

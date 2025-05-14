@@ -14,7 +14,7 @@ export default function Pagination({
                 <ul className="custom-pagination">
                     {[...Array(validTotalPages)].map((_, i) => (
                         <li key={i} className={`custom-page-item ${currentPage === i + 1 ? "active" : ""}`}>
-                            <button className="custom-page-link" onClick={() => changePage(i + 1)}>
+                            <button className="custom-page-link me-2" onClick={() => changePage(i + 1)}>
                                 {i + 1}
                             </button>
                         </li>
