@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function PriceFilter({ activePrice, handleFilterChange }) {
+export default function PriceFilter({
+  activePrice,
+  handleFilterChange,
+  activeKeys,
+}) {
   const [isPriceOpen, setIsPriceOpen] = useState(false);
-
+  useEffect(() => {
+    if (activeKeys.price) {
+      setIsPriceOpen(true);
+    }
+  }, [activeKeys]);
   return (
     <>
       <div

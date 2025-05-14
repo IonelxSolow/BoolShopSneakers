@@ -19,18 +19,13 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
     const currentParams = Object.fromEntries([...searchParams]);
     console.log(currentParams);
 
-    const newActiveKeys = [];
-    for (const key in currentParams) {
-      const element = currentParams[key];
-      console.log(element);
-      if (element) {
-        newActiveKeys.push(element);
-      }
-    }
-    setActiveKeys(newActiveKeys);
-  }, [searchParams]);
+    setActiveBrand(currentParams.brand || "");
+    setActiveSize(currentParams.size || "");
+    setActiveColor(currentParams.color || "");
+    setActivePrice(currentParams.price || "");
 
-  console.log(activeKeys);
+    setActiveKeys(currentParams);
+  }, [searchParams]);
 
   // to handle the filter toggle
   const handleFilterChange = (key, value) => {
@@ -63,6 +58,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
         break;
     }
   };
+
   return (
     <>
       <div className={isHidden ? "d-none" : "tool-bar col-4 col-md-2"}>
@@ -70,18 +66,22 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
           <BrandFilter
             activeBrand={activeBrand}
             handleFilterChange={handleFilterChange}
+            activeKeys={activeKeys}
           />
           <SizeFilter
             activeSize={activeSize}
             handleFilterChange={handleFilterChange}
+            activeKeys={activeKeys}
           />
           <ColorFilter
             activeColor={activeColor}
             handleFilterChange={handleFilterChange}
+            activeKeys={activeKeys}
           />
           <PriceFilter
             activePrice={activePrice}
             handleFilterChange={handleFilterChange}
+            activeKeys={activeKeys}
           />
           <TagFilter />
         </div>

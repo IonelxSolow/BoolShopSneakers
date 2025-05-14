@@ -1,7 +1,16 @@
-import { useState } from "react";
-export default function SizeFilter({ activeSize, handleFilterChange }) {
+import { useState, useEffect } from "react";
+export default function SizeFilter({
+  activeSize,
+  handleFilterChange,
+  activeKeys,
+}) {
   const sneakersSizes = ["39", "40", "41", "42", "43", "44"];
   const [isSizeOpen, setIsSizeOpen] = useState(false);
+  useEffect(() => {
+    if (activeKeys.size) {
+      setIsSizeOpen(true);
+    }
+  }, [activeKeys]);
 
   return (
     <>
