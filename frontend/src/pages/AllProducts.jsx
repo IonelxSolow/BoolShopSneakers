@@ -22,9 +22,6 @@ export default function AllProducts() {
     state: "loading",
   });
 
-  //loading and error handlers(futher implementetion)
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   //variable to handle tool-bar toggle
   const [isHidden, setIsHidden] = useState(false);
   //variable to handle sorting toggle
@@ -68,7 +65,7 @@ export default function AllProducts() {
   useEffect(() => {
     const query = buildQueryString(filters);
     const url = `http://localhost:3000/boolshop/api/v1/shoes/search?${query}`;
-    setLoading(true);
+
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -89,8 +86,7 @@ export default function AllProducts() {
           state: "error",
           message: err,
         });
-      })
-      .finally(() => setLoading(false));
+      });
   }, [filters]);
 
   //sorting
