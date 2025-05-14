@@ -15,7 +15,8 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
     const handleFilterChange = (key, value) => {
         setFilters(() => ({
             ...filters,
-            [key]: filters[key] === value ? "" : value, // Toggle value
+            [key]: filters[key] === value ? "" : value,
+            search: "", // Toggle value
         }));
 
         switch (key) {
