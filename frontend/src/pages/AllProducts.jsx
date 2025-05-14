@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import ToolBar from "../components/all_products_components/ToolBar";
 import ProductDisplayer from "../components/all_products_components/ProductDisplayer";
 import Pagination from "../components/all_products_components/Pagination";
@@ -40,14 +40,23 @@ export default function AllProducts() {
   //first rendering of the page get filter in the url with the params
   useEffect(() => {
     const params = new URLSearchParams(location.search);
+    let searchParam = params.get("search") || "";
+    let tagsParam = params.get("tags") || "";
+
+    // Se c'è search, usalo come tags
+    if (searchParam && !tagsParam) {
+      tagsParam = searchParam;
+      searchParam = "";
+    }
+
     const newFilters = {
       brand: params.get("brand") || "",
       size: params.get("size") || "",
       color: params.get("color") || "",
       price: params.get("price") || "",
       name: params.get("name") || "",
-      search: params.get("search") || "",
-      tags: params.get("tags") || "",
+      search: searchParam,
+      tags: tagsParam,
     };
 
     if (JSON.stringify(filters) !== JSON.stringify(newFilters)) {
@@ -164,6 +173,22 @@ export default function AllProducts() {
         <>
           <section className="all-products">
             <div>
+              {/* Breadcrumb o frase di ricerca */}
+              {filters.search ? (
+                <div className="breadcrumb ms-3 mt-4 mb-2" style={{ fontSize: "1.1rem", color: "#495057" }}>
+                  <Link to="/" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Home</Link>
+                  {" / "}
+                  <Link to="/all-products" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Prodotti</Link>
+                  {" / "}
+                  Risultati per: "<strong>{filters.search}</strong>"
+                </div>
+              ) : (
+                <div className="breadcrumb ms-3 mt-4 mb-2" style={{ fontSize: "1.1rem", color: "#495057" }}>
+                  <Link to="/" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Home</Link>
+                  {" / "}
+                  <Link to="/all-products" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Prodotti</Link>
+                </div>
+              )}
               <h1
                 className="mt-5 ms-3"
                 onClick={() =>

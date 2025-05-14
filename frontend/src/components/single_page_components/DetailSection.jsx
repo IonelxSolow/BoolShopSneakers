@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function DetailSection({
   product,
@@ -14,6 +15,20 @@ export default function DetailSection({
   activeIndex,
   handleSizeClick,
 }) {
+  const [showToast, setShowToast] = useState(false);
+  const [showErrorToast, setShowErrorToast] = useState(false);
+
+  function handleAddToCart() {
+    if (activeIndex === null || activeIndex === undefined) {
+      setShowErrorToast(true);
+      setTimeout(() => setShowErrorToast(false), 5000);
+      return;
+    }
+    addToCart();
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 5000);
+  }
+
   return (
     <>
       <div className="col-12 col-xxl-3 order-3 d-flex">
@@ -120,11 +135,87 @@ export default function DetailSection({
             provident.
           </p>
           <button
-            onClick={() => addToCart()}
+            onClick={handleAddToCart}
             className="btn btn-main-light rounded-4 fs-4 my-3"
           >
             Add to Cart
           </button>
+          {showToast && (
+            <div
+              style={{
+                position: "fixed",
+                bottom: 40,
+                right: 40,
+                background: "#fff",
+                borderRadius: 12,
+                boxShadow: "0 2px 16px rgba(0,0,0,0.12)",
+                padding: "24px 32px",
+                display: "flex",
+                alignItems: "center",
+                zIndex: 9999,
+                minWidth: 320,
+                border: "1px solid #e0e0e0",
+              }}
+            >
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 32,
+                  height: 32,
+                  background: "#4caf50",
+                  borderRadius: "50%",
+                  color: "#fff",
+                  fontSize: 20,
+                  marginRight: 16,
+                }}
+              >
+                ✓
+              </span>
+              <span style={{ fontSize: 22, color: "#757575" }}>
+                Prodotto aggiunto al carrello
+              </span>
+            </div>
+          )}
+          {showErrorToast && (
+            <div
+              style={{
+                position: "fixed",
+                bottom: 40,
+                right: 40,
+                background: "#fff",
+                borderRadius: 12,
+                boxShadow: "0 2px 16px rgba(255,0,0,0.12)",
+                padding: "24px 32px",
+                display: "flex",
+                alignItems: "center",
+                zIndex: 9999,
+                minWidth: 320,
+                border: "1px solid #e57373",
+              }}
+            >
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 32,
+                  height: 32,
+                  background: "#e53935",
+                  borderRadius: "50%",
+                  color: "#fff",
+                  fontSize: 20,
+                  marginRight: 16,
+                }}
+              >
+                !
+              </span>
+              <span style={{ fontSize: 22, color: "#e53935" }}>
+                Seleziona una taglia
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </>
