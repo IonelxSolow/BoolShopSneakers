@@ -55,7 +55,7 @@ export default function Cart({ toggleCart, isOpen }) {
                   </div>
 
                   <div className="d-flex flex-column justify-content-between h-100">
-                  <span>{item.name}</span>
+                  <span style={{maxWidth: "150px"}}>{item.name}</span>
                     <IncreaseDecrease item={item} />
                   </div>
                 </div>
