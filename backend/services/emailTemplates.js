@@ -93,6 +93,10 @@ exports.generateCustomerOrderConfirmationTemplate = (customerName, orderId, item
       <p style="margin-bottom: 0;">For any questions regarding your order, reply to this email or contact us at <a href="mailto:support@kicksociety.com" style="color: #232321;">support@kicksociety.com</a>.</p>
     </div>
     
+    <div style="text-align: center; margin-top: 25px;">
+      <a href="http://localhost:5173/account/orders/${orderId}" style="display: inline-block; padding: 10px 20px; background-color: #cfef1b; color: #232321; text-decoration: none; font-weight: bold; border-radius: 4px;">Check order status</a>
+    </div>
+
     <div style="text-align: center; color: #666; font-size: 14px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
       <p>Thank you for choosing KickSociety!</p>
       <p>&copy; ${new Date().getFullYear()} KickSociety. All rights reserved.</p>
