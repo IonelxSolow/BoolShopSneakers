@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import BrandFilter from "./BrandFilter";
 import SizeFilter from "./SizeFilter";
 import PriceFilter from "./PriceFilter";
 import ColorFilter from "./ColorFilter";
 import TagFilter from "./TagFilter";
-import { useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import PromoFilter from "./PromoFilter";
 export default function ToolBar({ filters, setFilters, isHidden }) {
   //variable to handle active onClick
   const [activeBrand, setActiveBrand] = useState("");
@@ -13,18 +13,19 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
   const [activeColor, setActiveColor] = useState("");
   const [activePrice, setActivePrice] = useState("");
   const [activeTags, setActiveTags] = useState("");
+  const [activePromo, setActivePromo] = useState("");
   const [activeKeys, setActiveKeys] = useState([]);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const currentParams = Object.fromEntries([...searchParams]);
-    console.log(currentParams);
 
     setActiveBrand(currentParams.brand || "");
     setActiveSize(currentParams.size || "");
     setActiveColor(currentParams.color || "");
     setActivePrice(currentParams.price || "");
     setActiveTags(currentParams.tags || "");
+    setActivePromo(currentParams.promo || "");
 
     setActiveKeys(currentParams);
   }, [searchParams]);
@@ -71,6 +72,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
       price: "",
       name: "",
       tags: "",
+      promo: "",
     })
     console.log("clicked")
   }
@@ -80,7 +82,9 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
       <div className={isHidden ? "d-none" : "tool-bar col-4 col-md-2"}>
         <div className="filters-list">
           {
-            filters.brand === "" && filters.size === "" && filters.color === "" && filters.price === "" && filters.tags === ""
+            filters.brand === "" && filters.size === "" &&
+              filters.color === "" && filters.price === "" &&
+              filters.tags === "" && filters.promo === ""
               ? (<></>) : (<div className="filter-toggle" onClick={handleResetFilters}>Reset filters</div>)
           }
           <BrandFilter
@@ -107,6 +111,13 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
             activeTags={activeTags}
             handleFilterChange={handleFilterChange}
             activeKeys={activeKeys}
+          />
+          <PromoFilter
+            activePromo={filters.onSale}
+            setFilters={setFilters}
+            setActivePromo={setActivePromo}
+            activeKeys={activeKeys}
+            filters={filters}
           />
         </div>
       </div >

@@ -6,7 +6,6 @@ export default function TagFilter({
   activeKeys,
 }) {
   const [isTagOpen, setIsTagOpen] = useState(false);
-  console.log(activeTags)
 
   useEffect(() => {
     if (activeKeys.tags) {

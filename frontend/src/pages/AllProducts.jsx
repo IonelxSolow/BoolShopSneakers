@@ -15,6 +15,7 @@ export default function AllProducts() {
     price: "",
     name: "",
     tags: "",
+    onSale: false,
   });
   //array to iterate on after filter
   const [originalSneakers, setOriginalSneakers] = useState([]);
@@ -54,6 +55,7 @@ export default function AllProducts() {
       color: params.get("color") || "",
       price: params.get("price") || "",
       name: params.get("name") || "",
+      onSale: params.get("onSale") === "true",
       search: searchParam,
       tags: tagsParam,
     };
@@ -71,9 +73,13 @@ export default function AllProducts() {
 
   // Fetch sneakers whenever filters change
   useEffect(() => {
-    const query = buildQueryString(filters);
-    const url = `http://localhost:3000/boolshop/api/v1/shoes/search?${query}`;
-
+    let url;
+    if (filters.onSale) {
+      url = `http://localhost:3000/boolshop/api/v1/shoes/sale`;
+    } else {
+      const query = buildQueryString(filters);
+      url = `http://localhost:3000/boolshop/api/v1/shoes/search?${query}`;
+    }
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
