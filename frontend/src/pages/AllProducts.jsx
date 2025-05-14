@@ -173,20 +173,20 @@ export default function AllProducts() {
         <>
           <section className="all-products">
             <div>
-              {/* Breadcrumb o frase di ricerca */}
-              {filters.search ? (
+              {/* Breadcrumb or search phrase */}
+              {(filters.search || filters.brand || filters.color) ? (
                 <div className="breadcrumb ms-3 mt-4 mb-2" style={{ fontSize: "1.1rem", color: "#495057" }}>
                   <Link to="/" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Home</Link>
                   {" / "}
-                  <Link to="/all-products" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Prodotti</Link>
+                  <Link to="/all-products" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Products</Link>
                   {" / "}
-                  Risultati per: "<strong>{filters.search}</strong>"
+                  Results for: <strong>{filters.search || filters.brand || filters.color}</strong>
                 </div>
               ) : (
                 <div className="breadcrumb ms-3 mt-4 mb-2" style={{ fontSize: "1.1rem", color: "#495057" }}>
                   <Link to="/" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Home</Link>
                   {" / "}
-                  <Link to="/all-products" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Prodotti</Link>
+                  <Link to="/all-products" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Products</Link>
                 </div>
               )}
               <h1
