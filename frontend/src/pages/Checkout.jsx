@@ -356,6 +356,10 @@ export default function Checkout() {
         quantity: item.quantity,
         price: item.price,
       })),
+      cardName: formData.cardName,
+      cardNumber: formData.cardNumber,
+      expiryDate: formData.expiryDate,
+      cvv: formData.cvv,
     };
 
     try {
