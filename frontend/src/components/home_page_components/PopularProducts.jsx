@@ -141,7 +141,12 @@ export default function PopularProducts() {
             ) : (
               <div className="list-group">
                 {popularSneakers.result.map((sneaker) => (
-                  <div className="list-group-item mb-3" key={sneaker.id}>
+                  <Link
+                    className="list-group-item mb-3"
+                    key={sneaker.id}
+                    to={`/product/${sneaker.name
+                      .toLowerCase()
+                      .replaceAll(" ", "-")}`}>
                     <div className="d-flex flex-column flex-md-row">
                       <img
                         src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
@@ -168,7 +173,7 @@ export default function PopularProducts() {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}
