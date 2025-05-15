@@ -1,5 +1,17 @@
 import { useWishlist } from "../context/WhishlistContext";
-import {usecart} from "../context/CartContext";
+import { usecart } from "../context/CartContext";
+
+function handleAddToWishList() {
+  if (isWishlist) {
+    setIsWishlist(false);
+    removeFromWishlist();
+  } else {
+    addToWishList();
+    setIsWishlist(true);
+    setShowToastWish(true);
+    setTimeout(() => setShowToastWish(false), 5000);
+  }
+}
 
 export default function WishlistPage() {
   const { wishlist, removeFromWishlist } = useWishlist();
@@ -48,12 +60,20 @@ export default function WishlistPage() {
                     </span>
                   </div>
                 </div>
-                <button
-                  className="btn btn-sm btn-danger ms-3"
-                  onClick={() => removeFromWishlist(item.id)}
-                >
-                  <i className="bi bi-trash"></i>
-                </button>
+                <div className="d-flex align-items-center">
+                  <button
+                    className="btn btn-sm btn-danger ms-3"
+                    onClick={() => removeFromWishlist(item.id)}
+                  >
+                    <i className="bi bi-trash"></i>
+                  </button>
+                  <button
+                    className="btn btn-sm btn-success ms-2"
+                    onClick={() => handleAddToCart(item)}
+                  >
+                    <i className="bi bi-cart-plus"></i>
+                  </button>
+                </div>
               </div>
             </div>
           ))}
