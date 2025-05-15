@@ -25,7 +25,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
     setActiveColor(currentParams.color || "");
     setActivePrice(currentParams.price || "");
     setActiveTags(currentParams.tags || "");
-    setActivePromo(currentParams.onSale === "true");
+    setActivePromo(currentParams.onsale === "true");
     setActiveKeys(currentParams);
   }, [searchParams]);
 
@@ -59,7 +59,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
       case "tags":
         setActiveTags((prev) => (prev === value ? "" : value));
         break;
-      case "onSale":
+      case "onsale":
         setActivePromo((prev) => !prev);
         break;
       default:
@@ -74,7 +74,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
       price: "",
       name: "",
       tags: "",
-      onSale: "false",
+      onsale: false,
     })
     console.log("clicked")
   }
@@ -86,7 +86,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
           {
             filters.brand === "" && filters.size === "" &&
               filters.color === "" && filters.price === "" &&
-              filters.tags === "" && filters.onSale === false
+              filters.tags === "" && filters.onsale === false
               ? (<></>) : (<div className="filter-toggle" onClick={handleResetFilters}>Reset filters</div>)
           }
           <BrandFilter

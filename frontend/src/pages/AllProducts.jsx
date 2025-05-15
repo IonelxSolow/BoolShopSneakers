@@ -15,7 +15,7 @@ export default function AllProducts() {
     price: "",
     name: "",
     tags: "",
-    onsale: "false",
+    onsale: false,
   });
   //array to iterate on after filter
   const [originalSneakers, setOriginalSneakers] = useState([]);

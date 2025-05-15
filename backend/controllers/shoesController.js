@@ -72,7 +72,7 @@ function indexBrand(req, res) {
   })
 }
 function indexSearch(req, res) {
-  const { brand, size, color, price, name, search, tags, onSale } = req.query
+  const { brand, size, color, price, name, search, tags, onsale } = req.query
 
   console.log(tags)
 
@@ -127,7 +127,7 @@ function indexSearch(req, res) {
     sql += ` AND (shoes.name LIKE ? OR shoes.brand LIKE ? OR variants.color LIKE ? OR shoes.price LIKE ?)`;
     params.push(`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`);
   }
-  if (onSale === true || onSale === "true") {
+  if (onsale === true || onsale === "true") {
     sql += ' AND discounts.value IS NOT NULL AND discounts.value > 0'
   }
   if (tags) {
