@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useWishlist } from "../../context/WhishlistContext";
 import { Link } from "react-router-dom";
 
 export default function PopularProducts() {
+  const { wishlist, setWishlist } = useWishlist()
   const [popularSneakers, setPopularSneakers] = useState({
     state: "loading",
   });
@@ -57,6 +59,33 @@ export default function PopularProducts() {
           setPopularPage((prev) => prev - 1);
         }
       }
+      function addToWishList(sneaker) {
+        // Example: add the sneaker to wishlist
+        const newItem = {
+          id: sneaker.id,
+          name: sneaker.brand + " " + sneaker.name,
+          price: sneaker.discounted_price && parseFloat(sneaker.discounted_price) < parseFloat(sneaker.price)
+            ? parseFloat(sneaker.discounted_price)
+            : parseFloat(sneaker.price),
+          image: JSON.parse(sneaker.image_urls)[0],
+          // add other properties as needed
+          quantity: 1,
+        };
+        // check if item already is in wishlist
+        const existingItem = wishlist.find(item => item.id === newItem.id);
+        let updatedWishList;
+        if (existingItem) {
+          updatedWishList = wishlist.map(item =>
+            item.id === newItem.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+        } else {
+          updatedWishList = [...wishlist, newItem];
+        }
+
+        setWishlist(updatedWishList);
+      }
 
       return (
         <>
@@ -102,13 +131,22 @@ export default function PopularProducts() {
                     )
                     .map((sneaker) => (
                       <div className="col-12 col-md-4" key={sneaker.id}>
-                        <Link
-                          to={`/product/${sneaker.name
-                            .toLowerCase()
-                            .replaceAll(" ", "-")}`}
-                          className="text-decoration-none text-dark"
-                        >
-                          <div className="card h-100 text-center">
+                        <div className="card h-100 text-center position-relative">
+                          <i
+                            className="bi bi-heart-fill position-absolute text-danger fs-3"
+                            style={{ top: "1rem", right: "1rem", cursor: "pointer" }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              addToWishList(sneaker);
+                            }} />
+                          <Link
+                            to={`/product/${sneaker.name
+                              .toLowerCase()
+                              .replaceAll(" ", "-")}`}
+                            className="text-decoration-none text-dark"
+                            style={{ display: "block" }}
+                          >
                             <img
                               className="card-img-top img-fluid"
                               src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
@@ -124,18 +162,15 @@ export default function PopularProducts() {
                                 </p>
                               ) : (
                                 <p className="text-danger">
-                                  {parseFloat(sneaker.discounted_price).toFixed(
-                                    2
-                                  )}
-                                  $
+                                  {parseFloat(sneaker.discounted_price).toFixed(2)}$
                                   <span className="text-decoration-line-through text-muted ms-2">
                                     {parseFloat(sneaker.price).toFixed(2)}$
                                   </span>
                                 </p>
                               )}
                             </div>
-                          </div>
-                        </Link>
+                          </Link>
+                        </div>
                       </div>
                     ))}
                 </div>
