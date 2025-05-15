@@ -1,5 +1,5 @@
-import { useState } from "react";
-export default function PromoFilter({ activePromo, setFilters, filters }) {
+import { useState, useEffect } from "react";
+export default function PromoFilter({ activePromo, setFilters, filters, activeKeys }) {
     const [isPromoOpen, setIsPromoOpen] = useState(false);
 
     const handleOnSaleToggle = () => {
@@ -11,6 +11,13 @@ export default function PromoFilter({ activePromo, setFilters, filters }) {
     if (filters.onSale === "true") {
         setIsPromoOpen(true)
     }
+    useEffect(() => {
+        if (activeKeys.onSale) {
+            setIsPromoOpen(true);
+        } else {
+            setIsPromoOpen(false);
+        }
+    }, [activeKeys]);
     return (
         <>
             <div
@@ -34,7 +41,7 @@ export default function PromoFilter({ activePromo, setFilters, filters }) {
                         onChange={handleOnSaleToggle}
                     />
                     <label className="form-check-label" htmlFor="on-sale">
-                        Solo scarpe scontate
+                        Plata o Promo?
                     </label>
                 </div>
             )}
