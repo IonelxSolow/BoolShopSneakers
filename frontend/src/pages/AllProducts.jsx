@@ -43,12 +43,6 @@ export default function AllProducts() {
     let searchParam = params.get("search") || "";
     let tagsParam = params.get("tags") || "";
 
-    // Se c'è search, usalo come tags
-    if (searchParam && !tagsParam) {
-      tagsParam = searchParam;
-      searchParam = "";
-    }
-
     const newFilters = {
       brand: params.get("brand") || "",
       size: params.get("size") || "",
@@ -192,8 +186,8 @@ export default function AllProducts() {
         <>
           <section className="all-products">
             <div>
-              {/* Breadcrumb or search phrase */}
-              {filters.search || filters.brand || filters.color ? (
+              {/* Breadcrumb o frase di ricerca */}
+              {filters.search ? (
                 <div
                   className="breadcrumb ms-3 mt-4 mb-2"
                   style={{ fontSize: "1.1rem", color: "#495057" }}
@@ -217,13 +211,10 @@ export default function AllProducts() {
                       fontWeight: 500,
                     }}
                   >
-                    Products
+                    Prodotti
                   </Link>
                   {" / "}
-                  Results for:{" "}
-                  <strong>
-                    {filters.search || filters.brand || filters.color}
-                  </strong>
+                  Risultati per: "<strong>{filters.search}</strong>"
                 </div>
               ) : (
                 <div
@@ -249,7 +240,7 @@ export default function AllProducts() {
                       fontWeight: 500,
                     }}
                   >
-                    Products
+                    Prodotti
                   </Link>
                 </div>
               )}
