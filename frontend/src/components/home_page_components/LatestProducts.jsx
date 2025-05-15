@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useWishlist } from "../../context/WhishlistContext";
 
 export default function LatestProducts() {
-  const { wishlist, setWishlist } = useWishlist()
   const [newestSneakers, setNewestSneakers] = useState({
     state: "loading",
   });
@@ -59,33 +57,7 @@ export default function LatestProducts() {
           setNewestPage((prev) => prev - 1);
         }
       }
-      function addToWishList(sneaker) {
-        // Example: add the sneaker to wishlist
-        const newItem = {
-          id: sneaker.id,
-          name: sneaker.brand + " " + sneaker.name,
-          price: sneaker.discounted_price && parseFloat(sneaker.discounted_price) < parseFloat(sneaker.price)
-            ? parseFloat(sneaker.discounted_price)
-            : parseFloat(sneaker.price),
-          image: JSON.parse(sneaker.image_urls)[0],
-          // add other properties as needed
-          quantity: 1,
-        };
-        // check if item already is in wishlist
-        const existingItem = wishlist.find(item => item.id === newItem.id);
-        let updatedWishList;
-        if (existingItem) {
-          updatedWishList = wishlist.map(item =>
-            item.id === newItem.id
-              ? { ...item, quantity: item.quantity + 1 }
-              : item
-          );
-        } else {
-          updatedWishList = [...wishlist, newItem];
-        }
 
-        setWishlist(updatedWishList);
-      }
       return (
         <>
           <section className="newest-displayer mb-5 container">
@@ -128,15 +100,7 @@ export default function LatestProducts() {
                     )
                     .map((sneaker) => (
                       <div className="col-12 col-md-4" key={sneaker.id}>
-                        <div className="card h-100 text-center position-relative">
-                          <i
-                            className="bi bi-heart-fill position-absolute text-danger fs-4"
-                            style={{ top: "1rem", right: "1rem", cursor: "pointer" }}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              e.preventDefault();
-                              addToWishList(sneaker);
-                            }} />
+                        <div className="card h-100 text-center">
                           <Link
                             to={`/product/${sneaker.name
                               .toLowerCase()
