@@ -7,27 +7,29 @@ export default function WishlistPage() {
 
   console.log(wishlist);
   console.log(cart);
-  
-function addToCart(sku) {
-  const item = wishlist.find((item) => item.sku === sku);
-  if (!item) return;
 
-  const alreadyInCart = cart.find((cartItem) => cartItem.sku === sku);
+  function addToCart(sku) {
+    const item = wishlist.find((item) => item.sku === sku);
+    if (!item) return;
 
-  if (alreadyInCart) {
-    // Se vuoi aumentare la quantità:
-    setCart(cart.map(cartItem =>
-      cartItem.sku === sku
-        ? { ...cartItem, quantity: (cartItem.quantity || 1) + 1 }
-        : cartItem
-    ));
-  } else {
-    setCart([...cart, { ...item, quantity: 1 }]);
+    const alreadyInCart = cart.find((cartItem) => cartItem.sku === sku);
+
+    if (alreadyInCart) {
+      // Se vuoi aumentare la quantità:
+      setCart(
+        cart.map((cartItem) =>
+          cartItem.sku === sku
+            ? { ...cartItem, quantity: (cartItem.quantity || 1) + 1 }
+            : cartItem
+        )
+      );
+    } else {
+      setCart([...cart, { ...item, quantity: 1 }]);
+    }
+
+    // Rimuovi dalla wishlist solo se vuoi
+    removeFromWishlist(item.sku);
   }
-
-  // Rimuovi dalla wishlist solo se vuoi
-  removeFromWishlist(item.id);
-}
 
   return (
     <div className="cart-page container my-4">
@@ -81,7 +83,7 @@ function addToCart(sku) {
                   </button>
                   <button
                     className="btn btn-sm btn-danger ms-3"
-                    onClick={() => removeFromWishlist(item.id)}
+                    onClick={() => removeFromWishlist(item.sku)}
                   >
                     <i className="bi bi-trash"></i>
                   </button>
@@ -89,7 +91,6 @@ function addToCart(sku) {
               </div>
             </div>
           ))}
-
         </div>
       ) : (
         <div
@@ -97,7 +98,6 @@ function addToCart(sku) {
           style={{ backgroundColor: "var(--bs-secondary)" }}
         >
           <h3 className="text-light m-0">Your wishlist is empty!</h3>
-
         </div>
       )}
     </div>
