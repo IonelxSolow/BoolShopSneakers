@@ -1,6 +1,53 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [subscribeStatus, setSubscribeStatus] = useState('idle'); // idle, loading, success
+  
+  const validateEmail = (email) => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setEmailError('');
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // Reset error state
+    setEmailError('');
+    
+    // Validate email
+    if (!email.trim()) {
+      setEmailError('Please enter your email');
+      return;
+    }
+    
+    if (!validateEmail(email)) {
+      setEmailError('Please enter a valid email address');
+      return;
+    }
+    
+    // Simulate API call
+    setSubscribeStatus('loading');
+    
+    // Fake successful subscription after 1 second
+    setTimeout(() => {
+      setSubscribeStatus('success');
+      
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setEmail('');
+        setSubscribeStatus('idle');
+      }, 3000);
+    }, 1000);
+  };
+
   return (
     <>
       <footer>
@@ -12,21 +59,42 @@ export default function Footer() {
                   JOIN OUR KICKSOCIETY <br /> CLUB & GET 15% OFF
                 </h1>
                 <span>Sign up for free! Join the community!</span>
-                <form className="d-flex flex-column flex-sm-row gap-3 mt-3">
+                <form onSubmit={handleSubmit} className="d-flex flex-column flex-sm-row gap-3 mt-3">
                   <div className="flex-grow-1">
                     <input
                       type="email"
-                      className="form-control"
+                      className={`form-control ${emailError ? 'is-invalid' : ''}`}
                       placeholder="Enter your email"
                       aria-label="Email signup"
+                      value={email}
+                      onChange={handleEmailChange}
+                      disabled={subscribeStatus === 'loading' || subscribeStatus === 'success'}
                     />
+                    {emailError && <div className="invalid-feedback">{emailError}</div>}
                   </div>
-                  <button
-                    type="submit"
-                    className="btn bg-black text-white fw-bold px-4"
-                  >
-                    Submit
-                  </button>
+                  {subscribeStatus === 'success' ? (
+                    <button
+                      type="button"
+                      className="btn bg-success text-white fw-bold px-4"
+                      disabled
+                    >
+                      <i className="bi bi-check-circle-fill me-2"></i>
+                      Subscribed!
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="btn bg-black text-white fw-bold px-4"
+                      disabled={subscribeStatus === 'loading'}
+                    >
+                      {subscribeStatus === 'loading' ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                          Submitting...
+                        </>
+                      ) : 'Submit'}
+                    </button>
+                  )}
                 </form>
               </div>
               <div className="col text-center">
