@@ -37,7 +37,7 @@ export default function TagFilter({
               onClick={() => {
                 handleFilterChange("tags", tag);
               }}
-              className={activeTags === tag ? "active-filter ps-2" : ""}
+              className={activeTags.toLowerCase() === tag.toLowerCase() ? "active-filter ps-2" : ""}
             >
               {tag}
             </li>

@@ -48,7 +48,7 @@ export default function ColorFilter({
                 <li
                   key={`${index}-${color}`}
                   onClick={() => handleFilterChange("color", color)}
-                  className={activeColor === color ? "active-filter ps-2" : ""}
+                  className={activeColor.toLowerCase() === color.toLowerCase() ? "active-filter ps-2" : ""}
                 >
                   {color}
                 </li>

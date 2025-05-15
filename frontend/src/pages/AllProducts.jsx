@@ -15,7 +15,7 @@ export default function AllProducts() {
     price: "",
     name: "",
     tags: "",
-    onSale: false,
+    onsale: "false",
   });
   //array to iterate on after filter
   const [originalSneakers, setOriginalSneakers] = useState([]);
@@ -34,7 +34,7 @@ export default function AllProducts() {
         params.append(key, filtersObj[key]);
       }
     }
-    return params.toString();
+    return params.toString().toLowerCase();
   };
 
   //first rendering of the page get filter in the url with the params
@@ -48,7 +48,7 @@ export default function AllProducts() {
       color: params.get("color") || "",
       price: params.get("price") || "",
       name: params.get("name") || "",
-      onSale: params.get("onSale") === "true",
+      onsale: params.get("onsale") === "true",
       search: searchParam,
       tags: params.get("tags") || "",
     };
