@@ -243,7 +243,7 @@ export default function AllProducts() {
               <h1
                 className="mt-5 ms-3"
                 onClick={() =>
-                  setFilters({ brand: "", size: "", color: "", price: "" })
+                  setFilters({ brand: "", size: "", color: "", price: "", tags: "", onsale: false })
                 }
               >
                 All Sneakers
