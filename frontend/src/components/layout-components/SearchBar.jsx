@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SearchContext } from "../context/SearchContext";
+import { SearchContext } from "../../context/SearchContext";
 
 export default function SearchBar({ toggleSearch }) {
   const [searchString, setSearchString] = useState("");
