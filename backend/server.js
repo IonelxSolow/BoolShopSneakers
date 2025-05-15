@@ -49,6 +49,54 @@ app.get('/boolshop/api/v1/config/shipping', (req, res) => {
   })
 })
 
+// Checkout validation rules endpoint for frontend consumption
+app.get('/boolshop/api/v1/config/checkout-validation', (req, res) => {
+  res.json({
+    validation_rules: {
+      name: {
+        required: true,
+        pattern: "^[A-Za-z\\s]+$",
+        message: "Name should only contain letters and spaces"
+      },
+      email: {
+        required: true,
+        pattern: "^\\S+@\\S+\\.\\S+$",
+        message: "Invalid email format"
+      },
+      phone: {
+        required: true,
+        pattern: "^\\d+$",
+        minLength: 8,
+        maxLength: 15,
+        message: "Phone number should only contain 8-15 digits"
+      },
+      address: {
+        required: true,
+        minLength: 5
+      },
+      shipping_methods: ["standard", "express"],
+      payment_types: ["card"],
+      card: {
+        number: {
+          required: true,
+          pattern: "^\\d{16}$",
+          luhnCheck: true
+        },
+        expiryDate: {
+          required: true,
+          pattern: "^(0[1-9]|1[0-2])\\/\\d{2}$",
+          message: "Format must be MM/YY"
+        },
+        cvv: {
+          required: true,
+          pattern: "^\\d{3,4}$",
+          message: "CVV must be 3 or 4 digits"
+        }
+      }
+    }
+  })
+})
+
 // Routes middlewares
 
 // shoes routes
