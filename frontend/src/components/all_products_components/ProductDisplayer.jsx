@@ -19,8 +19,10 @@ export default function ProductDisplayer({ currentItems, filteredSneakers }) {
                                     <img
                                         className="card-img-top img-fluid"
                                         src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
+
                                         alt={sneaker.name}
                                     />
+
                                     <div className="card-body">
                                         <h5 className="card-title">{sneaker.name}</h5>
                                         {!sneaker.discounted_price ||
