@@ -41,7 +41,6 @@ export default function AllProducts() {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     let searchParam = params.get("search") || "";
-    let tagsParam = params.get("tags") || "";
 
     const newFilters = {
       brand: params.get("brand") || "",
@@ -51,7 +50,7 @@ export default function AllProducts() {
       name: params.get("name") || "",
       onSale: params.get("onSale") === "true",
       search: searchParam,
-      tags: tagsParam,
+      tags: params.get("tags") || "",
     };
 
     if (JSON.stringify(filters) !== JSON.stringify(newFilters)) {

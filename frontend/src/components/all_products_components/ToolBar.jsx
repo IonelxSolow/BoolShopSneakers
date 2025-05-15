@@ -25,7 +25,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
     setActiveColor(currentParams.color || "");
     setActivePrice(currentParams.price || "");
     setActiveTags(currentParams.tags || "");
-    setActivePromo(currentParams.onSale || "");
+    setActivePromo(currentParams.onSale === "true");
     setActiveKeys(currentParams);
   }, [searchParams]);
 
@@ -60,7 +60,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
         setActiveTags((prev) => (prev === value ? "" : value));
         break;
       case "onSale":
-        setActiveTags((prev) => (prev === true ? false : true));
+        setActivePromo((prev) => !prev);
         break;
       default:
         break;
@@ -115,7 +115,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
             activeKeys={activeKeys}
           />
           <PromoFilter
-            activePromo={filters.onSale}
+            activePromo={activePromo}
             setFilters={setFilters}
             setActivePromo={setActivePromo}
             activeKeys={activeKeys}
