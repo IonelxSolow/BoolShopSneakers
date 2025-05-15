@@ -5,14 +5,14 @@ export default function PromoFilter({ activePromo, setFilters, filters, activeKe
     const handleOnSaleToggle = () => {
         setFilters((prev) => ({
             ...prev,
-            onSale: !prev.onSale,
+            onsale: !prev.onsale,
         }));
     };
-    if (filters.onSale === "true") {
+    if (filters.onsale === "true") {
         setIsPromoOpen(true)
     }
     useEffect(() => {
-        if (activeKeys.onSale) {
+        if (activeKeys.onsale) {
             setIsPromoOpen(true);
         } else {
             setIsPromoOpen(false);
@@ -37,7 +37,7 @@ export default function PromoFilter({ activePromo, setFilters, filters, activeKe
                         className="form-check-input"
                         type="checkbox"
                         id="on-sale"
-                        checked={filters.onSale}
+                        checked={filters.onsale}
                         onChange={handleOnSaleToggle}
                     />
                     <label className="form-check-label" htmlFor="on-sale">

@@ -44,7 +44,7 @@ export default function BrandFilter({
                   }}
                   key={sneaker.id}
                   className={
-                    activeBrand === sneaker.brand ? "active-filter ps-2" : ""
+                    activeBrand.toLowerCase() === sneaker.brand.toLowerCase() ? "active-filter ps-2" : ""
                   }
                 >
                   {sneaker.brand}
