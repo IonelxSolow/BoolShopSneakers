@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useWishlist } from "../../context/WhishlistContext";
 
 export default function DetailSection({
   product,
@@ -20,6 +21,7 @@ export default function DetailSection({
   const [showToastWish, setShowToastWish] = useState(false);
   const [showErrorToast, setShowErrorToast] = useState(false);
   const [isWishlist, setIsWishlist] = useState(null);
+  const { removeFromWishlist } = useWishlist();
 
   function handleAddToCart() {
     if (activeIndex === null || activeIndex === undefined) {
@@ -34,6 +36,7 @@ export default function DetailSection({
   function handleAddToWishList() {
     if (isWishlist) {
       setIsWishlist(false);
+      removeFromWishlist();
     } else {
       addToWishList();
       setIsWishlist(true);
