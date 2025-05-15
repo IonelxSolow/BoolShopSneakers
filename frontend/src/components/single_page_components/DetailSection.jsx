@@ -32,23 +32,27 @@ export default function DetailSection({
     setTimeout(() => setShowToast(false), 5000);
   }
   function handleAddToWishList() {
-    if (activeIndex === null || activeIndex === undefined) {
-      setShowErrorToast(true);
-      setTimeout(() => setShowErrorToast(false), 5000);
-      return;
+    if (isWishlist) {
+      setIsWishlist(false);
+    } else {
+      addToWishList();
+      setIsWishlist(true);
+      setShowToastWish(true);
+      setTimeout(() => setShowToastWish(false), 5000);
     }
-    addToWishList();
-    setIsWishlist(true);
-    setShowToastWish(true);
-    setTimeout(() => setShowToastWish(false), 5000);
   }
 
   useEffect(() => {
     const wishlistItems = JSON.parse(localStorage.getItem("wishlist")) || [];
-    setIsWishlist(wishlistItems.includes(product.result.sku));
-  }, [product.result.sku]);
-
-  console.log(isWishlist);
+    const wishItem = wishlistItems.find((item) =>
+      item.name.toLowerCase().includes(product.result.name.toLowerCase())
+    );
+    if (wishItem) {
+      setIsWishlist(true);
+    } else {
+      setIsWishlist(false);
+    }
+  }, [product.result]);
 
   return (
     <>
