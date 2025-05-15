@@ -127,8 +127,7 @@ export default function Header() {
     const cartItemCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
     const { wishlist } = useWishlist()
-    const WishlistItemCount = wishlist.reduce((acc, item) => acc + item.quantity, 0);
-
+    const WishlistItemCount = wishlist.length;
 
 
     return (
