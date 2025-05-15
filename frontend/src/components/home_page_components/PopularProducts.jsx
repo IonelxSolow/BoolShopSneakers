@@ -133,7 +133,7 @@ export default function PopularProducts() {
                       <div className="col-12 col-md-4" key={sneaker.id}>
                         <div className="card h-100 text-center position-relative">
                           <i
-                            className="bi bi-heart-fill position-absolute text-danger fs-3"
+                            className="bi bi-heart-fill position-absolute text-danger fs-4"
                             style={{ top: "1rem", right: "1rem", cursor: "pointer" }}
                             onClick={(e) => {
                               e.stopPropagation();
