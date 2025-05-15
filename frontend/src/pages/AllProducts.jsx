@@ -112,7 +112,12 @@ export default function AllProducts() {
     if (sortConfig.key === key && sortConfig.direction === "asc") {
       direction = "desc";
     }
-    //creating the sorted array
+
+    // Default to desc for dates (newest first)
+    if (key === "date" && sortConfig.key !== "date") {
+      direction = "desc";
+    }
+
     const sorted = [...filteredSneakers.result].sort((a, b) => {
       if (key === "name") {
         return direction === "asc"
@@ -122,6 +127,12 @@ export default function AllProducts() {
         const priceA = parseFloat(a.discounted_price || a.price);
         const priceB = parseFloat(b.discounted_price || b.price);
         return direction === "asc" ? priceA - priceB : priceB - priceA;
+      } else if (key === "date") {
+        const dateA = new Date(a.updated_at);
+        const dateB = new Date(b.updated_at);
+        return direction === "asc"
+          ? dateA.getTime() - dateB.getTime()
+          : dateB.getTime() - dateA.getTime();
       }
       return 0;
     });
@@ -132,13 +143,16 @@ export default function AllProducts() {
       result: sorted,
     });
   };
-  //sort resetter
+
   const resetSort = () => {
+    setSortConfig({ key: "", direction: "" });
+    // Reset to original order from API
     setFilteredSneakers({
       ...filteredSneakers,
-      result: originalSneakers,
+      result: [...originalSneakers],
     });
-    setSortConfig({ key: "", direction: "" });
+    // Close the sort dropdown
+    setIsSortedOpen(false);
   };
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -179,19 +193,64 @@ export default function AllProducts() {
           <section className="all-products">
             <div>
               {/* Breadcrumb or search phrase */}
-              {(filters.search || filters.brand || filters.color) ? (
-                <div className="breadcrumb ms-3 mt-4 mb-2" style={{ fontSize: "1.1rem", color: "#495057" }}>
-                  <Link to="/" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Home</Link>
+              {filters.search || filters.brand || filters.color ? (
+                <div
+                  className="breadcrumb ms-3 mt-4 mb-2"
+                  style={{ fontSize: "1.1rem", color: "#495057" }}
+                >
+                  <Link
+                    to="/"
+                    style={{
+                      color: "#3b5378",
+                      textDecoration: "none",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Home
+                  </Link>
                   {" / "}
-                  <Link to="/all-products" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Products</Link>
+                  <Link
+                    to="/all-products"
+                    style={{
+                      color: "#3b5378",
+                      textDecoration: "none",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Products
+                  </Link>
                   {" / "}
-                  Results for: <strong>{filters.search || filters.brand || filters.color}</strong>
+                  Results for:{" "}
+                  <strong>
+                    {filters.search || filters.brand || filters.color}
+                  </strong>
                 </div>
               ) : (
-                <div className="breadcrumb ms-3 mt-4 mb-2" style={{ fontSize: "1.1rem", color: "#495057" }}>
-                  <Link to="/" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Home</Link>
+                <div
+                  className="breadcrumb ms-3 mt-4 mb-2"
+                  style={{ fontSize: "1.1rem", color: "#495057" }}
+                >
+                  <Link
+                    to="/"
+                    style={{
+                      color: "#3b5378",
+                      textDecoration: "none",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Home
+                  </Link>
                   {" / "}
-                  <Link to="/all-products" style={{ color: "#3b5378", textDecoration: "none", fontWeight: 500 }}>Products</Link>
+                  <Link
+                    to="/all-products"
+                    style={{
+                      color: "#3b5378",
+                      textDecoration: "none",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Products
+                  </Link>
                 </div>
               )}
               <h1
@@ -251,6 +310,18 @@ export default function AllProducts() {
                             ? "Low → High"
                             : "High → Low"
                           : "Low → High"}
+                        )
+                      </li>
+                      <li
+                        className="py-1 px-2"
+                        onClick={() => handleSort("date")}
+                      >
+                        Sort by Date (
+                        {sortConfig.key === "date"
+                          ? sortConfig.direction === "asc"
+                            ? "Oldest First"
+                            : "Newest First"
+                          : "Newest First"}
                         )
                       </li>
                       <li className="py-1 px-2" onClick={resetSort}>
