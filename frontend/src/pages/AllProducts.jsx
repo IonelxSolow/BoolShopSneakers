@@ -242,6 +242,7 @@ export default function AllProducts() {
               )}
               <h1
                 className="mt-5 ms-3"
+                style={{ width: 300 }}
                 onClick={() =>
                   setFilters({ brand: "", size: "", color: "", price: "", tags: "", onsale: false })
                 }
