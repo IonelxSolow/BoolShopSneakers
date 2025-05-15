@@ -3,6 +3,7 @@
 const connection = require('../db/boolshop_db.js')
 const emailService = require('../services/emailService')
 const emailTemplates = require('../services/emailTemplates')
+const shippingService = require('../services/shippingService')
 
 function store(req, res) {
     const {
@@ -15,11 +16,29 @@ function store(req, res) {
         discount_id,
         delivery_fee,
         items,
-        payment_type
+        payment_type,
+        shipping_method
     } = req.body
 
     // Generate purchase_order first to be able to use it in multiple places
     const purchaseOrder = generatePurchaseOrder()
+
+    // Calculate the subtotal from items
+    const subtotal = items && items.length > 0 
+        ? items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+        : 0
+    
+    // Calculate shipping cost based on subtotal and shipping method
+    const calculatedDeliveryFee = shippingService.calculateShippingCost(
+        subtotal, 
+        shipping_method || 'standard'
+    )
+    
+    // Use calculated delivery fee if not explicitly provided
+    const finalDeliveryFee = delivery_fee !== undefined ? delivery_fee : calculatedDeliveryFee
+    
+    // Recalculate total price if needed
+    const finalTotalPrice = total_price !== undefined ? total_price : (subtotal + finalDeliveryFee)
 
     const orderSql = `
             INSERT INTO orders (name, email, address, phone, total_price, status, discount_id, delivery_fee, payment_type, purchase_order) 
@@ -31,10 +50,10 @@ function store(req, res) {
         email,
         address,
         phone,
-        total_price,
+        finalTotalPrice,
         status || 'pending',
         discount_id || null,
-        delivery_fee || 0.00,
+        finalDeliveryFee,
         payment_type,
         purchaseOrder
     ], (err, orderResult) => {
@@ -50,7 +69,7 @@ function store(req, res) {
         if (!items || items.length === 0) {
             // Send confirmation email even if there are no items
             // Pass purchaseOrder instead of orderId
-            sendConfirmationEmails(name, email, purchaseOrder, total_price, [], address)
+            sendConfirmationEmails(name, email, purchaseOrder, finalTotalPrice, [], address)
 
             return res.status(201).json({
                 message: "Order created successfully",
@@ -96,12 +115,15 @@ function store(req, res) {
                 }
 
                 // Send confirmation emails passing purchaseOrder instead of orderId
-                sendConfirmationEmails(name, email, purchaseOrder, total_price, itemDetails, address)
+                sendConfirmationEmails(name, email, purchaseOrder, finalTotalPrice, itemDetails, address)
 
                 res.status(201).json({
                     message: "Order created successfully",
                     order_id: orderId,
-                    purchase_order: purchaseOrder
+                    purchase_order: purchaseOrder,
+                    delivery_fee: finalDeliveryFee,
+                    total_price: finalTotalPrice,
+                    free_shipping: finalDeliveryFee === 0
                 })
             })
         })

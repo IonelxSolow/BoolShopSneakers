@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext";
@@ -9,20 +9,54 @@ export default function Checkout() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [formError, setFormError] = useState("");
-  console.log(sneakers)
-
+  const [shippingConfig, setShippingConfig] = useState({
+    free_shipping_threshold: 100,
+    shipping_costs: {
+      standard: 5,
+      express: 15
+    }
+  });
+  
+  useEffect(() => {
+    // Fetch shipping configuration from the backend
+    const fetchShippingConfig = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/boolshop/api/v1/config/shipping"
+        );
+        
+        if (response.ok) {
+          const config = await response.json();
+          setShippingConfig(config);
+        }
+      } catch (error) {
+        console.error("Error fetching shipping configuration:", error);
+        // Use default values if fetch fails
+      }
+    };
+    
+    fetchShippingConfig();
+  }, []);
+  
   // Calcola il totale
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  // Free shipping threshold
-  const FREE_SHIPPING_THRESHOLD = 100;
+  
+  // Free shipping threshold from config
+  const FREE_SHIPPING_THRESHOLD = shippingConfig.free_shipping_threshold;
+  
   // Calculate if shipping is free
   const isFreeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
   const [shippingMethod, setShippingMethod] = useState("standard");
+  
   // Calculate shipping cost
-  const shippingCost = isFreeShipping ? 0 : (shippingMethod === "express" ? 15 : 5);
+  const shippingCost = isFreeShipping ? 0 : 
+    (shippingMethod === "express" ? 
+      shippingConfig.shipping_costs.express : 
+      shippingConfig.shipping_costs.standard);
+  
   const total = subtotal + shippingCost;
 
   const handleSubmit = async (e) => {
@@ -56,6 +90,7 @@ export default function Checkout() {
       status: "pending",
       payment_type: "card",
       delivery_fee: shippingCost,
+      shipping_method: shippingMethod,
       items: cart.map((item) => ({
         variant_id: item.variant_id,
         quantity: item.quantity,
@@ -92,7 +127,8 @@ export default function Checkout() {
         state: {
           orderId: data.purchase_order,
           customerName: orderData.name,
-          total: total,
+          total: data.total_price || total,
+          freeShipping: data.free_shipping,
         },
       });
     } catch (error) {
@@ -250,6 +286,13 @@ export default function Checkout() {
 
             <div className="mb-4">
               <h4 className="mb-3">Shipping Method</h4>
+              {!isFreeShipping && (
+                <div className="alert alert-info mb-3">
+                  <small>
+                    Add €{(FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2)} more to your order for FREE shipping!
+                  </small>
+                </div>
+              )}
               <div className="form-check mb-2">
                 <input
                   type="radio"
@@ -261,7 +304,11 @@ export default function Checkout() {
                   onChange={handleShippingChange}
                 />
                 <label className="form-check-label" htmlFor="standard">
-                  Standard Shipping (5-7 business days) - €5
+                  Standard Shipping (5-7 business days) - {isFreeShipping ? (
+                    <span className="text-success fw-bold">FREE</span>
+                  ) : (
+                    `€${shippingConfig.shipping_costs.standard}`
+                  )}
                 </label>
               </div>
               <div className="form-check">
@@ -275,7 +322,11 @@ export default function Checkout() {
                   onChange={handleShippingChange}
                 />
                 <label className="form-check-label" htmlFor="express">
-                  Express Shipping (2-3 business days) - €15
+                  Express Shipping (2-3 business days) - {isFreeShipping ? (
+                    <span className="text-success fw-bold">FREE</span>
+                  ) : (
+                    `€${shippingConfig.shipping_costs.express}`
+                  )}
                 </label>
               </div>
             </div>

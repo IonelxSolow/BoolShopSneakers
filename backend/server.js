@@ -7,6 +7,7 @@ const notFound = require('./middlewares/notFound')
 const shoesRouter = require('./routers/shoesRouter')
 const ordersRouter = require('./routers/ordersRouter')
 const emailRouter = require('./routers/emailRouter')
+const shippingService = require('./services/shippingService')
 /* const guestRouter = require('./routers/guestRouter') */
 
 app.listen(port, () => {
@@ -38,6 +39,14 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
   res.send('Welcome to the boolshop backend server')
+})
+
+// Health check endpoint that returns shipping configuration
+app.get('/boolshop/api/v1/config/shipping', (req, res) => {
+  res.json({
+    free_shipping_threshold: shippingService.FREE_SHIPPING_THRESHOLD,
+    shipping_costs: shippingService.SHIPPING_COSTS
+  })
 })
 
 // Routes middlewares
