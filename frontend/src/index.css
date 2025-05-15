@@ -19,7 +19,7 @@
 }
 
 body {
- 
+
   font-family: "Overpass", sans-serif;
 }
 
@@ -337,18 +337,63 @@ main {
     }
   }
 }
-.newest-displayer{
+
+.line-wrapper {
+  display: flex;
+  align-items: center;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: bolder;
+    white-space: nowrap;
+  }
+
+  .line {
+    flex: 1;
+    height: 2px;
+    background-color: black;
+  }
+}
+
+.sneaker-card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  cursor: pointer;
+}
+
+.sneaker-card img {
+  width: 100%;
+  display: block;
+}
+
+.price-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.sneaker-card:hover {
+  scale: 1.05;
+  transition: ease, 0.5s 0.1s;
+}
+
+.newest-displayer {
   margin-bottom: 5rem;
 }
-.sneaker-card:hover{
-    scale: 1.05;
-    transition: ease,0.5s 0.1s;
-}
-.hot-img{
+
+.hot-img {
   /* border-top-left-radius: 40%;
   border-bottom-right-radius: 10%; */
   border-radius: 10%;
 }
+
 .wave-1hkxOo {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
@@ -702,6 +747,7 @@ main {
     color: var(--main-light);
   }
 }
+
 .popup-overlay {
   position: fixed;
   top: 0;
