@@ -74,7 +74,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
       price: "",
       name: "",
       tags: "",
-      onSale: false,
+      onSale: "false",
     })
     console.log("clicked")
   }

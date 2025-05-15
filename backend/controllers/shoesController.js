@@ -127,6 +127,9 @@ function indexSearch(req, res) {
     sql += ` AND (shoes.name LIKE ? OR shoes.brand LIKE ? OR variants.color LIKE ? OR shoes.price LIKE ?)`;
     params.push(`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`);
   }
+  if (onSale === true || onSale === "true") {
+    sql += ' AND discounts.value IS NOT NULL AND discounts.value > 0'
+  }
   if (tags) {
     const tagArray = Array.isArray(tags) ? tags : tags.split(',');
     const placeholders = tagArray.map(() => '?').join(', ');
@@ -136,11 +139,10 @@ function indexSearch(req, res) {
     sql += ` HAVING COUNT(DISTINCT tags.name) = ?`;
     params.push(tagArray.length);
   } else {
-    if (onSale === true || onSale === "true") {
-      sql += ' AND discounts.value IS NOT NULL AND discounts.value > 0'
-    }
     sql += ` GROUP BY shoes.id`;
   }
+
+
 
   connection.query(sql, params, (err, results) => {
     if (err) res.status(500).json({ message: err.message })
