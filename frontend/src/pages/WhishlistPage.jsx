@@ -5,6 +5,30 @@ export default function WishlistPage() {
   const { wishlist, removeFromWishlist } = useWishlist();
   const { cart, setCart } = useCart();
 
+  console.log(wishlist);
+  console.log(cart);
+  
+function addToCart(sku) {
+  const item = wishlist.find((item) => item.sku === sku);
+  if (!item) return;
+
+  const alreadyInCart = cart.find((cartItem) => cartItem.sku === sku);
+
+  if (alreadyInCart) {
+    // Se vuoi aumentare la quantità:
+    setCart(cart.map(cartItem =>
+      cartItem.sku === sku
+        ? { ...cartItem, quantity: (cartItem.quantity || 1) + 1 }
+        : cartItem
+    ));
+  } else {
+    setCart([...cart, { ...item, quantity: 1 }]);
+  }
+
+  // Rimuovi dalla wishlist solo se vuoi
+  removeFromWishlist(item.id);
+}
+
   return (
     <div className="cart-page container my-4">
       {/* Carrello */}
@@ -51,7 +75,7 @@ export default function WishlistPage() {
                 <div className="d-flex align-items-center">
                   <button
                     className="btn btn-sm btn-success ms-2"
-                    onClick={() => handleAddToCart(item.sku)}
+                    onClick={() => addToCart(item.sku)}
                   >
                     <i className="bi bi-cart-plus"></i>
                   </button>
