@@ -1,7 +1,9 @@
 import { useWishlist } from "../context/WhishlistContext";
+import {usecart} from "../context/CartContext";
 
 export default function WishlistPage() {
   const { wishlist, removeFromWishlist } = useWishlist();
+  const { cart, setCart } = usecart();
 
   return (
     <div className="cart-page container my-4">
@@ -13,7 +15,7 @@ export default function WishlistPage() {
           style={{ backgroundColor: "var(--bs-secondary)" }}
         >
           {wishlist.map((item) => (
-            <div key={item.sku} className="cart-item card mb-2">
+            <div key={item.id} className="cart-item card mb-2">
               <div className="card-body d-flex align-items-center">
                 <div className="flex-grow-1">
                   <div className="d-flex align-items-center">
@@ -44,12 +46,11 @@ export default function WishlistPage() {
                     <span className="mb-2 mb-md-0" style={{ width: "150px" }}>
                       Price: {Number(item.price).toFixed(2)} €
                     </span>
-                    <IncreaseDecrease item={item} />
                   </div>
                 </div>
                 <button
                   className="btn btn-sm btn-danger ms-3"
-                  onClick={() => removeFromWishlist(item.sku)}
+                  onClick={() => removeFromWishlist(item.id)}
                 >
                   <i className="bi bi-trash"></i>
                 </button>
