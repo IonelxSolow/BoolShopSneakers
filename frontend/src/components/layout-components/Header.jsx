@@ -176,7 +176,7 @@ export default function Header() {
                             to="/"
                             className="navbar-brand mx-auto text-center fw-bolder"
                         >
-                            <h4 className="fw-bolder m-0">KICKSOCIETY</h4>
+                            <h4 className="fw-bolder m-0 text-white">KICKSOCIETY</h4>
                         </NavLink>
                         <div className="d-flex justify-content-end align-items-center gap-3">
                             <a className="nav-link cursor-pointer" onClick={toggleSearch}>

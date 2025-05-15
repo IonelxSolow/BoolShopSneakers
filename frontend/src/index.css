@@ -37,9 +37,10 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  background: white;
+  background: #212529;
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
+  color: white;
 }
 
 .header-hidden {
@@ -344,8 +345,9 @@ main {
     transition: ease,0.5s 0.1s;
 }
 .hot-img{
-  border-top-left-radius: 40%;
-  border-bottom-right-radius: 10%;
+  /* border-top-left-radius: 40%;
+  border-bottom-right-radius: 10%; */
+  border-radius: 10%;
 }
 .wave-1hkxOo {
   width: 100vw;
