@@ -23,6 +23,9 @@ export default function DetailSection({
   const [isWishlist, setIsWishlist] = useState(null);
   const { removeFromWishlist } = useWishlist();
 
+  const mainSku = product.result.variant_sku.split(",")[0];
+  const variantSku = product.result.variant_sku.split(",")[1];
+
   function handleAddToCart() {
     if (activeIndex === null || activeIndex === undefined) {
       setShowErrorToast(true);
@@ -33,10 +36,11 @@ export default function DetailSection({
     setShowToast(true);
     setTimeout(() => setShowToast(false), 5000);
   }
-  function handleAddToWishList() {
+
+  function handleAddToWishList(sku) {
     if (isWishlist) {
       setIsWishlist(false);
-      removeFromWishlist();
+      removeFromWishlist(sku);
     } else {
       addToWishList();
       setIsWishlist(true);
@@ -47,15 +51,21 @@ export default function DetailSection({
 
   useEffect(() => {
     const wishlistItems = JSON.parse(localStorage.getItem("wishlist")) || [];
-    const wishItem = wishlistItems.find((item) =>
-      item.name.toLowerCase().includes(product.result.name.toLowerCase())
-    );
+
+    const wishItem = wishlistItems.find((item) => {
+      if (variant === 0) {
+        return item.sku === mainSku;
+      } else {
+        return item.sku === variantSku;
+      }
+    });
+
     if (wishItem) {
       setIsWishlist(true);
     } else {
       setIsWishlist(false);
     }
-  }, [product.result]);
+  }, [product.result, variant]);
 
   return (
     <>
@@ -65,7 +75,12 @@ export default function DetailSection({
             <h1 className="fw-bold text-uppercase mb-0">
               {product.result.name}
             </h1>
-            <button className="btn fs-5" onClick={handleAddToWishList}>
+            <button
+              className="btn fs-5"
+              onClick={() => {
+                handleAddToWishList(variant === 0 ? mainSku : variantSku);
+              }}
+            >
               {isWishlist ? (
                 <i className="bi bi-heart-fill text-danger"></i>
               ) : (

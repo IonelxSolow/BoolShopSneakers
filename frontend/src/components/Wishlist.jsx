@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import { useWishlist } from "../context/WhishlistContext";
-import IncreaseDecrease from "../components/IncreaseDecrease"
+import IncreaseDecrease from "../components/IncreaseDecrease";
 
 export default function Wishlist({ isOpen, toggleWishlist }) {
   const { wishlist, removeFromWishlist } = useWishlist();
 
   return (
     <div
-      className={`container cart-content d-flex flex-column ${isOpen ? "open" : ""
-        }`}
+      className={`container cart-content d-flex flex-column ${
+        isOpen ? "open" : ""
+      }`}
     >
       <div className="d-flex justify-content-between align-items-center mb-4">
         <button className="btn close-cart " onClick={toggleWishlist}>
@@ -58,13 +59,12 @@ export default function Wishlist({ isOpen, toggleWishlist }) {
                     <span style={{ maxWidth: "150px" }}>{item.name}</span>
                   </div>
                 </div>
-
               </div>
 
               <div>
                 <button
                   className="btn btn-sm btn-danger ms-3"
-                  onClick={() => removeFromWishlist(item.id)}
+                  onClick={() => removeFromWishlist(item.sku)}
                 >
                   <i className="bi bi-trash"></i>
                 </button>

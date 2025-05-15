@@ -24,8 +24,8 @@ const WishlistProvider = ({ children }) => {
   };
 
   // Rimuovi un prodotto dalla wishlist
-  const removeFromWishlist = (id) => {
-    const updatedWishlist = wishlist.filter((item) => item.id !== id);
+  const removeFromWishlist = (sku) => {
+    const updatedWishlist = wishlist.filter((item) => item.sku !== sku);
     setWishlist(updatedWishlist);
   };
 
