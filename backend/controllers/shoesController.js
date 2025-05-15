@@ -72,7 +72,7 @@ function indexBrand(req, res) {
   })
 }
 function indexSearch(req, res) {
-  const { brand, size, color, price, name, search, tags } = req.query
+  const { brand, size, color, price, name, search, tags, onSale } = req.query
 
   console.log(tags)
 
@@ -136,8 +136,12 @@ function indexSearch(req, res) {
     sql += ` HAVING COUNT(DISTINCT tags.name) = ?`;
     params.push(tagArray.length);
   } else {
+    if (onSale === true || onSale === "true") {
+      sql += ' AND discounts.value IS NOT NULL AND discounts.value > 0'
+    }
     sql += ` GROUP BY shoes.id`;
   }
+
   connection.query(sql, params, (err, results) => {
     if (err) res.status(500).json({ message: err.message })
     if (results.length === 0) return res.status(404).json({ error: 'sneakers not found' })

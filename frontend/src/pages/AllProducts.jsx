@@ -68,12 +68,9 @@ export default function AllProducts() {
   // Fetch sneakers whenever filters change
   useEffect(() => {
     let url;
-    if (filters.onSale) {
-      url = `http://localhost:3000/boolshop/api/v1/shoes/sale`;
-    } else {
-      const query = buildQueryString(filters);
-      url = `http://localhost:3000/boolshop/api/v1/shoes/search?${query}`;
-    }
+    const query = buildQueryString(filters);
+    url = `http://localhost:3000/boolshop/api/v1/shoes/search?${query}`;
+
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
