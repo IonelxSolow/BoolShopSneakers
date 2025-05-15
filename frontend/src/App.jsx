@@ -14,14 +14,17 @@ import OrderConfirmation from "./pages/OrderConfirmation";
 import OrderDetails from "./pages/OrderDetails";
 import NotFound from "./pages/NotFound";
 import { WishlistProvider } from "./context/WhishlistContext";
+import PopUp from "./components/PopUp";
 
 export default function App() {
   return (
+
     <GlobalProvider>
       <SearchProvider>
         <WishlistProvider>
           <CartProvider>
             <BrowserRouter>
+              <PopUp />
               <Routes>
                 <Route element={<DefaultLayout />}>
                   <Route path="/" element={<Home />} />
