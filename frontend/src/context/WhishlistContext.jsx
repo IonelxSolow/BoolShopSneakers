@@ -18,14 +18,14 @@ const WishlistProvider = ({ children }) => {
 
   // Aggiungi un prodotto alla wishlist
   const addToWishlist = (item) => {
-    if (!wishlist.find((wishlistItem) => wishlistItem.sku === item.sku)) {
+    if (!wishlist.find((wishlistItem) => wishlistItem.id === item.id)) {
       setWishlist([...wishlist, item]);
     }
   };
 
   // Rimuovi un prodotto dalla wishlist
-  const removeFromWishlist = (sku) => {
-    const updatedWishlist = wishlist.filter((item) => item.sku !== sku);
+  const removeFromWishlist = (id) => {
+    const updatedWishlist = wishlist.filter((item) => item.id !== id);
     setWishlist(updatedWishlist);
   };
 

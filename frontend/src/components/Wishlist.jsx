@@ -64,7 +64,7 @@ export default function Wishlist({ isOpen, toggleWishlist }) {
               <div>
                 <button
                   className="btn btn-sm btn-danger ms-3"
-                  onClick={() => removeFromWishlist(item.sku)}
+                  onClick={() => removeFromWishlist(item.id)}
                 >
                   <i className="bi bi-trash"></i>
                 </button>
