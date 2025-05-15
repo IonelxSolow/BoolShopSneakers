@@ -14,7 +14,7 @@ import OrderConfirmation from "./pages/OrderConfirmation";
 import OrderDetails from "./pages/OrderDetails";
 import NotFound from "./pages/NotFound";
 import { WishlistProvider } from "./context/WhishlistContext";
-import PopUp from "./components/PopUp";
+import PopUp from "./components/layout-components/PopUp";
 
 export default function App() {
   return (

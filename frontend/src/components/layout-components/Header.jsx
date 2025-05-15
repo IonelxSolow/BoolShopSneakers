@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../../context/CartContext";
 
-import SearchBar from "./SearchBar";
-import Cart from "./Cart";
-import Wishlist from "./Wishlist";
-import { useWishlist } from "../context/WhishlistContext";
+import SearchBar from "../layout-components/SearchBar";
+import Cart from "../Cart";
+import Wishlist from "../Wishlist";
+import { useWishlist } from "../../context/WhishlistContext";
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
