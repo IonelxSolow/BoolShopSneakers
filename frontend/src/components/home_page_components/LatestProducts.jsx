@@ -60,7 +60,7 @@ export default function LatestProducts() {
 
       return (
         <>
-          <section className="newest-displayer mb-5 container">
+          <section className="newest-displayer container">
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h1 className="fs-3 fs-md-2 fw-bold">Newest Drops</h1>
               <button
@@ -100,7 +100,7 @@ export default function LatestProducts() {
                     )
                     .map((sneaker) => (
                       <div className="col-12 col-md-4" key={sneaker.id}>
-                        <div className="card h-100 text-center">
+                        <div className="card sneaker-card h-100 text-center">
                           <Link
                             to={`/product/${sneaker.name
                               .toLowerCase()

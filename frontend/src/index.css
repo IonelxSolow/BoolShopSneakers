@@ -19,7 +19,7 @@
 }
 
 body {
-  background-color: var(--bs-bg-primary);
+ 
   font-family: "Overpass", sans-serif;
 }
 
@@ -37,7 +37,7 @@ a:hover {
   top: 0;
   left: 0;
   right: 0;
-  background: var(--bs-bg-primary);
+  background: white;
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
 }
@@ -336,6 +336,23 @@ main {
     }
   }
 }
+.newest-displayer{
+  margin-bottom: 5rem;
+}
+.sneaker-card:hover{
+    scale: 1.05;
+    transition: ease,0.5s 0.1s;
+}
+.hot-img{
+  border-top-left-radius: 40%;
+  border-bottom-right-radius: 10%;
+}
+.wave-1hkxOo {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  display: block;
+}
+
 
 @media (min-width: 768px) {
   .responsive-font {
@@ -560,8 +577,7 @@ main {
           cursor: pointer;
 
           &:hover {
-            border: 2px solid var(--main-light);
-            font-weight: 600;
+            font-weight: bolder;
           }
         }
       }

@@ -102,7 +102,7 @@ export default function PopularProducts() {
                     )
                     .map((sneaker) => (
                       <div className="col-12 col-md-4" key={sneaker.id}>
-                        <div className="card h-100 text-center">
+                        <div className="card sneaker-card h-100 text-center">
                           <Link
                             to={`/product/${sneaker.name
                               .toLowerCase()
