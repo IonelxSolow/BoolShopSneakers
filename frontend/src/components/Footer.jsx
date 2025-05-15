@@ -57,15 +57,15 @@ export default function Footer() {
                     <ul className="text-white">
                       <li>
                         <Link
-                          to="#"
+                          to="/all-products"
                           className="text-white text-decoration-none"
                         >
-                          Sneakers
+                          All Sneakers
                         </Link>
                       </li>
                       <li>
                         <Link
-                          to="#"
+                          to="/all-products?tags=Running"
                           className="text-white text-decoration-none text-nowrap"
                         >
                           Running Shoes
@@ -73,34 +73,34 @@ export default function Footer() {
                       </li>
                       <li>
                         <Link
-                          to="#"
+                          to="/all-products?tags=Sports"
                           className="text-white text-decoration-none"
                         >
-                          Basketball
+                          Sports
                         </Link>
                       </li>
                       <li>
                         <Link
-                          to="#"
+                          to="/all-products?tags=Children"
                           className="text-white text-decoration-none"
                         >
-                          Training
+                          Children
                         </Link>
                       </li>
                       <li>
                         <Link
-                          to="#"
+                          to="/all-products?tags=Man"
                           className="text-white text-decoration-none"
                         >
-                          Lifestyle
+                          Man
                         </Link>
                       </li>
                       <li>
                         <Link
-                          to="#"
+                          to="/all-products?tags=Woman"
                           className="text-white text-decoration-none"
                         >
-                          Soccer
+                          Woman
                         </Link>
                       </li>
                     </ul>
@@ -189,7 +189,7 @@ export default function Footer() {
         {/* Payment Methods Section */}
         <div className="foot-bar bg-whitesmoke bg-black">
           <div className="container py-3 text-center">
-            <h6 className="text-white mb-3">METODI DI PAGAMENTO</h6>
+            <h6 className="text-white mb-3">PAYMENT METHODS</h6>
             <div className="d-flex justify-content-center gap-3">
               <i className="bi bi-credit-card fs-4 text-white"></i>
               <i className="bi bi-paypal fs-4 text-white"></i>
@@ -200,7 +200,9 @@ export default function Footer() {
         </div>
         <div className="foot-bar bg-whitesmoke bg-black border-top border-secondary">
           <div className="container py-2 text-center">
-            <small className="text-white">© 2025 KICKSOCIETY - Tutti i diritti riservati</small>
+            <small className="text-white">
+              © 2025 KICKSOCIETY - All rights reserved
+            </small>
           </div>
         </div>
       </footer>

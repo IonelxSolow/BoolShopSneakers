@@ -154,21 +154,21 @@ export default function Header() {
                                     className="nav-link"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
-                                    Men
+                                    Man
                                 </NavLink>
                                 <NavLink
                                     to="/all-products?tags=woman"
                                     className="nav-link"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
-                                    Women
+                                    Woman
                                 </NavLink>
                                 <NavLink
                                     to="/all-products?tags=children"
                                     className="nav-link"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
-                                    Kids
+                                    Children
                                 </NavLink>
                             </div>
                         </div>
