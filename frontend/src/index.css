@@ -496,8 +496,7 @@ header {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  width: 80%;
+  width: 100%;
   margin-bottom: 20px;
   padding: 15px;
   gap: 20px;
@@ -855,7 +854,6 @@ header {
       &:hover {
         background-color: black;
         color: var(--main-light);
-
       }
     }
   }
