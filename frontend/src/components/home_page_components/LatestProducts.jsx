@@ -65,7 +65,7 @@ export default function LatestProducts() {
             <div className="col-12 col-md-4 d-flex flex-column justify-content-between">
               <div className="superbold-title mb-4">
                 <span className="d-block newest-superbold">NEW</span>
-                <span className="d-block newest-superbold">DROP</span>
+                <span className="d-block newest-superbold">DROPS</span>
               </div>
               <div className="carousel-controls-horizontal d-flex flex-row gap-3 mt-4">
                 <button
