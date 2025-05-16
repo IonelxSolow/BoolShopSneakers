@@ -76,7 +76,7 @@ export default function LatestProducts() {
                     <p className="mt-5 text-secondary" style={{ fontSize: "1.5rem" }}>
                       Discover our latest sneaker additions, freshly arrived and ready to elevate your style.
                       Explore exclusive models and limited editions, all at unbelievable prices.
-                      Don’t miss the chance to be among the first to grab the newest trends in footwear!
+                      Don't miss the chance to be among the first to grab the newest trends in footwear!
                     </p>
 
                   </div>

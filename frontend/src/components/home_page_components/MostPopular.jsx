@@ -64,7 +64,7 @@ export default function MostPopular() {
                   <p className="item-title fs-2">{mostSoldSneaker.name}</p>
                   <p className="item-brand fs-3 fw-bold">{mostSoldSneaker.brand}</p>
                   <div className="d-flex align-items-center justify-content-end">
-                    <p className="item-price text-danger  fw-bold fs-3">{mostSoldSneaker.price}&euro;</p>
+                    <p className="item-price text-danger mb-0  fw-bold fs-3">{mostSoldSneaker.price}&euro;</p>
                     <Link
                       className="show-tag ms-3"
                       to={"/product/air-force-1"}>Show More

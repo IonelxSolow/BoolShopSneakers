@@ -927,25 +927,30 @@ nav {
   }
 
   .custom-page-link {
-    border: 1px solid black;
-    padding: 0.5rem 0.75rem;
+    border: 2px solid black;
+    padding: 0.5rem 1rem;
     border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
-    color: black;
     background-color: white;
+    color: black;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
     cursor: pointer;
-    transition: all 0.3s ease;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .custom-page-link:hover {
     background-color: black;
     color: var(--main-light);
+    transform: scale(1.05);
   }
 
   .custom-page-item.active .custom-page-link {
     background-color: var(--main-light);
-    color: white;
+    color: black;
     border-color: black;
   }
 
