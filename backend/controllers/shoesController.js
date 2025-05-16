@@ -116,7 +116,7 @@ function indexSearch(req, res) {
     params.push(color)
   }
   if (price) {
-    sql += ' AND shoes.price = ?'
+    sql += ' AND shoes.price > ?'
     params.push(price)
   }
   if (name) {
