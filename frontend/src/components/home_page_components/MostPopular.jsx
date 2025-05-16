@@ -70,7 +70,7 @@ export default function MostPopular() {
                       to={"/product/air-force-1"}>Show More
                     </Link>
                   </div>
-                  <p className="item-description fs-4">
+                  <p className="item-description fs-5">
                     Timeless Style. Everyday Comfort.
                     Step into a legend with the Nike Air Force 1 Low  an icon that blends classic basketball heritage with modern streetwear appeal.
                   </p>
