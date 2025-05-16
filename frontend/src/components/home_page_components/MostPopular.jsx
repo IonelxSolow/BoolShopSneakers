@@ -15,7 +15,7 @@ export default function MostPopular() {
 
         return 1;
       });
-    }, 100);
+    }, 1000);
   }, []);
 
   switch (sneakers.state) {
