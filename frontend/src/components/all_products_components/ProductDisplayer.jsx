@@ -32,7 +32,7 @@ export default function ProductDisplayer({
                                             const now = new Date();
                                             const daysDiff =
                                                 (now - updatedAt) / (1000 * 60 * 60 * 24);
-                                            if (daysDiff < 7) {
+                                            if (daysDiff < 8) {
                                                 return (
                                                     <span className="badge bg-primary">New Drops</span>
                                                 );
