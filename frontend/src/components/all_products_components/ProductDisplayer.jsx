@@ -20,8 +20,7 @@ export default function ProductDisplayer({
                   .replaceAll(" ", "-")}`}
                 className="text-decoration-none text-dark"
               >
-                <div className="card bg-dark border-black h-100 text-center text-white position-relative">
-                  {/* BADGES */}
+                <div className="img-wrapper position-relative">
                   <div
                     className="badges-container position-absolute top-0 start-0 m-2"
                     style={{ zIndex: 2, display: "flex", gap: "0.25rem" }}
@@ -39,6 +38,7 @@ export default function ProductDisplayer({
                       }
                       return null;
                     })()}
+                    {/* Badge Sconto */}
                     {sneaker.discounted_price &&
                       parseFloat(sneaker.discounted_price) <
                         parseFloat(sneaker.price) && (
@@ -50,24 +50,30 @@ export default function ProductDisplayer({
                     src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
                     alt={sneaker.name}
                   />
+                </div>
+                <div className="pt-3 px-3">
+                  {sneaker.brand === "New Balance" ? (
+                    <h5 className="card-title fw-bold">{sneaker.name}</h5>
+                  ) : (
+                    <h5 className="card-title fw-bold">
+                      {sneaker.brand} {sneaker.name}
+                    </h5>
+                  )}
 
-                  <div className="card-body">
-                    <h5 className="card-title">{sneaker.name}</h5>
-                    {!sneaker.discounted_price ||
-                    parseFloat(sneaker.discounted_price) >=
-                      parseFloat(sneaker.price) ? (
-                      <p className="text-white">
-                        {parseFloat(sneaker.price).toFixed(2)}$
-                      </p>
-                    ) : (
-                      <p className="text-main-light">
-                        {parseFloat(sneaker.discounted_price).toFixed(2)}$
-                        <span className="text-decoration-line-through text-danger ms-2">
-                          {parseFloat(sneaker.price).toFixed(2)}$
-                        </span>
-                      </p>
-                    )}
-                  </div>
+                  {!sneaker.discounted_price ||
+                  parseFloat(sneaker.discounted_price) >=
+                    parseFloat(sneaker.price) ? (
+                    <p className="">
+                      {parseFloat(sneaker.price).toFixed(2)}&#8364;
+                    </p>
+                  ) : (
+                    <p className="text-main-lighttext-main-light">
+                      {parseFloat(sneaker.discounted_price).toFixed(2)}&#8364;
+                      <span className="text-decoration-line-through text-secondary ms-2">
+                        {parseFloat(sneaker.price).toFixed(2)}&#8364;
+                      </span>
+                    </p>
+                  )}
                 </div>
               </Link>
             </div>
