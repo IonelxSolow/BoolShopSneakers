@@ -20,7 +20,6 @@
 }
 
 body {
-
   font-family: "Overpass", sans-serif;
 }
 
@@ -164,7 +163,6 @@ header {
         color: var(--main-light);
       }
     }
-
   }
 
   .menu-list {
@@ -242,12 +240,10 @@ header {
     border-radius: 0 0 5px 5px;
     max-width: 100vh;
     max-height: 100vh;
-
   }
 
   .cart-dropdown.open {
     right: 0;
-
   }
 
   .close-cart {
@@ -650,8 +646,6 @@ header {
       .circle-thumb-img {
         width: 90%;
         border-radius: 50%;
-
-
       }
     }
 
@@ -767,6 +761,9 @@ header {
     align-content: flex-start;
     height: 100vh;
 
+    .img-wrapper {
+      background-color: #ededed;
+    }
     .card {
       display: flex;
       flex-direction: column;
@@ -855,11 +852,9 @@ header {
       &:hover {
         background-color: black;
         color: var(--main-light);
-
       }
     }
   }
-
 }
 
 .all-products .container-fluid {
@@ -906,7 +901,6 @@ header {
 }
 
 /*#endregion*/
-
 
 .order-details .badge {
   font-size: 0.9rem;
