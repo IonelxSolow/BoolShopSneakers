@@ -63,12 +63,11 @@ export default function LatestProducts() {
       return (
         <>
           <section className="newest-displayer container py-5">
-
             {isNewestGrid ? (
               <div className="row align-items-center h-100">
                 {/* Sinistra: Titolo e frecce */}
-                <div className="col-12 col-md-4 d-flex flex-column justify-content-between h-100">
-                  <div className="superbold-title mb-4">
+                <div className="col-12 col-md-3 d-flex flex-column justify-content-between h-100">
+                  <div className="superbold-title mb-5">
                     <span className="d-block newest-superbold">NEWEST</span>
                     <span className="d-block newest-superbold">DROPS</span>
                   </div>
@@ -92,12 +91,12 @@ export default function LatestProducts() {
                   </div>
                 </div>
                 {/* Destra: Prodotti */}
-                <div className="col-12 col-md-8 d-flex justify-content-center gap-4">
+                <div className="col-12 col-md-8 m-auto d-flex justify-content-between h-100">
                   {newestSneakers.result
                     .slice(newestPage * 2, newestPage * 2 + 2)
                     .map((sneaker) => (
-                      <div className="col-12 col-md-6" key={sneaker.id}>
-                        <div className="card sneaker-card h-100 text-center">
+                      <div className="col-12 col-md-6 px-2 h-100" key={sneaker.id}>
+                        <div className="card sneaker-card text-center h-100">
                           <Link
                             to={`/product/${sneaker.name
                               .toLowerCase()
@@ -107,14 +106,14 @@ export default function LatestProducts() {
                           >
                             <img
                               className=" img-fluid"
-                              src={`/assets/${
-                                JSON.parse(sneaker.image_urls)[0]
-                              }`}
+                              style={{ objectFit: "contain" }}
+                              src={`/assets/${JSON.parse(sneaker.image_urls)[0]
+                                }`}
                               alt={sneaker.name}
                             />
 
                             {!sneaker.discounted_price ||
-                            parseFloat(sneaker.discounted_price) >=
+                              parseFloat(sneaker.discounted_price) >=
                               parseFloat(sneaker.price) ? (
                               <p className="price-tag">
                                 {parseFloat(sneaker.price).toFixed(2)}&euro;
@@ -158,7 +157,7 @@ export default function LatestProducts() {
                         <h4 className="mb-2">{sneaker.name}</h4>
                         <p>{sneaker.description}</p>
                         {!sneaker.discounted_price ||
-                        parseFloat(sneaker.discounted_price) >=
+                          parseFloat(sneaker.discounted_price) >=
                           parseFloat(sneaker.price) ? (
                           <p className="mb-0">Price: {sneaker.price}&euro;</p>
                         ) : (
