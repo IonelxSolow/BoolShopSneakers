@@ -224,7 +224,7 @@ main {
   color: var(--main-light);
 }
 
-.btn-main-light {
+.btn-home-light {
   border-radius: 50%;
   width: 2.5rem;
   height: 2.5rem;
@@ -232,6 +232,19 @@ main {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background-color: var(--main-light);
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+}
+
+.btn-main-light {
+  border: 1px solid black;
+  font-weight: bold;
+  top: 1rem;
+  right: 1rem;
   background-color: var(--main-light);
 
   &:hover {
@@ -326,7 +339,8 @@ main {
     background-position: right bottom;
 
     .btn-nike {
-      background-color: var(--main-light);
+      background-color: black;
+      color: white;
       bottom: 2rem;
       right: 1rem;
       font-size: 1rem;
@@ -334,8 +348,8 @@ main {
       text-transform: uppercase;
 
       &:hover {
-        background-color: black;
-        color: white;
+        background-color: var(--main-light);
+        color: black;
       }
     }
   }
@@ -380,11 +394,17 @@ main {
   padding: 8px 12px;
   border-radius: 5px;
   font-weight: bold;
+  opacity: 0;
 }
 
 .sneaker-card:hover {
   scale: 1.05;
   transition: ease, 0.5s 0.1s;
+}
+
+.sneaker-card:hover .price-tag {
+  opacity: 1;
+  transition: ease, 0.5s 0.5s;
 }
 
 .newest-displayer {

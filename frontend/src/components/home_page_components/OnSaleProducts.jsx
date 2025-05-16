@@ -64,7 +64,7 @@ export default function OnSaleProducts() {
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <h1 className="fs-3 fs-md-2 fw-bold">On Sale Items</h1>
                             <button
-                                className="btn btn-main-light"
+                                className="btn btn-home-light"
                                 onClick={switchOnSaleDisplay}
                             >
                                 {isOnSaleGrid ? (
@@ -79,14 +79,14 @@ export default function OnSaleProducts() {
                             <div>
                                 <div className="d-flex justify-content-between align-items-center mb-3">
                                     <button
-                                        className="btn btn-main-light"
+                                        className="btn btn-home-light"
                                         onClick={prevOnSalePage}
                                         disabled={onSalePage === 0}
                                     >
                                         <i className="bi bi-chevron-left"></i>
                                     </button>
                                     <button
-                                        className="btn btn-main-light"
+                                        className="btn btn-home-light"
                                         onClick={nextOnSalePage}
                                         disabled={onSalePage === onSaleTotalPages - 1}
                                     >

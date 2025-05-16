@@ -64,7 +64,7 @@ export default function PopularProducts() {
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h1 className="fs-3 fs-md-2 fw-bold">Popular Items</h1>
               <button
-                className="btn btn-main-light"
+                className="btn btn-home-light"
                 onClick={switchPopularDisplay}
               >
                 {isPopularGrid ? (
@@ -79,14 +79,14 @@ export default function PopularProducts() {
               <div>
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <button
-                    className="btn btn-main-light"
+                    className="btn btn-home-light"
                     onClick={prevPopularPage}
                     disabled={popularPage === 0}
                   >
                     <i className="bi bi-chevron-left"></i>
                   </button>
                   <button
-                    className="btn btn-main-light"
+                    className="btn btn-home-light"
                     onClick={nextPopularPage}
                     disabled={popularPage === popularTotalPages - 1}
                   >

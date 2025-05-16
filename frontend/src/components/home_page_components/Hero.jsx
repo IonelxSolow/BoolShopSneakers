@@ -96,9 +96,9 @@ export default function Hero() {
 						<Link
 							className="btn btn-lg btn-nike rounded-4"
 							type="button"
-							to="/all-products?brand=Nike"
+							to="/all-products"
 						>
-							Nike
+							Our products
 						</Link>
 					</div>
 				</div>

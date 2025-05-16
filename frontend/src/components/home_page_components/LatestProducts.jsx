@@ -69,7 +69,7 @@ export default function LatestProducts() {
             </div>
             <div className="d-flex justify-content-end align-items-center mb-3">
               <button
-                className="btn btn-main-light"
+                className="btn btn-home-light"
                 onClick={switchNewestDisplay}
               >
                 {isNewestGrid ? (
@@ -83,14 +83,14 @@ export default function LatestProducts() {
               <div>
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <button
-                    className="btn btn-main-light"
+                    className="btn btn-home-light"
                     onClick={prevNewestPage}
                     disabled={newestPage === 0}
                   >
                     <i className="bi bi-chevron-left"></i>
                   </button>
                   <button
-                    className="btn btn-main-light"
+                    className="btn btn-home-light"
                     onClick={nextNewestPage}
                     disabled={newestPage === newestTotalPages - 1}
                   >
