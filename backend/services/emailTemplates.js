@@ -206,3 +206,58 @@ exports.generateAdminOrderNotificationTemplate = (customerName, customerEmail, o
   </html>
   `;
 };
+
+/**
+ * Generates the HTML template for newsletter subscription confirmation emails
+ * @param {string} customerEmail - Subscriber's email address
+ * @returns {string} - HTML template of the email
+ */
+exports.generateNewsletterSubscriptionNotificationTemplate = (customerEmail) => {
+  return `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Subscription - KickSociety</title>
+  </head>
+  <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 650px; margin: 0 auto; padding: 20px;">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <h1 style="font-size: 24px; color: #232321; margin-bottom: 10px;">KICKSOCIETY</h1>
+      <p style="font-size: 16px; color: #666;">The best sneakers, always</p>
+    </div>
+    
+    <div style="background-color: #cfef1b; padding: 20px; margin-bottom: 25px;">
+      <h2 style="margin-top: 0; color: #232321;">Welcome to Our Newsletter!</h2>
+      <p>Thank you for subscribing to KickSociety's newsletter.</p>
+    </div>
+    
+    <div style="margin-bottom: 30px;">
+      <p>Your email address (${customerEmail}) has been successfully added to our mailing list.</p>
+      <p>You'll be the first to know about:</p>
+      <ul style="list-style-type: none; padding-left: 0;">
+        <li style="margin-bottom: 10px;">✓ New arrivals and exclusive releases</li>
+        <li style="margin-bottom: 10px;">✓ Special offers and promotions</li>
+        <li style="margin-bottom: 10px;">✓ Sneaker news and trending styles</li>
+        <li style="margin-bottom: 10px;">✓ Early access to sales</li>
+      </ul>
+    </div>
+    
+    <div style="background-color: #f7f7f7; padding: 20px; margin-bottom: 25px;">
+      <p style="margin-top: 0;">Stay tuned for our next update!</p>
+      <p style="margin-bottom: 0;">For any questions, contact us at <a href="mailto:support@kicksociety.com" style="color: #232321;">support@kicksociety.com</a></p>
+    </div>
+
+    <div style="text-align: center; color: #666; font-size: 14px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd;">
+      <p>Thank you for choosing KickSociety!</p>
+      <p>&copy; ${new Date().getFullYear()} KickSociety. All rights reserved.</p>
+      <p>
+        <a href="https://www.kicksociety.com/privacy" style="color: #666; text-decoration: none; margin: 0 10px;">Privacy Policy</a> |
+        <a href="https://www.kicksociety.com/terms" style="color: #666; text-decoration: none; margin: 0 10px;">Terms and Conditions</a> |
+        <a href="https://www.kicksociety.com/unsubscribe?email=${encodeURIComponent(customerEmail)}" style="color: #666; text-decoration: none; margin: 0 10px;">Unsubscribe</a>
+      </p>
+    </div>
+  </body>
+  </html>
+  `;
+};
