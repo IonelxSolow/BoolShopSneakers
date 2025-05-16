@@ -375,7 +375,7 @@ main {
 .sneaker-card {
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   position: relative;
   cursor: pointer;
 }
@@ -398,8 +398,9 @@ main {
 }
 
 .sneaker-card:hover {
-  scale: 1.05;
+  transform: scale(1.05);
   transition: ease, 0.5s 0.1s;
+  z-index: 100;
 }
 
 .sneaker-card:hover .price-tag {
@@ -410,6 +411,19 @@ main {
 .newest-displayer {
   margin-bottom: 5rem;
 }
+
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 15px;
+}
+
+.carousel-slide {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: auto;
+}
+
 
 .hot-img {
   /* border-top-left-radius: 40%;
