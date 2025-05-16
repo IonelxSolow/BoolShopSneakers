@@ -28,57 +28,39 @@ export default function MostPopular() {
 
       return (
         <>
-          <svg className="wave-1hkxOo"
+          <svg
+            className="wave-1hkxOo"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1440 100"
-            preserveAspectRatio="none">
-            <path class="wavePath-haxJK1 animationPaused-2hZ4IO"
+            preserveAspectRatio="none"
+          >
+            <path
+              class="wavePath-haxJK1 animationPaused-2hZ4IO"
               d="M826.337463,25.5396311 C670.970254,58.655965 603.696181,68.7870267 447.802481,35.1443383 C293.342778,1.81111414 137.33377,1.81111414 0,1.81111414 L0,150 L1920,150 L1920,1.81111414 C1739.53523,-16.6853983 1679.86404,73.1607868 1389.7826,37.4859505 C1099.70117,1.81111414 981.704672,-7.57670281 826.337463,25.5396311 Z"
-              fill="currentColor">
-            </path>
+              fill="currentColor"
+            ></path>
           </svg>
           <section className="bg-dark p-0 container-fluid hot-item">
-            <div className="container p-3 mb-5">
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <div className="row p-4 m-auto align-items-md-baseline">
-                  <div className="col-12 col-md-6 d-flex flex-column ">
-                    <h1
-                      className="fw-bolder display-1 mb-3 text-main-light text-decoration-underline text-uppercase">
-                      Hot Item
-                      <i className="bi bi-fire"></i>
-                    </h1>
-                    <div className="">
-                      <h2 className="text-white  display-2 mb-3">{mostSoldSneaker.name}</h2>
-                      {/* <p className="text-white">{mostSoldSneaker.description}</p> */}
-                      <Link
-                        to={`/product/${mostSoldSneaker.name
-                          .toLowerCase()
-                          .replaceAll(" ", "-")}`}
-                      >
-                        <button className="btn btn-main-light w-100 w-lg-50 mb-5">Shop Now</button>
-                      </Link>
-                    </div>
-                  </div>
-                  <div className="col-12 col-md-6 ">
-                    <img
-                      src={`/assets/${parsedImg}`}
-                      className="img-fluid hot-img"
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </div>
+            <div className="slider360 text-center">
+              <img
+                className="image360"
+                src={`/360/jd_030664_spin_01-removebg-preview.png`}
+                alt=""
+              />
             </div>
-            <svg className="wave-1hkxOo"
+            <svg
+              className="wave-1hkxOo"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 1440 100"
-              preserveAspectRatio="none">
-              <path class="wavePath-haxJK1 animationPaused-2hZ4IO"
+              preserveAspectRatio="none"
+            >
+              <path
+                class="wavePath-haxJK1 animationPaused-2hZ4IO"
                 d="M826.337463,25.5396311 C670.970254,58.655965 603.696181,68.7870267 447.802481,35.1443383 C293.342778,1.81111414 137.33377,1.81111414 0,1.81111414 L0,150 L1920,150 L1920,1.81111414 C1739.53523,-16.6853983 1679.86404,73.1607868 1389.7826,37.4859505 C1099.70117,1.81111414 981.704672,-7.57670281 826.337463,25.5396311 Z"
-                fill="white">
-              </path>
+                fill="white"
+              ></path>
             </svg>
           </section>
         </>

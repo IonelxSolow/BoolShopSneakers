@@ -463,8 +463,10 @@ header {
   width: auto;
 }
 
-
 .hot-item {
+  .image360 {
+    width: 400px;
+  }
 
   .hot-img {
     /* border-top-left-radius: 40%;
@@ -481,14 +483,13 @@ header {
     line-height: 0;
   }
 
-  @media screen and (min-width:768px) {
+  @media screen and (min-width: 768px) {
     .display-1 {
       font-size: 3rem;
     }
-
   }
 
-  @media screen and (min-width:992px) {
+  @media screen and (min-width: 992px) {
     .w-lg-50 {
       width: 50% !important;
     }
@@ -496,13 +497,8 @@ header {
     .display-1 {
       font-size: 4rem;
     }
-
   }
-
 }
-
-
-
 
 .brand-banner {
   background-image: url("/assets/01.webp");
