@@ -8,7 +8,7 @@ export default function CartPage() {
   const { cart, removeItem, total } = useCart();
 
   return (
-    <div className="cart-page container my-4">
+    <div className="cart-page my-4">
       {/* Carrello */}
       <h1 className="fs-3 fs-md-2 fw-bold">Your Cart</h1>
       {cart.length > 0 ? (
@@ -95,8 +95,9 @@ export default function CartPage() {
       {/* Hero Section */}
       <div className="home-displayer mt-5">
         <LatestProducts />
-        <MostPopular />
       </div>
+      <MostPopular />
+
     </div>
   );
 }
