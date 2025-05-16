@@ -26,7 +26,7 @@ export default function LatestProducts() {
   const [isNewestGrid, setIsNewestGrid] = useState(true);
   //carousel logic
   const [newestPage, setNewestPage] = useState(0);
-  const itemsPerPage = 3;
+  const itemsPerPage = 1;
 
   switch (newestSneakers.state) {
     case "loading":
@@ -64,12 +64,21 @@ export default function LatestProducts() {
         <>
           <section className="newest-displayer container py-5">
             {isNewestGrid ? (
-              <div className="row align-items-center h-100">
+              <div className="row align-items-stretch">
                 {/* Sinistra: Titolo e frecce */}
-                <div className="col-12 col-md-3 d-flex flex-column justify-content-between h-100">
+                <div className="col-12 col-md-3 d-flex flex-column justify-content-between">
                   <div className="superbold-title mb-5">
                     <span className="d-block newest-superbold">NEWEST</span>
-                    <span className="d-block newest-superbold">DROPS</span>
+                    <span className="d-block newest-superbold text-danger ps-3" style={{ fontSize: "8rem" }}>
+                      DROPS
+                    </span>
+
+                    <p className="mt-5 text-secondary" style={{ fontSize: "1.5rem" }}>
+                      Discover our latest sneaker additions, freshly arrived and ready to elevate your style.
+                      Explore exclusive models and limited editions, all at unbelievable prices.
+                      Don’t miss the chance to be among the first to grab the newest trends in footwear!
+                    </p>
+
                   </div>
                   <div className="carousel-controls-horizontal d-flex flex-row gap-3 mt-4">
                     <button
@@ -91,26 +100,25 @@ export default function LatestProducts() {
                   </div>
                 </div>
                 {/* Destra: Prodotti */}
-                <div className="col-12 col-md-8 m-auto d-flex justify-content-between h-100">
+                <div className="col-12 col-md-8 ms-auto d-flex justify-content-between p-0">
                   {newestSneakers.result
-                    .slice(newestPage * 2, newestPage * 2 + 2)
+                    .slice(newestPage, newestPage + itemsPerPage)
                     .map((sneaker) => (
-                      <div className="col-12 col-md-6 px-2 h-100" key={sneaker.id}>
-                        <div className="card sneaker-card text-center h-100">
+                      <div className="col-12 col-md-12 ps-3" key={sneaker.id}>
+                        <div className="card sneaker-card text-center h-100 d-flex flex-column">
                           <Link
-                            to={`/product/${sneaker.name
-                              .toLowerCase()
-                              .replaceAll(" ", "-")}`}
-                            className="text-decoration-none text-dark"
+                            to={`/product/${sneaker.name.toLowerCase().replaceAll(" ", "-")}`}
+                            className="text-decoration-none text-dark d-flex flex-column h-100"
                             style={{ display: "block" }}
                           >
-                            <img
-                              className=" img-fluid"
-                              style={{ objectFit: "contain" }}
-                              src={`/assets/${JSON.parse(sneaker.image_urls)[0]
-                                }`}
-                              alt={sneaker.name}
-                            />
+                            <div className="sneaker-img-wrapper flex-grow-1 d-flex align-items-stretch justify-content-center" style={{ minHeight: 0 }}>
+                              <img
+                                className="img-fluid w-100 h-100"
+                                style={{ objectFit: "cover" }}
+                                src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
+                                alt={sneaker.name}
+                              />
+                            </div>
 
                             {!sneaker.discounted_price ||
                               parseFloat(sneaker.discounted_price) >=
