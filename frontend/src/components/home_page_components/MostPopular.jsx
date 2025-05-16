@@ -42,8 +42,12 @@ export default function MostPopular() {
             ></path>
           </svg>
           <section className="bg-dark p-0 container-fluid hot-item">
-            <div className="slider360">
-              <img src={`/360/`} alt="" />
+            <div className="slider360 text-center">
+              <img
+                className="image360"
+                src={`/360/jd_030664_spin_01-removebg-preview.png`}
+                alt=""
+              />
             </div>
             <svg
               className="wave-1hkxOo"
