@@ -53,47 +53,50 @@ export default function MostPopular() {
               fill="currentColor"
             ></path>
           </svg> */}
-          <section className=" p-0 container hot-item">
-            <div className="row gap-3 align-items-center">
-              <div className="item-description text-end  col-12 col-lg-4 order-lg-2">
-                <div className="superbold-title mb-5">
-                  <span className="d-block newest-superbold" style={{ fontSize: "8rem", color: "red" }}>HOT</span>
-                  <span className="d-block newest-superbold ps-3">ITEMS</span>
-                </div>
-                <div>
-                  <p className="item-title fs-2">#1 {mostSoldSneaker.name}</p>
-                  <p className="item-brand fs-3 fw-bold">{mostSoldSneaker.brand}</p>
-                  <div className="d-flex align-items-center justify-content-end">
-                    <p className="item-price text-danger mb-0  fw-bold fs-3">{mostSoldSneaker.price}&euro;</p>
-                    <Link
-                      className="show-tag ms-3"
-                      to={"/product/air-force-1"}>See More
-                    </Link>
+          <div className="py-5" style={{ backgroundColor: "var(--bs-secondary)" }}>
+            <section className=" p-0 container hot-item my-3">
+              <div className="row gap-3 align-items-center">
+                <div className="item-description text-start  col-12 col-lg-4 order-lg-2">
+                  <div className="superbold-title mb-5">
+                    <span className="d-block newest-superbold" style={{ fontSize: "8rem", color: "var(--main-light)" }}>HOT</span>
+                    <span className="d-block newest-superbold ps-3 text-light text-outline">ITEMS</span>
                   </div>
-                  <p className="item-description fs-5">
-                    Timeless Style. Everyday Comfort.
-                    Step into a legend with the Nike Air Force 1 Low  an icon that blends classic basketball heritage with modern streetwear appeal.
-                  </p>
+                  <div>
+                    <p className="item-brand fs-3 fw-bold text-light">{mostSoldSneaker.brand}</p>
+                    <div className="d-flex align-items-center justify-content-between mb-1">
+                      <p className="item-title fs-4 fst-italic m-0 text-light">#1 {mostSoldSneaker.name}</p>
+                      <div className="d-flex align-items-center justify-content-between">
+                        <p className="item-price mb-0 fw-bold fs-3" style={{ color: "var(--main-light)" }}>{mostSoldSneaker.price}&euro;</p>
+                        <Link
+                          className="show-tag ms-3"
+                          to={"/product/air-force-1"}>SHOW
+                        </Link>
+                      </div>
+                    </div>
+                    <p className="item-description fs-5 text-secondary">
+                      Timeless Style. Everyday Comfort.
+                      Step into a legend with the Nike Air Force 1 Low  an icon that blends classic basketball heritage with modern streetwear appeal.
+                    </p>
 
 
+                  </div>
                 </div>
-              </div>
-              <Link
-                className="slider360 text-center position-relative col-12 col-lg-7 order-lg-1 ps-3"
-                to={"/product/air-force-1"}>
-                < img
-                  className="image360 img-fluid"
-                  src={
-                    counter < 10
-                      ? `/360/jd_030664_spin_0${counter}.jpeg`
-                      : `/360/jd_030664_spin_${counter}.jpeg`
-                  }
-                  alt=""
-                />
-              </Link>
+                <Link
+                  className="slider360 text-center position-relative col-12 col-lg-7 order-lg-1 ps-3"
+                  to={"/product/air-force-1"}>
+                  < img
+                    className="image360 img-fluid rounded-3"
+                    src={
+                      counter < 10
+                        ? `/360/jd_030664_spin_0${counter}.jpeg`
+                        : `/360/jd_030664_spin_${counter}.jpeg`
+                    }
+                    alt=""
+                  />
+                </Link>
 
-            </div>
-            {/* <svg
+              </div>
+              {/* <svg
               className="wave-1hkxOo"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +109,8 @@ export default function MostPopular() {
                 fill="white"
               ></path>
             </svg> */}
-          </section >
+            </section >
+          </div>
         </>
       );
   }

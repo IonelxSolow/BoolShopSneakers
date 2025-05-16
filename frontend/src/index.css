@@ -464,6 +464,12 @@ header {
 
 }
 
+.text-outline {
+  color: #fff;
+  -webkit-text-stroke: 1px var(--bs-secondary); 
+  text-stroke: 2px var(--bs-secondary); 
+}
+
 .popular-card:hover img {
   transform: scale(1.05);
   transition: ease, 0.5s 0.1s;
