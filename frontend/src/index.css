@@ -463,17 +463,46 @@ header {
   width: auto;
 }
 
-.hot-img {
-  /* border-top-left-radius: 40%;
-  border-bottom-right-radius: 10%; */
-  border-radius: 10%;
+
+.hot-item {
+
+  .hot-img {
+    /* border-top-left-radius: 40%;
+    border-bottom-right-radius: 10%; */
+    border-radius: 10%;
+  }
+
+  .wave-1hkxOo {
+    height: 100px;
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+  }
+
+  @media screen and (min-width:768px) {
+    .display-1 {
+      font-size: 3rem;
+    }
+
+  }
+
+  @media screen and (min-width:992px) {
+    .w-lg-50 {
+      width: 50% !important;
+    }
+
+    .display-1 {
+      font-size: 4rem;
+    }
+
+  }
+
 }
 
-.wave-1hkxOo {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  display: block;
-}
+
+
 
 .brand-banner {
   background-image: url("/assets/01.webp");
