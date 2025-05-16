@@ -326,6 +326,10 @@ header {
   transform: translateY(0);
 }
 
+.delete-wish {
+  cursor: pointer;
+}
+
 /*#endregion */
 /*#region PopUp*/
 .popup-overlay {

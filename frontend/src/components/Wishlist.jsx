@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 import { useWishlist } from "../context/WhishlistContext";
-import IncreaseDecrease from "../components/IncreaseDecrease";
+import { useState } from "react";
 
 export default function Wishlist({ isOpen, toggleWishlist }) {
   const { wishlist, removeFromWishlist } = useWishlist();
+  const [isDeleted, setisDeleted] = useState("")
+
 
   return (
     <div
-      className={`container cart-content d-flex flex-column ${
-        isOpen ? "open" : ""
-      }`}
+      className={`container cart-content d-flex flex-column ${isOpen ? "open" : ""
+        }`}
     >
       <div className="d-flex justify-content-between align-items-center mb-4">
         <button className="btn close-cart " onClick={toggleWishlist}>
@@ -60,14 +61,11 @@ export default function Wishlist({ isOpen, toggleWishlist }) {
                   </div>
                 </div>
               </div>
-
               <div>
-                <button
-                  className="btn btn-sm btn-danger ms-3"
+                <i className={isDeleted === item.sku ? "bi bi-heartbreak-fill delete-wish text-danger fs-4 fs-md-2 ms-3" : "bi bi-heartbreak delete-wish text-danger fs-4 fs-md-2 ms-3"}
                   onClick={() => removeFromWishlist(item.sku)}
-                >
-                  <i className="bi bi-trash"></i>
-                </button>
+                  onMouseOver={() => { setisDeleted(item.sku) }}
+                  onMouseLeave={() => { setisDeleted(item.sku) }}></i>
               </div>
             </div>
           ))
