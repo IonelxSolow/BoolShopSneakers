@@ -61,7 +61,7 @@ export default function LatestProducts() {
       return (
         <>
 
-          <section className="newest-displayer container-fluid">
+          <section className="newest-displayer container">
             <div class="line-wrapper mb-4">
               <div class="line"></div>
               <h1 className="fs-3 fs-md-2 fw-bold">Newest Drops</h1>
