@@ -25,14 +25,14 @@ export default function ProductDisplayer({ currentItems, filteredSneakers }) {
                                             const daysDiff = (now - updatedAt) / (1000 * 60 * 60 * 24);
                                             if (daysDiff < 7) {
                                                 return (
-                                                    <span className="badge bg-primary">Novità</span>
+                                                    <span className="badge bg-primary">New Drops</span>
                                                 );
                                             }
                                             return null;
                                         })()}
                                         {/* Badge Sconto */}
                                         {sneaker.discounted_price && parseFloat(sneaker.discounted_price) < parseFloat(sneaker.price) && (
-                                            <span className="badge bg-danger">Sconto</span>
+                                            <span className="badge bg-danger">On Sale</span>
                                         )}
                                     </div>
                                     {/* IMMAGINE */}
