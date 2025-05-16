@@ -6,6 +6,7 @@ export default function PopUp() {
     email: "",
   });
   const [subscribeStatus, setSubscribeStatus] = useState("idle"); // idle, loading, success, error
+  const [emailError, setEmailError] = useState("");
 
   useEffect(() => {
     const hasVisited = sessionStorage.getItem("kickSocietyHasVisited");
@@ -25,7 +26,26 @@ export default function PopUp() {
     setEmail({ email: e.target.value });
   }
 
+  function checkEmailRegex(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
   function handleSubscribe() {
+    // reset error state
+    setEmailError("");
+
+    // Validate empty email
+    if (!email.email.trim()) {
+      setEmailError("Email is required");
+      return;
+    }
+
+    // Validate email format
+    if (!checkEmailRegex(email.email)) {
+      setEmailError("Please enter a valid email address");
+      return;
+    }
     setSubscribeStatus({ status: "loading" });
     fetch("http://localhost:3000/boolshop/api/v1/send-email/newsletter", {
       method: "POST",
@@ -38,16 +58,20 @@ export default function PopUp() {
         res.json();
       })
       .then((data) => {
-        console.log(data);
-        setSubscribeStatus({ status: "success" });
+        setSubscribeStatus({ status: "success", response: data });
+        setTimeout(() => {
+          setShowPopup(false);
+        }, 2000);
       })
       .catch((err) => {
         setSubscribeStatus({
           status: "error",
-          error: err,
+          error: err.message,
         });
       });
   }
+
+  console.log(subscribeStatus);
 
   return (
     showPopup && (
@@ -75,7 +99,9 @@ export default function PopUp() {
             </label>
             <input
               type="email"
-              className="form-control bg-secondary text-white border-0"
+              className={`form-control bg-secondary text-white border-0 ${
+                emailError ? "is-invalid" : ""
+              }`}
               name="mailer"
               id="mailer"
               value={email.email}
@@ -87,8 +113,13 @@ export default function PopUp() {
                 subscribeStatus.status === "success"
               }
             />
+            {emailError && (
+              <div className="invalid-feedback d-block">{emailError}</div>
+            )}
             {subscribeStatus.status === "error" && (
-              <div className="invalid-feedback">{subscribeStatus.error}</div>
+              <div className="invalid-feedback d-block">
+                {subscribeStatus.error}
+              </div>
             )}
           </div>
           {subscribeStatus.status === "success" ? (
