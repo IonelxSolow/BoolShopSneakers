@@ -141,29 +141,6 @@ a:hover {
 
 /*#endregion */
 /*#region Header*/
-.bg-black {
-  background-color: var(--bs-secondary);
-}
-
-.bg-main-light {
-  background-color: var(--main-light);
-}
-
-.secondary-color {
-  color: var(--main-secondary);
-}
-
-.active-link {
-  font-weight: 600;
-}
-
-.active-filter {
-  background-color: var(--main-light);
-  font-weight: bold;
-}
-
-/*#endregion */
-/*#region Header*/
 
 header {
   width: 100%;
