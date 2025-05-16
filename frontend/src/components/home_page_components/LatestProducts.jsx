@@ -67,7 +67,7 @@ export default function LatestProducts() {
               <h1 className="fs-3 fs-md-2 fw-bold">Newest Drops</h1>
               <div class="line"></div>
             </div>
-            <div className="d-flex justify-content-between align-items-center mb-3">
+            <div className="d-flex justify-content-end align-items-center mb-3">
               <button
                 className="btn btn-main-light"
                 onClick={switchNewestDisplay}
@@ -144,35 +144,30 @@ export default function LatestProducts() {
               <div className="list-group">
                 {newestSneakers.result.map((sneaker) => (
                   <Link
-                    className="list-group-item mb-3"
+                    className="list-card m-auto"
                     key={sneaker.id}
                     to={`/product/${sneaker.name
                       .toLowerCase()
                       .replaceAll(" ", "-")}`}>
-                    <div className="d-flex flex-column flex-md-row">
-                      <img
-                        src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
-                        alt="Sneaker"
-                        width="100%"
-                        className="me-md-3 mb-3 mb-md-0"
-                        style={{ maxWidth: "150px" }}
-                      />
-                      <div>
-                        <h4 className="mb-2">{sneaker.name}</h4>
-                        <p>{sneaker.description}</p>
+                    <img
+                      src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
+                      className="img-fluid"
+                      alt="Sneaker"
+                    />
+                    <div className="listcard-content">
+                      <h2 className="listcard-title">{sneaker.name}</h2>
+                      <div className="price-section">
                         {!sneaker.discounted_price ||
                           parseFloat(sneaker.discounted_price) >=
                           parseFloat(sneaker.price) ? (
-                          <p className="mb-0">Price: {sneaker.price}$</p>
+                          <span className="text-dark">{sneaker.price}&euro;</span>
                         ) : (
                           <>
-                            <p className="mb-0">Price: {sneaker.price}$</p>
-                            <p>
-                              Discounted:
-                              {parseFloat(sneaker.discounted_price).toFixed(2)}$
-                            </p>
+                            <span className="original-price">{sneaker.price}&euro;</span>
+                            <span className="discount-price">{parseFloat(sneaker.discounted_price).toFixed(2)}$&euro;</span>
                           </>
                         )}
+                        <p className="description">{sneaker.description}</p>
                       </div>
                     </div>
                   </Link>
