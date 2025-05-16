@@ -13,11 +13,6 @@ function validateOrder(req, res, next) {
     delivery_fee,
     shipping_method,
     items,
-    // Card details for validation only - will not be stored
-    cardName,
-    cardNumber,
-    expiryDate,
-    cvv
   } = req.body;
 
   // Array to collect all validation errors
@@ -56,55 +51,6 @@ function validateOrder(req, res, next) {
   // Validate payment information
   if (!payment_type || payment_type.trim() === '') {
     errors.payment_type = 'Payment type is required';
-  }
-
-  // Validate card details if payment_type is 'card'
-  if (payment_type === 'card') {
-    // Validate card name
-    if (!cardName || cardName.trim() === '') {
-      errors.cardName = 'Card name is required';
-    } else if (!/^[A-Za-z\s]+$/.test(cardName)) {
-      errors.cardName = 'Card name should only contain letters and spaces';
-    }
-
-    // Validate card number
-    if (!cardNumber || cardNumber.trim() === '') {
-      errors.cardNumber = 'Card number is required';
-    } else {
-      // Remove spaces for validation
-      const cardNumberClean = cardNumber.replace(/\s/g, '');
-      
-      if (!/^\d{16}$/.test(cardNumberClean)) {
-        errors.cardNumber = 'Card number must be 16 digits';
-      } else if (!validateLuhn(cardNumberClean)) {
-        errors.cardNumber = 'Invalid card number';
-      }
-    }
-
-    // Validate expiry date
-    if (!expiryDate || expiryDate.trim() === '') {
-      errors.expiryDate = 'Expiry date is required';
-    } else if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) {
-      errors.expiryDate = 'Expiry date must be in MM/YY format';
-    } else {
-      const [month, year] = expiryDate.split('/');
-      const currentYear = new Date().getFullYear() % 100;
-      const currentMonth = new Date().getMonth() + 1;
-      
-      if ((parseInt(year) < currentYear) || 
-          (parseInt(year) === currentYear && parseInt(month) < currentMonth)) {
-        errors.expiryDate = 'Card has expired';
-      }
-    }
-
-    // Validate CVV
-    if (!cvv || cvv.trim() === '') {
-      errors.cvv = 'CVV is required';
-    } else if (!/^\d+$/.test(cvv)) {
-      errors.cvv = 'CVV should only contain digits';
-    } else if (cvv.length < 3 || cvv.length > 4) {
-      errors.cvv = 'CVV must be 3 or 4 digits';
-    }
   }
 
   // Validate order items
@@ -165,42 +111,10 @@ function validateOrder(req, res, next) {
     });
   }
 
-  // Clean up any sensitive data before passing to the next middleware
-  delete req.body.cardNumber;
-  delete req.body.expiryDate;
-  delete req.body.cvv;
-
   // If validation passes, proceed to the next middleware or controller
   next();
 }
 
-/**
- * Implements the Luhn algorithm for credit card validation
- * @param {string} cardNumber - The card number to validate
- * @returns {boolean} - True if the card number passes the Luhn check
- */
-function validateLuhn(cardNumber) {
-  let sum = 0;
-  let doubleUp = false;
-  
-  // Process from right to left
-  for (let i = cardNumber.length - 1; i >= 0; i--) {
-    let digit = parseInt(cardNumber.charAt(i));
-    
-    // Double every second digit
-    if (doubleUp) {
-      digit *= 2;
-      if (digit > 9) {
-        digit -= 9;
-      }
-    }
-    
-    sum += digit;
-    doubleUp = !doubleUp;
-  }
-  
-  // If the sum is a multiple of 10, the number is valid
-  return (sum % 10) === 0;
-}
+
 
 module.exports = validateOrder; 

@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -7,6 +8,7 @@ const notFound = require('./middlewares/notFound')
 const shoesRouter = require('./routers/shoesRouter')
 const ordersRouter = require('./routers/ordersRouter')
 const emailRouter = require('./routers/emailRouter')
+const paymentRouter = require('./routers/paymentRouter')
 const shippingService = require('./services/shippingService')
 /* const guestRouter = require('./routers/guestRouter') */
 
@@ -109,6 +111,8 @@ app.use('/boolshop/api/v1/orders', ordersRouter)
 // email routes
 app.use('/boolshop/api/v1/send-email', emailRouter)
 
+// payment routes
+app.use('/boolshop/api/v1/payments', paymentRouter)
 
 // Server Error Handler Middleware
 

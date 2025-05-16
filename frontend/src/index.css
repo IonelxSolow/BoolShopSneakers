@@ -1,5 +1,6 @@
 @import "bootstrap";
 @import "bootstrap-icons";
+@import './styles/PaymentForm.css';
 
 /*#region Common*/
 :root {

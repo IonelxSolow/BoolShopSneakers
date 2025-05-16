@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from "../context/GlobalContext";
+import PaymentForm from "../components/PaymentForm";
 
 export default function Checkout() {
   const { sneakers } = useGlobalContext();
@@ -28,10 +29,6 @@ export default function Checkout() {
     state: "",
     zipCode: "",
     country: "",
-    cardName: "",
-    cardNumber: "",
-    expiryDate: "",
-    cvv: ""
   });
   
   const [errors, setErrors] = useState({});
@@ -87,7 +84,6 @@ export default function Checkout() {
       case "firstName":
       case "lastName":
       case "state":
-      case "cardName":
         if (!value.trim()) {
           error = "This field is required";
         } else if (value.trim().length < 2) {
@@ -147,41 +143,6 @@ export default function Checkout() {
         }
         break;
         
-      case "cardNumber":
-        if (!value.trim()) {
-          error = "Card number is required";
-        } else if (!/^\d{16}$/.test(value.replace(/\s/g, ''))) {
-          error = "Invalid card number format";
-        }
-        break;
-        
-      case "expiryDate":
-        if (!value.trim()) {
-          error = "Expiry date is required";
-        } else if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(value)) {
-          error = "Format must be MM/YY";
-        } else {
-          const [month, year] = value.split('/');
-          const currentYear = new Date().getFullYear() % 100;
-          const currentMonth = new Date().getMonth() + 1;
-          
-          if ((parseInt(year) < currentYear) || 
-              (parseInt(year) === currentYear && parseInt(month) < currentMonth)) {
-            error = "Card has expired";
-          }
-        }
-        break;
-        
-      case "cvv":
-        if (!value.trim()) {
-          error = "CVV is required";
-        } else if (!/^\d+$/.test(value)) {
-          error = "Only numbers are allowed";
-        } else if (value.length < 3 || value.length > 4) {
-          error = "CVV must be 3 or 4 digits";
-        }
-        break;
-        
       default:
         break;
     }
@@ -197,10 +158,10 @@ export default function Checkout() {
     let filteredValue = value;
     
     // Apply filters for specific fields
-    if (["firstName", "lastName", "state", "cardName"].includes(name)) {
+    if (["firstName", "lastName", "state"].includes(name)) {
       // Allow only letters and spaces
       filteredValue = value.replace(/[^A-Za-z\s]/g, '');
-    } else if (["phone", "zipCode", "cvv"].includes(name)) {
+    } else if (["phone", "zipCode"].includes(name)) {
       // Allow only numbers
       filteredValue = value.replace(/[^\d]/g, '');
     }
@@ -237,132 +198,34 @@ export default function Checkout() {
     }));
   };
   
-  // Format card number with spaces but ensure only digits are entered
-  const handleCardNumberChange = (e) => {
-    let { value } = e.target;
-    
-    // Remove all non-digits
-    value = value.replace(/\D/g, '');
-    
-    // Add space after every 4 digits
-    value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
-    
-    // Limit to 19 characters (16 digits + 3 spaces)
-    value = value.substring(0, 19);
-    
-    setFormData({
-      ...formData,
-      cardNumber: value
-    });
-    
-    if (touched.cardNumber) {
-      const error = validateField('cardNumber', value);
-      setErrors(prev => ({
-        ...prev,
-        cardNumber: error
-      }));
-    }
-  };
-  
-  // Format expiry date
-  const handleExpiryDateChange = (e) => {
-    let { value } = e.target;
-    
-    // Remove all non-digits
-    value = value.replace(/\D/g, '');
-    
-    // Add slash after 2 digits
-    if (value.length > 2) {
-      value = value.substring(0, 2) + '/' + value.substring(2, 4);
-    }
-    
-    // Limit to 5 characters (MM/YY)
-    value = value.substring(0, 5);
-    
-    setFormData({
-      ...formData,
-      expiryDate: value
-    });
-    
-    if (touched.expiryDate) {
-      const error = validateField('expiryDate', value);
-      setErrors(prev => ({
-        ...prev,
-        expiryDate: error
-      }));
-    }
-  };
-
   const handleShippingChange = (e) => {
     setShippingMethod(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    // Mark all fields as touched
-    const allTouched = Object.keys(formData).reduce((acc, key) => {
-      acc[key] = true;
-      return acc;
-    }, {});
-    setTouched(allTouched);
-    
-    // Validate all fields
-    const newErrors = {};
-    let hasErrors = false;
-    
-    Object.keys(formData).forEach(key => {
-      const error = validateField(key, formData[key]);
-      if (error) {
-        newErrors[key] = error;
-        hasErrors = true;
-      }
-    });
-    
-    setErrors(newErrors);
-    
-    if (hasErrors) {
-      setFormError("Please correct the errors in the form before submitting.");
-      // Scroll to the top of the form to show the error message
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
+  const handlePaymentSuccess = async (paymentIntent) => {
     setIsLoading(true);
     setFormError("");
 
-    // Validazione semplice
-    if (cart.length === 0) {
-      setFormError(
-        "Il carrello è vuoto. Aggiungi articoli prima di procedere al checkout."
-      );
-      setIsLoading(false);
-      return;
-    }
-
-    // Crea l'oggetto con i dati dell'ordine
-    const orderData = {
-      name: `${formData.firstName} ${formData.lastName}`,
-      email: formData.email,
-      phone: formData.phone,
-      address: `${formData.address}, ${formData.city}, ${formData.state} ${formData.zipCode}, ${formData.country}`,
-      total_price: total,
-      status: "pending",
-      payment_type: "card",
-      delivery_fee: shippingCost,
-      shipping_method: shippingMethod,
-      items: cart.map((item) => ({
-        variant_id: item.variant_id,
-        quantity: item.quantity,
-        price: item.price,
-      })),
-      cardName: formData.cardName,
-      cardNumber: formData.cardNumber,
-      expiryDate: formData.expiryDate,
-      cvv: formData.cvv,
-    };
-
     try {
+      // Crea l'oggetto con i dati dell'ordine
+      const orderData = {
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        phone: formData.phone,
+        address: `${formData.address}, ${formData.city}, ${formData.state} ${formData.zipCode}, ${formData.country}`,
+        total_price: total,
+        status: "pending",
+        payment_type: "card",
+        delivery_fee: shippingCost,
+        shipping_method: shippingMethod,
+        items: cart.map((item) => ({
+          variant_id: item.variant_id,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        payment_intent_id: paymentIntent.id
+      };
+
       const response = await fetch(
         "http://localhost:3000/boolshop/api/v1/orders",
         {
@@ -401,7 +264,6 @@ export default function Checkout() {
       setFormError(
         error.message || "Si è verificato un errore durante l'elaborazione dell'ordine. Riprova più tardi."
       );
-      // Scroll to the top of the form to show the error message
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
       setIsLoading(false);
@@ -424,339 +286,249 @@ export default function Checkout() {
       <div className="row">
         <div className="col-md-7">
           <h2 className="mb-4 fw-bolder">Checkout</h2>
-          <form onSubmit={handleSubmit} noValidate>
-            {/* Info Personali */}
-            <div className="mb-4">
-              <h4 className="mb-3">Personal Information</h4>
-              <div className="row g-3">
-                <div className="col-sm-6">
-                  <label htmlFor="firstName" className="form-label">
-                    First name
-                  </label>
-                  <input
-                    type="text"
-                    className={getInputClass('firstName')}
-                    id="firstName"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    placeholder="John"
-                    required
-                  />
-                  {touched.firstName && errors.firstName && (
-                    <div className="invalid-feedback">{errors.firstName}</div>
-                  )}
-                </div>
-                <div className="col-sm-6">
-                  <label htmlFor="lastName" className="form-label">
-                    Last name
-                  </label>
-                  <input
-                    type="text"
-                    className={getInputClass('lastName')}
-                    id="lastName"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    placeholder="Doe"
-                    required
-                  />
-                  {touched.lastName && errors.lastName && (
-                    <div className="invalid-feedback">{errors.lastName}</div>
-                  )}
-                </div>
-                <div className="col-12">
-                  <label htmlFor="email" className="form-label">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    className={getInputClass('email')}
-                    id="email"
-                    name="email"
-                    placeholder="you@example.com"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    required
-                  />
-                  {touched.email && errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
-                  )}
-                </div>
-                <div className="col-12">
-                  <label htmlFor="phone" className="form-label">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    className={getInputClass('phone')}
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    placeholder="e.g., +39 123 456 7890"
-                    required
-                  />
-                  {touched.phone && errors.phone && (
-                    <div className="invalid-feedback">{errors.phone}</div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Spedizione */}
-            <div className="mb-4">
-              <h4 className="mb-3">Shipping Address</h4>
-              <div className="row g-3">
-                <div className="col-12">
-                  <label htmlFor="address" className="form-label">
-                    Address
-                  </label>
-                  <input
-                    type="text"
-                    className={getInputClass('address')}
-                    id="address"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    placeholder="Via Roma 123"
-                    required
-                  />
-                  {touched.address && errors.address && (
-                    <div className="invalid-feedback">{errors.address}</div>
-                  )}
-                </div>
-                <div className="col-12">
-                  <label htmlFor="city" className="form-label">
-                    City
-                  </label>
-                  <input
-                    type="text"
-                    className={getInputClass('city')}
-                    id="city"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    placeholder="Milan"
-                    required
-                  />
-                  {touched.city && errors.city && (
-                    <div className="invalid-feedback">{errors.city}</div>
-                  )}
-                </div>
-                <div className="col-md-4">
-                  <label htmlFor="state" className="form-label">
-                    State
-                  </label>
-                  <input
-                    type="text"
-                    className={getInputClass('state')}
-                    id="state"
-                    name="state"
-                    value={formData.state}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    placeholder="MI"
-                    required
-                  />
-                  {touched.state && errors.state && (
-                    <div className="invalid-feedback">{errors.state}</div>
-                  )}
-                </div>
-                <div className="col-md-3">
-                  <label htmlFor="zipCode" className="form-label">
-                    Zip Code
-                  </label>
-                  <input
-                    type="text"
-                    className={getInputClass('zipCode')}
-                    id="zipCode"
-                    name="zipCode"
-                    value={formData.zipCode}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    placeholder="20100"
-                    required
-                  />
-                  {touched.zipCode && errors.zipCode && (
-                    <div className="invalid-feedback">{errors.zipCode}</div>
-                  )}
-                </div>
-                <div className="col-md-5">
-                  <label htmlFor="country" className="form-label">
-                    Country
-                  </label>
-                  <select
-                    className={getInputClass('country')}
-                    id="country"
-                    name="country"
-                    value={formData.country}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    required
-                  >
-                    <option value="">Choose...</option>
-                    <option value="IT">Italy</option>
-                    <option value="US">United States</option>
-                    <option value="GB">United Kingdom</option>
-                  </select>
-                  {touched.country && errors.country && (
-                    <div className="invalid-feedback">{errors.country}</div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="mb-4">
-              <h4 className="mb-3">Shipping Method</h4>
-              {!isFreeShipping && (
-                <div className="alert alert-info mb-3">
-                  <small>
-                    Add €{(FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2)} more to your order for FREE shipping!
-                  </small>
-                </div>
-              )}
-              <div className="form-check mb-2">
-                <input
-                  type="radio"
-                  className="form-check-input"
-                  id="standard"
-                  name="shippingMethod"
-                  value="standard"
-                  checked={shippingMethod === "standard"}
-                  onChange={handleShippingChange}
-                />
-                <label className="form-check-label" htmlFor="standard">
-                  Standard Shipping (5-7 business days) - {isFreeShipping ? (
-                    <span className="text-success fw-bold">FREE</span>
-                  ) : (
-                    `€${shippingConfig.shipping_costs.standard}`
-                  )}
+          {/* Info Personali */}
+          <div className="mb-4">
+            <h4 className="mb-3">Personal Information</h4>
+            <div className="row g-3">
+              <div className="col-sm-6">
+                <label htmlFor="firstName" className="form-label">
+                  First name
                 </label>
-              </div>
-              <div className="form-check">
                 <input
-                  type="radio"
-                  className="form-check-input"
-                  id="express"
-                  name="shippingMethod"
-                  value="express"
-                  checked={shippingMethod === "express"}
-                  onChange={handleShippingChange}
+                  type="text"
+                  className={getInputClass('firstName')}
+                  id="firstName"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  placeholder="John"
+                  required
                 />
-                <label className="form-check-label" htmlFor="express">
-                  Express Shipping (2-3 business days) - {isFreeShipping ? (
-                    <span className="text-success fw-bold">FREE</span>
-                  ) : (
-                    `€${shippingConfig.shipping_costs.express}`
-                  )}
+                {touched.firstName && errors.firstName && (
+                  <div className="invalid-feedback">{errors.firstName}</div>
+                )}
+              </div>
+              <div className="col-sm-6">
+                <label htmlFor="lastName" className="form-label">
+                  Last name
                 </label>
+                <input
+                  type="text"
+                  className={getInputClass('lastName')}
+                  id="lastName"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  placeholder="Doe"
+                  required
+                />
+                {touched.lastName && errors.lastName && (
+                  <div className="invalid-feedback">{errors.lastName}</div>
+                )}
+              </div>
+              <div className="col-12">
+                <label htmlFor="email" className="form-label">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  className={getInputClass('email')}
+                  id="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  required
+                />
+                {touched.email && errors.email && (
+                  <div className="invalid-feedback">{errors.email}</div>
+                )}
+              </div>
+              <div className="col-12">
+                <label htmlFor="phone" className="form-label">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  className={getInputClass('phone')}
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  placeholder="e.g., +39 123 456 7890"
+                  required
+                />
+                {touched.phone && errors.phone && (
+                  <div className="invalid-feedback">{errors.phone}</div>
+                )}
               </div>
             </div>
+          </div>
 
-            {/* Pagamento */}
-            <div className="mb-4">
-              <h4 className="mb-3">Payment Information</h4>
-              <div className="row g-3">
-                <div className="col-12">
-                  <label htmlFor="cardName" className="form-label">
-                    Name on card
-                  </label>
-                  <input
-                    type="text"
-                    className={getInputClass('cardName')}
-                    id="cardName"
-                    name="cardName"
-                    value={formData.cardName}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    placeholder="John Doe"
-                    required
-                  />
-                  {touched.cardName && errors.cardName && (
-                    <div className="invalid-feedback">{errors.cardName}</div>
-                  )}
-                </div>
-                <div className="col-12">
-                  <label htmlFor="cardNumber" className="form-label">
-                    Card number
-                  </label>
-                  <input
-                    type="text"
-                    className={getInputClass('cardNumber')}
-                    id="cardNumber"
-                    name="cardNumber"
-                    value={formData.cardNumber}
-                    onChange={handleCardNumberChange}
-                    onBlur={handleBlur}
-                    placeholder="XXXX XXXX XXXX XXXX"
-                    required
-                  />
-                  {touched.cardNumber && errors.cardNumber && (
-                    <div className="invalid-feedback">{errors.cardNumber}</div>
-                  )}
-                </div>
-                <div className="col-md-6">
-                  <label htmlFor="expiryDate" className="form-label">
-                    Expiration date
-                  </label>
-                  <input
-                    type="text"
-                    className={getInputClass('expiryDate')}
-                    id="expiryDate"
-                    name="expiryDate"
-                    placeholder="MM/YY"
-                    value={formData.expiryDate}
-                    onChange={handleExpiryDateChange}
-                    onBlur={handleBlur}
-                    required
-                  />
-                  {touched.expiryDate && errors.expiryDate && (
-                    <div className="invalid-feedback">{errors.expiryDate}</div>
-                  )}
-                </div>
-                <div className="col-md-6">
-                  <label htmlFor="cvv" className="form-label">
-                    CVV
-                  </label>
-                  <input
-                    type="text"
-                    className={getInputClass('cvv')}
-                    id="cvv"
-                    name="cvv"
-                    value={formData.cvv}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    maxLength="4"
-                    placeholder="123"
-                    required
-                  />
-                  {touched.cvv && errors.cvv && (
-                    <div className="invalid-feedback">{errors.cvv}</div>
-                  )}
-                </div>
+          {/* Spedizione */}
+          <div className="mb-4">
+            <h4 className="mb-3">Shipping Address</h4>
+            <div className="row g-3">
+              <div className="col-12">
+                <label htmlFor="address" className="form-label">
+                  Address
+                </label>
+                <input
+                  type="text"
+                  className={getInputClass('address')}
+                  id="address"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  placeholder="Via Roma 123"
+                  required
+                />
+                {touched.address && errors.address && (
+                  <div className="invalid-feedback">{errors.address}</div>
+                )}
+              </div>
+              <div className="col-12">
+                <label htmlFor="city" className="form-label">
+                  City
+                </label>
+                <input
+                  type="text"
+                  className={getInputClass('city')}
+                  id="city"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  placeholder="Milan"
+                  required
+                />
+                {touched.city && errors.city && (
+                  <div className="invalid-feedback">{errors.city}</div>
+                )}
+              </div>
+              <div className="col-md-4">
+                <label htmlFor="state" className="form-label">
+                  State
+                </label>
+                <input
+                  type="text"
+                  className={getInputClass('state')}
+                  id="state"
+                  name="state"
+                  value={formData.state}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  placeholder="MI"
+                  required
+                />
+                {touched.state && errors.state && (
+                  <div className="invalid-feedback">{errors.state}</div>
+                )}
+              </div>
+              <div className="col-md-3">
+                <label htmlFor="zipCode" className="form-label">
+                  Zip Code
+                </label>
+                <input
+                  type="text"
+                  className={getInputClass('zipCode')}
+                  id="zipCode"
+                  name="zipCode"
+                  value={formData.zipCode}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  placeholder="20100"
+                  required
+                />
+                {touched.zipCode && errors.zipCode && (
+                  <div className="invalid-feedback">{errors.zipCode}</div>
+                )}
+              </div>
+              <div className="col-md-5">
+                <label htmlFor="country" className="form-label">
+                  Country
+                </label>
+                <select
+                  className={getInputClass('country')}
+                  id="country"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  required
+                >
+                  <option value="">Choose...</option>
+                  <option value="IT">Italy</option>
+                  <option value="US">United States</option>
+                  <option value="GB">United Kingdom</option>
+                </select>
+                {touched.country && errors.country && (
+                  <div className="invalid-feedback">{errors.country}</div>
+                )}
               </div>
             </div>
+          </div>
 
-            <button
-              type="submit"
-              className="btn btn-main-light w-100 mb-4"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                  Elaborazione in corso...
-                </>
-              ) : "Place Order"}
-            </button>
-          </form>
+          <div className="mb-4">
+            <h4 className="mb-3">Shipping Method</h4>
+            {!isFreeShipping && (
+              <div className="alert alert-info mb-3">
+                <small>
+                  Add €{(FREE_SHIPPING_THRESHOLD - subtotal).toFixed(2)} more to your order for FREE shipping!
+                </small>
+              </div>
+            )}
+            <div className="form-check mb-2">
+              <input
+                type="radio"
+                className="form-check-input"
+                id="standard"
+                name="shippingMethod"
+                value="standard"
+                checked={shippingMethod === "standard"}
+                onChange={handleShippingChange}
+              />
+              <label className="form-check-label" htmlFor="standard">
+                Standard Shipping (5-7 business days) - {isFreeShipping ? (
+                  <span className="text-success fw-bold">FREE</span>
+                ) : (
+                  `€${shippingConfig.shipping_costs.standard}`
+                )}
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                type="radio"
+                className="form-check-input"
+                id="express"
+                name="shippingMethod"
+                value="express"
+                checked={shippingMethod === "express"}
+                onChange={handleShippingChange}
+              />
+              <label className="form-check-label" htmlFor="express">
+                Express Shipping (2-3 business days) - {isFreeShipping ? (
+                  <span className="text-success fw-bold">FREE</span>
+                ) : (
+                  `€${shippingConfig.shipping_costs.express}`
+                )}
+              </label>
+            </div>
+          </div>
+
+          {/* Pagamento con Stripe */}
+          <div className="mb-4">
+            <h4 className="mb-3">Payment Information</h4>
+            <PaymentForm 
+              amount={total}
+              onPaymentSuccess={handlePaymentSuccess}
+            />
+          </div>
         </div>
 
         {/* Totale */}
