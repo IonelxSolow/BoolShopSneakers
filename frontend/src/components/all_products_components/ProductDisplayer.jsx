@@ -3,7 +3,7 @@ export default function ProductDisplayer({ currentItems, filteredSneakers }) {
 
     return (
         <>
-            <div className="products-displayer col-8 col-md-10 row">
+            <div className="products-displayer  col-8 col-md-10 row">
                 {filteredSneakers.result.error ? (
                     <div className="text-center w-100 my-5">
                         <h4>No sneakers found matching your filters.</h4>
@@ -15,7 +15,7 @@ export default function ProductDisplayer({ currentItems, filteredSneakers }) {
                                 to={`/product/${sneaker.name.toLowerCase().replaceAll(" ", "-")}`}
                                 className="text-decoration-none text-dark"
                             >
-                                <div className="card h-100 text-center">
+                                <div className="card bg-dark border-black h-100 text-center text-white">
                                     <img
                                         className="card-img-top img-fluid"
                                         src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
@@ -27,13 +27,13 @@ export default function ProductDisplayer({ currentItems, filteredSneakers }) {
                                         <h5 className="card-title">{sneaker.name}</h5>
                                         {!sneaker.discounted_price ||
                                             parseFloat(sneaker.discounted_price) >= parseFloat(sneaker.price) ? (
-                                            <p className="text-dark">
+                                            <p className="text-white">
                                                 {parseFloat(sneaker.price).toFixed(2)}$
                                             </p>
                                         ) : (
-                                            <p className="text-danger">
+                                            <p className="text-main-light">
                                                 {parseFloat(sneaker.discounted_price).toFixed(2)}$
-                                                <span className="text-decoration-line-through text-muted ms-2">
+                                                <span className="text-decoration-line-through text-danger ms-2">
                                                     {parseFloat(sneaker.price).toFixed(2)}$
                                                 </span>
                                             </p>

@@ -98,7 +98,7 @@ export default function DetailSection({
             </Link>
           </h2>
           {!product.result.discounted_price ||
-          parseFloat(product.result.discounted_price) >=
+            parseFloat(product.result.discounted_price) >=
             parseFloat(product.result.price) ? (
             <p className="text-dark">
               {parseFloat(product.result.price).toFixed(2)}&#8364;
@@ -126,9 +126,8 @@ export default function DetailSection({
           <div className="d-flex gap-2 circle-thumbs-container align-items-center flex-wrap">
             {" "}
             <div
-              className={`circle-thumb-wrapper ${
-                variant === 0 && " active-link"
-              }`}
+              className={`circle-thumb-wrapper ${variant === 0 && " active-link"
+                }`}
             >
               {images && (
                 <img
@@ -141,9 +140,8 @@ export default function DetailSection({
             </div>
             <div>
               <div
-                className={`circle-thumb-wrapper ${
-                  variant === 1 && " active-link"
-                }`}
+                className={`circle-thumb-wrapper ${variant === 1 && " active-link"
+                  }`}
               >
                 {variantImages && (
                   <img
@@ -162,27 +160,25 @@ export default function DetailSection({
           <div className="sizes-container d-flex gap-3 flex-wrap">
             {variant === 0
               ? mainSizes.map((size, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleSizeClick(index)}
-                    className={`size-badge ${
-                      activeIndex === index && "active-link"
+                <div
+                  key={index}
+                  onClick={() => handleSizeClick(index)}
+                  className={`size-badge ${activeIndex === index && "active-link"
                     }`}
-                  >
-                    {size}
-                  </div>
-                ))
+                >
+                  {size}
+                </div>
+              ))
               : variantSizes.map((size, index) => (
-                  <div
-                    key={index}
-                    onClick={() => handleSizeClick(index)}
-                    className={`size-badge ${
-                      activeIndex === index && "active-link"
+                <div
+                  key={index}
+                  onClick={() => handleSizeClick(index)}
+                  className={`size-badge ${activeIndex === index && "active-link"
                     }`}
-                  >
-                    {size}
-                  </div>
-                ))}
+                >
+                  {size}
+                </div>
+              ))}
           </div>
           <p className="my-2">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque
@@ -231,7 +227,7 @@ export default function DetailSection({
                 ✓
               </span>
               <span style={{ fontSize: 22, color: "#757575" }}>
-                Prodotto aggiunto al carrello
+                Prodotto aggiunto al carrello!
               </span>
             </div>
           )}
@@ -269,7 +265,7 @@ export default function DetailSection({
                 ✓
               </span>
               <span style={{ fontSize: 22, color: "#757575" }}>
-                Prodotto aggiunto alla wish list
+                Prodotto aggiunto alla wishlist!
               </span>
             </div>
           )}
