@@ -117,7 +117,7 @@ export default function LatestProducts() {
                             pageIndex * itemsPerPage + itemsPerPage
                           )
                           .map((sneaker) => (
-                            <div className="col-12 col-md-4 mb-3" key={sneaker.id}>
+                            <div className="col-12 col-md-4 mb-3 p-2" key={sneaker.id}>
                               <div className="card sneaker-card h-100 text-center">
                                 <Link
                                   to={`/product/${sneaker.name
