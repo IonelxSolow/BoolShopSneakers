@@ -451,6 +451,31 @@ header {
   transition: ease, 0.5s 0.5s;
 }
 
+.popular-card {
+  overflow: hidden;
+}
+
+
+.popular-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+
+}
+
+.popular-card:hover img {
+  transform: scale(1.05);
+  transition: ease, 0.5s 0.1s;
+}
+
+.popular-card:hover .price-tag {
+  opacity: 1;
+  transition: ease, 0.5s 0.5s;
+  z-index: 100;
+}
+
 .carousel-wrapper {
   position: relative;
   overflow: hidden;
