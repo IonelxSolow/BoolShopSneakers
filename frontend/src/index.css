@@ -443,7 +443,7 @@ header {
   opacity: 0;
 }
 
-.sneaker-card:hover {
+.sneaker-card:hover img {
   transform: scale(1.05);
   transition: ease, 0.5s 0.1s;
   z-index: 100;
