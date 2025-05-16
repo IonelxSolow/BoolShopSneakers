@@ -55,7 +55,7 @@ export default function MostPopular() {
           </svg> */}
           <div className="py-5" style={{ backgroundColor: "var(--bs-secondary)" }}>
             <section className=" p-0 container hot-item my-3">
-              <div className="row gap-3 align-items-center">
+              <div className="row gap-3 d-flex justify-content-between align-items-center">
                 <div className="item-description text-start  col-12 col-lg-4 order-lg-2">
                   <div className="superbold-title mb-5">
                     <span className="d-block newest-superbold" style={{ fontSize: "8rem", color: "var(--main-light)" }}>HOT</span>
@@ -69,11 +69,11 @@ export default function MostPopular() {
                         <p className="item-price mb-0 fw-bold fs-3" style={{ color: "var(--main-light)" }}>{mostSoldSneaker.price}&euro;</p>
                         <Link
                           className="show-tag ms-3"
-                          to={"/product/air-force-1"}>SHOW
+                          to={"/product/air-force-1"}>SHOP NOW
                         </Link>
                       </div>
                     </div>
-                    <p className="item-description fs-5 text-secondary">
+                    <p className="item-description fs-5 text-secondary pe-4">
                       Timeless Style. Everyday Comfort.
                       Step into a legend with the Nike Air Force 1 Low  an icon that blends classic basketball heritage with modern streetwear appeal.
                     </p>
