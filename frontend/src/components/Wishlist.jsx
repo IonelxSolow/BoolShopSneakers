@@ -65,7 +65,7 @@ export default function Wishlist({ isOpen, toggleWishlist }) {
                 <i className={isDeleted === item.sku ? "bi bi-heartbreak-fill delete-wish text-danger fs-4 fs-md-2 ms-3" : "bi bi-heartbreak delete-wish text-danger fs-4 fs-md-2 ms-3"}
                   onClick={() => removeFromWishlist(item.sku)}
                   onMouseOver={() => { setisDeleted(item.sku) }}
-                  onMouseLeave={() => { setisDeleted(item.sku) }}></i>
+                  onMouseLeave={() => { setisDeleted("") }}></i>
               </div>
             </div>
           ))
