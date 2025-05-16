@@ -227,7 +227,7 @@ header {
     top: 70px;
     width: 50vh;
     /* Inizialmente nascosto */
-    background-color: var(--bs-secondary);
+    background-color: black;
     color: var(--bs-bg-primary);
     box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
     padding: 1rem;
@@ -759,6 +759,7 @@ header {
     .img-wrapper {
       background-color: #ededed;
     }
+
     .card {
       display: flex;
       flex-direction: column;
