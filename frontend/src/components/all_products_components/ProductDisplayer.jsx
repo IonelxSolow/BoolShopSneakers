@@ -15,11 +15,30 @@ export default function ProductDisplayer({ currentItems, filteredSneakers }) {
                                 to={`/product/${sneaker.name.toLowerCase().replaceAll(" ", "-")}`}
                                 className="text-decoration-none text-dark"
                             >
-                                <div className="card bg-dark border-black h-100 text-center text-white">
+                                <div className="card bg-dark border-black h-100 text-center text-white position-relative">
+                                    {/* BADGES */}
+                                    <div className="badges-container position-absolute top-0 start-0 m-2" style={{zIndex: 2, display: 'flex', gap: '0.25rem'}}>
+                                        {/* Badge Novità */}
+                                        {(() => {
+                                            const updatedAt = new Date(sneaker.updated_at);
+                                            const now = new Date();
+                                            const daysDiff = (now - updatedAt) / (1000 * 60 * 60 * 24);
+                                            if (daysDiff < 7) {
+                                                return (
+                                                    <span className="badge bg-primary">Novità</span>
+                                                );
+                                            }
+                                            return null;
+                                        })()}
+                                        {/* Badge Sconto */}
+                                        {sneaker.discounted_price && parseFloat(sneaker.discounted_price) < parseFloat(sneaker.price) && (
+                                            <span className="badge bg-danger">Sconto</span>
+                                        )}
+                                    </div>
+                                    {/* IMMAGINE */}
                                     <img
                                         className="card-img-top img-fluid"
                                         src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
-
                                         alt={sneaker.name}
                                     />
 
