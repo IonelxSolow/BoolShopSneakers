@@ -54,20 +54,20 @@ export default function MostPopular() {
             ></path>
           </svg> */}
           <section className=" p-0 container hot-item">
-            <div className="row gap-3 align-items-baseline">
+            <div className="row gap-3 align-items-center">
               <div className="item-description text-end  col-12 col-lg-4 order-lg-2">
                 <div className="superbold-title mb-5">
                   <span className="d-block newest-superbold" style={{ fontSize: "8rem", color: "red" }}>HOT</span>
-                  <span className="d-block newest-superbold ps-3">ITEM</span>
+                  <span className="d-block newest-superbold ps-3">ITEMS</span>
                 </div>
                 <div>
-                  <p className="item-title fs-2">{mostSoldSneaker.name}</p>
+                  <p className="item-title fs-2">#1 {mostSoldSneaker.name}</p>
                   <p className="item-brand fs-3 fw-bold">{mostSoldSneaker.brand}</p>
                   <div className="d-flex align-items-center justify-content-end">
                     <p className="item-price text-danger mb-0  fw-bold fs-3">{mostSoldSneaker.price}&euro;</p>
                     <Link
                       className="show-tag ms-3"
-                      to={"/product/air-force-1"}>Show More
+                      to={"/product/air-force-1"}>See More
                     </Link>
                   </div>
                   <p className="item-description fs-5">
@@ -79,7 +79,7 @@ export default function MostPopular() {
                 </div>
               </div>
               <Link
-                className="slider360 text-center position-relative col-12 col-lg-7 order-lg-1"
+                className="slider360 text-center position-relative col-12 col-lg-7 order-lg-1 ps-3"
                 to={"/product/air-force-1"}>
                 < img
                   className="image360 img-fluid"
