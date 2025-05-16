@@ -147,37 +147,42 @@ export default function OnSaleProducts() {
               <div className="list-group">
                 {onSaleSneakers.result.map((sneaker) => (
                   <Link
-                    className="list-group-item mb-3"
+                    className="list-group-item list-group-item-action mb-3 rounded shadow-sm hover-shadow"
                     key={sneaker.id}
                     to={`/product/${sneaker.name
                       .toLowerCase()
                       .replaceAll(" ", "-")}`}
                   >
-                    <div className="d-flex flex-column flex-md-row">
-                      <img
-                        src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
-                        alt="Sneaker"
-                        width="100%"
-                        className="me-md-3 mb-3 mb-md-0"
-                        style={{ maxWidth: "150px" }}
-                      />
-                      <div>
-                        <h4 className="mb-2">{sneaker.name}</h4>
-                        <p>{sneaker.description}</p>
-                        {!sneaker.discounted_price ||
-                        parseFloat(sneaker.discounted_price) >=
-                          parseFloat(sneaker.price) ? (
-                          <p className="mb-0">Price: {sneaker.price}&euro;</p>
-                        ) : (
-                          <>
-                            <p className="mb-0">Price: {sneaker.price}&euro;</p>
-                            <p>
-                              Discounted:{" "}
-                              {parseFloat(sneaker.discounted_price).toFixed(2)}
-                              &euro;
+                    <div className="d-flex flex-column flex-md-row align-items-center">
+                      <div className="col-md-3 text-center mb-3 mb-md-0">
+                        <img
+                          src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
+                          alt={sneaker.name}
+                          className="img-fluid rounded"
+                          style={{ maxWidth: "200px", height: "auto" }}
+                        />
+                      </div>
+                      <div className="col-md-9">
+                        <h4 className="mb-2 fw-bold">{sneaker.name}</h4>
+                        <p className="text-muted mb-3">{sneaker.description}</p>
+                        <div className="d-flex align-items-center">
+                          {!sneaker.discounted_price ||
+                          parseFloat(sneaker.discounted_price) >=
+                            parseFloat(sneaker.price) ? (
+                            <p className="mb-0 fs-5 fw-bold text-primary">
+                              {parseFloat(sneaker.price).toFixed(2)}&euro;
                             </p>
-                          </>
-                        )}
+                          ) : (
+                            <div className="d-flex align-items-center gap-2">
+                              <p className="mb-0 fs-5 fw-bold text-primary">
+                                {parseFloat(sneaker.discounted_price).toFixed(2)}&euro;
+                              </p>
+                              <p className="mb-0 text-decoration-line-through text-muted">
+                                {parseFloat(sneaker.price).toFixed(2)}&euro;
+                              </p>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </Link>
