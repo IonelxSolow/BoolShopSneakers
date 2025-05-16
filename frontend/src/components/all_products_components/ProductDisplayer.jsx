@@ -67,7 +67,7 @@ export default function ProductDisplayer({
                       {parseFloat(sneaker.price).toFixed(2)}&#8364;
                     </p>
                   ) : (
-                    <p className="text-main-lighttext-main-light">
+                    <p>
                       {parseFloat(sneaker.discounted_price).toFixed(2)}&#8364;
                       <span className="text-decoration-line-through text-secondary ms-2">
                         {parseFloat(sneaker.price).toFixed(2)}&#8364;
@@ -104,12 +104,12 @@ export default function ProductDisplayer({
                       </span>
                     ) : (
                       <>
+                        <span className="mb-2 pe-1">
+                          {parseFloat(sneaker.discounted_price).toFixed(2)}
+                          &euro;
+                        </span>{" "}
                         <span className="original-price">
                           {sneaker.price}&euro;
-                        </span>
-                        <span className="discount-price mb-2">
-                          {parseFloat(sneaker.discounted_price).toFixed(2)}
-                          $&euro;
                         </span>
                       </>
                     )}

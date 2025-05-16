@@ -35,10 +35,6 @@ a {
   color: var(--bs-secondary);
 }
 
-a:hover {
-  color: var(--main-light);
-}
-
 .text-main-light {
   color: var(--main-light);
 }
