@@ -3,9 +3,9 @@ const FeaturesSection = () => {
   return (
     <section className="py-3 mb-5" style={{ backgroundColor: "var(--bs-secondary)" }}>
       <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-10 col-sm-6 col-md-4 col-lg-3 text-white">
-            <div className="d-flex align-items-center justify-content-center">
+        <div className="row justify-content-center gy-3">
+          <div className="col-6 col-md-6 col-lg-3 text-white">
+            <div className="d-flex align-items-center justify-content-start">
               <div className="me-3 d-flex justify-content-center align-items-center" style={{ width: "3rem", height: "3rem", backgroundColor: "var(--main-light)", borderRadius: "25%" }}>
                 <i className="bi bi-truck fs-3" style={{ color: "var(--bs-secondary)" }}></i>
               </div>
@@ -15,19 +15,20 @@ const FeaturesSection = () => {
               </div>
             </div>
           </div>
-          <div className="col-10 col-sm-6 col-md-4 col-lg-3 text-white">
-            <div className="d-flex align-items-center justify-content-center">
+          <div className="col-6 col-md-6 col-lg-3 text-white">
+            <div className="d-flex align-items-center justify-content-start m-md-auto">
               <div className="me-3 d-flex justify-content-center align-items-center" style={{ width: "3rem", height: "3rem", backgroundColor: "var(--main-light)", borderRadius: "25%" }}>
                 <i className="bi bi-arrow-counterclockwise fs-3" style={{ color: "var(--bs-secondary)" }}></i>
               </div>
               <div>
                 <h5 className="mb-1 fst-italic">Free Returns</h5>
-                <p className="mb-0">Guaranteed within 30 days</p>
+                <p className="mb-0">
+                  30 day trial</p>
               </div>
             </div>
           </div>
-          <div className="col-10 col-sm-6 col-md-4 col-lg-3 text-white">
-            <div className="d-flex align-items-center justify-content-center">
+          <div className="col-6 col-md-6 col-lg-3 text-white">
+            <div className="d-flex align-items-center justify-content-start">
               <div className="me-3 d-flex justify-content-center align-items-center" style={{ width: "3rem", height: "3rem", backgroundColor: "var(--main-light)", borderRadius: "25%" }}>
                 <i className="bi bi-shield-check fs-3" style={{ color: "var(--bs-secondary)" }}></i>
               </div>
@@ -37,8 +38,8 @@ const FeaturesSection = () => {
               </div>
             </div>
           </div>
-          <div className="col-10 col-sm-6 col-md-4 col-lg-3 text-white">
-            <div className="d-flex align-items-center justify-content-center">
+          <div className="col-6 col-md-6 col-lg-3 text-white">
+            <div className="d-flex align-items-center justify-content-start">
               <div className="me-3 d-flex justify-content-center align-items-center" style={{ width: "3rem", height: "3rem", backgroundColor: "var(--main-light)", borderRadius: "25%" }}>
                 <i className="bi bi-headset fs-3" style={{ color: "var(--bs-secondary)" }}></i>
               </div>
