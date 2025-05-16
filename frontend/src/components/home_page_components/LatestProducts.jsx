@@ -69,7 +69,7 @@ export default function LatestProducts() {
                 <div className="col-12 col-md-3 d-flex flex-column justify-content-between">
                   <div className="superbold-title mb-5">
                     <span className="d-block newest-superbold">NEWEST</span>
-                    <span className="d-block newest-superbold text-danger ps-3" style={{ fontSize: "8rem" }}>
+                    <span className="d-block newest-superbold ps-3" style={{ fontSize: "8rem", color: "var(--main-secondary)"}}>
                       DROPS
                     </span>
 
