@@ -45,7 +45,9 @@ export default function PopularProducts() {
         setIsPopularGrid(!isPopularGrid);
       }
 
-      const popularTotalPages = Math.ceil(popularSneakers.result.length / itemsPerPage);
+      const popularTotalPages = Math.ceil(
+        popularSneakers.result.length / itemsPerPage
+      );
       //move back and forward for popular items
       function nextPopularPage() {
         if (popularPage < popularTotalPages - 1) {
@@ -112,25 +114,29 @@ export default function PopularProducts() {
                           >
                             <img
                               className=" img-fluid"
-                              src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
+                              src={`/assets/${
+                                JSON.parse(sneaker.image_urls)[0]
+                              }`}
                               alt={sneaker.name}
                             />
 
                             {!sneaker.discounted_price ||
-                              parseFloat(sneaker.discounted_price) >=
+                            parseFloat(sneaker.discounted_price) >=
                               parseFloat(sneaker.price) ? (
                               <p className="price-tag">
-                                {parseFloat(sneaker.price).toFixed(2)}$
+                                {parseFloat(sneaker.price).toFixed(2)}&euro;
                               </p>
                             ) : (
                               <p className="price-tag">
-                                {parseFloat(sneaker.discounted_price).toFixed(2)}$
+                                {parseFloat(sneaker.discounted_price).toFixed(
+                                  2
+                                )}
+                                &euro;
                                 <span className="text-decoration-line-through text-danger ms-2">
-                                  {parseFloat(sneaker.price).toFixed(2)}$
+                                  {parseFloat(sneaker.price).toFixed(2)}&euro;
                                 </span>
                               </p>
                             )}
-
                           </Link>
                         </div>
                       </div>
@@ -145,7 +151,8 @@ export default function PopularProducts() {
                     key={sneaker.id}
                     to={`/product/${sneaker.name
                       .toLowerCase()
-                      .replaceAll(" ", "-")}`}>
+                      .replaceAll(" ", "-")}`}
+                  >
                     <div className="d-flex flex-column flex-md-row">
                       <img
                         src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
@@ -158,15 +165,16 @@ export default function PopularProducts() {
                         <h4 className="mb-2">{sneaker.name}</h4>
                         <p>{sneaker.description}</p>
                         {!sneaker.discounted_price ||
-                          parseFloat(sneaker.discounted_price) >=
+                        parseFloat(sneaker.discounted_price) >=
                           parseFloat(sneaker.price) ? (
-                          <p className="mb-0">Price: {sneaker.price}$</p>
+                          <p className="mb-0">Price: {sneaker.price}&euro;</p>
                         ) : (
                           <>
-                            <p className="mb-0">Price: {sneaker.price}$</p>
+                            <p className="mb-0">Price: {sneaker.price}&euro;</p>
                             <p>
                               Discounted:{" "}
-                              {parseFloat(sneaker.discounted_price).toFixed(2)}$
+                              {parseFloat(sneaker.discounted_price).toFixed(2)}
+                              &euro;
                             </p>
                           </>
                         )}
@@ -177,7 +185,6 @@ export default function PopularProducts() {
               </div>
             )}
           </section>
-
         </>
       );
   }

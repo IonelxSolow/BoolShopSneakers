@@ -2,183 +2,190 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function OnSaleProducts() {
-    const [onSaleSneakers, setOnSaleSneakers] = useState({
-        state: "loading",
-    });
-    useEffect(() => {
-        fetch("http://localhost:3000/boolshop/api/v1/shoes/sale")
-            .then((res) => res.json())
-            .then((data) => {
-                setOnSaleSneakers({
-                    state: "success",
-                    result: data,
-                });
-            })
-            .catch((err) => {
-                setOnSaleSneakers({
-                    state: "error",
-                    message: err.message,
-                });
-                console.error(err);
-            });
-    }, []);
-    //grid display logic
-    const [isOnSaleGrid, setIsOnSaleGrid] = useState(true);
-    //carousel logic
-    const [onSalePage, setOnSalePage] = useState(0);
-    const itemsPerPage = 3;
-    switch (onSaleSneakers.state) {
-        case "loading":
-            return (
-                <h1>Loading...{/* Create a loader component to replace this */}</h1>
-            );
-        case "error":
-            return (
-                <>
-                    <h1>Error loading product</h1>
-                    <p>{product.message}</p>
-                </>
-            );
-        case "success":
-            //switch displayer on click
-            function switchOnSaleDisplay() {
-                setIsOnSaleGrid(!isOnSaleGrid);
-            }
+  const [onSaleSneakers, setOnSaleSneakers] = useState({
+    state: "loading",
+  });
+  useEffect(() => {
+    fetch("http://localhost:3000/boolshop/api/v1/shoes/sale")
+      .then((res) => res.json())
+      .then((data) => {
+        setOnSaleSneakers({
+          state: "success",
+          result: data,
+        });
+      })
+      .catch((err) => {
+        setOnSaleSneakers({
+          state: "error",
+          message: err.message,
+        });
+        console.error(err);
+      });
+  }, []);
+  //grid display logic
+  const [isOnSaleGrid, setIsOnSaleGrid] = useState(true);
+  //carousel logic
+  const [onSalePage, setOnSalePage] = useState(0);
+  const itemsPerPage = 3;
+  switch (onSaleSneakers.state) {
+    case "loading":
+      return (
+        <h1>Loading...{/* Create a loader component to replace this */}</h1>
+      );
+    case "error":
+      return (
+        <>
+          <h1>Error loading product</h1>
+          <p>{product.message}</p>
+        </>
+      );
+    case "success":
+      //switch displayer on click
+      function switchOnSaleDisplay() {
+        setIsOnSaleGrid(!isOnSaleGrid);
+      }
 
-            const onSaleTotalPages = Math.ceil(onSaleSneakers.result.length / itemsPerPage);
-            //move back and forward for popular items
-            function nextOnSalePage() {
-                if (onSalePage < onSaleTotalPages - 1) {
-                    setOnSalePage((prev) => prev + 1);
-                }
-            }
-            function prevOnSalePage() {
-                if (onSalePage > 0) {
-                    setOnSalePage((prev) => prev - 1);
-                }
-            }
+      const onSaleTotalPages = Math.ceil(
+        onSaleSneakers.result.length / itemsPerPage
+      );
+      //move back and forward for popular items
+      function nextOnSalePage() {
+        if (onSalePage < onSaleTotalPages - 1) {
+          setOnSalePage((prev) => prev + 1);
+        }
+      }
+      function prevOnSalePage() {
+        if (onSalePage > 0) {
+          setOnSalePage((prev) => prev - 1);
+        }
+      }
 
-            return (
-                <>
-                    <section className="on-sale-displayer container">
-                        <div className="d-flex justify-content-between align-items-center mb-3">
-                            <h1 className="fs-3 fs-md-2 fw-bold">On Sale Items</h1>
-                            <button
-                                className="btn btn-home-light"
-                                onClick={switchOnSaleDisplay}
-                            >
-                                {isOnSaleGrid ? (
-                                    <i className="bi bi-list-task"></i>
-                                ) : (
-                                    <i className="bi bi-grid"></i>
+      return (
+        <>
+          <section className="on-sale-displayer container">
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h1 className="fs-3 fs-md-2 fw-bold">On Sale Items</h1>
+              <button
+                className="btn btn-home-light"
+                onClick={switchOnSaleDisplay}
+              >
+                {isOnSaleGrid ? (
+                  <i className="bi bi-list-task"></i>
+                ) : (
+                  <i className="bi bi-grid"></i>
+                )}
+              </button>
+            </div>
+
+            {isOnSaleGrid ? (
+              <div>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <button
+                    className="btn btn-home-light"
+                    onClick={prevOnSalePage}
+                    disabled={onSalePage === 0}
+                  >
+                    <i className="bi bi-chevron-left"></i>
+                  </button>
+                  <button
+                    className="btn btn-home-light"
+                    onClick={nextOnSalePage}
+                    disabled={onSalePage === onSaleTotalPages - 1}
+                  >
+                    <i className="bi bi-chevron-right"></i>
+                  </button>
+                </div>
+
+                <div className="row g-3">
+                  {onSaleSneakers.result
+                    .slice(
+                      onSalePage * itemsPerPage,
+                      onSalePage * itemsPerPage + itemsPerPage
+                    )
+                    .map((sneaker) => (
+                      <div className="col-12 col-md-4" key={sneaker.id}>
+                        <div className="card sneaker-card h-100 text-center">
+                          <Link
+                            to={`/product/${sneaker.name
+                              .toLowerCase()
+                              .replaceAll(" ", "-")}`}
+                            className="text-decoration-none text-dark"
+                            style={{ display: "block" }}
+                          >
+                            <img
+                              className=" img-fluid"
+                              src={`/assets/${
+                                JSON.parse(sneaker.image_urls)[0]
+                              }`}
+                              alt={sneaker.name}
+                            />
+
+                            {!sneaker.discounted_price ||
+                            parseFloat(sneaker.discounted_price) >=
+                              parseFloat(sneaker.price) ? (
+                              <p className="price-tag">
+                                {parseFloat(sneaker.price).toFixed(2)}&euro;
+                              </p>
+                            ) : (
+                              <p className="price-tag">
+                                {parseFloat(sneaker.discounted_price).toFixed(
+                                  2
                                 )}
-                            </button>
+                                &euro;
+                                <span className="text-decoration-line-through text-danger ms-2">
+                                  {parseFloat(sneaker.price).toFixed(2)}&euro;
+                                </span>
+                              </p>
+                            )}
+                          </Link>
                         </div>
-
-                        {isOnSaleGrid ? (
-                            <div>
-                                <div className="d-flex justify-content-between align-items-center mb-3">
-                                    <button
-                                        className="btn btn-home-light"
-                                        onClick={prevOnSalePage}
-                                        disabled={onSalePage === 0}
-                                    >
-                                        <i className="bi bi-chevron-left"></i>
-                                    </button>
-                                    <button
-                                        className="btn btn-home-light"
-                                        onClick={nextOnSalePage}
-                                        disabled={onSalePage === onSaleTotalPages - 1}
-                                    >
-                                        <i className="bi bi-chevron-right"></i>
-                                    </button>
-                                </div>
-
-                                <div className="row g-3">
-                                    {onSaleSneakers.result
-                                        .slice(
-                                            onSalePage * itemsPerPage,
-                                            onSalePage * itemsPerPage + itemsPerPage
-                                        )
-                                        .map((sneaker) => (
-                                            <div className="col-12 col-md-4" key={sneaker.id}>
-                                                <div className="card sneaker-card h-100 text-center">
-                                                    <Link
-                                                        to={`/product/${sneaker.name
-                                                            .toLowerCase()
-                                                            .replaceAll(" ", "-")}`}
-                                                        className="text-decoration-none text-dark"
-                                                        style={{ display: "block" }}
-                                                    >
-                                                        <img
-                                                            className=" img-fluid"
-                                                            src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
-                                                            alt={sneaker.name}
-                                                        />
-
-                                                        {!sneaker.discounted_price ||
-                                                            parseFloat(sneaker.discounted_price) >=
-                                                            parseFloat(sneaker.price) ? (
-                                                            <p className="price-tag">
-                                                                {parseFloat(sneaker.price).toFixed(2)}$
-                                                            </p>
-                                                        ) : (
-                                                            <p className="price-tag">
-                                                                {parseFloat(sneaker.discounted_price).toFixed(2)}$
-                                                                <span className="text-decoration-line-through text-danger ms-2">
-                                                                    {parseFloat(sneaker.price).toFixed(2)}$
-                                                                </span>
-                                                            </p>
-                                                        )}
-
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        ))}
-                                </div>
-                            </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            ) : (
+              <div className="list-group">
+                {onSaleSneakers.result.map((sneaker) => (
+                  <Link
+                    className="list-group-item mb-3"
+                    key={sneaker.id}
+                    to={`/product/${sneaker.name
+                      .toLowerCase()
+                      .replaceAll(" ", "-")}`}
+                  >
+                    <div className="d-flex flex-column flex-md-row">
+                      <img
+                        src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
+                        alt="Sneaker"
+                        width="100%"
+                        className="me-md-3 mb-3 mb-md-0"
+                        style={{ maxWidth: "150px" }}
+                      />
+                      <div>
+                        <h4 className="mb-2">{sneaker.name}</h4>
+                        <p>{sneaker.description}</p>
+                        {!sneaker.discounted_price ||
+                        parseFloat(sneaker.discounted_price) >=
+                          parseFloat(sneaker.price) ? (
+                          <p className="mb-0">Price: {sneaker.price}&euro;</p>
                         ) : (
-                            <div className="list-group">
-                                {onSaleSneakers.result.map((sneaker) => (
-                                    <Link
-                                        className="list-group-item mb-3"
-                                        key={sneaker.id}
-                                        to={`/product/${sneaker.name
-                                            .toLowerCase()
-                                            .replaceAll(" ", "-")}`}>
-                                        <div className="d-flex flex-column flex-md-row">
-                                            <img
-                                                src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
-                                                alt="Sneaker"
-                                                width="100%"
-                                                className="me-md-3 mb-3 mb-md-0"
-                                                style={{ maxWidth: "150px" }}
-                                            />
-                                            <div>
-                                                <h4 className="mb-2">{sneaker.name}</h4>
-                                                <p>{sneaker.description}</p>
-                                                {!sneaker.discounted_price ||
-                                                    parseFloat(sneaker.discounted_price) >=
-                                                    parseFloat(sneaker.price) ? (
-                                                    <p className="mb-0">Price: {sneaker.price}$</p>
-                                                ) : (
-                                                    <>
-                                                        <p className="mb-0">Price: {sneaker.price}$</p>
-                                                        <p>
-                                                            Discounted:{" "}
-                                                            {parseFloat(sneaker.discounted_price).toFixed(2)}$
-                                                        </p>
-                                                    </>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
+                          <>
+                            <p className="mb-0">Price: {sneaker.price}&euro;</p>
+                            <p>
+                              Discounted:{" "}
+                              {parseFloat(sneaker.discounted_price).toFixed(2)}
+                              &euro;
+                            </p>
+                          </>
                         )}
-                    </section>
-
-                </>
-            );
-    }
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </section>
+        </>
+      );
+  }
 }
