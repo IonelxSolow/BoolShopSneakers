@@ -92,7 +92,12 @@ export default function AllProducts() {
         });
       });
   }, [filters]);
-
+  //grid state
+  const [isGrid, setIsGrid] = useState(true);
+  //display switcher
+  function switchDisplay() {
+    setIsGrid(!isGrid)
+  }
   //sorting
   const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
   //sorting handler
@@ -252,7 +257,7 @@ export default function AllProducts() {
                 >
                   {isHidden ? "Show Filters" : "Hide Filters"}
                 </div>
-                <div className="position-relative me-3 mt-3">
+                <div className=" position-relative d-flex align-items-center justify-content-end gap-3 me-3 mt-3 mb-2">
                   <div
                     onClick={() => setIsSortedOpen((prev) => !prev)}
                     className="filter-toggle"
@@ -269,6 +274,17 @@ export default function AllProducts() {
                       </>
                     )}
                   </div>
+
+                  <button
+                    className="btn btn-home-light"
+                    onClick={switchDisplay}
+                  >
+                    {isGrid ? (
+                      <i className="bi bi-list-task"></i>
+                    ) : (
+                      <i className="bi bi-grid"></i>
+                    )}
+                  </button>
                   {isSortedOpen && (
                     <ul className="sort-dropdown position-absolute bg-white border rounded shadow p-2">
                       <li
@@ -325,6 +341,7 @@ export default function AllProducts() {
               <ProductDisplayer
                 currentItems={currentItems}
                 filteredSneakers={filteredSneakers}
+                isGrid={isGrid}
               />
             </div>
             <Pagination
