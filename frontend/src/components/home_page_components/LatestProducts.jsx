@@ -111,7 +111,7 @@ export default function LatestProducts() {
                             className="text-decoration-none text-dark d-flex flex-column h-100"
                             style={{ display: "block" }}
                           >
-                            <div className="sneaker-img-wrapper flex-grow-1 d-flex align-items-stretch justify-content-center" style={{ minHeight: 0 }}>
+                            <div className="sneaker-img-wrapper flex-grow-1 d-flex align-items-center justify-content-center" style={{ backgroundColor: "#ededed"}}>
                               <img
                                 className="img-fluid w-100 h-100"
                                 style={{ objectFit: "content" }}
