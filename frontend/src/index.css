@@ -758,97 +758,102 @@ header {
 
     .img-wrapper {
       background-color: #ededed;
+      overflow: hidden;
+      &:hover img {
+        transform: scale(1.05);
+        transition: ease, 0.5s 0.1s;
+      }
     }
+  }
 
-    .card {
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .card-body {
+      flex-grow: 1;
+      padding: 1rem;
       display: flex;
       flex-direction: column;
-      height: 100%;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      overflow: hidden;
+      justify-content: space-between;
+    }
 
-      .card-body {
-        flex-grow: 1;
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
 
-      .card-title {
-        font-size: 1.2rem;
-        font-weight: bold;
-      }
+    .card-text {
+      font-size: 1rem;
+      color: #555;
+    }
 
-      .card-text {
-        font-size: 1rem;
-        color: #555;
-      }
+    .card-footer {
+      padding: 0.5rem;
+      background-color: #f8f8f8;
+      text-align: center;
+    }
 
-      .card-footer {
-        padding: 0.5rem;
-        background-color: #f8f8f8;
-        text-align: center;
-      }
-
-      .card-img-top {
-        width: 100%;
-        object-fit: cover;
-      }
+    .card-img-top {
+      width: 100%;
+      object-fit: cover;
     }
   }
+}
 
-  nav {
-    .custom-pagination {
-      margin-top: 2rem;
-      display: flex;
-      justify-content: center;
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .custom-page-link {
-      border: 1px solid black;
-      padding: 0.5rem 0.75rem;
-      border-radius: 50%;
-      width: 2.5rem;
-      height: 2.5rem;
-      color: black;
-      background-color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .custom-page-link:hover {
-      background-color: black;
-      color: var(--main-light);
-    }
-
-    .custom-page-item.active .custom-page-link {
-      background-color: var(--main-light);
-      color: white;
-      border-color: black;
-    }
-
-    .custom-page-item.active .custom-page-link {
-      background-color: var(--main-light);
-      color: white;
-      border-color: black;
-    }
+nav {
+  .custom-pagination {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding-left: 0;
   }
 
-  .pagination-dropdown {
-    list-style: none !important;
+  .custom-page-link {
+    border: 1px solid black;
+    padding: 0.5rem 0.75rem;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: black;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .custom-page-link:hover {
+    background-color: black;
+    color: var(--main-light);
+  }
+
+  .custom-page-item.active .custom-page-link {
+    background-color: var(--main-light);
+    color: white;
+    border-color: black;
+  }
+
+  .custom-page-item.active .custom-page-link {
+    background-color: var(--main-light);
+    color: white;
+    border-color: black;
+  }
+}
+
+.pagination-dropdown {
+  list-style: none !important;
+  cursor: pointer;
+
+  .pagination-option {
     cursor: pointer;
 
-    .pagination-option {
-      cursor: pointer;
-
-      &:hover {
-        background-color: black;
-        color: var(--main-light);
-      }
+    &:hover {
+      background-color: black;
+      color: var(--main-light);
     }
   }
 }

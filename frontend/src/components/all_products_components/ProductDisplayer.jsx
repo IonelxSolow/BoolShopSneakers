@@ -20,7 +20,7 @@ export default function ProductDisplayer({
                   .replaceAll(" ", "-")}`}
                 className="text-decoration-none text-dark"
               >
-                <div className="img-wrapper position-relative">
+                <div className="img-wrapper  position-relative">
                   <div
                     className="badges-container position-absolute top-0 start-0 m-2"
                     style={{ zIndex: 2, display: "flex", gap: "0.25rem" }}
