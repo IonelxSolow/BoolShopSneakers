@@ -463,15 +463,23 @@ header {
 }
 
 .hot-item {
-  .image360 {
-    width: 800px;
-    transition: ease, 0.5;
+  .slider360 {
+    padding: 0;
+
   }
 
-  .hot-img {
-    /* border-top-left-radius: 40%;
-    border-bottom-right-radius: 10%; */
-    border-radius: 10%;
+  .show-tag {
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  .image360 {
+    transition: ease, 0.5;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   }
 
   .wave-1hkxOo {
