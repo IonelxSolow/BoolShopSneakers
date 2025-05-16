@@ -38,11 +38,11 @@ export default function MostPopular() {
               fill="currentColor">
             </path>
           </svg>
-          <section className="bg-dark container-fluid">
+          <section className="bg-dark p-0 container-fluid hot-item">
             <div className="container p-3 mb-5">
               <div className="d-flex justify-content-between align-items-center mb-3">
-                <div className="row p-4 m-auto">
-                  <div className="col-lg-6 d-flex flex-column ">
+                <div className="row p-4 m-auto align-items-md-baseline">
+                  <div className="col-12 col-md-6 d-flex flex-column ">
                     <h1
                       className="fw-bolder display-1 mb-3 text-main-light text-decoration-underline text-uppercase">
                       Hot Item
@@ -56,11 +56,11 @@ export default function MostPopular() {
                           .toLowerCase()
                           .replaceAll(" ", "-")}`}
                       >
-                        <button className="btn btn-main-light">Shop Now</button>
+                        <button className="btn btn-main-light w-100 w-lg-50 mb-5">Shop Now</button>
                       </Link>
                     </div>
                   </div>
-                  <div className="col-lg-6 ">
+                  <div className="col-12 col-md-6 ">
                     <img
                       src={`/assets/${parsedImg}`}
                       className="img-fluid hot-img"
