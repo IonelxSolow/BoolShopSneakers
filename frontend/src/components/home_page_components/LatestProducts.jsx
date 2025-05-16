@@ -60,11 +60,16 @@ export default function LatestProducts() {
 
       return (
         <>
-          <section className="newest-displayer container">
-            <div className="d-flex justify-content-between align-items-center mb-3">
+
+          <section className="newest-displayer container-fluid">
+            <div class="line-wrapper mb-4">
+              <div class="line"></div>
               <h1 className="fs-3 fs-md-2 fw-bold">Newest Drops</h1>
+              <div class="line"></div>
+            </div>
+            <div className="d-flex justify-content-end align-items-center mb-3">
               <button
-                className="btn btn-main-light"
+                className="btn btn-home-light"
                 onClick={switchNewestDisplay}
               >
                 {isNewestGrid ? (
@@ -78,97 +83,105 @@ export default function LatestProducts() {
               <div>
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <button
-                    className="btn btn-main-light"
+                    className="btn btn-home-light"
                     onClick={prevNewestPage}
                     disabled={newestPage === 0}
                   >
                     <i className="bi bi-chevron-left"></i>
                   </button>
                   <button
-                    className="btn btn-main-light"
+                    className="btn btn-home-light"
                     onClick={nextNewestPage}
                     disabled={newestPage === newestTotalPages - 1}
                   >
                     <i className="bi bi-chevron-right"></i>
                   </button>
                 </div>
-                <div className="row g-3">
-                  {newestSneakers.result
-                    .slice(
-                      newestPage * itemsPerPage,
-                      newestPage * itemsPerPage + itemsPerPage
-                    )
-                    .map((sneaker) => (
-                      <div className="col-12 col-md-4" key={sneaker.id}>
-                        <div className="card sneaker-card h-100 text-center">
-                          <Link
-                            to={`/product/${sneaker.name
-                              .toLowerCase()
-                              .replaceAll(" ", "-")}`}
-                            className="text-decoration-none text-dark"
-                            style={{ display: "block" }}
-                          >
-                            <img
-                              className="card-img-top img-fluid"
-                              src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
-                              alt={sneaker.name}
-                            />
-                            <div className="card-body">
-                              <h5 className="card-title">{sneaker.name}</h5>
-                              {!sneaker.discounted_price ||
-                                parseFloat(sneaker.discounted_price) >=
-                                parseFloat(sneaker.price) ? (
-                                <p className="text-dark">
-                                  {parseFloat(sneaker.price).toFixed(2)}$
-                                </p>
-                              ) : (
-                                <p className="text-danger">
-                                  {parseFloat(sneaker.discounted_price).toFixed(2)}$
-                                  <span className="text-decoration-line-through text-muted ms-2">
-                                    {parseFloat(sneaker.price).toFixed(2)}$
-                                  </span>
-                                </p>
-                              )}
+                <div className="carousel-wrapper">
+                  <div
+                    className="carousel-slide"
+                    style={{
+                      width: `${newestTotalPages * 100}%`,
+                      transform: `translateX(-${(100 / newestTotalPages) * newestPage}%)`,
+                    }}
+                  >
+                    {Array.from({ length: newestTotalPages }).map((_, pageIndex) => (
+                      <div
+                        className="d-flex w-100 flex-wrap justify-content-between "
+                        key={pageIndex}
+                        style={{ flex: `0 0 ${100 / newestTotalPages}%` }}
+                      >
+                        {newestSneakers.result
+                          .slice(
+                            pageIndex * itemsPerPage,
+                            pageIndex * itemsPerPage + itemsPerPage
+                          )
+                          .map((sneaker) => (
+                            <div className="col-12 col-md-4 mb-3" key={sneaker.id}>
+                              <div className="card sneaker-card h-100 text-center">
+                                <Link
+                                  to={`/product/${sneaker.name
+                                    .toLowerCase()
+                                    .replaceAll(" ", "-")}`}
+                                  className="text-decoration-none text-dark"
+                                >
+                                  <img
+                                    className="img-fluid"
+                                    src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
+                                    alt={sneaker.name}
+                                  />
+                                  {!sneaker.discounted_price ||
+                                    parseFloat(sneaker.discounted_price) >=
+                                    parseFloat(sneaker.price) ? (
+                                    <p className="price-tag">
+                                      {parseFloat(sneaker.price).toFixed(2)}$
+                                    </p>
+                                  ) : (
+                                    <p className="price-tag">
+                                      {parseFloat(sneaker.discounted_price).toFixed(2)}$
+                                      <span className="text-decoration-line-through text-danger ms-2">
+                                        {parseFloat(sneaker.price).toFixed(2)}$
+                                      </span>
+                                    </p>
+                                  )}
+                                </Link>
+                              </div>
                             </div>
-                          </Link>
-                        </div>
+                          ))}
                       </div>
                     ))}
+                  </div>
                 </div>
+
               </div>
             ) : (
               <div className="list-group">
                 {newestSneakers.result.map((sneaker) => (
                   <Link
-                    className="list-group-item mb-3"
+                    className="list-card m-auto"
                     key={sneaker.id}
                     to={`/product/${sneaker.name
                       .toLowerCase()
                       .replaceAll(" ", "-")}`}>
-                    <div className="d-flex flex-column flex-md-row">
-                      <img
-                        src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
-                        alt="Sneaker"
-                        width="100%"
-                        className="me-md-3 mb-3 mb-md-0"
-                        style={{ maxWidth: "150px" }}
-                      />
-                      <div>
-                        <h4 className="mb-2">{sneaker.name}</h4>
-                        <p>{sneaker.description}</p>
+                    <img
+                      src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
+                      className="img-fluid"
+                      alt="Sneaker"
+                    />
+                    <div className="listcard-content">
+                      <h2 className="listcard-title">{sneaker.name}</h2>
+                      <div className="price-section">
                         {!sneaker.discounted_price ||
                           parseFloat(sneaker.discounted_price) >=
                           parseFloat(sneaker.price) ? (
-                          <p className="mb-0">Price: {sneaker.price}$</p>
+                          <span className="text-dark">{sneaker.price}&euro;</span>
                         ) : (
                           <>
-                            <p className="mb-0">Price: {sneaker.price}$</p>
-                            <p>
-                              Discounted:
-                              {parseFloat(sneaker.discounted_price).toFixed(2)}$
-                            </p>
+                            <span className="original-price">{sneaker.price}&euro;</span>
+                            <span className="discount-price">{parseFloat(sneaker.discounted_price).toFixed(2)}$&euro;</span>
                           </>
                         )}
+                        <p className="description">{sneaker.description}</p>
                       </div>
                     </div>
                   </Link>

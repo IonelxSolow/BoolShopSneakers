@@ -64,7 +64,7 @@ export default function OnSaleProducts() {
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <h1 className="fs-3 fs-md-2 fw-bold">On Sale Items</h1>
                             <button
-                                className="btn btn-main-light"
+                                className="btn btn-home-light"
                                 onClick={switchOnSaleDisplay}
                             >
                                 {isOnSaleGrid ? (
@@ -79,14 +79,14 @@ export default function OnSaleProducts() {
                             <div>
                                 <div className="d-flex justify-content-between align-items-center mb-3">
                                     <button
-                                        className="btn btn-main-light"
+                                        className="btn btn-home-light"
                                         onClick={prevOnSalePage}
                                         disabled={onSalePage === 0}
                                     >
                                         <i className="bi bi-chevron-left"></i>
                                     </button>
                                     <button
-                                        className="btn btn-main-light"
+                                        className="btn btn-home-light"
                                         onClick={nextOnSalePage}
                                         disabled={onSalePage === onSaleTotalPages - 1}
                                     >
@@ -102,7 +102,7 @@ export default function OnSaleProducts() {
                                         )
                                         .map((sneaker) => (
                                             <div className="col-12 col-md-4" key={sneaker.id}>
-                                                <div className="card sneaker-card h-100 text-center ">
+                                                <div className="card sneaker-card h-100 text-center">
                                                     <Link
                                                         to={`/product/${sneaker.name
                                                             .toLowerCase()
@@ -111,27 +111,26 @@ export default function OnSaleProducts() {
                                                         style={{ display: "block" }}
                                                     >
                                                         <img
-                                                            className="card-img-top img-fluid"
+                                                            className=" img-fluid"
                                                             src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
                                                             alt={sneaker.name}
                                                         />
-                                                        <div className="card-body">
-                                                            <h5 className="card-title">{sneaker.name}</h5>
-                                                            {!sneaker.discounted_price ||
-                                                                parseFloat(sneaker.discounted_price) >=
-                                                                parseFloat(sneaker.price) ? (
-                                                                <p className="text-dark">
+
+                                                        {!sneaker.discounted_price ||
+                                                            parseFloat(sneaker.discounted_price) >=
+                                                            parseFloat(sneaker.price) ? (
+                                                            <p className="price-tag">
+                                                                {parseFloat(sneaker.price).toFixed(2)}$
+                                                            </p>
+                                                        ) : (
+                                                            <p className="price-tag">
+                                                                {parseFloat(sneaker.discounted_price).toFixed(2)}$
+                                                                <span className="text-decoration-line-through text-danger ms-2">
                                                                     {parseFloat(sneaker.price).toFixed(2)}$
-                                                                </p>
-                                                            ) : (
-                                                                <p className="text-danger">
-                                                                    {parseFloat(sneaker.discounted_price).toFixed(2)}$
-                                                                    <span className="text-decoration-line-through text-muted ms-2">
-                                                                        {parseFloat(sneaker.price).toFixed(2)}$
-                                                                    </span>
-                                                                </p>
-                                                            )}
-                                                        </div>
+                                                                </span>
+                                                            </p>
+                                                        )}
+
                                                     </Link>
                                                 </div>
                                             </div>

@@ -141,6 +141,30 @@ a:hover {
 
 /*#endregion */
 /*#region Header*/
+.bg-black {
+  background-color: var(--bs-secondary);
+}
+
+.bg-main-light {
+  background-color: var(--main-light);
+}
+
+.secondary-color {
+  color: var(--main-secondary);
+}
+
+.active-link {
+  font-weight: 600;
+}
+
+.active-filter {
+  background-color: var(--main-light);
+  font-weight: bold;
+}
+
+/*#endregion */
+/*#region Header*/
+
 header {
   width: 100%;
   margin: auto;
@@ -322,6 +346,10 @@ header {
 
 .header-visible {
   transform: translateY(0);
+}
+
+.delete-wish {
+  cursor: pointer;
 }
 
 /*#endregion */
@@ -633,13 +661,20 @@ header {
       justify-content: center;
       align-items: center;
       background-color: #ededed;
-      width: 60px;
-      height: 60px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
+
+      &:hover {
+        border: 2px solid var(--main-light);
+        cursor: pointer;
+      }
 
       .circle-thumb-img {
         width: 90%;
         border-radius: 50%;
+
+
       }
     }
 
@@ -806,7 +841,9 @@ header {
     .custom-page-link {
       border: 1px solid black;
       padding: 0.5rem 0.75rem;
-      border-radius: 5px;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
       color: black;
       background-color: white;
       cursor: pointer;
@@ -824,15 +861,28 @@ header {
       border-color: black;
     }
 
+    .custom-page-item.active .custom-page-link {
+      background-color: var(--main-light);
+      color: white;
+      border-color: black;
+    }
+  }
+
+  .pagination-dropdown {
+    list-style: none !important;
+    cursor: pointer;
+
     .pagination-option {
       cursor: pointer;
 
       &:hover {
         background-color: black;
         color: var(--main-light);
+
       }
     }
   }
+
 }
 
 .all-products .container-fluid {
