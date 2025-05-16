@@ -182,16 +182,14 @@ export default function AllProducts() {
         <>
           <section className="all-products">
             <div>
-              {/* Breadcrumb o frase di ricerca */}
               {filters.search ? (
                 <div
                   className="breadcrumb ms-3 mt-4 mb-2"
-                  style={{ fontSize: "1.1rem", color: "#495057" }}
+                  style={{ fontSize: "1.1rem" }}
                 >
                   <Link
                     to="/"
                     style={{
-                      color: "#3b5378",
                       textDecoration: "none",
                       fontWeight: 500,
                     }}
@@ -202,7 +200,6 @@ export default function AllProducts() {
                   <Link
                     to="/all-products"
                     style={{
-                      color: "#3b5378",
                       textDecoration: "none",
                       fontWeight: 500,
                     }}
@@ -215,12 +212,11 @@ export default function AllProducts() {
               ) : (
                 <div
                   className="breadcrumb ms-3 mt-4 mb-2"
-                  style={{ fontSize: "1.1rem", color: "#495057" }}
+                  style={{ fontSize: "1.1rem" }}
                 >
                   <Link
                     to="/"
                     style={{
-                      color: "#3b5378",
                       textDecoration: "none",
                       fontWeight: 500,
                     }}
@@ -231,7 +227,6 @@ export default function AllProducts() {
                   <Link
                     to="/all-products"
                     style={{
-                      color: "#3b5378",
                       textDecoration: "none",
                       fontWeight: 500,
                     }}
@@ -241,7 +236,7 @@ export default function AllProducts() {
                 </div>
               )}
               <h1
-                className="mt-5 ms-3"
+                className="mt-5 ms-3 all-title"
                 style={{ width: 300 }}
                 onClick={() =>
                   setFilters({ brand: "", size: "", color: "", price: "", tags: "", onsale: false })
