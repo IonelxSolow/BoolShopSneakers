@@ -96,44 +96,42 @@ export default function LatestProducts() {
                   {newestSneakers.result
                     .slice(newestPage * 2, newestPage * 2 + 2)
                     .map((sneaker) => (
-                      <div
-                        className="card sneaker-card-big text-center"
-                        key={sneaker.id}
-                        style={{ width: "100%", minHeight: "370px" }}
-                      >
-                        <Link
-                          to={`/product/${sneaker.name
-                            .toLowerCase()
-                            .replaceAll(" ", "-")}`}
-                          className="text-decoration-none text-dark"
-                        >
-                          <img
-                            className="img-fluid"
-                            src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
-                            alt={sneaker.name}
-                            style={{
-                              objectFit: "cover",
-                              height: "auto",
-                              borderRadius: "1.5rem 1.5rem 0 0",
-                            }}
-                          />
-                          <div className="card-body p-3">
-                            <h5 className="card-title mb-2 fw-bold fs-4">{sneaker.name}</h5>
-                            <p className="card-text mb-0 fw-bold fs-5">
-                              {sneaker.discounted_price &&
-                                parseFloat(sneaker.discounted_price) < parseFloat(sneaker.price) ? (
-                                <>
-                                  <span className="text-danger">{parseFloat(sneaker.discounted_price).toFixed(2)}€</span>
-                                  <span className="text-decoration-line-through text-secondary ms-2">
-                                    {parseFloat(sneaker.price).toFixed(2)}€
-                                  </span>
-                                </>
-                              ) : (
-                                <span>{parseFloat(sneaker.price).toFixed(2)}€</span>
-                              )}
-                            </p>
-                          </div>
-                        </Link>
+                      <div className="col-12 col-md-6" key={sneaker.id}>
+                        <div className="card sneaker-card h-100 text-center">
+                          <Link
+                            to={`/product/${sneaker.name
+                              .toLowerCase()
+                              .replaceAll(" ", "-")}`}
+                            className="text-decoration-none text-dark"
+                            style={{ display: "block" }}
+                          >
+                            <img
+                              className=" img-fluid"
+                              src={`/assets/${
+                                JSON.parse(sneaker.image_urls)[0]
+                              }`}
+                              alt={sneaker.name}
+                            />
+
+                            {!sneaker.discounted_price ||
+                            parseFloat(sneaker.discounted_price) >=
+                              parseFloat(sneaker.price) ? (
+                              <p className="price-tag">
+                                {parseFloat(sneaker.price).toFixed(2)}&euro;
+                              </p>
+                            ) : (
+                              <p className="price-tag">
+                                {parseFloat(sneaker.discounted_price).toFixed(
+                                  2
+                                )}
+                                &euro;
+                                <span className="text-decoration-line-through text-danger ms-2">
+                                  {parseFloat(sneaker.price).toFixed(2)}&euro;
+                                </span>
+                              </p>
+                            )}
+                          </Link>
+                        </div>
                       </div>
                     ))}
                 </div>
@@ -142,38 +140,37 @@ export default function LatestProducts() {
               <div className="list-group">
                 {newestSneakers.result.map((sneaker) => (
                   <Link
-                    className="list-card m-auto"
+                    className="list-group-item mb-3"
                     key={sneaker.id}
                     to={`/product/${sneaker.name
                       .toLowerCase()
                       .replaceAll(" ", "-")}`}
                   >
-                    <img
-                      src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
-                      className="img-fluid"
-                      alt="Sneaker"
-                    />
-                    <div className="listcard-content">
-                      <h2 className="listcard-title">{sneaker.name}</h2>
-                      <div className="price-section">
+                    <div className="d-flex flex-column flex-md-row">
+                      <img
+                        src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
+                        alt="Sneaker"
+                        width="100%"
+                        className="me-md-3 mb-3 mb-md-0"
+                        style={{ maxWidth: "150px" }}
+                      />
+                      <div>
+                        <h4 className="mb-2">{sneaker.name}</h4>
+                        <p>{sneaker.description}</p>
                         {!sneaker.discounted_price ||
-                          parseFloat(sneaker.discounted_price) >=
+                        parseFloat(sneaker.discounted_price) >=
                           parseFloat(sneaker.price) ? (
-                          <span className="text-dark">
-                            {sneaker.price}&euro;
-                          </span>
+                          <p className="mb-0">Price: {sneaker.price}&euro;</p>
                         ) : (
                           <>
-                            <span className="original-price">
-                              {sneaker.price}&euro;
-                            </span>
-                            <span className="discount-price">
+                            <p className="mb-0">Price: {sneaker.price}&euro;</p>
+                            <p>
+                              Discounted:{" "}
                               {parseFloat(sneaker.discounted_price).toFixed(2)}
                               &euro;
-                            </span>
+                            </p>
                           </>
                         )}
-                        <p className="description">{sneaker.description}</p>
                       </div>
                     </div>
                   </Link>
