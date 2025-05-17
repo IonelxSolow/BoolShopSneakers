@@ -195,6 +195,7 @@ export default function AllProducts() {
                 >
                   <Link
                     to="/"
+                    className="text-decoration-underline"
                     style={{
                       textDecoration: "none",
                       fontWeight: 500,
@@ -222,6 +223,7 @@ export default function AllProducts() {
                 >
                   <Link
                     to="/"
+                    className="text-decoration-underline"
                     style={{
                       textDecoration: "none",
                       fontWeight: 500,
@@ -230,15 +232,13 @@ export default function AllProducts() {
                     Home
                   </Link>
                   {" / "}
-                  <Link
-                    to="/all-products"
+                  <span
                     style={{
-                      textDecoration: "none",
                       fontWeight: 500,
                     }}
                   >
                     Prodotti
-                  </Link>
+                  </span>
                 </div>
               )}
               <h1
@@ -261,7 +261,7 @@ export default function AllProducts() {
               <div className="d-flex align-items-center justify-content-between pe-5">
                 <div
                   onClick={() => setIsHidden((prev) => !prev)}
-                  className="ms-3 mt-3 filter-toggle"
+                  className="ms-3 mt-3 filter-toggle text-decoration-underline"
                 >
                   {isHidden ? "Show Filters" : "Hide Filters"}
                 </div>
