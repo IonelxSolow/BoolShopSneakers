@@ -33,7 +33,7 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
   const handleFilterChange = (key, value) => {
     setFilters((prev) => {
       const newValue = prev[key] === value ? "" : value;
-      console.log(newValue);
+
       const updated = {
         ...prev,
         [key]: newValue,
@@ -76,7 +76,6 @@ export default function ToolBar({ filters, setFilters, isHidden }) {
       tags: "",
       onsale: false,
     });
-    console.log("clicked");
   }
 
   return (
