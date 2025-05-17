@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
+import { API_URL } from "../config";
 import ToolBar from "../components/all_products_components/ToolBar";
 import ProductDisplayer from "../components/all_products_components/ProductDisplayer";
 import Pagination from "../components/all_products_components/Pagination";
@@ -68,7 +69,7 @@ export default function AllProducts() {
   useEffect(() => {
     let url;
     const query = buildQueryString(filters);
-    url = `http://localhost:3000/boolshop/api/v1/shoes/search?${query}`;
+    url = `${API_URL}/boolshop/api/v1/shoes/search?${query}`;
 
     fetch(url)
       .then((res) => res.json())
@@ -88,7 +89,7 @@ export default function AllProducts() {
         console.error("Failed to fetch sneakers:", err);
         setFilteredSneakers({
           state: "error",
-          message: err,
+          message: err.message || "Errore sconosciuto",
         });
       });
   }, [filters]);

@@ -8,6 +8,7 @@ import Thumbnails from "../components/single_page_components/Thumbnails.Jsx";
 import Carousel from "../components/single_page_components/Carousel";
 import DetailSection from "../components/single_page_components/DetailSection";
 import { useWishlist } from "../context/WhishlistContext";
+import { API_URL } from "../config";
 
 export default function SingleProduct() {
   const { sneakers } = useGlobalContext();
@@ -44,7 +45,7 @@ export default function SingleProduct() {
 
   // fetches the single sneaker with the dynamic id taken from the page url
   function fetchSneaker() {
-    fetch(`http://localhost:3000/boolshop/api/v1/shoes/${productId.id}`)
+    fetch(`${API_URL}/boolshop/api/v1/shoes/${productId.id}`)
       .then((res) => res.json())
       .then((data) => {
         setProduct({
@@ -55,7 +56,7 @@ export default function SingleProduct() {
       .catch((err) => {
         setProduct({
           state: "error",
-          message: err.message,
+          message: err.message || "Errore sconosciuto",
         });
         console.error(err);
       });
@@ -79,7 +80,7 @@ export default function SingleProduct() {
   useEffect(() => {
     if (product.state === "success") {
       fetch(
-        `http://localhost:3000/boolshop/api/v1/shoes/search/?tags=${product.result.tags}`
+        `${API_URL}/boolshop/api/v1/shoes/search/?tags=${product.result.tags}`
       )
         .then((res) => res.json())
         .then((data) => {
