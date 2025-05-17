@@ -20,11 +20,17 @@ export default function DetailSection({
   const [showToast, setShowToast] = useState(false);
   const [showToastWish, setShowToastWish] = useState(false);
   const [showErrorToast, setShowErrorToast] = useState(false);
-  const [isWishlist, setIsWishlist] = useState(null);
-  const { removeFromWishlist } = useWishlist();
+  const { wishlist, removeFromWishlist } = useWishlist();
 
   const mainSku = product.result.variant_sku.split(",")[0];
   const variantSku = product.result.variant_sku.split(",")[1];
+
+  // Check if the current product variant is in the wishlist
+  const isInWishlist = wishlist.some(
+    (item) => item.sku === (variant === 0 
+      ? product.result.variant_sku.split(",")[0]
+      : product.result.variant_sku.split(",")[1])
+  );
 
   function handleAddToCart() {
     if (activeIndex === null || activeIndex === undefined) {
@@ -38,14 +44,12 @@ export default function DetailSection({
   }
 
   function handleAddToWishList(sku) {
-    if (isWishlist) {
-      setIsWishlist(false);
+    if (isInWishlist) {
       removeFromWishlist(sku);
     } else {
       addToWishList();
-      setIsWishlist(true);
       setShowToastWish(true);
-      setTimeout(() => setShowToastWish(false), 5000);
+      setTimeout(() => setShowToastWish(false), 4000);
     }
   }
 
@@ -61,9 +65,7 @@ export default function DetailSection({
     });
 
     if (wishItem) {
-      setIsWishlist(true);
-    } else {
-      setIsWishlist(false);
+      handleAddToWishList(variant === 0 ? mainSku : variantSku);
     }
   }, [product.result, variant]);
 
@@ -81,11 +83,7 @@ export default function DetailSection({
                 handleAddToWishList(variant === 0 ? mainSku : variantSku);
               }}
             >
-              {isWishlist ? (
-                <i className="bi bi-heart-fill text-danger"></i>
-              ) : (
-                <i className="bi bi-heart"></i>
-              )}
+              <i className={`bi ${isInWishlist ? "bi-heart-fill text-danger" : "bi-heart"}`}></i>
             </button>
           </div>
 
@@ -231,44 +229,6 @@ export default function DetailSection({
               </span>
             </div>
           )}
-          {showToastWish && (
-            <div
-              style={{
-                position: "fixed",
-                bottom: 40,
-                right: 40,
-                background: "#fff",
-                borderRadius: 12,
-                boxShadow: "0 2px 16px rgba(0,0,0,0.12)",
-                padding: "24px 32px",
-                display: "flex",
-                alignItems: "center",
-                zIndex: 9999,
-                minWidth: 320,
-                border: "1px solid #e0e0e0",
-              }}
-            >
-              <span
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 32,
-                  height: 32,
-                  background: "#4caf50",
-                  borderRadius: "50%",
-                  color: "#fff",
-                  fontSize: 20,
-                  marginRight: 16,
-                }}
-              >
-                ✓
-              </span>
-              <span style={{ fontSize: 22, color: "#757575" }}>
-                Prodotto aggiunto alla wishlist!
-              </span>
-            </div>
-          )}
           {showErrorToast && (
             <div
               style={{
@@ -304,6 +264,44 @@ export default function DetailSection({
               </span>
               <span style={{ fontSize: 22, color: "#e53935" }}>
                 Seleziona una taglia
+              </span>
+            </div>
+          )}
+          {showToastWish && (
+            <div
+              style={{
+                position: "fixed",
+                bottom: 40,
+                right: 40,
+                background: "#fff",
+                borderRadius: 12,
+                boxShadow: "0 2px 16px rgba(0,0,0,0.12)",
+                padding: "24px 32px",
+                display: "flex",
+                alignItems: "center",
+                zIndex: 9999,
+                minWidth: 320,
+                border: "1px solid #e0e0e0",
+              }}
+            >
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 32,
+                  height: 32,
+                  background: "#e53935",
+                  borderRadius: "50%",
+                  color: "#fff",
+                  fontSize: 20,
+                  marginRight: 16,
+                }}
+              >
+                <i className="bi bi-heart-fill"></i>
+              </span>
+              <span style={{ fontSize: 22, color: "#757575" }}>
+                Prodotto aggiunto alla wishlist!
               </span>
             </div>
           )}

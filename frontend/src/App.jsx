@@ -12,13 +12,15 @@ import WishlistPage from "./pages/WhishlistPage";
 import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import OrderDetails from "./pages/OrderDetails";
+import OrderStatus from "./pages/OrderStatus";
+import ShippingDelivery from "./pages/ShippingDelivery";
+import Returns from "./pages/Returns";
 import NotFound from "./pages/NotFound";
 import { WishlistProvider } from "./context/WhishlistContext";
 import PopUp from "./components/layout-components/PopUp";
 
 export default function App() {
   return (
-
     <GlobalProvider>
       <SearchProvider>
         <WishlistProvider>
@@ -41,6 +43,9 @@ export default function App() {
                     path="/account/orders/:orderId"
                     element={<OrderDetails />}
                   />
+                  <Route path="/order-status" element={<OrderStatus />} />
+                  <Route path="/shipping-delivery" element={<ShippingDelivery />} />
+                  <Route path="/returns" element={<Returns />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
               </Routes>
