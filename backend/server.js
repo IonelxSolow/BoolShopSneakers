@@ -2,7 +2,9 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const port = 3000
+require('dotenv').config()
+
+const port = process.env.PORT || 3000
 const serverError = require('./middlewares/serverError')
 const notFound = require('./middlewares/notFound')
 const shoesRouter = require('./routers/shoesRouter')
@@ -19,17 +21,14 @@ app.listen(port, () => {
 //👉🏻 Middlewares
 
 // cors middleware
-
 app.use(cors({
-  origin: 'http://localhost:5173'
+  origin: [process.env.LOCAL_FRONTEND_URL, process.env.FRONTEND_URL]
 }))
 
 // body parser middleware
-
 app.use(express.json())
 
 // static assets middleware
-
 app.use(express.static('public'))
 
 

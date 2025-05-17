@@ -1,10 +1,15 @@
 import { useGlobalContext } from "../../context/GlobalContext";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { API_URL } from "../../config";
+
 export default function MostPopular() {
   const { sneakers } = useGlobalContext();
 
   const [counter, setCounter] = useState(1); // Convert to state
+  const [popularSneakers, setPopularSneakers] = useState({
+    state: "loading",
+  });
 
   useEffect(() => {
     setInterval(() => {
@@ -18,6 +23,24 @@ export default function MostPopular() {
     }, 200);
   }, []);
 
+  useEffect(() => {
+    fetch(`${API_URL}/boolshop/api/v1/shoes/popular`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPopularSneakers({
+          state: "success",
+          result: data,
+        });
+      })
+      .catch((err) => {
+        setPopularSneakers({
+          state: "error",
+          message: err.message,
+        });
+        console.error(err);
+      });
+  }, []);
+
   switch (sneakers.state) {
     case "loading":
       return (
@@ -26,8 +49,8 @@ export default function MostPopular() {
     case "error":
       return (
         <>
-          <h1>Error loading product</h1>
-          <p>{product.message}</p>
+          <h1>Error loading products</h1>
+          <p>{sneakers.message}</p>
         </>
       );
     case "success":

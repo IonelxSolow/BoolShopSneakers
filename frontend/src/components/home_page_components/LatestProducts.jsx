@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../config";
 
 export default function LatestProducts() {
   const [newestSneakers, setNewestSneakers] = useState({
     state: "loading",
   });
   useEffect(() => {
-    fetch("http://localhost:3000/boolshop/api/v1/shoes/new")
+    fetch(`${API_URL}/boolshop/api/v1/shoes/new`)
       .then((res) => res.json())
       .then((data) => {
         setNewestSneakers({
@@ -19,7 +20,7 @@ export default function LatestProducts() {
           state: "error",
           message: err.message,
         });
-        console.error;
+        console.error(err);
       });
   }, []);
   //grid display logic
@@ -36,8 +37,8 @@ export default function LatestProducts() {
     case "error":
       return (
         <>
-          <h1>Error loading product</h1>
-          <p>{product.message}</p>
+          <h1>Error loading products</h1>
+          <p>{newestSneakers.message}</p>
         </>
       );
     case "success":
