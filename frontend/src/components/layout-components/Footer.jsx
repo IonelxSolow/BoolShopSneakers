@@ -1,49 +1,50 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function Footer() {
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [subscribeStatus, setSubscribeStatus] = useState('idle'); // idle, loading, success
-  
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [subscribeStatus, setSubscribeStatus] = useState("idle"); // idle, loading, success
+
   const validateEmail = (email) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    setEmailError('');
+    setEmailError("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Reset error state
-    setEmailError('');
-    
+    setEmailError("");
+
     // Validate email
     if (!email.trim()) {
-      setEmailError('Please enter your email');
+      setEmailError("Please enter your email");
       return;
     }
-    
+
     if (!validateEmail(email)) {
-      setEmailError('Please enter a valid email address');
+      setEmailError("Please enter a valid email address");
       return;
     }
-    
+
     // Simulate API call
-    setSubscribeStatus('loading');
-    
+    setSubscribeStatus("loading");
+
     // Fake successful subscription after 1 second
     setTimeout(() => {
-      setSubscribeStatus('success');
-      
+      setSubscribeStatus("success");
+
       // Reset form after 3 seconds
       setTimeout(() => {
-        setEmail('');
-        setSubscribeStatus('idle');
+        setEmail("");
+        setSubscribeStatus("idle");
       }, 3000);
     }, 1000);
   };
@@ -51,7 +52,7 @@ export default function Footer() {
   return (
     <>
       <footer>
-        <div className="foot-bar bg-whitesmoke mt-4 bg-main-light">
+        <div className="foot-bar bg-whitesmoke  bg-main-light">
           <div className="container py-3">
             <div className="row row-cols-1 row-cols-md-2 align-items-center g-3">
               <div className="col text-center text-md-start">
@@ -59,20 +60,30 @@ export default function Footer() {
                   JOIN OUR KICKSOCIETY <br /> CLUB & GET 15% OFF
                 </h1>
                 <span>Sign up for free! Join the community!</span>
-                <form onSubmit={handleSubmit} className="d-flex flex-column flex-sm-row gap-3 mt-3">
+                <form
+                  onSubmit={handleSubmit}
+                  className="d-flex flex-column flex-sm-row gap-3 mt-3"
+                >
                   <div className="flex-grow-1">
                     <input
                       type="email"
-                      className={`form-control ${emailError ? 'is-invalid' : ''}`}
+                      className={`form-control ${
+                        emailError ? "is-invalid" : ""
+                      }`}
                       placeholder="Enter your email"
                       aria-label="Email signup"
                       value={email}
                       onChange={handleEmailChange}
-                      disabled={subscribeStatus === 'loading' || subscribeStatus === 'success'}
+                      disabled={
+                        subscribeStatus === "loading" ||
+                        subscribeStatus === "success"
+                      }
                     />
-                    {emailError && <div className="invalid-feedback">{emailError}</div>}
+                    {emailError && (
+                      <div className="invalid-feedback">{emailError}</div>
+                    )}
                   </div>
-                  {subscribeStatus === 'success' ? (
+                  {subscribeStatus === "success" ? (
                     <button
                       type="button"
                       className="btn bg-success text-white fw-bold px-4"
@@ -85,14 +96,20 @@ export default function Footer() {
                     <button
                       type="submit"
                       className="btn bg-black text-white fw-bold px-4"
-                      disabled={subscribeStatus === 'loading'}
+                      disabled={subscribeStatus === "loading"}
                     >
-                      {subscribeStatus === 'loading' ? (
+                      {subscribeStatus === "loading" ? (
                         <>
-                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                          <span
+                            className="spinner-border spinner-border-sm me-2"
+                            role="status"
+                            aria-hidden="true"
+                          ></span>
                           Submitting...
                         </>
-                      ) : 'Submit'}
+                      ) : (
+                        "Submit"
+                      )}
                     </button>
                   )}
                 </form>

@@ -456,14 +456,12 @@ header {
   overflow: hidden;
 }
 
-
 .popular-card img {
   width: 100%;
   height: auto;
   display: block;
   object-fit: cover;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
-
 }
 
 .text-outline {
@@ -498,7 +496,6 @@ header {
 .hot-item {
   .slider360 {
     padding: 0;
-
   }
 
   .show-tag {
@@ -1029,7 +1026,7 @@ nav {
   a {
     text-decoration: none;
     position: relative;
-    padding: 5px 10px 0px 10px;
+    padding: 0.12rem;
     transition: all 0.3s ease;
   }
 

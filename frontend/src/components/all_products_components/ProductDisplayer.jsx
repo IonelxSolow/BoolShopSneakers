@@ -121,11 +121,18 @@ export default function ProductDisplayer({
                                         <span className="badge bg-light text-dark">
                                             {sneaker.color}
                                         </span>
-                                        <span className="badge bg-light text-dark">
-                                            {Array.isArray(sneaker.variants) && sneaker.variants[0] && Array.isArray(JSON.parse(sneaker.variants[0].size))
-                                                ? JSON.parse(sneaker.variants[0].size).length + ' sizes'
-                                                : 'N/A'}
-                                        </span>
+                                        {Array.isArray(sneaker.variants) && sneaker.variants[0] && sneaker.variants[0].size ? (
+                                            (() => {
+                                                try {
+                                                    const sizes = JSON.parse(sneaker.variants[0].size);
+                                                    return Array.isArray(sizes) && sizes.length > 0
+                                                        ? <span className="badge bg-light text-dark">{sizes.length} sizes</span>
+                                                        : null;
+                                                } catch {
+                                                    return null;
+                                                }
+                                            })()
+                                        ) : null}
                                     </div>
                                 </div>
                             </Link>

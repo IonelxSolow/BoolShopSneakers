@@ -70,16 +70,26 @@ export default function LatestProducts() {
                 <div className="col-12 col-md-12 col-lg-4 d-flex flex-column justify-content-between">
                   <div className="superbold-title mb-5">
                     <span className="d-block newest-superbold">NEWEST</span>
-                    <span className="d-block newest-superbold ps-3" style={{ fontSize: "8rem", color: "var(--main-secondary)" }}>
+                    <span
+                      className="d-block newest-superbold ps-3"
+                      style={{
+                        fontSize: "8rem",
+                        color: "var(--main-secondary)",
+                      }}
+                    >
                       DROPS
                     </span>
 
-                    <p className="mt-5 item-description fs-5 text-secondary" style={{ fontSize: "1.5rem" }}>
-                      Discover our latest sneaker additions, freshly arrived and ready to elevate your style.
-                      Explore exclusive models and limited editions, all at unbelievable prices.
-                      Don't miss the chance to be among the first to grab the newest trends in footwear!
+                    <p
+                      className="mt-5 item-description fs-5 text-secondary"
+                      style={{ fontSize: "1.5rem" }}
+                    >
+                      Discover our latest sneaker additions, freshly arrived and
+                      ready to elevate your style. Explore exclusive models and
+                      limited editions, all at unbelievable prices. Don't miss
+                      the chance to be among the first to grab the newest trends
+                      in footwear!
                     </p>
-
                   </div>
                   <div className="carousel-controls-horizontal d-none d-lg-flex flex-row gap-3 mt-4">
                     <button
@@ -108,21 +118,28 @@ export default function LatestProducts() {
                       <div className="col-12 col-md-12 ps-3" key={sneaker.id}>
                         <div className="card sneaker-card text-center h-100 d-flex flex-column">
                           <Link
-                            to={`/product/${sneaker.name.toLowerCase().replaceAll(" ", "-")}`}
+                            to={`/product/${sneaker.name
+                              .toLowerCase()
+                              .replaceAll(" ", "-")}`}
                             className="text-decoration-none text-dark d-flex flex-column h-100"
                             style={{ display: "block" }}
                           >
-                            <div className="sneaker-img-wrapper flex-grow-1 d-flex align-items-center justify-content-center" style={{ backgroundColor: "#ededed"}}>
+                            <div
+                              className="sneaker-img-wrapper flex-grow-1 d-flex align-items-center justify-content-center"
+                              style={{ backgroundColor: "#ededed" }}
+                            >
                               <img
                                 className="img-fluid w-100 h-100"
                                 style={{ objectFit: "content" }}
-                                src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
+                                src={`/assets/${
+                                  JSON.parse(sneaker.image_urls)[0]
+                                }`}
                                 alt={sneaker.name}
                               />
                             </div>
 
                             {!sneaker.discounted_price ||
-                              parseFloat(sneaker.discounted_price) >=
+                            parseFloat(sneaker.discounted_price) >=
                               parseFloat(sneaker.price) ? (
                               <p className="price-tag">
                                 {parseFloat(sneaker.price).toFixed(2)}&euro;
@@ -185,7 +202,7 @@ export default function LatestProducts() {
                         <h4 className="mb-2">{sneaker.name}</h4>
                         <p>{sneaker.description}</p>
                         {!sneaker.discounted_price ||
-                          parseFloat(sneaker.discounted_price) >=
+                        parseFloat(sneaker.discounted_price) >=
                           parseFloat(sneaker.price) ? (
                           <p className="mb-0">Price: {sneaker.price}&euro;</p>
                         ) : (

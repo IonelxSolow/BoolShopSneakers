@@ -76,38 +76,59 @@ export default function MostPopular() {
               fill="currentColor"
             ></path>
           </svg> */}
-          <div className="py-5" style={{ backgroundColor: "var(--bs-secondary)" }}>
+          <div
+            className="py-5"
+            style={{ backgroundColor: "var(--bs-secondary)" }}
+          >
             <section className=" p-0 container hot-item my-3">
               <div className="row gap-3 d-flex justify-content-between align-items-center">
                 <div className="item-description text-start  col-12 col-lg-4 order-lg-2">
                   <div className="superbold-title mb-5">
-                    <span className="d-block newest-superbold" style={{ fontSize: "8rem", color: "var(--main-light)" }}>HOT</span>
-                    <span className="d-block newest-superbold ps-3 text-light text-outline">ITEMS</span>
+                    <span
+                      className="d-block newest-superbold"
+                      style={{ fontSize: "8rem", color: "var(--main-light)" }}
+                    >
+                      HOT
+                    </span>
+                    <span className="d-block newest-superbold ps-3 text-light text-outline">
+                      ITEMS
+                    </span>
                   </div>
                   <div>
-                    <p className="item-brand fs-3 fw-bold text-light">{mostSoldSneaker.brand}</p>
+                    <p className="item-brand fs-3 fw-bold text-light">
+                      {mostSoldSneaker.brand}
+                    </p>
                     <div className="d-flex align-items-center justify-content-between mb-1">
-                      <p className="item-title fs-4 fst-italic m-0 text-light">#1 {mostSoldSneaker.name}</p>
+                      <p className="item-title fs-4 fst-italic m-0 text-light">
+                        #1 {mostSoldSneaker.name}
+                      </p>
                       <div className="d-flex align-items-center justify-content-between">
-                        <p className="item-price mb-0 fw-bold fs-3" style={{ color: "var(--main-light)" }}>{mostSoldSneaker.price}&euro;</p>
+                        <p
+                          className="item-price mb-0 fw-bold fs-3"
+                          style={{ color: "var(--main-light)" }}
+                        >
+                          {mostSoldSneaker.price}&euro;
+                        </p>
                         <Link
                           className="show-tag ms-3"
-                          to={"/product/air-force-1"}>SHOP NOW
+                          to={"/product/air-force-1"}
+                        >
+                          SHOP NOW
                         </Link>
                       </div>
                     </div>
                     <p className="item-description fs-5 text-secondary pe-4">
-                      Timeless Style. Everyday Comfort.
-                      Step into a legend with the Nike Air Force 1 Low  an icon that blends classic basketball heritage with modern streetwear appeal.
+                      Timeless Style. Everyday Comfort. Step into a legend with
+                      the Nike Air Force 1 Low an icon that blends classic
+                      basketball heritage with modern streetwear appeal.
                     </p>
-
-
                   </div>
                 </div>
                 <Link
                   className="slider360 text-center position-relative col-12 col-lg-7 order-lg-1 ps-3"
-                  to={"/product/air-force-1"}>
-                  < img
+                  to={"/product/air-force-1"}
+                >
+                  <img
                     className="image360 img-fluid rounded-3"
                     src={
                       counter < 10
@@ -117,7 +138,6 @@ export default function MostPopular() {
                     alt=""
                   />
                 </Link>
-
               </div>
               {/* <svg
               className="wave-1hkxOo"
@@ -132,7 +152,7 @@ export default function MostPopular() {
                 fill="white"
               ></path>
             </svg> */}
-            </section >
+            </section>
           </div>
         </>
       );
