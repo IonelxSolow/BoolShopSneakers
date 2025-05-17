@@ -195,7 +195,7 @@ export default function Footer() {
                     <ul className="text-white">
                       <li>
                         <Link
-                          to="#"
+                          to="/order-status"
                           className="text-white text-decoration-none text-nowrap"
                         >
                           Order Status
@@ -203,7 +203,7 @@ export default function Footer() {
                       </li>
                       <li>
                         <Link
-                          to="#"
+                          to="/shipping-delivery"
                           className="text-white text-decoration-none text-nowrap"
                         >
                           Shipping & Delivery
@@ -211,7 +211,7 @@ export default function Footer() {
                       </li>
                       <li>
                         <Link
-                          to="#"
+                          to="/returns"
                           className="text-white text-decoration-none"
                         >
                           Returns

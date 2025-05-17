@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { API_URL } from "../config";
 
 const GlobalContext = createContext();
 
@@ -8,7 +9,7 @@ const GlobalProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:3000/boolshop/api/v1/shoes")
+    fetch(`${API_URL}/boolshop/api/v1/shoes`)
       .then((res) => res.json())
       .then((data) => {
         setSneakers({
@@ -21,7 +22,7 @@ const GlobalProvider = ({ children }) => {
           state: "error",
           message: err.message,
         });
-        console.error;
+        console.error(err);
       });
   }, []);
 
@@ -30,7 +31,7 @@ const GlobalProvider = ({ children }) => {
   });
 
   function fetchBrand(brand) {
-    fetch(`http://localhost:3000/boolshop/api/v1/shoes/brand/${brand}`)
+    fetch(`${API_URL}/boolshop/api/v1/shoes/brand/${brand}`)
       .then((res) => res.json())
       .then((data) => {
         setSneakersBrand({
@@ -43,7 +44,7 @@ const GlobalProvider = ({ children }) => {
           state: "error",
           message: err.message,
         });
-        console.error;
+        console.error(err);
       });
   }
 

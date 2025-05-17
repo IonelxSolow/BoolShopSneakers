@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../config";
 
 export default function LatestProducts() {
   const [newestSneakers, setNewestSneakers] = useState({
     state: "loading",
   });
   useEffect(() => {
-    fetch("http://localhost:3000/boolshop/api/v1/shoes/new")
+    fetch(`${API_URL}/boolshop/api/v1/shoes/new`)
       .then((res) => res.json())
       .then((data) => {
         setNewestSneakers({
@@ -19,7 +20,7 @@ export default function LatestProducts() {
           state: "error",
           message: err.message,
         });
-        console.error;
+        console.error(err);
       });
   }, []);
   //grid display logic
@@ -36,8 +37,8 @@ export default function LatestProducts() {
     case "error":
       return (
         <>
-          <h1>Error loading product</h1>
-          <p>{product.message}</p>
+          <h1>Error loading products</h1>
+          <p>{newestSneakers.message}</p>
         </>
       );
     case "success":
@@ -66,21 +67,21 @@ export default function LatestProducts() {
             {isNewestGrid ? (
               <div className="row align-items-stretch">
                 {/* Sinistra: Titolo e frecce */}
-                <div className="col-12 col-md-3 d-flex flex-column justify-content-between">
+                <div className="col-12 col-md-12 col-lg-4 d-flex flex-column justify-content-between">
                   <div className="superbold-title mb-5">
                     <span className="d-block newest-superbold">NEWEST</span>
                     <span className="d-block newest-superbold ps-3" style={{ fontSize: "8rem", color: "var(--main-secondary)" }}>
                       DROPS
                     </span>
 
-                    <p className="mt-5 text-secondary" style={{ fontSize: "1.5rem" }}>
+                    <p className="mt-5 item-description fs-5 text-secondary" style={{ fontSize: "1.5rem" }}>
                       Discover our latest sneaker additions, freshly arrived and ready to elevate your style.
                       Explore exclusive models and limited editions, all at unbelievable prices.
                       Don't miss the chance to be among the first to grab the newest trends in footwear!
                     </p>
 
                   </div>
-                  <div className="carousel-controls-horizontal d-flex flex-row gap-3 mt-4">
+                  <div className="carousel-controls-horizontal d-none d-lg-flex flex-row gap-3 mt-4">
                     <button
                       className="carousel-btn-custom d-flex align-items-center justify-content-center"
                       onClick={prevNewestPage}
@@ -100,7 +101,7 @@ export default function LatestProducts() {
                   </div>
                 </div>
                 {/* Destra: Prodotti */}
-                <div className="col-12 col-md-8 ms-auto d-flex justify-content-between p-0">
+                <div className="col-12 col-md-12 col-lg-7 ms-auto d-flex justify-content-between p-0">
                   {newestSneakers.result
                     .slice(newestPage, newestPage + itemsPerPage)
                     .map((sneaker) => (
@@ -111,10 +112,10 @@ export default function LatestProducts() {
                             className="text-decoration-none text-dark d-flex flex-column h-100"
                             style={{ display: "block" }}
                           >
-                            <div className="sneaker-img-wrapper flex-grow-1 d-flex align-items-stretch justify-content-center" style={{ minHeight: 0 }}>
+                            <div className="sneaker-img-wrapper flex-grow-1 d-flex align-items-center justify-content-center" style={{ backgroundColor: "#ededed"}}>
                               <img
                                 className="img-fluid w-100 h-100"
-                                style={{ objectFit: "cover" }}
+                                style={{ objectFit: "content" }}
                                 src={`/assets/${JSON.parse(sneaker.image_urls)[0]}`}
                                 alt={sneaker.name}
                               />
@@ -138,6 +139,25 @@ export default function LatestProducts() {
                               </p>
                             )}
                           </Link>
+                        </div>
+                        {/* Bottoni sotto la card solo su mobile/tablet */}
+                        <div className="d-flex justify-content-center gap-3 mt-3 d-lg-none">
+                          <button
+                            className="carousel-btn-custom d-flex align-items-center justify-content-center"
+                            onClick={prevNewestPage}
+                            disabled={newestPage === 0}
+                            aria-label="Precedente"
+                          >
+                            <i className="bi bi-chevron-left d-flex"></i>
+                          </button>
+                          <button
+                            className="carousel-btn-custom d-flex align-items-center justify-content-center"
+                            onClick={nextNewestPage}
+                            disabled={newestPage === newestTotalPages - 1}
+                            aria-label="Successivo"
+                          >
+                            <i className="bi bi-chevron-right d-flex"></i>
+                          </button>
                         </div>
                       </div>
                     ))}

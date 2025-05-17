@@ -91,7 +91,7 @@ export default function Hero() {
 						</li>
 					</ul>
 				</div>
-				<div className="mb-4 bg-light hero-container position-relative">
+				<div className="bg-light hero-container position-relative">
 					<div className="container position-absolute bottom-0 start-50 translate-middle-x text-end mb-5">
 						<Link
 							className="btn btn-lg btn-nike rounded-4"

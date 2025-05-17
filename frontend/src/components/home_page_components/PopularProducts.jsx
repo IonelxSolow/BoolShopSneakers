@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../config";
 
 export default function PopularProducts() {
   const [popularSneakers, setPopularSneakers] = useState({
     state: "loading",
   });
   useEffect(() => {
-    fetch("http://localhost:3000/boolshop/api/v1/shoes/popular")
+    fetch(`${API_URL}/boolshop/api/v1/shoes/popular`)
       .then((res) => res.json())
       .then((data) => {
         setPopularSneakers({
