@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../config";
 
 export default function OnSaleProducts() {
   const [onSaleSneakers, setOnSaleSneakers] = useState({
     state: "loading",
   });
   useEffect(() => {
-    fetch("http://localhost:3000/boolshop/api/v1/shoes/sale")
+    fetch(`${API_URL}/boolshop/api/v1/shoes/sale`)
       .then((res) => res.json())
       .then((data) => {
         setOnSaleSneakers({
@@ -35,8 +36,8 @@ export default function OnSaleProducts() {
     case "error":
       return (
         <>
-          <h1>Error loading product</h1>
-          <p>{product.message}</p>
+          <h1>Error loading products</h1>
+          <p>{onSaleSneakers.message}</p>
         </>
       );
     case "success":
