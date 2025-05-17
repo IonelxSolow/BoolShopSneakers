@@ -41,6 +41,8 @@ export default function Cart({ toggleCart, isOpen }) {
                       borderRadius: "20%",
                       overflow: "hidden",
                       flexShrink: 0,
+                      boxShadow: "0 4px 16px 0 rgba(177, 177, 177, 0.15)"
+
                     }}
                   >
                     <img
@@ -55,7 +57,7 @@ export default function Cart({ toggleCart, isOpen }) {
                   </div>
 
                   <div className="d-flex flex-column justify-content-between h-100">
-                  <span style={{maxWidth: "150px"}}>{item.name}</span>
+                    <span style={{ maxWidth: "150px" }}>{item.name}</span>
                     <IncreaseDecrease item={item} />
                   </div>
                 </div>

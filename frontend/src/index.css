@@ -229,7 +229,7 @@ header {
     /* Inizialmente nascosto */
     background-color: var(--bs-bg-primary);
     color: var(--bs-secondary);
-    box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
+    box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     transition: right 0.3s ease;
     z-index: 1050;
@@ -290,7 +290,7 @@ header {
   }
 
   .cart-items::-webkit-scrollbar-thumb {
-    background: var(--main-light);
+    background: var(--bs-secondary);
     border-radius: 3px;
   }
 
