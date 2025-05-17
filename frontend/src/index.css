@@ -172,7 +172,7 @@ header {
     top: 50px;
     left: 0;
     background-color: var(--bs-secondary);
-    color: var(--bs-bg-primary);
+    color: var(--bs-secondary);
     width: 100%;
     padding: 1rem 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -224,11 +224,11 @@ header {
   .cart-content {
     margin: auto;
     position: absolute;
-    top: 70px;
+    top: 75px;
     width: 50vh;
     /* Inizialmente nascosto */
-    background-color: black;
-    color: var(--bs-bg-primary);
+    background-color: var(--bs-bg-primary);
+    color: var(--bs-secondary);
     box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     transition: right 0.3s ease;
@@ -243,8 +243,8 @@ header {
   }
 
   .close-cart {
-    background-color: var(--main-light);
-    color: var(--bs-secondary);
+    background-color: var(--bs-secondary);
+    color: var(--bs-bg-primary);
     border: 1px solid transparent;
     padding: 0.5rem;
     border-radius: 5px;
@@ -259,7 +259,7 @@ header {
   }
 
   .cart-link {
-    color: var(--main-light);
+    color: var(--bs-secondary);
     text-decoration: underline;
 
     &:hover {
@@ -281,6 +281,7 @@ header {
     max-height: 300px;
     overflow-y: auto;
     padding-right: 1rem;
+    color: var(--bs-secondary);
   }
 
   /* Personalizza la scrollbar */
@@ -303,7 +304,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background: #212529;
+  background: var(--bs-secondary);
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
   color: white;

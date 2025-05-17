@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import LatestProducts from "../components/home_page_components/LatestProducts";
 import MostPopular from "../components/home_page_components/MostPopular";
+import PopularProducts from "../components/home_page_components/PopularProducts";
 import { useCart } from "../context/CartContext";
 import IncreaseDecrease from "../components/IncreaseDecrease";
 
@@ -8,12 +8,12 @@ export default function CartPage() {
   const { cart, removeItem, total } = useCart();
 
   return (
-    <div className="cart-page my-4">
+    <div className="cart-page my-4 container">
       {/* Carrello */}
       <h1 className="fs-3 fs-md-2 fw-bold">Your Cart</h1>
       {cart.length > 0 ? (
         <div
-          className="cart-items mb-4 container rounded-3 p-4"
+          className="cart-items mb-4 rounded-3 p-4"
           style={{ backgroundColor: "var(--bs-secondary)" }}
         >
           {cart.map((item) => (
@@ -93,10 +93,8 @@ export default function CartPage() {
       )}
 
       {/* Hero Section */}
-      <div className="home-displayer mt-5">
-        <LatestProducts />
-      </div>
       <MostPopular />
+      <PopularProducts />
 
     </div>
   );

@@ -186,7 +186,7 @@ export default function AllProducts() {
     case "success":
       return (
         <>
-          <section className="all-products">
+          <section className="all-products container py-5">
             <div>
               {filters.search ? (
                 <div
