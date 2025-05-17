@@ -1,7 +1,7 @@
 import React from "react";
 const FeaturesSection = () => {
   return (
-    <section className="py-3 mb-5" style={{ backgroundColor: "var(--bs-secondary)" }}>
+    <section className="py-3 mb-5 shadow-lg" style={{ backgroundColor: "var(--bs-secondary)" }}>
       <div className="container">
         <div className="row justify-content-center gy-3">
           <div className="col-6 col-md-6 col-lg-3 text-white">

@@ -498,8 +498,8 @@ header {
   }
 
   .show-tag {
-    background-color: rgba(0, 0, 0, 0.75);
-    color: #fff;
+    background-color: var(--main-light);
+    color: var(--bs-secondary);
     padding: 8px 12px;
     border-radius: 10px;
     font-weight: bold;

@@ -80,7 +80,7 @@ export default function MostPopular() {
             className="py-5"
             style={{ backgroundColor: "var(--bs-secondary)" }}
           >
-            <section className=" p-0 container hot-item my-3">
+            <section className="container hot-item my-3">
               <div className="row gap-3 d-flex justify-content-between align-items-center">
                 <div className="item-description text-start  col-12 col-lg-4 order-lg-2">
                   <div className="superbold-title mb-5">
@@ -98,26 +98,27 @@ export default function MostPopular() {
                     <p className="item-brand fs-3 fw-bold text-light">
                       {mostSoldSneaker.brand}
                     </p>
-                    <div className="d-flex align-items-center justify-content-between mb-1">
-                      <p className="item-title fs-4 fst-italic m-0 text-light">
-                        #1 {mostSoldSneaker.name}
-                      </p>
-                      <div className="d-flex align-items-center justify-content-between">
+                    <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between mb-1">
+                      <div className="d-flex align-items-center">
+                        <p className="item-title fs-4 fst-italic m-0 text-light me-4">
+                          #1 {mostSoldSneaker.name}
+                        </p>
                         <p
                           className="item-price mb-0 fw-bold fs-3"
                           style={{ color: "var(--main-light)" }}
                         >
                           {mostSoldSneaker.price}&euro;
                         </p>
-                        <Link
-                          className="show-tag ms-3"
-                          to={"/product/air-force-1"}
-                        >
-                          SHOP NOW
-                        </Link>
                       </div>
+                      {/* Bottone a destra SOLO su md e xl+ */}
+                      <Link
+                        className="show-tag ms-3 d-none d-md-inline-block d-lg-none d-xl-inline-block"
+                        to={"/product/air-force-1"}
+                      >
+                        SHOP NOW
+                      </Link>
                     </div>
-                    <p className="item-description fs-5 text-secondary pe-4">
+                    <p className="item-description fs-5 text-secondary pe-3">
                       Timeless Style. Everyday Comfort. Step into a legend with
                       the Nike Air Force 1 Low an icon that blends classic
                       basketball heritage with modern streetwear appeal.
@@ -125,7 +126,7 @@ export default function MostPopular() {
                   </div>
                 </div>
                 <Link
-                  className="slider360 text-center position-relative col-12 col-lg-7 order-lg-1 ps-3"
+                  className="slider360 text-center position-relative col-12 col-lg-7 order-lg-1 px-3"
                   to={"/product/air-force-1"}
                 >
                   <img
@@ -137,6 +138,20 @@ export default function MostPopular() {
                     }
                     alt=""
                   />
+                  {/* Mobile: bottone sotto la scarpa */}
+                  <Link
+                    className="show-tag d-block d-md-none text-center mt-3"
+                    to={"/product/air-force-1"}
+                  >
+                    SHOP NOW
+                  </Link>
+                  {/* Solo su lg: bottone sotto la scarpa */}
+                  <Link
+                    className="show-tag d-none d-lg-block d-xl-none text-center mt-3"
+                    to={"/product/air-force-1"}
+                  >
+                    SHOP NOW
+                  </Link>
                 </Link>
               </div>
               {/* <svg
