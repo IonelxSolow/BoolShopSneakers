@@ -42,7 +42,7 @@ export default function OnSaleProducts() {
         <>
           <section className="on-sale-displayer container my-5">
             <div className="row pt-5">
-              <div className="col-12 col-md-6">
+              <div className="col-12 col-lg-6">
                 <div className="superbold-title mb-5 d-flex flex-column align-items-start">
                   <span className="d-block newest-superbold">CHECK THE</span>
                   <span
@@ -59,7 +59,7 @@ export default function OnSaleProducts() {
                     chance to score big on the best in footwear.
                   </p>
                   <Link
-                    className="align-self-end"
+                    className="align-self-start"
                     to={"/all-products?onsale=true"}
                   >
                     <button className="btn btn-main-light p-3 mt-5">
@@ -68,7 +68,7 @@ export default function OnSaleProducts() {
                   </Link>
                 </div>
               </div>
-              <div className="col-6">
+              <div className="col-12 col-lg-6">
                 <Link to={"/all-products?onsale=true"}>
                   <img className="img-fluid" src="./sale.jpg" alt="" />
                 </Link>
