@@ -24,7 +24,7 @@ export default function AllProducts() {
     state: "loading",
   });
   //variable to handle tool-bar toggle
-  const [isHidden, setIsHidden] = useState(false);
+  const [isHidden, setIsHidden] = useState(true);
   //variable to handle sorting toggle
   const [isSortedOpen, setIsSortedOpen] = useState(false);
   // Utility: convert filters to query string using the params in the url
@@ -97,7 +97,7 @@ export default function AllProducts() {
   const [isGrid, setIsGrid] = useState(true);
   //display switcher
   function switchDisplay() {
-    setIsGrid(!isGrid)
+    setIsGrid(!isGrid);
   }
   //sorting
   const [sortConfig, setSortConfig] = useState({ key: "", direction: "" });
@@ -245,7 +245,14 @@ export default function AllProducts() {
                 className="mt-5 ms-3 all-title"
                 style={{ width: 300 }}
                 onClick={() =>
-                  setFilters({ brand: "", size: "", color: "", price: "", tags: "", onsale: false })
+                  setFilters({
+                    brand: "",
+                    size: "",
+                    color: "",
+                    price: "",
+                    tags: "",
+                    onsale: false,
+                  })
                 }
               >
                 All Sneakers
@@ -334,16 +341,18 @@ export default function AllProducts() {
             </div>
 
             <div className="container-fluid">
-              <ToolBar
-                filters={filters}
-                setFilters={setFilters}
-                isHidden={isHidden}
-              />
-              <ProductDisplayer
-                currentItems={currentItems}
-                filteredSneakers={filteredSneakers}
-                isGrid={isGrid}
-              />
+              <div className="row">
+                <ToolBar
+                  filters={filters}
+                  setFilters={setFilters}
+                  isHidden={isHidden}
+                />
+                <ProductDisplayer
+                  currentItems={currentItems}
+                  filteredSneakers={filteredSneakers}
+                  isGrid={isGrid}
+                />
+              </div>
             </div>
             <Pagination
               itemsPerPage={itemsPerPage}
