@@ -56,7 +56,7 @@ export default function OnSaleProducts() {
                     Discover unbeatable deals on top-tier sneakers, carefully
                     selected to upgrade your collection without the high price
                     tag. Explore discounted favorites, limited-time offers, and
-                    must-have styles at prices you won’t believe. Don’t miss the
+                    must-have styles at prices you won't believe. Don't miss the
                     chance to score big on the best in footwear.
                   </p>
                   <Link
@@ -64,7 +64,7 @@ export default function OnSaleProducts() {
                     to={"/all-products?onsale=true"}
                   >
                     <button className="btn btn-main-light p-3 mt-5">
-                      <i class="bi bi-arrow-right"></i> Explore all our Deals
+                      <i className="bi bi-arrow-right"></i> Explore all our Deals
                     </button>
                   </Link>
                 </div>
