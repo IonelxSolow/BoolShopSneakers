@@ -321,6 +321,13 @@ header {
   cursor: pointer;
 }
 
+@media (max-width: 575.98px) {
+  .newest-superbold {
+    font-size: 6rem !important;
+    word-break: break-word;
+    text-wrap: balance;
+  }
+}
 /*#endregion */
 /*#region PopUp*/
 .popup-overlay {
