@@ -466,7 +466,6 @@ header {
 .text-outline {
   color: #fff;
   -webkit-text-stroke: 1px var(--bs-secondary);
-  text-stroke: 2px var(--bs-secondary);
 }
 
 .popular-card:hover img {
@@ -1054,6 +1053,24 @@ nav {
     h1.h2 {
       font-size: 1.5rem;
     }
+  }
+
+}
+
+@media (max-width: 575.98px) {
+  .footer-mobile-center {
+    text-align: center !important;
+  }
+
+  .footer-mobile-center .row,
+  .footer-mobile-center .col,
+  .footer-mobile-center ul,
+  .footer-mobile-center h3,
+  .footer-mobile-center h5,
+  .footer-mobile-center span {
+    justify-content: center !important;
+    text-align: center !important;
+    align-items: center !important;
   }
 }
 

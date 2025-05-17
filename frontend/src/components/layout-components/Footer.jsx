@@ -51,7 +51,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer>
+      <footer className="footer-mobile-center">
         <div className="foot-bar bg-whitesmoke bg-main-light">
           <div className="container py-3">
             <div className="row row-cols-1 row-cols-md-2 align-items-center g-3">
@@ -67,9 +67,8 @@ export default function Footer() {
                   <div className="flex-grow-1">
                     <input
                       type="email"
-                      className={`form-control ${
-                        emailError ? "is-invalid" : ""
-                      }`}
+                      className={`form-control ${emailError ? "is-invalid" : ""
+                        }`}
                       placeholder="Enter your email"
                       aria-label="Email signup"
                       value={email}
