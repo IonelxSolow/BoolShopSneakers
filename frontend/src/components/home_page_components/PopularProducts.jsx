@@ -40,7 +40,7 @@ export default function PopularProducts() {
         <section className="popular-displayer container my-5">
           <div className="row g-4">
             {popularSneakers.result.slice(2, 6).map((sneaker, index) => (
-              <div className="col-12 mt-0 ps-0 col-md-3" key={sneaker.id}>
+              <div className="col-12 mt-0 col-md-3" key={sneaker.id}>
                 <div className="position-relative  popular-card">
                   {!sneaker.discounted_price ||
                     parseFloat(sneaker.discounted_price) >=
