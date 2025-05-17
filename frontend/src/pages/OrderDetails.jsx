@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { API_URL } from "../config";
 
 export default function OrderDetails() {
   const { orderId } = useParams();
@@ -19,7 +20,7 @@ export default function OrderDetails() {
     });
 
     // Retrieve order details - using the purchase_order value
-    fetch(`http://localhost:3000/boolshop/api/v1/orders/${orderId}`)
+    fetch(`${API_URL}/boolshop/api/v1/orders/${orderId}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Order not found");
