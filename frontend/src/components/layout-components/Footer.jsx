@@ -52,7 +52,7 @@ export default function Footer() {
   return (
     <>
       <footer>
-        <div className="foot-bar bg-whitesmoke  bg-main-light">
+        <div className="foot-bar bg-whitesmoke bg-main-light">
           <div className="container py-3">
             <div className="row row-cols-1 row-cols-md-2 align-items-center g-3">
               <div className="col text-center text-md-start">
@@ -121,7 +121,7 @@ export default function Footer() {
           </div>
         </div>
         {/* Black Footer */}
-        <div className="foot-bar bg-whitesmoke bg-black bg-main-light">
+        <div className="foot-bar bg-whitesmoke bg-black">
           <div className="container py-3">
             <div className="row w-100 p-3 rounded">
               {/* About Section */}
@@ -138,7 +138,7 @@ export default function Footer() {
               <div className="col-12 col-lg-6">
                 <div className="row w-100 g-3">
                   <div className="col-12 col-sm-6 col-xl-4">
-                    <h5 className="fw-bold secondary-color ps-2">Categories</h5>
+                    <h5 className="fw-bold secondary-color">Categories</h5>
                     <ul className="text-white">
                       <li>
                         <Link
@@ -191,7 +191,7 @@ export default function Footer() {
                     </ul>
                   </div>
                   <div className="col-12 col-sm-6 col-xl-4">
-                    <h5 className="fw-bold secondary-color ps-2">Help</h5>
+                    <h5 className="fw-bold secondary-color">Help</h5>
                     <ul className="text-white">
                       <li>
                         <Link
@@ -220,7 +220,7 @@ export default function Footer() {
                     </ul>
                   </div>
                   <div className="col-12 col-xl-4">
-                    <h5 className="fw-bold secondary-color ps-2">Follow us</h5>
+                    <h5 className="fw-bold secondary-color">Follow us</h5>
                     <ul className="text-white">
                       <li>
                         <Link
@@ -231,7 +231,6 @@ export default function Footer() {
                         >
                           <i
                             className="bi bi-instagram me-2"
-                            style={{ color: "var(--instagram)" }}
                           ></i>
                           Instagram
                         </Link>
@@ -245,7 +244,6 @@ export default function Footer() {
                         >
                           <i
                             className="bi bi-facebook me-2"
-                            style={{ color: "var(--facebook)" }}
                           ></i>
                           Facebook
                         </Link>
@@ -259,7 +257,6 @@ export default function Footer() {
                         >
                           <i
                             className="bi bi-twitter-x me-2"
-                            style={{ color: "var(--twitter)" }}
                           ></i>
                           Twitter
                         </Link>
