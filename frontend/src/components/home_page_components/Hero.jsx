@@ -4,7 +4,7 @@ export default function Hero() {
 	return (
 		<>
 			<section className="hero">
-				<div className="top-bar border border-black">
+				<div className="top-bar border border-black d-none d-md-block">
 					<ul className="container d-flex flex-wrap list-unstyled pt-2 px-2 align-itemms-baseline justify-content-between mb-0 responsive-font">
 						<li>
 							<Link to="/all-products?brand=nike">
