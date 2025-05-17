@@ -117,6 +117,16 @@ export default function ProductDisplayer({
                                         <p className="description">{sneaker.brand}</p>
                                         <p className="description">{sneaker.description}</p>
                                     </div>
+                                    <div className="d-flex gap-2 mb-3">
+                                        <span className="badge bg-light text-dark">
+                                            {sneaker.color}
+                                        </span>
+                                        <span className="badge bg-light text-dark">
+                                            {Array.isArray(sneaker.variants) && sneaker.variants[0] && Array.isArray(JSON.parse(sneaker.variants[0].size))
+                                                ? JSON.parse(sneaker.variants[0].size).length + ' sizes'
+                                                : 'N/A'}
+                                        </span>
+                                    </div>
                                 </div>
                             </Link>
                         ))}
