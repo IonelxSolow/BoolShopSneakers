@@ -139,7 +139,7 @@ export default function Header() {
                 <nav className="navbar custom-header py-3">
                     <div className="container d-flex justify-content-between align-items-center">
                         <button
-                            className="burger-menu d-md-none border-0"
+                            className="burger-menu bg-transparent d-md-none border-0 text-light"
                             onClick={toggleMenu}
                         >
                             <i className={`bi ${isMenuOpen ? "bi-x" : "bi-list"}`}></i>

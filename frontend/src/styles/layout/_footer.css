@@ -9,7 +9,7 @@
   a:hover {
     color: #232321 !important;
     background-color: var(--main-light);
-    border-radius: 20px;
+    border-radius: 10px;
   }
 
   ul {

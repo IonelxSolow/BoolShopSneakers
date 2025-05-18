@@ -173,7 +173,7 @@ header {
     top: 50px;
     left: 0;
     background-color: var(--bs-secondary);
-    color: var(--bs-bg-primary);
+    color: var(--bs-secondary);
     width: 100%;
     padding: 1rem 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -225,12 +225,12 @@ header {
   .cart-content {
     margin: auto;
     position: absolute;
-    top: 70px;
+    top: 75px;
     width: 50vh;
     /* Inizialmente nascosto */
-    background-color: black;
-    color: var(--bs-bg-primary);
-    box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
+    background-color: var(--bs-bg-primary);
+    color: var(--bs-secondary);
+    box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
     padding: 1rem;
     transition: right 0.3s ease;
     z-index: 1050;
@@ -244,8 +244,8 @@ header {
   }
 
   .close-cart {
-    background-color: var(--main-light);
-    color: var(--bs-secondary);
+    background-color: var(--bs-secondary);
+    color: var(--bs-bg-primary);
     border: 1px solid transparent;
     padding: 0.5rem;
     border-radius: 5px;
@@ -260,7 +260,7 @@ header {
   }
 
   .cart-link {
-    color: var(--main-light);
+    color: var(--bs-secondary);
     text-decoration: underline;
 
     &:hover {
@@ -282,6 +282,7 @@ header {
     max-height: 300px;
     overflow-y: auto;
     padding-right: 1rem;
+    color: var(--bs-secondary);
   }
 
   /* Personalizza la scrollbar */
@@ -290,7 +291,7 @@ header {
   }
 
   .cart-items::-webkit-scrollbar-thumb {
-    background: var(--main-light);
+    background: var(--bs-secondary);
     border-radius: 3px;
   }
 
@@ -304,7 +305,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  background: #212529;
+  background: var(--bs-secondary);
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
   color: white;
@@ -322,6 +323,13 @@ header {
   cursor: pointer;
 }
 
+@media (max-width: 575.98px) {
+  .newest-superbold {
+    font-size: 6rem !important;
+    word-break: break-word;
+    text-wrap: balance;
+  }
+}
 /*#endregion */
 /*#region PopUp*/
 .popup-overlay {
@@ -371,7 +379,7 @@ header {
 
   .hero-container {
     border-bottom: 1px solid black;
-    min-height: 70vh;
+    min-height: 50vh;
     overflow: hidden;
     background-image: url("/hero-force1.webp");
     background-size: cover;
@@ -467,7 +475,6 @@ header {
 .text-outline {
   color: #fff;
   -webkit-text-stroke: 1px var(--bs-secondary);
-  text-stroke: 2px var(--bs-secondary);
 }
 
 .popular-card:hover img {
@@ -499,8 +506,8 @@ header {
   }
 
   .show-tag {
-    background-color: rgba(0, 0, 0, 0.75);
-    color: #fff;
+    background-color: var(--main-light);
+    color: var(--bs-secondary);
     padding: 8px 12px;
     border-radius: 10px;
     font-weight: bold;
@@ -696,6 +703,11 @@ header {
     max-width: 340px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .hero .hero-container {
+    min-height: 35vh;
+    background-position: right bottom;
   }
 }
 
@@ -1030,7 +1042,7 @@ nav {
   a:hover {
     color: #232321 !important;
     background-color: var(--main-light);
-    border-radius: 20px;
+    border-radius: 10px;
   }
 
   ul {
@@ -1050,6 +1062,24 @@ nav {
     h1.h2 {
       font-size: 1.5rem;
     }
+  }
+
+}
+
+@media (max-width: 575.98px) {
+  .footer-mobile-center {
+    text-align: center !important;
+  }
+
+  .footer-mobile-center .row,
+  .footer-mobile-center .col,
+  .footer-mobile-center ul,
+  .footer-mobile-center h3,
+  .footer-mobile-center h5,
+  .footer-mobile-center span {
+    justify-content: center !important;
+    text-align: center !important;
+    align-items: center !important;
   }
 }
 
