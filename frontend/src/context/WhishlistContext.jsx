@@ -3,30 +3,37 @@ import { createContext, useContext, useState, useEffect } from "react";
 const WishlistContext = createContext();
 
 const WishlistProvider = ({ children }) => {
-  const [wishlist, setWishlist] = useState([]);
+  // Initialize state directly from localStorage
+  const [wishlist, setWishlist] = useState(() => {
+    try {
+      const savedWishlist = localStorage.getItem("wishlist");
+      return savedWishlist ? JSON.parse(savedWishlist) : [];
+    } catch (error) {
+      console.error("Error reading from localStorage:", error);
+      return [];
+    }
+  });
 
-  // Carica la wishlist da localStorage all'inizio
+  // Only save to localStorage when wishlist changes
   useEffect(() => {
-    const savedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    setWishlist(savedWishlist);
-  }, []);
-
-  // Salva la wishlist in localStorage ogni volta che cambia
-  useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    try {
+      localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    } catch (error) {
+      console.error("Error saving to localStorage:", error);
+    }
   }, [wishlist]);
 
-  // Aggiungi un prodotto alla wishlist
   const addToWishlist = (item) => {
-    if (!wishlist.find((wishlistItem) => wishlistItem.id === item.id)) {
-      setWishlist([...wishlist, item]);
-    }
+    setWishlist((current) => {
+      if (!current.find((wishlistItem) => wishlistItem.sku === item.sku)) {
+        return [...current, item];
+      }
+      return current;
+    });
   };
 
-  // Rimuovi un prodotto dalla wishlist
   const removeFromWishlist = (sku) => {
-    const updatedWishlist = wishlist.filter((item) => item.sku !== sku);
-    setWishlist(updatedWishlist);
+    setWishlist((current) => current.filter((item) => item.sku !== sku));
   };
 
   return (
