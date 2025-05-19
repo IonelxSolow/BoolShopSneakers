@@ -369,6 +369,7 @@ export default function AllProducts() {
                 currentItems={currentItems}
                 filteredSneakers={filteredSneakers}
                 isGrid={isGrid}
+                isMobile={isMobile}
               />
             </div>
             <Pagination

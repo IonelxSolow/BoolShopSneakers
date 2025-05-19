@@ -118,6 +118,29 @@ export default function ProductDisplayer({
                     )}
                     <p className="description">{sneaker.brand}</p>
                     <p className="description">{sneaker.description}</p>
+                    <div
+                      className="badges-container"
+                    >
+                      {/* Badge Novità */}
+                      {(() => {
+                        const updatedAt = new Date(sneaker.updated_at);
+                        const now = new Date();
+                        const daysDiff =
+                          (now - updatedAt) / (1000 * 60 * 60 * 24);
+                        if (daysDiff < 8) {
+                          return (
+                            <span className="badge bg-primary me-2">New Drops</span>
+                          );
+                        }
+                        return null;
+                      })()}
+                      {/* Badge Sconto */}
+                      {sneaker.discounted_price &&
+                        parseFloat(sneaker.discounted_price) <
+                        parseFloat(sneaker.price) && (
+                          <span className="badge bg-danger">On Sale</span>
+                        )}
+                    </div>
                   </div>
                   <div className="d-flex gap-2 mb-3">
                     <span className="badge bg-light text-dark">
