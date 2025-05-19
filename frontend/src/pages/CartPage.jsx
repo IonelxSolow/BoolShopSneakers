@@ -69,8 +69,9 @@ export default function CartPage() {
             <h5 className="m-0">Total: {total.toFixed(2)}€</h5>
             <Link
               to="/checkout"
-              className={`btn btn-main-light mt-3 mb-3 ${cart.length > 0 ? "" : "disabled"
-                }`}
+              className={`btn btn-main-light mt-3 mb-3 ${
+                cart.length > 0 ? "" : "disabled"
+              }`}
             >
               Go to checkout
             </Link>
@@ -93,9 +94,6 @@ export default function CartPage() {
       )}
 
       {/* Hero Section */}
-      <MostPopular />
-      <PopularProducts />
-
     </div>
   );
 }
