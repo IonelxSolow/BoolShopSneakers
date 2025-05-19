@@ -125,19 +125,21 @@ export default function MostPopular() {
                     </p>
                   </div>
                 </div>
-                <Link
-                  className="slider360 text-center position-relative col-12 col-lg-7 order-lg-1 px-3"
-                  to={"/product/air-force-1"}
-                >
-                  <img
-                    className="image360 img-fluid rounded-3"
-                    src={
-                      counter < 10
-                        ? `/360/jd_030664_spin_0${counter}.jpeg`
-                        : `/360/jd_030664_spin_${counter}.jpeg`
-                    }
-                    alt=""
-                  />
+                <div className="slider360-wrapper text-center position-relative col-12 col-lg-7 order-lg-1 px-3">
+                  <Link
+                    className="slider360"
+                    to={"/product/air-force-1"}
+                  >
+                    <img
+                      className="image360 img-fluid rounded-3"
+                      src={
+                        counter < 10
+                          ? `/360/jd_030664_spin_0${counter}.jpeg`
+                          : `/360/jd_030664_spin_${counter}.jpeg`
+                      }
+                      alt=""
+                    />
+                  </Link>
                   {/* Mobile: bottone sotto la scarpa */}
                   <Link
                     className="show-tag d-block d-md-none text-center mt-3"
@@ -152,7 +154,7 @@ export default function MostPopular() {
                   >
                     SHOP NOW
                   </Link>
-                </Link>
+                </div>
               </div>
               {/* <svg
               className="wave-1hkxOo"
