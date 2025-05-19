@@ -60,14 +60,6 @@ export default function Header() {
             setIsMenuOpen(false);
             setIsCartOpen(false);
         }
-
-        if (window.innerWidth <= 768) {
-            // Reindirizza alla pagina del wishlist su dispositivi mobili
-            navigate("/wishlist");
-        } else {
-            // Mostra il wishlist come componente su desktop
-            setIsWishlistOpen(!isWishlistOpen);
-        }
     };
 
     // funzione per aprire e chiudere il carrello
@@ -81,13 +73,6 @@ export default function Header() {
             setIsMenuOpen(false);
             setIsSearchOpen(false);
             setIsWishlistOpen(false);
-        }
-        if (window.innerWidth <= 768) {
-            // Reindirizza alla pagina del carrello su dispositivi mobili
-            navigate("/cart");
-        } else {
-            // Mostra il carrello come componente su desktop
-            setIsCartOpen(!isCartOpen);
         }
     };
 

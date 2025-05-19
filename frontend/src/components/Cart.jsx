@@ -7,7 +7,7 @@ export default function Cart({ toggleCart, isOpen }) {
 
   return (
     <div
-      className={`container cart-content d-flex flex-column ${isOpen ? "open" : ""
+      className={`cart-content d-flex flex-column cart-fullscreen-mobile ${isOpen ? "open" : ""
         }`}
     >
       <div className="d-flex justify-content-between align-items-center mb-4">
