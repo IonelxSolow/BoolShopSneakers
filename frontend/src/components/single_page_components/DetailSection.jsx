@@ -25,11 +25,15 @@ export default function DetailSection({
   const mainSku = product.result.variant_sku.split(",")[0];
   const variantSku = product.result.variant_sku.split(",")[1];
 
+  console.log(wishlist);
+
   // Check if the current product variant is in the wishlist
   const isInWishlist = wishlist.some(
-    (item) => item.sku === (variant === 0 
-      ? product.result.variant_sku.split(",")[0]
-      : product.result.variant_sku.split(",")[1])
+    (item) =>
+      item.sku ===
+      (variant === 0
+        ? product.result.variant_sku.split(",")[0]
+        : product.result.variant_sku.split(",")[1])
   );
 
   function handleAddToCart() {
@@ -54,20 +58,15 @@ export default function DetailSection({
   }
 
   useEffect(() => {
-    const wishlistItems = JSON.parse(localStorage.getItem("wishlist")) || [];
+    // Get current SKU based on variant
+    const currentSku = variant === 0 ? mainSku : variantSku;
 
-    const wishItem = wishlistItems.find((item) => {
-      if (variant === 0) {
-        return item.sku === mainSku;
-      } else {
-        return item.sku === variantSku;
-      }
-    });
+    // Check if item exists in wishlist
+    const exists = wishlist.some((item) => item.sku === currentSku);
 
-    if (wishItem) {
-      handleAddToWishList(variant === 0 ? mainSku : variantSku);
-    }
-  }, [product.result, variant]);
+    // Log for debugging
+    console.log("Wishlist check:", { currentSku, exists, wishlist });
+  }, [variant, mainSku, variantSku, wishlist]);
 
   return (
     <>
@@ -83,7 +82,11 @@ export default function DetailSection({
                 handleAddToWishList(variant === 0 ? mainSku : variantSku);
               }}
             >
-              <i className={`bi ${isInWishlist ? "bi-heart-fill text-danger" : "bi-heart"}`}></i>
+              <i
+                className={`bi ${
+                  isInWishlist ? "bi-heart-fill text-danger" : "bi-heart"
+                }`}
+              ></i>
             </button>
           </div>
 
@@ -96,7 +99,7 @@ export default function DetailSection({
             </Link>
           </h2>
           {!product.result.discounted_price ||
-            parseFloat(product.result.discounted_price) >=
+          parseFloat(product.result.discounted_price) >=
             parseFloat(product.result.price) ? (
             <p className="text-dark">
               {parseFloat(product.result.price).toFixed(2)}&#8364;
@@ -124,8 +127,9 @@ export default function DetailSection({
           <div className="d-flex gap-2 circle-thumbs-container align-items-center flex-wrap">
             {" "}
             <div
-              className={`circle-thumb-wrapper ${variant === 0 && " active-link"
-                }`}
+              className={`circle-thumb-wrapper ${
+                variant === 0 && " active-link"
+              }`}
             >
               {images && (
                 <img
@@ -138,8 +142,9 @@ export default function DetailSection({
             </div>
             <div>
               <div
-                className={`circle-thumb-wrapper ${variant === 1 && " active-link"
-                  }`}
+                className={`circle-thumb-wrapper ${
+                  variant === 1 && " active-link"
+                }`}
               >
                 {variantImages && (
                   <img
@@ -158,25 +163,27 @@ export default function DetailSection({
           <div className="sizes-container d-flex gap-3 flex-wrap">
             {variant === 0
               ? mainSizes.map((size, index) => (
-                <div
-                  key={index}
-                  onClick={() => handleSizeClick(index)}
-                  className={`size-badge ${activeIndex === index && "active-link"
+                  <div
+                    key={index}
+                    onClick={() => handleSizeClick(index)}
+                    className={`size-badge ${
+                      activeIndex === index && "active-link"
                     }`}
-                >
-                  {size}
-                </div>
-              ))
+                  >
+                    {size}
+                  </div>
+                ))
               : variantSizes.map((size, index) => (
-                <div
-                  key={index}
-                  onClick={() => handleSizeClick(index)}
-                  className={`size-badge ${activeIndex === index && "active-link"
+                  <div
+                    key={index}
+                    onClick={() => handleSizeClick(index)}
+                    className={`size-badge ${
+                      activeIndex === index && "active-link"
                     }`}
-                >
-                  {size}
-                </div>
-              ))}
+                  >
+                    {size}
+                  </div>
+                ))}
           </div>
           <p className="my-2">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque
