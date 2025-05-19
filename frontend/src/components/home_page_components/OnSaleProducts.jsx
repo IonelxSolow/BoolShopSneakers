@@ -48,7 +48,7 @@ export default function OnSaleProducts() {
                   <span className="d-block newest-superbold">CHECK THE</span>
                   <span
                     className="d-block newest-superbold ps-3"
-                    style={{ fontSize: "8rem", color: "#cfef1bff" }}
+                    style={{ fontSize: "8rem", color: "var(--main-secondary)" }}
                   >
                     BEST DEALS
                   </span>
