@@ -329,6 +329,7 @@ header {
     text-wrap: balance;
   }
 }
+
 /*#endregion */
 /*#region PopUp*/
 .popup-overlay {
@@ -1026,6 +1027,10 @@ nav {
   flex-direction: row;
   height: 100vh;
   overflow: hidden;
+}
+
+.list-group {
+  width: 100%;
 }
 
 /*#endregion*/

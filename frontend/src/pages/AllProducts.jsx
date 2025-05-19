@@ -171,6 +171,22 @@ export default function AllProducts() {
     setCurrentPage(1);
   }, [itemsPerPage, filters]); //it changes whenever item per page is change
 
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 601)
+
+    }
+    // aggiungiamo l'event listener per il resize
+    window.addEventListener("resize", handleResize);
+
+    // serveamo per rimuovere l'event listener quando il componente viene smontato
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   switch (filteredSneakers.state) {
     case "loading":
       return (
@@ -282,17 +298,19 @@ export default function AllProducts() {
                       </>
                     )}
                   </div>
+                  {isMobile === false ? (
+                    <button
+                      className="btn btn-home-light"
+                      onClick={switchDisplay}
+                    >
+                      {isGrid ? (
+                        <i className="bi bi-list-task"></i>
+                      ) : (
+                        <i className="bi bi-grid"></i>
+                      )}
+                    </button>
+                  ) : (<></>)}
 
-                  <button
-                    className="btn btn-home-light"
-                    onClick={switchDisplay}
-                  >
-                    {isGrid ? (
-                      <i className="bi bi-list-task"></i>
-                    ) : (
-                      <i className="bi bi-grid"></i>
-                    )}
-                  </button>
                   {isSortedOpen && (
                     <ul className="sort-dropdown position-absolute bg-white border rounded shadow p-2">
                       <li
@@ -341,18 +359,17 @@ export default function AllProducts() {
             </div>
 
             <div className="container-fluid">
-              <div className="row">
-                <ToolBar
-                  filters={filters}
-                  setFilters={setFilters}
-                  isHidden={isHidden}
-                />
-                <ProductDisplayer
-                  currentItems={currentItems}
-                  filteredSneakers={filteredSneakers}
-                  isGrid={isGrid}
-                />
-              </div>
+
+              <ToolBar
+                filters={filters}
+                setFilters={setFilters}
+                isHidden={isHidden}
+              />
+              <ProductDisplayer
+                currentItems={currentItems}
+                filteredSneakers={filteredSneakers}
+                isGrid={isGrid}
+              />
             </div>
             <Pagination
               itemsPerPage={itemsPerPage}

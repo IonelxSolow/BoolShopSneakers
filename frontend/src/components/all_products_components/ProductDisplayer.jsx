@@ -1,12 +1,14 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 export default function ProductDisplayer({
   currentItems,
   filteredSneakers,
   isGrid,
 }) {
+
   return (
     <>
-      <div className="products-displayer  col-8 col-md-10 row">
+      <div className="products-displayer col-8 col-md-8 row">
         {filteredSneakers.result.error ? (
           <div className="text-center w-100 my-5">
             <h4>No sneakers found matching your filters.</h4>
@@ -42,7 +44,7 @@ export default function ProductDisplayer({
                     {/* Badge Sconto */}
                     {sneaker.discounted_price &&
                       parseFloat(sneaker.discounted_price) <
-                        parseFloat(sneaker.price) && (
+                      parseFloat(sneaker.price) && (
                         <span className="badge bg-danger">On Sale</span>
                       )}
                   </div>
@@ -62,7 +64,7 @@ export default function ProductDisplayer({
                   )}
 
                   {!sneaker.discounted_price ||
-                  parseFloat(sneaker.discounted_price) >=
+                    parseFloat(sneaker.discounted_price) >=
                     parseFloat(sneaker.price) ? (
                     <p className="">
                       {parseFloat(sneaker.price).toFixed(2)}&#8364;
@@ -80,7 +82,7 @@ export default function ProductDisplayer({
             </div>
           ))
         ) : (
-          <div className="list-group">
+          <div className="list-group col-8">
             {currentItems.map((sneaker) => (
               <Link
                 className="list-card"
@@ -98,7 +100,7 @@ export default function ProductDisplayer({
                   <h2 className="listcard-title my-3">{sneaker.name}</h2>
                   <div className="price-section">
                     {!sneaker.discounted_price ||
-                    parseFloat(sneaker.discounted_price) >=
+                      parseFloat(sneaker.discounted_price) >=
                       parseFloat(sneaker.price) ? (
                       <span className="text-dark mb-2">
                         {sneaker.price}&euro;
@@ -122,20 +124,20 @@ export default function ProductDisplayer({
                       {sneaker.color}
                     </span>
                     {Array.isArray(sneaker.variants) &&
-                    sneaker.variants[0] &&
-                    sneaker.variants[0].size
+                      sneaker.variants[0] &&
+                      sneaker.variants[0].size
                       ? (() => {
-                          try {
-                            const sizes = JSON.parse(sneaker.variants[0].size);
-                            return Array.isArray(sizes) && sizes.length > 0 ? (
-                              <span className="badge bg-light text-dark">
-                                {sizes.length} sizes
-                              </span>
-                            ) : null;
-                          } catch {
-                            return null;
-                          }
-                        })()
+                        try {
+                          const sizes = JSON.parse(sneaker.variants[0].size);
+                          return Array.isArray(sizes) && sizes.length > 0 ? (
+                            <span className="badge bg-light text-dark">
+                              {sizes.length} sizes
+                            </span>
+                          ) : null;
+                        } catch {
+                          return null;
+                        }
+                      })()
                       : null}
                   </div>
                 </div>
