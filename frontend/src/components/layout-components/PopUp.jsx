@@ -9,12 +9,12 @@ export default function PopUp() {
   const [emailError, setEmailError] = useState("");
 
   useEffect(() => {
-    const hasVisited = sessionStorage.getItem("kickSocietyHasVisited");
+    const hasVisited = localStorage.getItem("kickSocietyHasVisited");
 
     if (!hasVisited) {
       // Show the popup and save the visit
       setShowPopup(true);
-      sessionStorage.setItem("kickSocietyHasVisited", "true");
+      localStorage.setItem("kickSocietyHasVisited", "true");
     }
   }, []);
 
