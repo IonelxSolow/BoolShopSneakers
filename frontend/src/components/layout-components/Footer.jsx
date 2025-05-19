@@ -273,7 +273,6 @@ export default function Footer() {
             <h6 className="text-white mb-3">PAYMENT METHODS</h6>
             <div className="d-flex justify-content-center gap-3">
               <i className="bi bi-credit-card fs-4 text-white"></i>
-              <i className="bi bi-paypal fs-4 text-white"></i>
               <i className="bi bi-bank fs-4 text-white"></i>
               <i className="bi bi-cash-coin fs-4 text-white"></i>
             </div>

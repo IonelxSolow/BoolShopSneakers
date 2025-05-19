@@ -42,10 +42,6 @@ export default function LatestProducts() {
         </>
       );
     case "success":
-      //switch display on click
-      function switchNewestDisplay() {
-        setIsNewestGrid(!isNewestGrid);
-      }
       const newestTotalPages = Math.ceil(
         newestSneakers.result.length / itemsPerPage
       );
@@ -74,7 +70,7 @@ export default function LatestProducts() {
                       className="d-block newest-superbold ps-3"
                       style={{
                         fontSize: "8rem",
-                        color: "var(--main-secondary)",
+                        color: "red",
                       }}
                     >
                       DROPS
@@ -131,15 +127,14 @@ export default function LatestProducts() {
                               <img
                                 className="img-fluid w-100 h-100"
                                 style={{ objectFit: "content" }}
-                                src={`/assets/${
-                                  JSON.parse(sneaker.image_urls)[0]
-                                }`}
+                                src={`/assets/${JSON.parse(sneaker.image_urls)[0]
+                                  }`}
                                 alt={sneaker.name}
                               />
                             </div>
 
                             {!sneaker.discounted_price ||
-                            parseFloat(sneaker.discounted_price) >=
+                              parseFloat(sneaker.discounted_price) >=
                               parseFloat(sneaker.price) ? (
                               <p className="price-tag">
                                 {parseFloat(sneaker.price).toFixed(2)}&euro;
@@ -202,7 +197,7 @@ export default function LatestProducts() {
                         <h4 className="mb-2">{sneaker.name}</h4>
                         <p>{sneaker.description}</p>
                         {!sneaker.discounted_price ||
-                        parseFloat(sneaker.discounted_price) >=
+                          parseFloat(sneaker.discounted_price) >=
                           parseFloat(sneaker.price) ? (
                           <p className="mb-0">Price: {sneaker.price}&euro;</p>
                         ) : (

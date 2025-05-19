@@ -1,0 +1,285 @@
+/* Effetto testo che brilla */
+.text-shine {
+  background: linear-gradient(to right, #cfef1b 0%, #232321 50%, #cfef1b 100%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Effetto testo che entra */
+.text-fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Effetto testo che si digita */
+.text-typing {
+  overflow: hidden;
+  border-right: 0.15em solid #cfef1b;
+  white-space: nowrap;
+  margin: 0 auto;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #cfef1b }
+}
+
+/* Effetto testo fiamma */
+.text-fire {
+  background: linear-gradient(to bottom, 
+    #ff4d00 0%,
+    #ff6a00 20%,
+    #ff8c00 40%,
+    #ffb700 60%,
+    #ffd700 80%,
+    #ff4d00 100%
+  );
+  background-size: 100% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fire-shine 3s linear infinite;
+  text-shadow: 0 0 10px rgba(255, 77, 0, 0.5);
+}
+
+@keyframes fire-shine {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 0% 200%;
+  }
+}
+
+/* Effetto background fiamma */
+.background-fire {
+  background: linear-gradient(to bottom, 
+    #ff4d00 0%,
+    #ff6a00 20%,
+    #ff8c00 40%,
+    #ffb700 60%,
+    #ffd700 80%,
+    #ff4d00 100%
+  );
+  background-size: 100% 200%;
+  animation: fire-shine 3s linear infinite;
+  box-shadow: 0 0 20px rgba(255, 77, 0, 0.3);
+}
+
+@keyframes fire-shine {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 0% 200%;
+  }
+}
+
+/* Effetti Bottoni */
+.button-glow {
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(207, 239, 27, 0.5);
+}
+
+.button-glow:hover {
+  box-shadow: 0 0 20px rgba(207, 239, 27, 0.8);
+  transform: translateY(-2px);
+}
+
+.button-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.button-border-glow {
+  position: relative;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, #ff4d00, #ffd700) border-box;
+  animation: border-rotate 3s linear infinite;
+}
+
+@keyframes border-rotate {
+  to {
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(to right, #ffd700, #ff4d00) border-box;
+  }
+}
+
+/* Altri Effetti Testo */
+.text-shadow-glow {
+  text-shadow: 0 0 10px rgba(207, 239, 27, 0.8);
+  transition: text-shadow 0.3s ease;
+}
+
+.text-shadow-glow:hover {
+  text-shadow: 0 0 20px rgba(207, 239, 27, 1);
+}
+
+.text-bounce {
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.text-wave {
+  display: inline-block;
+  animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+.text-gradient-hover {
+  background: linear-gradient(to right, #cfef1b, #ff4d00);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 0.5s ease;
+}
+
+.text-gradient-hover:hover {
+  background-position: right center;
+}
+
+/* Effetto Neon */
+.neon-text {
+  color: #5eff00;
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #2ebaa0,
+    0 0 30px #b72cc4,
+    0 0 40px #b80d0d;
+  animation: neon-pulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon-pulse {
+  from {
+    text-shadow: 
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px #7c2aca,
+      0 0 30px #ff0303,
+      0 0 40px #ff0000;
+  }
+  to {
+    text-shadow: 
+      0 0 2px #fff,
+      0 0 5px #fff,
+      0 0 10px #cfef1b,
+      0 0 20px #cfef1b,
+      0 0 30px #cfef1b;
+  }
+}
+
+/* Effetto Glitch */
+.text-glitch {
+  position: relative;
+  animation: glitch 1s linear infinite;
+}
+
+@keyframes glitch {
+  2%, 64% {
+    transform: translate(2px, 0) skew(0deg);
+  }
+  4%, 60% {
+    transform: translate(-2px, 0) skew(0deg);
+  }
+  62% {
+    transform: translate(0, 0) skew(5deg);
+  }
+}
+
+.text-glitch:before,
+.text-glitch:after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.text-glitch:before {
+  left: 2px;
+  text-shadow: -2px 0 #ff4d00;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.text-glitch:after {
+  left: -2px;
+  text-shadow: -2px 0 #cfef1b;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(31px, 9999px, 94px, 0);
+  }
+  100% {
+    clip: rect(70px, 9999px, 71px, 0);
+  }
+}
+
+@keyframes glitch-anim2 {
+  0% {
+    clip: rect(65px, 9999px, 100px, 0);
+  }
+  100% {
+    clip: rect(52px, 9999px, 74px, 0);
+  }
+}

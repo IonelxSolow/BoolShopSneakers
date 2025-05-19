@@ -1,5 +1,6 @@
 @import "bootstrap";
 @import "bootstrap-icons";
+@import "./styles/special_effect/special_effects.css";
 
 /*#region Common*/
 :root {
