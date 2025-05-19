@@ -227,10 +227,10 @@ export default function AllProducts() {
                       fontWeight: 500,
                     }}
                   >
-                    Prodotti
+                    Product
                   </Link>
                   {" / "}
-                  Risultati per: "<strong>{filters.search}</strong>"
+                  Result for: "<strong>{filters.search}</strong>"
                 </div>
               ) : (
                 <div
