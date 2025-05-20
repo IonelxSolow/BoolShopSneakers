@@ -186,9 +186,9 @@ export default function DetailSection({
                 ))}
           </div>
           <p className="my-2">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Atque
-            iste, quaerat iusto obcaecati suscipit modi veniam ipsam ipsum ex
-            provident.
+            Timeless Style. Everyday Comfort. Step into a legend with the Nike
+            Air Force 1 Low an icon that blends classic basketball heritage with
+            modern streetwear appeal.
           </p>
 
           <button
