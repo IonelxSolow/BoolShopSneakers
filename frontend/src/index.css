@@ -1,6 +1,7 @@
 @import "bootstrap";
 @import "bootstrap-icons";
 @import './styles/PaymentForm.css';
+@import "./styles/special_effect/special_effects.css";
 
 /*#region Common*/
 :root {
@@ -225,7 +226,7 @@ header {
   .cart-content {
     margin: auto;
     position: absolute;
-    top: 75px;
+    top: 70px;
     width: 50vh;
     /* Inizialmente nascosto */
     background-color: var(--bs-bg-primary);
@@ -330,6 +331,7 @@ header {
     text-wrap: balance;
   }
 }
+
 /*#endregion */
 /*#region PopUp*/
 .popup-overlay {
@@ -709,6 +711,25 @@ header {
     min-height: 35vh;
     background-position: right bottom;
   }
+
+  .cart-fullscreen-mobile {
+    position: fixed !important;
+    top: 70px;
+    left: 0;
+    width: 100vw !important;
+    height: calc(100vh - 70px) !important;
+    max-width: 100vw !important;
+    max-height: calc(100vh - 70px) !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    z-index: 1200;
+    background: #fff;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow-y: auto;
+    margin: 0 !important;
+    padding-bottom: 2rem;
+  }
 }
 
 /*#endregion */
@@ -1027,6 +1048,10 @@ nav {
   flex-direction: row;
   height: 100vh;
   overflow: hidden;
+}
+
+.list-group {
+  width: 100%;
 }
 
 /*#endregion*/

@@ -9,7 +9,6 @@ export default function ColorFilter({
     "red",
     "blue",
     "green",
-    "yellow",
     "black",
     "white",
     "gray",
